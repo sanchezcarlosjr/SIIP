@@ -12,6 +12,11 @@
 			padding: 10px;
 		}
 
+		.form-control {
+			width: 99%;
+			margin: auto;
+		}
+
 		#submit {
 		background-color: #34cc34;
 		border: none;
@@ -231,7 +236,7 @@
 													<td>{{$user->unit}}</td>
 													<td id="accion">
 														<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+														<a data-target='#deleteEmployeeModal' data-id="{{ $user->id }}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
 													</td>
 												</tr>
 											@endforeach
@@ -249,7 +254,8 @@
 								<div id="addEmployeeModal" class="modal fade">
 									<div class="modal-dialog">
 										<div class="modal-content">
-											<form>
+											<form  action="/users" method="POST">
+												{{ csrf_field() }}
 												<div class="modal-header">						
 													<h4 class="modal-title">Agregar Usuario</h4>
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -257,23 +263,23 @@
 												<div class="modal-body">					
 													<div class="form-group">
 														<label>Nombre</label>
-														<input type="text" class="form-control" required>
+														<input name="name" type="text" class="form-control" required>
 													</div>
 													<div class="form-group">
 														<label>Correo Electrónico</label>
-														<input type="email" class="form-control" required>
+														<input title="please enter a valid email" pattern="^[a-z0-9._%+-]+@uabc.edu.mx$" name="email" class="form-control" required>
 													</div>
 													<div class="form-group">
 														<label>Rol</label>
-														<input class="form-control" required></input>
+														<input name="role" class="form-control" required></input>
 													</div>
 													<div class="form-group">
 														<label>Campus</label>
-														<input type="text" class="form-control" required>
+														<input name="campus" type="text" class="form-control" required>
 													</div>	
 													<div class="form-group">
 														<label>Unidad Académica</label>
-														<input type="text" class="form-control" required>
+														<input  name="unit" type="text" class="form-control" required>
 													</div>					
 												</div>
 												<div class="modal-footer">
@@ -285,44 +291,7 @@
 									</div>
 								</div>
 								<!-- Edit Modal HTML Aqui es donde se modifican las formas de edicion -->
-								<div id="editEmployeeModal" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<form>
-												<div class="modal-header">						
-													<h4 class="modal-title">Modificar Usuario</h4>
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												</div>
-												<div class="modal-body">					
-													<div class="form-group">
-														<label>Nombre</label>
-														<input type="text" class="form-control" required>
-													</div>
-													<div class="form-group">
-														<label>Correo Electrónico</label>
-														<input type="email" class="form-control" required>
-													</div>
-													<div class="form-group">
-														<label>Rol</label>
-														<input class="form-control" required></input>
-													</div>
-													<div class="form-group">
-														<label>Campus</label>
-														<input type="text" class="form-control" required>
-													</div>	
-													<div class="form-group">
-														<label>Unidad Académica</label>
-														<input type="text" class="form-control" required>
-													</div>					
-												</div>
-												<div class="modal-footer">
-													<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-													<input type="submit" class="btn btn-info" value="Guardar">
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
+								
 								<!-- Delete Modal HTML -->
 								<div id="deleteEmployeeModal" class="modal fade">
 									<div class="modal-dialog">
