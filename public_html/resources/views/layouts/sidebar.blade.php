@@ -9,19 +9,19 @@
 				<ul class="nav nav-primary">
 					<li class="nav-item {{ (request()->is('/')) ? 'active' : '' }}">
 						<a href="{{ url('/') }}">
-							<i class="fas fa-home"></i>
+							<i class="fa fa-home"></i>
 							<p>Inicio</p>
 						</a>
 					</li>
 					<li class="nav-item {{ (request()->is('users')) ? 'active' : '' }}">
 						<a href="{{ url('/users') }}">
-							<i class="fas fa-users"></i>
+							<i class="fa fa-users"></i>
 							<p>Usuarios</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar">
-							<i class="fas fa-address-card"></i>
+							<i class="fa fa-address-card"></i>
 							<p>Cuerpos Academicos</p>
 							<span class="caret"></span>
 						</a>
@@ -67,7 +67,7 @@
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar2">
-							<i class="fas fa-project-diagram"></i>
+							<i class="fa fa-project-diagram"></i>
 							<p>PRODEP</p>
 							<span class="caret"></span>
 						</a>
@@ -100,7 +100,7 @@
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar3">
-							<i class="fas fa-book"></i>
+							<i class="fa fa-book"></i>
 							<p>SNI</p>
 							<span class="caret"></span>
 						</a>
@@ -121,7 +121,7 @@
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar4">
-							<i class="fas fa-book"></i>
+							<i class="fa fa-book"></i>
 							<p>Profesor-Investigador</p>
 							<span class="caret"></span>
 						</a>
@@ -147,7 +147,7 @@
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar5">
-							<i class="fas fa-book"></i>
+							<i class="fa fa-book"></i>
 							<p>Productividad Academica</p>
 							<span class="caret"></span>
 						</a>
@@ -203,7 +203,7 @@
 					</li>
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar6">
-							<i class="fas fa-book"></i>
+							<i class="fa fa-book"></i>
 							<p>Propiedad Intelectual</p>
 							<span class="caret"></span>
 						</a>
@@ -239,7 +239,7 @@
 					</li>	
 					<li class="nav-item">
 						<a data-toggle="collapse" href="#sidebar7">
-							<i class="fas fa-book"></i>
+							<i class="fa fa-book"></i>
 							<p>Posgrado</p>
 							<span class="caret"></span>
 						</a>
@@ -277,3 +277,5 @@
 			</div>
 		</div>
 	</div>
+
+	

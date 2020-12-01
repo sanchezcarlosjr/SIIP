@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/users', function () {
-    return view('users');
+    $users = User::orderBy('created_at', 'asc')->get();
+    return view('users', ["users" => $users]);
 });

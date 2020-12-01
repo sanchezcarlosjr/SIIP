@@ -31,13 +31,6 @@
 			line-height: .5;
 			border-radius: .2rem;
 		}
-
-			body {
-				color: #566787;
-				background: #f5f5f5;
-				font-family: 'Varela Round', sans-serif;
-				font-size: 13px;
-			}
 			.table-responsive {
 				margin: 30px 0;
 			}
@@ -228,7 +221,21 @@
 											<th id="accion" style="width: 8%">Acción</th>
 										</tr>
 										</thead>
-										<tbody id="myTable"></tbody>
+										<tbody id="myTable">
+											@foreach ($users as $user)
+												<tr>
+													<td>{{$user->name}}</td>
+													<td>{{$user->email}}</td>
+													<td>{{$user->role}}</td>
+													<td>{{$user->campus}}</td>
+													<td>{{$user->unit}}</td>
+													<td id="accion">
+														<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
+														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+													</td>
+												</tr>
+											@endforeach
+										</tbody>
 									</table>
 
 									<div class="bar">
@@ -340,25 +347,6 @@
 @stop
 @section('scripts')
 <script>
-	fetch('https://jsonplaceholder.typicode.com/users')
-			.then(response => response.json())
-			.then(users => {
-				users.forEach((user) => 
-							$("tbody").append(`<tr>
-												<td>${user.name}</td>
-												<td>${user.email}</td>
-												<td>Jefe departamento</td>
-												<td>*CAMPUS*</td>
-												<td>*UNIDAD ACADÉMICA*</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-												</td>
-											</tr>`)
-				);
-			})
-</script>
-<script>
 	$(document).ready(function(){
    $(".export-btn-excel").click(function(){  
      $("#Tabla_Usuarios").tableHTMLExport({
@@ -403,10 +391,10 @@
                     data,
                     [
                         { field: "Nombre", title: "Nombre", width: 150 },
-                        { field: "Correo Electrónico", title: "Correo Electrónico", width: 150 },
+                        { field: "Correo Electrónico", title: "Correo", width: 150 },
                         { field: "Rol", title: "Rol", width: 150 },
 						{ field: "Campus", title: "Campus", width: 150 },
-						{ field: "Unidad Académica", title: "Unidad Académica", width: 150 }
+						{ field: "Unidad Académica", title: "Unidad", width: 150 }
                     ],
                     {
                         margins: {
