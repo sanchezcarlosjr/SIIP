@@ -25,7 +25,7 @@
 					<li class="nav-item {{ (request()->segment(1) == 'academic-units') ? 'active' : '' }}">
 						<a data-toggle="collapse" href="#sidebar">
 							<i class="fa fa-address-card"></i>
-							<p>Cuerpos Academicos</p>
+							<p>Cuerpos Académicos</p>
 							<span class="caret"></span>
 						</a>
 						<div class="collapse" id="sidebar">
@@ -37,7 +37,7 @@
 								</li>
 								<li class="{{ (request()->is('academic-units/gestion')) ? 'active' : '' }}">
 									<a href="{{ url('/academic-units/gestion') }}">
-										<span class="sub-item">Gestion CA</span>
+										<span class="sub-item">Gestión CA</span>
 									</a>
 								</li>
 								<li>
@@ -52,7 +52,7 @@
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Evaluacion CA</span>
+										<span class="sub-item">Evaluación CA</span>
 									</a>
 								</li>
 								<li>
@@ -78,7 +78,7 @@
 							<ul class="nav nav-collapse">
 								<li>
 									<a href="">
-										<span class="sub-item">Evaluacion</span>
+										<span class="sub-item">Evaluación</span>
 									</a>
 								</li>
 								<li>
@@ -98,7 +98,6 @@
 								</li>
 							</ul>
 
-
 						</div>
 					</li>
 					<li class="nav-item">
@@ -111,7 +110,7 @@
 							<ul class="nav nav-collapse">
 								<li>
 									<a href="">
-										<span class="sub-item">Gestion SNI</span>
+										<span class="sub-item">Gestión SNI</span>
 									</a>
 								</li>
 								<li>
@@ -132,7 +131,7 @@
 							<ul class="nav nav-collapse">
 								<li>
 									<a href="">
-										<span class="sub-item">Gestion</span>
+										<span class="sub-item">Gestión</span>
 									</a>
 								</li>
 								<li>
@@ -158,12 +157,12 @@
 							<ul class="nav nav-collapse">
 								<li>
 									<a href="">
-										<span class="sub-item">Gestion</span>
+										<span class="sub-item">Gestión</span>
 									</a>
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Articulo</span>
+										<span class="sub-item">Artículo</span>
 									</a>
 								</li>
 								<li>
@@ -173,17 +172,17 @@
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Productividad Innovadora</span>
+										<span class="sub-item">Innovación</span>
 									</a>
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Productividad Artistica</span>
+										<span class="sub-item">Productividad Artística</span>
 									</a>
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Prototipo</span>
+										<span class="sub-item">Prototipos</span>
 									</a>
 								</li>
 								<li>
@@ -193,7 +192,7 @@
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Direccion Individualizada</span>
+										<span class="sub-item">Dirección Individualizada</span>
 									</a>
 								</li>
 								<li>
@@ -219,12 +218,12 @@
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Asesorias</span>
+										<span class="sub-item">Asesorías</span>
 									</a>
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Solicitudes de Invencion</span>
+										<span class="sub-item">Solicitudes de Invención</span>
 									</a>
 								</li>
 								<li>
@@ -260,7 +259,7 @@
 								</li>
 								<li>
 									<a href="">
-										<span class="sub-item">Evaluacion</span>
+										<span class="sub-item">Evaluación</span>
 									</a>
 								</li>
 								<li>

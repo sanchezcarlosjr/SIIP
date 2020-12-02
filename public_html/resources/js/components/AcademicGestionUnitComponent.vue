@@ -15,13 +15,13 @@
 										<thead>
 										<tr>
 											<th id="clave_promep">Clave PROMEP</th>
-											<th id="nombre_cuerpo_academico">Nombre del Cuerpo Académico</th>
+											<th id="nombre_cuerpo_academico">Nombre</th>
 											<th id="grado_consolacion">Grado de Consolación</th>
-											<th id="vigencia_inicio">Vigencia Inicio</th>
-											<th id="vigencia_termino">Vigencia Termino</th>
-											<th id="responsable_ca">Lider</th>
-											<th id="email_responsable">Correo-E Responsable</th>
-											<th id="accion">Accion</th>
+											<th id="vigencia_inicio">Inicio</th>
+											<th id="vigencia_termino">Término</th>
+											<th id="responsable_ca">Líder</th>
+											<th id="email_responsable">Correo</th>
+											<th id="accion">Acción</th>
 										</tr>
 										</thead>
 										<tbody id="myTable">
@@ -178,20 +178,19 @@
 
 										</tbody>
 									</table>
-
 								</div>
 								<div v-if="citySelected === 1"  class="table-responsive" id="Mexicali">
 									<table class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4" id="Tabla_Mexicali">
 										<thead>
 										<tr>
 											<th id="clave_promep">Clave PROMEP</th>
-											<th id="nombre_cuerpo_academico">Nombre del Cuerpo Académico</th>
+											<th id="nombre_cuerpo_academico">Nombre</th>
 											<th id="grado_consolacion">Grado de Consolación</th>
-											<th id="vigencia_inicio">Vigencia Inicio</th>
-											<th id="vigencia_termino">Vigencia Termino</th>
-											<th id="responsable_ca">Lider</th>
-											<th id="email_responsable">Correo-E Responsable</th>
-											<th id="accion">Accion</th>
+											<th id="vigencia_inicio">Inicio</th>
+											<th id="vigencia_termino">Término</th>
+											<th id="responsable_ca">Líder</th>
+											<th id="email_responsable">Correo</th>
+											<th id="accion">Acción</th>
 										</tr>
 										</thead>
 										<tbody id="myTable">
@@ -355,13 +354,13 @@
 										<thead>
 										<tr>
 											<th id="clave_promep">Clave PROMEP</th>
-											<th id="nombre_cuerpo_academico">Nombre del Cuerpo Académico</th>
+											<th id="nombre_cuerpo_academico">Nombre</th>
 											<th id="grado_consolacion">Grado de Consolación</th>
-											<th id="vigencia_inicio">Vigencia Inicio</th>
-											<th id="vigencia_termino">Vigencia Termino</th>
-											<th id="responsable_ca">Lider</th>
-											<th id="email_responsable">Correo-E Responsable</th>
-											<th id="accion">Accion</th>
+											<th id="vigencia_inicio">Inicio</th>
+											<th id="vigencia_termino">Término</th>
+											<th id="responsable_ca">Líder</th>
+											<th id="email_responsable">Correo</th>
+											<th id="accion">Acción</th>
 										</tr>
 										</thead>
 										<tbody id="myTable">

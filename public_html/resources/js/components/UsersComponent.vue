@@ -6,7 +6,7 @@
 						<div class="bar">
 							<button @click="typeOperation='Agregar Usuario'; setUser()" v-b-modal.add-user class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Agregar Usuario</span></button>
 							<button id="downloadExcel" class="btn btn-success export-btn-excel" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
-							<button id="exportButton" class="btn btn-success export-btn-excel" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
+							<button id="exportButton" class="btn btn-success export-btn-pdf" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
 					</div>					
 				</div>
 			
