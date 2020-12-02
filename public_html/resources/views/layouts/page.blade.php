@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     @include('includes.head')
+	<link href="{{asset('css/app.css')}}" rel="stylesheet">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('head')
 </head>
 <body>
@@ -20,9 +22,11 @@
 					<div class="row">
 							<div class="col-md-12">
 								<div class="card">
-									<div class="card-header">
-										<div class="card-title">@yield('card-title')</div>
-                                    </div>
+										@hasSection('card-title')
+											<div class="card-header" >
+												<div class="card-title">@yield('card-title')</div>
+											</div>
+										@endif
                                     @yield('card')				
 								</div>
 							</div>
@@ -32,6 +36,7 @@
               @include('layouts.footer')
 		</div>
 	</div>
+  <script src="{{asset('js/app.js')}}"></script>
   @include('includes.script')
   @yield('scripts')
 </body>

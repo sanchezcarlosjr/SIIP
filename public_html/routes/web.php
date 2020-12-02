@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,4 +17,14 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::resource('users', UserController::class);
+Route::get('/users', function () {
+    return view('users');
+});
+
+Route::get('/academic-units', function() {
+    return view('AcademicUnits/index');
+});
+
+Route::get('/academic-units/gestion', function() {
+    return view('AcademicUnits/gestion');
+});

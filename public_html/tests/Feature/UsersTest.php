@@ -24,4 +24,10 @@ class UsersTest extends TestCase
             'title' => 'test',
         ]);
     }
+    public function testItShouldDeleteAUser()
+    {
+        $user = User::factory()->create();
+        $this->json('DELETE', '/users/1');
+        $this->assertDatabaseMissing('users', $response);
+    }
 }

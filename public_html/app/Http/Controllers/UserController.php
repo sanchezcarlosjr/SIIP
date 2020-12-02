@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'asc')->get();
-        return view('users', ["users" => $users]);
+          $users = User::orderBy('created_at', 'asc')->get();
+          return $users;
     }
 
     /**
@@ -25,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return ["user" => "A"];
     }
 
     /**
@@ -36,15 +37,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create([
-            'name' => $request->input(['name']),
-            'role' => $request->input(['role']),
-            'unit' => $request->input(['unit']),
-            'campus' => $request->input(['campus']),
-            'email' => $request->input(['email']),
+       return User::create([
+            'name' => $request->name,
+            'role' => $request->role,
+            'unit' => $request->unit,
+            'campus' => $request->campus,
+            'email' => $request->email,
             'password' => ''
         ]);
-        return back();
     }
 
     /**
@@ -78,9 +78,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return back();
+        return User::find($id)->update($request->all());
     }
 
     /**
@@ -91,6 +89,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return User::destroy($id);
     }
 }
