@@ -6,12 +6,6 @@ From public_html
   docker exec -d node:15 npm run watch
 ```
 
-## USING PHP
- 
-```bash
-  docker-compose exec -u devuser php [command] options
-```
-
 ## USING MIGRATION TO CREATE AND ALTER TABLES
 
 You can use Laravel migration tool to create a table :
