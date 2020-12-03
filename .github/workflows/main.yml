@@ -18,10 +18,8 @@ jobs:
         run: php -r "file_exists('public_html/.env') || copy('public_html/.env.example', '.env');"
       - name: Directory Permissions
         run: chmod -R 777 storage public_html/bootstrap/cache
-     - name: Compile assets
-        run: |
-          npm install
-          npm run production
+      - name: Compile assets
+        run: npm install &&  npm run production
     - name: tests
       env:
         DB_CONNECTION=pgsql
