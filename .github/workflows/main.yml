@@ -21,6 +21,7 @@ jobs:
       - name: Compile assets
         run: npm install &&  npm run production
       - name: tests
+        run: vendor/bin/phpunit
         env:
           DB_CONNECTION=pgsql
           DB_HOST=pgsql
@@ -28,4 +29,3 @@ jobs:
           DB_DATABASE=pgdb
           DB_USERNAME=pguser
           DB_PASSWORD=pgpwd
-        run: vendor/bin/phpunit
