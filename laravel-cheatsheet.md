@@ -1,4 +1,16 @@
 # LARAVEL CHEATSHEET
+From public_html
+
+## USING VUE
+```
+  docker exec -d node:15 npm run watch
+```
+
+## USING PHP
+ 
+```bash
+  docker-compose exec -u devuser php [command] options
+```
 
 ## USING MIGRATION TO CREATE AND ALTER TABLES
 

@@ -1,49 +1,50 @@
-# LARAVEL-APACHE2-PGSQL
+# SIIP
 
 Docker environment for a Laravel project with Apache2, PHP 7.3 and Postgresql 12
 
 ## Prerequisites
 
-To use this stack, you need a recent version of git, docker and docker-compose that works on your computer. There are a lot of tutorial on the internet that can help you installing git, docker and docker-compose. I personally have these tools running on my PC that runs Ubuntu 18.04 and on my laptop with CloudReady, a nice ChromeOS fork.
+To use this stack, you need a recent version of git, docker and docker-compose that works on your computer. There are a lot of tutorial on the internet that can help you installing git, docker and docker-compose. Nodejs and npm, too.
 
-## How to create the Laravel/Apache2/PHP 7.3 Docker stack ?
+## How to install SIIP?
 
-1. Clone the laravel-apache2-pgsql repository
-
-```bash
-git clone https://github.com/ch-benard/laravel-apache-pgsql.git
-```
-
-2. Create the **postgresql-data** and **public_html** directories
+1. Clone the SIIP repository
 
 ```bash
-cd laravel-apache-pgsql
-mkdir postgresql-data public_html
+git clone https://github.com/sanchezcarlosjr/SIIP.git
 ```
 
-3. Update your php **Dockerfile**
-
-Once Docker is lauched, you'll be able to write your own files into your local **public_html** folder. This folder is mapped to the **/var/www/html** folder on the php container.
-Every modification updates the web application which is running on your docker stack. So you can immediatly see the effect of your modifications. In order to edit the files on your host (your dev station) and to apply the code modifications to the app that is running in your Docker stack, the trick is to use the same UID (UserIDentification) on the local computer (the dev station) and the container, in order to preserve the rights on the filesystems on both side.
-To do this, I added a line in the php Dockerfile to create a user **devuser** on the php container who owns the files from the **/var/www/html** folder. This user is a member of the **www-data** group on the container side.
-
-In order to get your uid on the host machine by typing "id -u" on your host. Then replace the **1000** value by your own uid on this line :
-```
-RUN adduser --uid 1000 --disabled-password --home /home/devuser devuser
-```
-
-4. Start Docker containers
+2. Create the **postgresql-data** directories
 
 ```bash
-cd [location where you cloned the project]/laravel-apache2-pgsql
+mkdir postgresql-data
+```
+
+3. Start Docker containers
+
+```bash
+cd [location where you cloned the project]/SIIP
 docker-compose build && docker-compose up -d
 ```
 
-## How to create a project from scratch with LARAVEL-APACHE2-PGSQL ?
+4. Sync de database.
+
+Finally, to sync the database, you need to update the .env file. An exemple is shown below :
+
+```
+    DB_CONNECTION=pgsql
+    DB_HOST=pgsql
+    DB_PORT=5432
+    DB_DATABASE=pgdb
+    DB_USERNAME=pguser
+    DB_PASSWORD=pgpwd
+```
+
+## How to create a project from scratch with SIIP?
 
 1. Create the the laravel project skeleton
 
-From the *laravel-apache2-pgsql* folder, type this command :
+From the *SIIP* folder, type this command :
 
 ```bash
 docker-compose exec -u devuser php composer create-project --prefer-dist laravel/laravel /var/www/html/.
@@ -65,12 +66,12 @@ This command will generate a key and copy it to your .env file, ensuring that yo
 Finally, to sync the database, you need to update the .env file. An exemple is shown below :
 
 ```
-DB_CONNECTION=pgsql
-DB_HOST=pgsql
-DB_PORT=5432
-DB_DATABASE=pgdb
-DB_USERNAME=pguser
-DB_PASSWORD=pgpwd
+    DB_CONNECTION=pgsql
+    DB_HOST=pgsql
+    DB_PORT=5432
+    DB_DATABASE=pgdb
+    DB_USERNAME=pguser
+    DB_PASSWORD=pgpwd
 ```
 
 Now, type the following URL. The port is the one we set up in the docker-compose.yml - If you check the docker-compose file, you can see in the apache service section that port 8080 of the host maps port 80 of the container.
@@ -86,6 +87,8 @@ docker-compose exec -u devuser php php artisan make:controller SomeController
 ```
 
 This command will create the *SomeController.php* file into the */var/www/html/app/Http/Controllers* container directory.
+
+##
 
 ## Docker compose cheatsheet
 
