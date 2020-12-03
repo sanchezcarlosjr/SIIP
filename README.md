@@ -40,55 +40,11 @@ Finally, to sync the database, you need to update the .env file. An exemple is s
     DB_PASSWORD=pgpwd
 ```
 
-## How to create a project from scratch with SIIP?
-
-1. Create the the laravel project skeleton
-
-From the *SIIP* folder, type this command :
-
-```bash
-docker-compose exec -u devuser php composer create-project --prefer-dist laravel/laravel /var/www/html/.
-```
-The command will create a Laravel project into the */var/www/html* folder in the container. This directory is mapped to the *public_html* folder on the host. The command is launched from the container to avoid having to install the development tools (Composer, Laravel) on the host. So, you keep your host clean.
-
-2. Generate the key for the Laravel application
-
-Next, set the application key for the Laravel application with this command :
-
-```bash
-docker-compose exec -u devuser php php artisan key:generate
-```
-
-This command will generate a key and copy it to your .env file, ensuring that your user sessions and encrypted data remain secure.
-
-3. Sync de database.
-
-Finally, to sync the database, you need to update the .env file. An exemple is shown below :
-
-```
-    DB_CONNECTION=pgsql
-    DB_HOST=pgsql
-    DB_PORT=5432
-    DB_DATABASE=pgdb
-    DB_USERNAME=pguser
-    DB_PASSWORD=pgpwd
-```
-
 Now, type the following URL. The port is the one we set up in the docker-compose.yml - If you check the docker-compose file, you can see in the apache service section that port 8080 of the host maps port 80 of the container.
 
 http://localhost:8080
 
 You can connect an external database client such as pgadmin or dbeaver.
-
-4. Use Laravel *artisan* command to create a controller:
-
-```bash
-docker-compose exec -u devuser php php artisan make:controller SomeController
-```
-
-This command will create the *SomeController.php* file into the */var/www/html/app/Http/Controllers* container directory.
-
-##
 
 ## Docker compose cheatsheet
 
