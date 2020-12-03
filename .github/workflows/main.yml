@@ -23,9 +23,9 @@ jobs:
       - name: tests
         run: vendor/bin/phpunit
         env:
-          DB_CONNECTION=pgsql
-          DB_HOST=pgsql
-          DB_PORT=5432
-          DB_DATABASE=pgdb
-          DB_USERNAME=pguser
-          DB_PASSWORD=pgpwd
+          DB_CONNECTION:pgsql
+          DB_HOST:pgsql
+          DB_PORT:5432
+          DB_DATABASE:pgdb
+          DB_USERNAME:pguser
+          DB_PASSWORD:pgpwd
