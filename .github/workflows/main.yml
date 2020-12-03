@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: Copy .env
+        run: php -r "file_exists('public_html/.env') || copy('public_html/.env.example', '.env');"
+      - name: Directory Permissions
+        run: chmod -R 777 storage public_html/bootstrap/cache
