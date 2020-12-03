@@ -20,12 +20,12 @@ jobs:
         run: chmod -R 777 storage public_html/bootstrap/cache
       - name: Compile assets
         run: npm install &&  npm run production
-    - name: tests
-      env:
-        DB_CONNECTION=pgsql
-        DB_HOST=pgsql
-        DB_PORT=5432
-        DB_DATABASE=pgdb
-        DB_USERNAME=pguser
-        DB_PASSWORD=pgpwd
-      run: vendor/bin/phpunit
+      - name: tests
+        env:
+          DB_CONNECTION=pgsql
+          DB_HOST=pgsql
+          DB_PORT=5432
+          DB_DATABASE=pgdb
+          DB_USERNAME=pguser
+          DB_PASSWORD=pgpwd
+        un: vendor/bin/phpunit
