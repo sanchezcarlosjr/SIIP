@@ -19,9 +19,9 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 public_html/bootstrap/cache
       - name: Compile assets
-        run: npm install &&  npm run production
+        run: npm install --prefix public_html &&  npm run production --prefix public_html
       - name: tests
-        run: vendor/bin/phpunit
+        run: public_html/vendor/bin/phpunit
         env:
           DB_CONNECTION: pgsql
           DB_HOST: pgsql
