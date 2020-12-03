@@ -35,9 +35,9 @@
 												<td>ÁLVARO GABRIEL DÍAZ RODRÍGUEZ</td>
 												<td>alvaro16@hotmail.com</td>
 												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -50,9 +50,9 @@
 												<td>AURELIA MENDOZA GOMEZ</td>
 												<td>aurelia.mendoza@uabc.edu.mx</td>
 												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -64,10 +64,10 @@
 												<td>11/25/2021</td>
 												<td>SALVADOR ORDAZ SILVA </td>
 												<td>jorge.delgadillo@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -79,10 +79,10 @@
 												<td>12/19/2020</td>
 												<td>LUIS ALBERTO MORALES ZAMORANO</td>
 												<td>lmorales@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -94,10 +94,10 @@
 												<td>12/19/2020</td>
 												<td>LUIS WALTER DAESSLE HEUSER  </td>
 												<td>walter@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -109,10 +109,10 @@
 												<td>11/25/2022</td>
 												<td> ÁLVARO GABRIEL DÍAZ RODRÍGUEZ</td>
 												<td>alvaro16@hotmail.com</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -124,10 +124,10 @@
 												<td>12/19/2020</td>
 												<td>JULIO CESAR RINCON MARTINEZ</td>
 												<td>julio.rincon@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -139,10 +139,10 @@
 												<td>11/25/2022</td>
 												<td> ÁLVARO GABRIEL DÍAZ RODRÍGUEZ</td>
 												<td>alvaro16@hotmail.com</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -154,10 +154,10 @@
 												<td>12/19/2022</td>
 												<td> DORA LUZ FLORES GUTIERREZ  </td>
 												<td>dflores@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -169,10 +169,10 @@
 												<td>11/25/2021</td>
 												<td>ZAUL GARCÍA ESQUIVEL</td>
 												<td>roberto.searcy@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -203,10 +203,10 @@
 												<td>11/25/2022</td>
 												<td>ADELAIDA FIGUEROA VILLANUEVA</td>
 												<td>afigueroa@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -218,10 +218,10 @@
 												<td>11/25/2022</td>
 												<td>ADELAIDA FIGUEROA VILLANUEVA</td>
 												<td>afigueroa@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -233,10 +233,10 @@
 												<td>11/25/2022</td>
 												<td>SANDRA JULIETA SALDIVAR GONZÁLEZ</td>
 												<td>yuly@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -248,10 +248,10 @@
 												<td>11/25/2022</td>
 												<td>ADELAIDA FIGUEROA VILLANUEVA</td>
 												<td>afigueroa@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -263,10 +263,10 @@
 												<td>11/25/2021</td>
 												<td>CARLOS ENRIQUE AIL CATZIM  </td>
 												<td>carlos.ail@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -278,10 +278,10 @@
 												<td>12/6/2020</td>
 												<td> ROBERTO SOTO ORTIZ</td>
 												<td>roberto_soto@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -293,10 +293,10 @@
 												<td>12/19/2020</td>
 												<td>CARLOS VILLA ANGULO</td>
 												<td>villac@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -308,10 +308,10 @@
 												<td>12/19/2022</td>
 												<td>MARCO ANTONIO REYNA CARRANZA</td>
 												<td>mreyna@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -323,10 +323,10 @@
 												<td>12/19/2020</td>
 												<td>JUAN CARLOS GARCIA GALLEGOS  </td>
 												<td>juan.carlos.garcia.gallegos@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -338,10 +338,10 @@
 												<td>25/112021</td>
 												<td>NICOLAS ADDIEL SERAFIN HIGUERA</td>
 												<td>nserafin@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -373,10 +373,10 @@
 												<td>12/19/2020</td>
 												<td>LOURDES EVELYN APODACA DEL ANGEL</td>
 												<td>lourdesapodaca@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 
@@ -388,10 +388,10 @@
 												<td>12/19/2020</td>
 												<td>ANGELICA REYES MENDOZA</td>
 												<td>angelita@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -402,10 +402,10 @@
 												<td>12/19/2020</td>
 												<td>MARÍA ELIZABETH OJEDA ORTA </td>
 												<td>raquelt@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -416,10 +416,10 @@
 												<td>12/6/2018</td>
 												<td>FRANCISCO MESA LINARES</td>
 												<td>fmesa@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -430,10 +430,10 @@
 												<td>11/25/2021</td>
 												<td>ROBERTO JAVIER GUERRERO MORENO</td>
 												<td>rjgm76@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -444,10 +444,10 @@
 												<td>12/19/2020</td>
 												<td>JOSE MANUEL  CORNEJO BRAVO </td>
 												<td>jmcornejo@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -458,10 +458,10 @@
 												<td>12/19/2020</td>
 												<td>LOURDES EVELYN APODACA DEL ANGEL</td>
 												<td>lourdesapodaca@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -472,10 +472,10 @@
 												<td>12/19/2020</td>
 												<td>ANA LETICIA IGLESIAS</td>
 												<td>aiglesias@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>
@@ -486,10 +486,10 @@
 												<td>11/25/2021</td>
 												<td>OFELIA CANDOLFI ARBALLO</td>
 												<td>ocandolfi@uabc.edu.mx</td>
-												<td id="accion">
-													<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-													<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-													<a href="#" class="search" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xe8b6;</i></a>
+										<td id="accion">
+													<a class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
+													<a class="edit"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+													<a class="search"><i class="fa fa-search"  data-toggle="tooltip" title="Buscar"></i></a>
 												</td>
 											</tr>
 											<tr>

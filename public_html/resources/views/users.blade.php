@@ -1,11 +1,4 @@
 @extends('layouts.page')
-@section('head')
-	<script src="https://rawcdn.githack.com/FuriosoJack/TableHTMLExport/v2.0.0/src/tableHTMLExport.js"></script>
-	<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
-	<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-	<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jszip.min.js"></script>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-@stop
 @section('page-title')
     Usuarios
 @stop
@@ -29,8 +22,7 @@
 
 <script type="text/javascript">
     jQuery(function ($) {
-        $("#export-btn-pdf").click(function () {
-            // parse the HTML table element having an id=exportTable
+        $(".export-btn-pdf").click(function () {
             var dataSource = shield.DataSource.create({
                 data: "#Tabla_Usuarios",
                 schema: {

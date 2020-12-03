@@ -5,7 +5,7 @@
 					Lista de usuarios
 						<div class="bar">
 							<button @click="typeOperation='Agregar Usuario'; setUser()" v-b-modal.add-user class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Agregar Usuario</span></button>
-							<button id="downloadExcel" class="btn btn-success export-btn-excel" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
+							<button id="exportExcel"  class="btn btn-success export-btn-excel" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
 							<button id="exportButton" class="btn btn-success export-btn-pdf" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
 					</div>					
 				</div>
@@ -33,8 +33,8 @@
                                                 <td v-text="user.campus"></td>
                                                 <td v-text="user.unit"></td>
                                                 <td id="accion">
-                                                    <a @click="typeOperation='Editar usuario'; setUser(user)" v-b-modal.add-user class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Modificar">&#xE254;</i></a>
-                                                    <a @click="userToDelete=user.id"  v-b-modal.delete-user class="delete"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
+                                                    <a @click="typeOperation='Editar usuario'; setUser(user)" v-b-modal.add-user class="edit" data-toggle="modal"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+                                                    <a @click="userToDelete=user.id"  v-b-modal.delete-user class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
                                                 </td>
                                             </tr>
 										</tbody>
@@ -85,13 +85,14 @@
 									label="Rol:"
 									label-for="input-role"
 								>
-									<b-form-input
+									<b-form-select
 										id="input-role"
 										v-model="userState.role"
 										type="text"
 										required
 										placeholder="Ingresa rol"
-									></b-form-input>
+										:options="roles"
+									></b-form-select>
 								</b-form-group>
 								<b-form-group
 									id="input-group-campus"
@@ -128,6 +129,23 @@
         data(){
             return{
                 users:[],
+				roles: [
+					{ value: 'Coordinador general', text: 'Coordinador general' },
+					{ value: 'Admnistrador', text: 'Admnistrador' },
+					{ value: 'Auxiliar SNI', text: 'Auxiliar SNI' },
+					{ value: 'Jefe de investigación', text: 'Jefe de investigación' },
+					{ value: 'Auxiliar PRODEP', text: 'Auxiliar PRODEP' },
+					{ value: 'Auxiliar cuerpos académicos', text: 'Auxiliar cuerpos académicos'},
+					{ value: 'Jefe de Posgrados', text: 'Jefe de Posgrados'},
+					{ value: 'Auxiliar Posgrados', text: 'Auxiliar Posgrados'},
+					{ value: 'Planeación', text: 'Planeación'},
+					{ value: 'Secretaría general', text: 'Secretaría general'},
+					{ value: 'Responsable de Campus', text: 'Responsable de Campus'},
+					{ value: 'Jefe Propiedad Intelectual y T', text: 'Jefe Propiedad Intelectual y T'},
+					{ value: 'Responsable de Campus', text: 'Responsable de Campus'},
+					{ value: 'Auxiliar PIT', text: 'Auxiliar PIT'},
+					{ value: 'Coordinador de investigación y posgrado de UA', text: 'Coordinador de investigación y posgrado de UA'},
+        		],
 				typeOperation: '',
 				userState: {
 					name: '',
@@ -147,7 +165,7 @@
 					campus: '',
 					email: '',
 				}) {
-		  	this.userState = {...userState};
+		  	this.userState = {...userState, email: userState.email.split('@')[0]};
 		 },
 		 operate() {
 		 	switch (this.typeOperation) {
