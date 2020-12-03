@@ -28,4 +28,4 @@ jobs:
           DB_DATABASE=pgdb
           DB_USERNAME=pguser
           DB_PASSWORD=pgpwd
-        un: vendor/bin/phpunit
+        run: vendor/bin/phpunit
