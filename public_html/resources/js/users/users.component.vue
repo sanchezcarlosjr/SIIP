@@ -46,7 +46,7 @@
                                 ></b-skeleton-table>
 
 								</div>
-								<b-modal id="delete-user" title="Eliminar Usuario" @ok="deleteUser()">
+								<b-modal id="delete-user" title="Eliminar Usuario" ok-title="Aceptar" cancel-title="Cancelar" @ok="deleteUser()">
 										<p>¿Realmente desea eliminar a este usuario?</p>
 										<p class="text-warning"><small>Esta accion no puede ser revertida.</small></p>
 								</b-modal>
