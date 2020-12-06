@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,8 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-          $users = User::orderBy('created_at', 'asc')->get();
-          return $users;
+          return User::orderBy('created_at', 'asc')->get();
     }
 
     /**
@@ -26,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return ["user" => "A"];
+        //
     }
 
     /**

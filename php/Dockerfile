@@ -19,4 +19,3 @@ RUN addgroup devuser root
 
 RUN chgrp -R  www-data /var/www/html
 RUN chmod -R g+r /var/www/html/
-CMD bash -c " su - devuse &&composer install && php artisan key:generate"

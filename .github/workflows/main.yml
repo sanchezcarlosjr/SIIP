@@ -21,7 +21,7 @@ jobs:
       - name: Compile assets
         run: npm install --prefix public_html &&  npm run production --prefix public_html
       - name: tests
-        run: docker-compose exec -u devuser php php artisan test
+        run: docker-compose exec -u devuser php public_html/vendor/bin/phpunit
         env:
           DB_CONNECTION: pgsql
           DB_HOST: pgsql
