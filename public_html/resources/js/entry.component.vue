@@ -65,11 +65,11 @@
                                             <span class="sub-item">Consultas</span>
                                         </a>
                                     </router-link>
-                                    <li>
-                                        <a href="">
+                                    <router-link active-class="active" tag="li" to="/academic-unit/members">
+                                        <a>
                                             <span class="sub-item">Miembros CA</span>
                                         </a>
-                                    </li>
+                                    </router-link>
                                     <li>
                                         <a href="">
                                             <span class="sub-item">LGAC</span>
