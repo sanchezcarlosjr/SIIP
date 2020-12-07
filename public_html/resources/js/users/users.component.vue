@@ -5,14 +5,14 @@
 					Lista de usuarios
 						<div class="bar">
 							<button @click="typeOperation='Agregar Usuario'; setUser()" v-b-modal.add-user class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Agregar Usuario</span></button>
-							<button id="exportExcel"  class="btn btn-success export-btn-excel" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
-							<button id="exportButton" class="btn btn-success export-btn-pdf" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
+							<button @click="downloadAsCSV" class="btn btn-success" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
+							<button @click="downloadASPDF" id="exportButton" class="btn btn-success export-btn-pdf" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
 					    </div>
 				</div>
        		 </div>
 		<input  v-model="query" class="form-control mb-4"  type="text" placeholder="Buscar Usuario">
         <div>
-									<table  id="Tabla_Usuarios" class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4">
+									<table  id="users-table" class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4">
 										<thead>
 										<tr>
 											<th id="nombre" style="width: 20%">Nombre</th>
@@ -129,6 +129,9 @@
 </template>
 
 <script>
+    import jsPDF from 'jspdf'
+    import 'jspdf-autotable'
+    import {CSV} from '../@shared/CSV';
     export default {
         data(){
             return{
@@ -203,6 +206,57 @@
 				.then(() => this.index())
 				.catch((error) => console.warn(error));
 		},
+            downloadAsCSV() {
+                this.$bvToast.toast(`Por favor espere`, {
+                    title: 'Iniciando descarga',
+                    autoHideDelay: 5000,
+                })
+                 const csv = new CSV('users.csv');
+                 csv.load();
+                 csv.download();
+            },
+            downloadASPDF() {
+                this.$bvToast.toast(`Por favor espere`, {
+                    title: 'Iniciando descarga',
+                    autoHideDelay: 5000,
+                })
+                let doc = new jsPDF();
+                doc.setFontSize(18)
+                const date = new Date();
+                doc.text(`UABC \t ${date.toISOString()}`, 14, 22)
+                doc.setFontSize(11)
+                doc.setTextColor(100)
+                var pageSize = doc.internal.pageSize
+                var totalPagesExp = '{total_pages_count_string}'
+                var pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth()
+                var text = doc.splitTextToSize(`SISTEMA INSTITUCIONAL DE INDICADORES DE INVESTIGACION Y POSGRADO`, pageWidth - 35, {})
+                doc.text(text, 14, 30)
+                const res = doc.autoTableHtmlToJson(document.getElementById("users-table"));
+                const columns = res.columns.slice(0,5);
+                doc.autoTable(columns, res.data, {
+                    startY: 40,
+                    didDrawPage: (data) => {
+                        // Footer
+                        var str = 'Página ' + doc.internal.getNumberOfPages()
+                        // Total page number plugin only available in jspdf v1.0+
+                        if (typeof doc.putTotalPages === 'function') {
+                            str = str + ' de ' + totalPagesExp
+                        }
+                        doc.setFontSize(10)
+
+                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
+                        var pageSize = doc.internal.pageSize
+                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
+                        doc.text(str, data.settings.margin.left, pageHeight - 10)
+                    },
+                    headStyles: {
+                        fillColor: [19, 108, 15],
+                        fontSize: 14,
+                    }
+                });
+                doc.putTotalPages(totalPagesExp)
+                doc.save(`usuarios-siip-${date.toISOString()}.pdf`)
+            },
 		    deleteUser() {
 			    axios.delete(`api/users/${this.userToDelete}`)
 					.then(() => this.userToDelete = -1)
@@ -210,21 +264,24 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-			}
+			},
+			index() {
+                let me = this;
+                axios.get('api/users').then((response) => {
+                    me.users = response.data.map((user) => {
+                            const value = Object.values(user).toString().toLowerCase();
+                            this.usersConverter[value] = user;
+                            return value;
+                        }
+                    );
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         },
         mounted() {
-            let me = this;
-            axios.get('api/users').then((response) => {
-                me.users = response.data.map((user) => {
-                        const value = Object.values(user).toString().toLowerCase();
-                        this.usersConverter[value] = user;
-                        return value;
-                    }
-                );
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            this.index();
         }
     }
 </script>
