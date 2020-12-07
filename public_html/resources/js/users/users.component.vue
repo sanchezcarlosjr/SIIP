@@ -172,6 +172,9 @@
 				}) {
 		  	this.userState = {...userState, email: userState.email.split('@')[0]};
 		 },
+            filter() {
+
+            },
 		 operate() {
 		 	switch (this.typeOperation) {
 				case 'Agregar Usuario': this.addUser(); break;

@@ -3,10 +3,12 @@ import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import router from './router';
 import EntryComponent from './entry.component.vue';
+import CardTitleComponent from './@shared/card-title.component.vue';
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 Vue.component('entry-component', EntryComponent)
+Vue.component('card-title-component', CardTitleComponent)
 
 router.beforeEach((to, from, next) => {
     // This goes through the matched routes from last to first, finding the closest route with a title.

@@ -46,7 +46,17 @@ http://localhost:8080
 
 You can connect an external database client such as pgadmin or dbeaver.
 
+
+## Vuejs cheatsheet
+* Install vue component generator
+``
+npm install -g vue-generate-component && sudo vgc --script ts --spec ts
+`` 
+* Use 
+
+
 ## Docker compose cheatsheet
+
 
 **Note:** you need to cd first to where your docker-compose.yml file lives.
 

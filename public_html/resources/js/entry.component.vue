@@ -60,11 +60,11 @@
                                             <span class="sub-item">Gestión</span>
                                         </a>
                                     </router-link>
-                                    <li>
+                                    <router-link active-class="active" tag="li" to="/academic-unit/queries">
                                         <a>
-                                            <span class="sub-item">Consulta</span>
+                                            <span class="sub-item">Consultas</span>
                                         </a>
-                                    </li>
+                                    </router-link>
                                     <li>
                                         <a href="">
                                             <span class="sub-item">Miembros CA</span>
@@ -332,8 +332,12 @@
 <script lang="ts">
     import Vue from "vue"
     import Component from "vue-class-component"
+    import { routes } from "./router";
     @Component
     export default class EntryComponent extends Vue {
+        // TODO: Reactive title
         title = document.title;
+        // TODO: Only a change in router.ts
+        routes = routes;
     }
 </script>
