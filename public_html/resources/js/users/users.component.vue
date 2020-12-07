@@ -99,30 +99,34 @@
 									></b-form-select>
 								</b-form-group>
 								<b-form-group
-									id="input-group-campus"
+                                    v-if="hasAccessToCampus"
+                                    id="input-group-campus"
 									label="Campus:"
 									label-for="input-campus"
 								>
-									<b-form-input
-										id="input-1"
-										v-model="userState.campus"
-										type="text"
-										required
-										placeholder="Ingresa campus"
-									></b-form-input>
-								</b-form-group>
+                                    <b-form-select
+                                        id="input-campus"
+                                        v-model="userState.campus"
+                                        type="text"
+                                        required
+                                        placeholder="Ingresa el campus"
+                                        :options="campus"
+                                    ></b-form-select>
+                                </b-form-group>
 							<b-form-group
 									id="input-group-unit"
 									label="Unidad:"
+                                    v-if="hasAccessToAcademicUnit"
 									label-for="input-unit"
 							>
-								<b-form-input
-										id="input-unit"
-										v-model="userState.unit"
-										type="text"
-										required
-										placeholder="Ingresa unidad"
-								></b-form-input>
+                                <b-form-select
+                                    id="input-unit"
+                                    v-model="userState.unit"
+                                    type="text"
+                                    required
+                                    placeholder="Unidad Académica"
+                                    :options="units"
+                                ></b-form-select>
 							</b-form-group>
 							</b-modal>
     </div>
@@ -140,6 +144,7 @@
                 roles: [
 					{ value: 'Coordinador general', text: 'Coordinador general' },
 					{ value: 'Admnistrador', text: 'Admnistrador' },
+                    { value: 'Coordinador UA', text: 'Coordinador de Unidad Académica'},
 					{ value: 'Auxiliar SNI', text: 'Auxiliar SNI' },
 					{ value: 'Jefe de investigación', text: 'Jefe de investigación' },
 					{ value: 'Auxiliar PRODEP', text: 'Auxiliar PRODEP' },
@@ -154,13 +159,28 @@
 					{ value: 'Auxiliar PIT', text: 'Auxiliar PIT'},
 					{ value: 'Coordinador de investigación y posgrado de UA', text: 'Coordinador de investigación y posgrado de UA'},
         		],
+                campus: [
+                    { value: 'NA', text: 'No aplica' },
+                    { value: 'Ensenada', text: 'Ensenada'},
+                    { value: 'Tijuana', text: 'Tijuana'},
+                    { value: 'Mexicali', text: 'Mexicali'},
+                    { value: 'Tecate', text: 'Tecate'},
+                    { value: 'Valle de las palmas', text: 'Valle de las palmas'},
+                    { value: 'San Quintín', text: 'San Quintín'}
+                ],
+                units: [
+                    {value: 'NA', text: 'No aplica'},
+                    {value: 'Facultad de Arquitectura y Diseño', text: 'Facultad de Arquitectura y Diseño'},
+                    {value: 'Facultad de ciencias', text: 'Facultad de ciencias'},
+                    {value: 'Facultad de Ciencias administrativas y sociales', text: 'Facultad de Ciencias administrativas y sociales'}
+                ],
 				typeOperation: '',
                 query: '',
 				userState: {
 					name: '',
 					role: '',
-					unit: '',
-					campus: '',
+					unit: 'NA',
+					campus: 'NA',
 					email: '',
 				},
 				userToDelete: -1
@@ -171,13 +191,19 @@
                 const query = this.query.toLowerCase();
                 return this.users.filter((user) => user.indexOf(query) !== -1).map((user) => this.usersConverter[user]);
             },
+            hasAccessToCampus () {
+                return ['Responsable de Campus', 'Coordinador UA'].indexOf(this.userState.role) !== -1;
+            },
+            hasAccessToAcademicUnit () {
+                return ['Coordinador UA'].indexOf(this.userState.role) !== -1;
+            }
         },
         methods: {
 		 setUser(userState =  {
 					name: '',
 					role: '',
-					unit: '',
-					campus: '',
+					unit: 'NA',
+					campus: 'NA',
 					email: '',
 				}) {
 		  	this.userState = {...userState, email: userState.email.split('@')[0]};
@@ -193,16 +219,31 @@
 				 ...this.userState,
 				 email: this.userState.email.trim().concat('@uabc.edu.mx')
 			 })
-				.then(() => this.index())
-				.then((response) => this.setUser())
+				.then(() => {
+                    this.$bvToast.toast(`Usuario actualizado`, {
+                        title: 'Operación exitosa',
+                        autoHideDelay: 5000,
+                    })
+                    this.index();
+                })
+				.then(() => this.setUser())
 				.catch((error) => console.warn(error.message));
 		 },
 		 addUser() {
+		     if(Object.values(this.userState).includes('')) {
+		         return;
+             }
 			axios.post('api/users', {
 				 ...this.userState,
 				 email: this.userState.email.trim().concat('@uabc.edu.mx')
 			 })
-				.then((response) => this.setUser())
+				.then(() => {
+                    this.$bvToast.toast(`Usuario registrado`, {
+                        title: 'Operación exitosa',
+                        autoHideDelay: 5000,
+                    });
+                    this.setUser();
+                })
 				.then(() => this.index())
 				.catch((error) => console.warn(error));
 		},
