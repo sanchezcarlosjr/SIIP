@@ -10,10 +10,9 @@
 					    </div>
 				</div>
        		 </div>
-		<input class="form-control mb-4" id="tableSearch" type="text" placeholder="Buscar Usuario">
+		<input  v-model="query" class="form-control mb-4"  type="text" placeholder="Buscar Usuario">
         <div>
 									<table  id="Tabla_Usuarios" class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4">
-
 										<thead>
 										<tr>
 											<th id="nombre" style="width: 20%">Nombre</th>
@@ -25,7 +24,7 @@
 										</tr>
 										</thead>
 										<tbody id="myTable">
-                                            <tr v-for="user in users" :key="user.id">
+                                            <tr v-for="user in filteredUsers" :key="user.id">
                                                 <td v-text="user.name"></td>
                                                 <td v-text="user.email"></td>
                                                 <td v-text="user.role"></td>
@@ -134,7 +133,8 @@
         data(){
             return{
                 users:[],
-				roles: [
+                usersConverter: {},
+                roles: [
 					{ value: 'Coordinador general', text: 'Coordinador general' },
 					{ value: 'Admnistrador', text: 'Admnistrador' },
 					{ value: 'Auxiliar SNI', text: 'Auxiliar SNI' },
@@ -152,6 +152,7 @@
 					{ value: 'Coordinador de investigación y posgrado de UA', text: 'Coordinador de investigación y posgrado de UA'},
         		],
 				typeOperation: '',
+                query: '',
 				userState: {
 					name: '',
 					role: '',
@@ -159,8 +160,14 @@
 					campus: '',
 					email: '',
 				},
-				userToDelete: -1,
+				userToDelete: -1
             }
+        },
+        computed: {
+            filteredUsers () {
+                const query = this.query.toLowerCase();
+                return this.users.filter((user) => user.indexOf(query) !== -1).map((user) => this.usersConverter[user]);
+            },
         },
         methods: {
 		 setUser(userState =  {
@@ -172,9 +179,6 @@
 				}) {
 		  	this.userState = {...userState, email: userState.email.split('@')[0]};
 		 },
-            filter() {
-
-            },
 		 operate() {
 		 	switch (this.typeOperation) {
 				case 'Agregar Usuario': this.addUser(); break;
@@ -206,19 +210,21 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-			},
-            index() {
-                    let me = this;
-                    axios.get('api/users').then((response) => {
-                        me.users = response.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
+			}
         },
         mounted() {
-            this.index();
+            let me = this;
+            axios.get('api/users').then((response) => {
+                me.users = response.data.map((user) => {
+                        const value = Object.values(user).toString().toLowerCase();
+                        this.usersConverter[value] = user;
+                        return value;
+                    }
+                );
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 </script>
