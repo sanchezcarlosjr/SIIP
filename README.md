@@ -28,7 +28,7 @@ docker-compose build && docker-compose up -d
 ```
 
 4. Sync de database.
-
+Copy and replace .env.example to .env
 Finally, to sync the database, you need to update the .env file. An exemple is shown below :
 
 ```
@@ -39,20 +39,23 @@ Finally, to sync the database, you need to update the .env file. An exemple is s
     DB_USERNAME=pguser
     DB_PASSWORD=pgpwd
 ```
+5. Install dependencies
+In ``public_html`` run:
+```
+	docker-compose exec -u devuser php composer install
+```
+and after:
+```
+	npm i
+```
+
+6. Generate a key 
 
 Now, type the following URL. The port is the one we set up in the docker-compose.yml - If you check the docker-compose file, you can see in the apache service section that port 8080 of the host maps port 80 of the container.
 
 http://localhost:8080
 
 You can connect an external database client such as pgadmin or dbeaver.
-
-
-## Vuejs cheatsheet
-* Install vue component generator
-``
-npm install -g vue-generate-component && sudo vgc --script ts --spec ts
-`` 
-* Use 
 
 
 ## Docker compose cheatsheet
