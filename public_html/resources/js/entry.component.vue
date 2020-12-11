@@ -55,7 +55,7 @@
                             </a>
                             <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel" class="mt-2">
                                 <ul class="nav nav-collapse">
-                                    <router-link active-class="active" tag="li" to="/academic-unit">
+                                    <router-link exact-active-class="active" tag="li" to="/academic-unit">
                                         <a>
                                             <span class="sub-item">Gestión</span>
                                         </a>
@@ -147,7 +147,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar4">
-                                <i class="fa fa-podcast"></i>
+                                <i class="f/a fa-podcast"></i>
                                 <p>Profesor-Investigador</p>
                                 <span class="caret"></span>
                             </a>
@@ -332,12 +332,15 @@
 <script lang="ts">
     import Vue from "vue"
     import Component from "vue-class-component"
-    import { routes } from "./router";
+    import { Watch } from "vue-property-decorator"
     @Component
     export default class EntryComponent extends Vue {
-        // TODO: Reactive title
         title = document.title;
-        // TODO: Only a change in router.ts
-        routes = routes;
+        @Watch('$route')
+        onPropertyChanged(to: any, from: any) {
+            if (to.meta.title) {
+                this.title = to.meta.title;
+            }
+        }
     }
 </script>

@@ -32,7 +32,6 @@ export const routes = [
         name: 'Academic Unit',
         meta: { title: 'Cuerpos Académicos' },
         component: AcademicUnitModule,
-        icon: '',
         children: [
             {
                 path: '',
