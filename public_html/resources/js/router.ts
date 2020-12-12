@@ -1,6 +1,8 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import UserModule from './users/users.component.vue';
+import UserModule from './users/user.module.vue';
+import UsersPage from './users/users.component.vue';
+import UserPermissionsPage from './users/permissions/index.vue';
 import HomeModule from './home/home.component.vue';
 import AcademicUnitManagementPage from './academic-units/academic-unit-management.component.vue';
 import AcademicUnitModule from './academic-units/academic-unit.module.vue';
@@ -17,15 +19,23 @@ export const routes = [
         path: '/home',
         name: 'home',
         meta: { title: 'Inicio' },
-        icon: 'fa-home',
         component: HomeModule
     },
     {
         path: '/users',
         name: 'users',
         meta: { title: 'Usuarios' },
-        icon: '',
-        component: UserModule
+        component: UserModule,
+        children: [
+            {
+                path: '',
+                component:  UsersPage
+            },
+            {
+                path: 'permissions',
+                component: UserPermissionsPage
+            }
+        ],
     },
     {
         path: '/academic-unit',
@@ -35,13 +45,11 @@ export const routes = [
         children: [
             {
                 path: '',
-                meta: { title: 'Cuerpos Académicos' },
                 component: AcademicUnitManagementPage
             },
             {
                 path: 'queries',
                 component: AcademicUnitQueryPage,
-                icon: ''
             },
             {
                 path: 'members',

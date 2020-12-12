@@ -44,13 +44,25 @@
                             <a v-b-toggle.accordion-2>
                                 <i class="fa fa-users"></i>
                                 <p>Usuarios</p>
+                                <span class="caret"></span>
                             </a>
-                            <b-collapse style="display: none;" id="accordion-2" accordion="my-accordion" role="tabpanel" class="mt-2"></b-collapse>
+                            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel" class="mt-2">
+                                <router-link exact-active-class="active" tag="li" to="/users">
+                                    <a>
+                                        <span class="sub-item">Gestión</span>
+                                    </a>
+                                </router-link>
+                                <router-link active-class="active" tag="li" to="/users/permissions">
+                                    <a>
+                                        <span class="sub-item">Permisos</span>
+                                    </a>
+                                </router-link>
+                            </b-collapse>
                         </router-link>
                         <router-link class="nav-item" active-class="active" tag="li" to="/academic-unit">
                             <a v-b-toggle.accordion-3>
                                 <i class="fa fa-address-card"></i>
-                                <p>Cuerpos Académicos</p>
+                                 <p>Cuerpos Académicos</p>
                                 <span class="caret"></span>
                             </a>
                             <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel" class="mt-2">
@@ -306,9 +318,6 @@
         <div class="main-panel">
             <div class="content">
                 <div class="page-inner">
-                    <div class="page-header">
-                        <h4 class="page-title"> {{title}}</h4>
-                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -332,15 +341,7 @@
 <script lang="ts">
     import Vue from "vue"
     import Component from "vue-class-component"
-    import { Watch } from "vue-property-decorator"
     @Component
     export default class EntryComponent extends Vue {
-        title = document.title;
-        @Watch('$route')
-        onPropertyChanged(to: any, from: any) {
-            if (to.meta.title) {
-                this.title = to.meta.title;
-            }
-        }
     }
 </script>
