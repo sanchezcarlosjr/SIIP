@@ -1,8 +1,8 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import UserModule from './users/user.module.vue';
-import UsersPage from './users/users.component.vue';
-import UserPermissionsPage from './users/permissions/index.vue';
+import AdminModule from './admin/admin.module.vue';
+import UsersPage from './admin/users/index.vue';
+import UserPermissionsPage from './admin/permissions/index.vue';
 import HomeModule from './home/home.component.vue';
 import AcademicUnitManagementPage from './academic-units/academic-unit-management.component.vue';
 import AcademicUnitModule from './academic-units/academic-unit.module.vue';
@@ -25,7 +25,7 @@ export const routes = [
         path: '/users',
         name: 'users',
         meta: { title: 'Usuarios' },
-        component: UserModule,
+        component: AdminModule,
         children: [
             {
                 path: '',
