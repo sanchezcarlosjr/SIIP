@@ -5,8 +5,8 @@
 					Lista de usuarios
 						<div class="bar">
 							<button @click="typeOperation='Agregar Usuario'; setUser()" v-b-modal.add-user class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Agregar Usuario</span></button>
-							<button @click="downloadAsCSV" class="btn btn-success" ><i class="fas fa-file-excel"></i> Descargar Excel</button>
-							<button @click="downloadASPDF" id="exportButton" class="btn btn-success export-btn-pdf" ><i class="fas fa-file-pdf"></i> Descargar PDF</button>
+                            <pdf-button></pdf-button>
+                            <csv-button></csv-button>
 					    </div>
 				</div>
        		 </div>
@@ -27,7 +27,7 @@
                                             <tr v-for="user in filteredUsers" :key="user.id">
                                                 <td v-text="user.name"></td>
                                                 <td v-text="user.email"></td>
-                                                <td v-text="user.role"></td>
+                                                <td v-text="user.roles.role"></td>
                                                 <td v-text="user.campus"></td>
                                                 <td v-text="user.unit"></td>
                                                 <td id="accion">
@@ -91,7 +91,7 @@
 								>
 									<b-form-select
 										id="input-role"
-										v-model="userState.role"
+										v-model="userState.roles.id"
 										type="text"
 										required
 										placeholder="Ingresa rol"
@@ -133,32 +133,12 @@
 </template>
 
 <script>
-    import jsPDF from 'jspdf'
-    import 'jspdf-autotable'
-    import {CSV} from '../@shared/CSV';
     export default {
         data(){
             return{
                 users:[],
                 usersConverter: {},
-                roles: [
-					{ value: 'Coordinador general', text: 'Coordinador general' },
-					{ value: 'Admnistrador', text: 'Admnistrador' },
-                    { value: 'Coordinador UA', text: 'Coordinador de Unidad Académica'},
-					{ value: 'Auxiliar SNI', text: 'Auxiliar SNI' },
-					{ value: 'Jefe de investigación', text: 'Jefe de investigación' },
-					{ value: 'Auxiliar PRODEP', text: 'Auxiliar PRODEP' },
-					{ value: 'Auxiliar cuerpos académicos', text: 'Auxiliar cuerpos académicos'},
-					{ value: 'Jefe de Posgrados', text: 'Jefe de Posgrados'},
-					{ value: 'Auxiliar Posgrados', text: 'Auxiliar Posgrados'},
-					{ value: 'Planeación', text: 'Planeación'},
-					{ value: 'Secretaría general', text: 'Secretaría general'},
-					{ value: 'Responsable de Campus', text: 'Responsable de Campus'},
-					{ value: 'Jefe Propiedad Intelectual y T', text: 'Jefe Propiedad Intelectual y T'},
-					{ value: 'Responsable de Campus', text: 'Responsable de Campus'},
-					{ value: 'Auxiliar PIT', text: 'Auxiliar PIT'},
-					{ value: 'Coordinador de investigación y posgrado de UA', text: 'Coordinador de investigación y posgrado de UA'},
-        		],
+                roles: [],
                 campus: [
                     { value: 'NA', text: 'No aplica' },
                     { value: 'Ensenada', text: 'Ensenada'},
@@ -178,7 +158,10 @@
                 query: '',
 				userState: {
 					name: '',
-					role: '',
+                    roles: {
+					    id: 1,
+                        role: ''
+                    },
 					unit: 'NA',
 					campus: 'NA',
 					email: '',
@@ -192,16 +175,19 @@
                 return this.users.filter((user) => user.indexOf(query) !== -1).map((user) => this.usersConverter[user]);
             },
             hasAccessToCampus () {
-                return ['Responsable de Campus', 'Coordinador UA'].indexOf(this.userState.role) !== -1;
+                return ['Responsable de Campus', 'Coordinador UA'].indexOf(this.userState.roles.role) !== -1;
             },
             hasAccessToAcademicUnit () {
-                return ['Coordinador UA'].indexOf(this.userState.role) !== -1;
+                return ['Coordinador UA'].indexOf(this.userState.roles.role) !== -1;
             }
         },
         methods: {
 		 setUser(userState =  {
 					name: '',
-					role: '',
+					roles: {
+					    id: 1,
+                        role: ''
+                    },
 					unit: 'NA',
 					campus: 'NA',
 					email: '',
@@ -224,7 +210,7 @@
                         title: 'Operación exitosa',
                         autoHideDelay: 5000,
                     })
-                    this.index();
+                    this.indexUsers();
                 })
 				.then(() => this.setUser())
 				.catch((error) => console.warn(error.message));
@@ -244,60 +230,9 @@
                     });
                     this.setUser();
                 })
-				.then(() => this.index())
+				.then(() => this.indexUsers())
 				.catch((error) => console.warn(error));
-		},
-            downloadAsCSV() {
-                this.$bvToast.toast(`Por favor espere`, {
-                    title: 'Iniciando descarga',
-                    autoHideDelay: 5000,
-                })
-                 const csv = new CSV('users.csv');
-                 csv.load();
-                 csv.download();
-            },
-            downloadASPDF() {
-                this.$bvToast.toast(`Por favor espere`, {
-                    title: 'Iniciando descarga',
-                    autoHideDelay: 5000,
-                })
-                let doc = new jsPDF();
-                doc.setFontSize(18)
-                const date = new Date();
-                doc.text(`UABC \t ${date.toISOString()}`, 14, 22)
-                doc.setFontSize(11)
-                doc.setTextColor(100)
-                var pageSize = doc.internal.pageSize
-                var totalPagesExp = '{total_pages_count_string}'
-                var pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth()
-                var text = doc.splitTextToSize(`SISTEMA INSTITUCIONAL DE INDICADORES DE INVESTIGACION Y POSGRADO`, pageWidth - 35, {})
-                doc.text(text, 14, 30)
-                const res = doc.autoTableHtmlToJson(document.getElementById("users-table"));
-                const columns = res.columns.slice(0,5);
-                doc.autoTable(columns, res.data, {
-                    startY: 40,
-                    didDrawPage: (data) => {
-                        // Footer
-                        var str = 'Página ' + doc.internal.getNumberOfPages()
-                        // Total page number plugin only available in jspdf v1.0+
-                        if (typeof doc.putTotalPages === 'function') {
-                            str = str + ' de ' + totalPagesExp
-                        }
-                        doc.setFontSize(10)
-
-                        // jsPDF 1.4+ uses getWidth, <1.4 uses .width
-                        var pageSize = doc.internal.pageSize
-                        var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight()
-                        doc.text(str, data.settings.margin.left, pageHeight - 10)
-                    },
-                    headStyles: {
-                        fillColor: [19, 108, 15],
-                        fontSize: 14,
-                    }
-                });
-                doc.putTotalPages(totalPagesExp)
-                doc.save(`usuarios-siip-${date.toISOString()}.pdf`)
-            },
+	    	},
 		    deleteUser() {
 			    axios.delete(`api/users/${this.userToDelete}`)
 					.then(() => this.userToDelete = -1)
@@ -306,7 +241,7 @@
                         console.log(error);
                     });
 			},
-			index() {
+			indexUsers() {
                 let me = this;
                 axios.get('api/users').then((response) => {
                     me.users = response.data.map((user) => {
@@ -319,10 +254,25 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+            },
+            indexRoles() {
+                let me = this;
+                axios.get('api/roles').then((response) => {
+                    me.roles = response.data.map((role) => {
+                        return {
+                            value: role.id,
+                            text: role.role
+                        }
+                    });
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         },
         mounted() {
-            this.index();
+            this.indexRoles();
+            this.indexUsers();
         }
     }
 </script>

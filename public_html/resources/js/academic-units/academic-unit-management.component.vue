@@ -516,7 +516,6 @@
 <script>
     export default {
 		data() {
-
 			return {
 				citySelected: 0,
 				cities: [
@@ -526,8 +525,15 @@
 				]
 			}
 		},
+        methods: {
+            index() {
+                axios.get('/api/academic-units').then((response) => {
+                    console.log(response.data());
+                });
+            },
+        },
         mounted() {
-            console.log('Component mounted.')
+            this.index();
         }
     }
 </script>

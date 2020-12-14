@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AcademicUnitController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -20,3 +22,7 @@ Route::middleware('auth:api')->get('/users', function (Request $request) {
 });
 
 Route::resource('users', UserController::class);
+
+Route::resource('roles', RoleController::class);
+
+Route::resource('academic-units', AcademicUnitController::class);

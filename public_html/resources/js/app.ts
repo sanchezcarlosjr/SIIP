@@ -4,11 +4,15 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import router from './router';
 import EntryComponent from './entry.component.vue';
 import CardTitleComponent from './@shared/card-title.component.vue';
+import PDFButton from './@shared/pdf-button/index.vue';
+import CSVButton from './@shared/csv-button/index.vue';
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 Vue.component('entry-component', EntryComponent)
 Vue.component('card-title-component', CardTitleComponent)
+Vue.component('pdf-button', PDFButton)
+Vue.component('csv-button', CSVButton)
 
 router.beforeEach((to, from, next) => {
     // This goes through the matched routes from last to first, finding the closest route with a title.
