@@ -77,32 +77,25 @@ export default class UsersPage extends Vue {
     operate() {
         switch (this.typeOperation) {
             case 'Agregar Usuario': this.addUser(); break;
-            case 'Editar usuario': this.update(); break;
+            case 'Editar Usuario': this.updateUsers(); break;
         }
     }
 
-    update() {
+    updateUsers() {
         axios.put(`api/users/${this.userState.id}`, {
             ...this.userState,
+            role_id: this.userState.roles.id,
             email: this.userState.email.trim().concat('@uabc.edu.mx')
         })
-            .then(() => {
-                this.$bvToast.toast(`Usuario actualizado`, {
-                    title: 'Operación exitosa',
-                    autoHideDelay: 5000,
-                })
-                this.indexUsers();
-            })
+            .then(() => this.indexUsers())
             .then(() => this.setUser())
             .catch((error: any) => console.warn(error.message));
     }
 
     addUser() {
-        if(Object.values(this.userState).includes('')) {
-            return;
-        }
         axios.post('api/users', {
             ...this.userState,
+            role_id: this.userState.roles.id,
             email: this.userState.email.trim().concat('@uabc.edu.mx')
         })
             .then(() => {
@@ -110,7 +103,7 @@ export default class UsersPage extends Vue {
                     title: 'Operación exitosa',
                     autoHideDelay: 5000,
                 });
-                this.setUser();
+                return this.setUser();
             })
             .then(() => this.indexUsers())
             .catch((error: any) => console.warn(error));
@@ -129,7 +122,10 @@ export default class UsersPage extends Vue {
         let me = this;
         axios.get('api/users').then((response: any) => {
             me.users = response.data.map((user: any) => {
-                    const value = Object.values(user).toString().toLowerCase();
+                    const value = Object.values({
+                        ...user,
+                        role: user.roles.role
+                    }).toString().toLowerCase();
                     this.usersConverter[value] = user;
                     return value;
                 }
@@ -139,6 +135,7 @@ export default class UsersPage extends Vue {
                 console.log(error);
             });
     }
+
     indexRoles() {
         let me = this;
         axios.get('api/roles').then((response) => {

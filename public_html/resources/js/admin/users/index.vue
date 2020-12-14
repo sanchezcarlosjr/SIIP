@@ -31,7 +31,7 @@
                     <td v-text="user.campus"></td>
                     <td v-text="user.unit"></td>
                     <td id="accion">
-                        <a @click="typeOperation='Editar usuario'; setUser(user)" v-b-modal.add-user class="edit" data-toggle="modal"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
+                        <a @click="typeOperation='Editar Usuario'; setUser(user)" v-b-modal.add-user class="edit" data-toggle="modal"><i class="fa fa-edit"  data-toggle="tooltip" title="Modificar"></i></a>
                         <a @click="userToDelete=user.id"  v-b-modal.delete-user class="delete"><i class="fa fa-trash"  data-toggle="tooltip" title="Eliminar"></i></a>
                     </td>
                 </tr>
