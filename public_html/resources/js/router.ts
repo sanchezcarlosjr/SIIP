@@ -4,7 +4,7 @@ import AdminModule from './admin/admin.module.vue';
 import UsersPage from './admin/users/index.vue';
 import UserPermissionsPage from './admin/permissions/index.vue';
 import HomeModule from './home/home.component.vue';
-import AcademicUnitManagementPage from './academic-units/academic-unit-management.component.vue';
+import AcademicUnitManagementPage from './academic-units/academic-unit-management/index.vue';
 import AcademicUnitModule from './academic-units/academic-unit.module.vue';
 import AcademicUnitQueryPage from './academic-units/queries.page.vue';
 import AcademicUnitMembersPage from './academic-units/members/index.vue';
