@@ -1,4 +1,4 @@
-interface Modal { id: string, title: string, content: string, item: any, rowId: number };
+interface Modal { id: string, title: string, item: any, rowId: number };
 
 export interface Strategy {
     [key: string]: () => string;
@@ -22,20 +22,25 @@ export class InfoModal implements Modal {
     item: any = null;
     model: Model = {};
     rowId = -1;
-    content = '';
     resource = document.title.replace(/s/g, '').toLowerCase();
     reset() {
         this.title = '';
-        this.content = '';
         this.item = null;
         this.rowId = -1;
+        for (const key of Object.keys(this.model) as string[]) {
+            this.model[key] = '';
+        }
     }
     setModal(item: any, index: any) {
         this.item = item;
         const strategy = this.strategies[this.id]();
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
-        this.content = JSON.stringify(item, null, 2)
+        if (this.item) {
+            for (const key of Object.keys(this.item) as string[]) {
+                this.model[key] = this.item[key];
+            }
+        }
     }
     loadModel(schema: Schema) {
         schema.fields.forEach((field) => this.model[field.model] = '');

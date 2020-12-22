@@ -41,6 +41,7 @@ export default class SiipTableComponent extends Vue {
         let strategy: any = null;
         switch (this.infoModal.id) {
             case 'remove': strategy = this['removeElement'](); break;
+            case 'edit': strategy = this['editElement'](); break;
             case 'add': strategy = this['addElement'](); break;
         }
         if (strategy) {
@@ -88,7 +89,11 @@ export default class SiipTableComponent extends Vue {
     }
 
     private addElement() {
-        console.log(this.infoModal.model);
+        return axios.post(`api/${this.resource}`, this.infoModal.model);
+    }
+
+    private editElement() {
+        return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, this.infoModal.model);
     }
 
     private showSuccessToast() {
