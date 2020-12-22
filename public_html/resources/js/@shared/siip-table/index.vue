@@ -7,7 +7,7 @@
                     <b-col cols="4">
                        <b-row>
                             <b-col cols="9">
-                              <button class="btn btn-success" size="sm" >Agregar cuerpo académico</button>
+                              <button  @click="add($event.target)" class="btn btn-success" size="sm" >Agregar cuerpo académico</button>
                             </b-col>
                             <b-col>
                                   <pdf-button></pdf-button>
@@ -77,6 +77,9 @@
                     :columns="fields.length"
                 ></b-skeleton-table>
             </div>
+            <b-modal id="add" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal">
+                <vue-form-generator :schema="schema" :model="model"></vue-form-generator>
+            </b-modal>
             <b-modal id="edit" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal">
                 <pre>{{ infoModal.content }}</pre>
             </b-modal>

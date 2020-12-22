@@ -16,6 +16,21 @@ export default class SiipTableComponent extends Vue {
     sortDesc = false;
     sortDirection = 'asc';
     filter: string[] = [];
+    model = {
+        id: 1
+    };
+    schema = {
+        fields: [
+            {
+                type: 'input',
+                inputType: 'text',
+                label: 'ID (disabled text field)',
+                model: 'id',
+                readonly: false,
+                disabled: false
+            }
+        ]
+    };
     infoModal: InfoModal = new InfoModal();
     get sortOptions() {
         return this.fields
@@ -51,6 +66,11 @@ export default class SiipTableComponent extends Vue {
         return criteria.filter(value => valueString.toLowerCase().indexOf(value.toLowerCase()) !== -1).length > 0;
     }
 
+
+    add(button: any) {
+        this.infoModal.id = 'add';
+        this.showModal(null, null, button);
+    }
 
     edit(item: any, index: any, button: any) {
         this.infoModal.id = 'edit';
