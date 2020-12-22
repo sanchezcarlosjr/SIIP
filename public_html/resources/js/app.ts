@@ -1,14 +1,17 @@
 require('./bootstrap');
-import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
-import router from './router';
-import EntryComponent from './entry.component.vue';
+import Vue from 'vue';
 import CardTitleComponent from './@shared/card-title.component.vue';
-import PDFButton from './@shared/pdf-button/index.vue';
 import CSVButton from './@shared/csv-button/index.vue';
+import PDFButton from './@shared/pdf-button/index.vue';
 import SiipTableComponent from "./@shared/siip-table/index.vue";
+import EntryComponent from './entry.component.vue';
+import router from './router';
+const VueFormGenerator = require('vue-form-generator');
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VueFormGenerator);
 
 Vue.component('entry-component', EntryComponent)
 Vue.component('card-title-component', CardTitleComponent)
@@ -26,14 +29,14 @@ router.beforeEach((to, from, next) => {
     const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
 
     // If a route with a title was found, set the document (page) title to that value.
-    if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+    if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
     // Remove any stale meta tags from the document using the key attribute we set below.
     // @ts-ignore
     Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
     // Skip rendering meta tags if there are none.
-    if(!nearestWithMeta) return next();
+    if (!nearestWithMeta) return next();
 
     // Turn the meta tag definitions into actual elements in the head.
     nearestWithMeta.meta.metaTags.map((tagDef: { [x: string]: string; }) => {

@@ -4,7 +4,7 @@ import Component from "vue-class-component";
 @Component
 export default class AcademicUnitManagementPage extends Vue {
     tableTitle = 'Gestión de cuerpos académicos';
-    spanishResourceName = '';
+    spanishResourceName = 'cuerpo académico';
     apiResource = 'academic-units';
     fields = [
         { key: 'academic_unit_name', label: 'Nombre', sortable: true },

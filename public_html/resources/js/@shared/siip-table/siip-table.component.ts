@@ -9,13 +9,14 @@ export default class SiipTableComponent extends Vue {
     @Prop() resource!: string;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
+    @Prop() spanishResourceName!: string;
     items: any = [];
     totalRows = 1;
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
     filter: string[] = [];
-    infoModal = new InfoModal();
+    infoModal: InfoModal = new InfoModal();
     get sortOptions() {
         return this.fields
             .filter(field => field.sortable)
@@ -25,6 +26,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     mounted() {
+        this.infoModal.resource = this.spanishResourceName;
         axios.get(`/api/${this.resource}`).then(
             (response) => {
                 this.items = response.data;
