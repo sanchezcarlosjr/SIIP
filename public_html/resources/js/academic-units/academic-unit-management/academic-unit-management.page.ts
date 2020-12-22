@@ -34,8 +34,29 @@ export default class AcademicUnitManagementPage extends Vue {
             },
             {
                 type: 'api-select',
+                label: 'Nombre del lider',
+                model: "leader_name",
+                api: 'https://jsonplaceholder.typicode.com/users',
+                textKey: 'name'
+            },
+            {
+                type: 'api-select',
                 label: 'Areas PRODEP',
                 model: "prodep",
+                api: 'https://jsonplaceholder.typicode.com/users',
+                textKey: 'name'
+            },
+            {
+                type: 'api-select',
+                label: 'Displinas',
+                model: "displines",
+                api: 'https://jsonplaceholder.typicode.com/users',
+                textKey: 'name'
+            },
+            {
+                type: 'api-select',
+                label: 'DES',
+                model: "des",
                 api: 'https://jsonplaceholder.typicode.com/users',
                 textKey: 'name'
             }

@@ -92,7 +92,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     private showSuccessToast() {
-        this.$bvToast.toast(`Su operación fue '${this.infoModal.title}'`, {
+        this.$bvToast.toast(`Su operación fue exitosa`, {
             title: 'Operación exitosa',
             variant: 'success',
             solid: true
