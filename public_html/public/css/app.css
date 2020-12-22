@@ -14309,6 +14309,10 @@ input[type=color].form-control:disabled {
   vertical-align: text-bottom;
 }
 
+.active > a > svg {
+  color: white;
+}
+
 .bar {
   margin-bottom: 10px;
   float: right;

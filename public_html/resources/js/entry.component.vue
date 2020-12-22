@@ -34,7 +34,7 @@
                     <ul class="nav nav-primary">
                         <router-link class="nav-item" active-class="active" tag="li" to="/home">
                             <a v-b-toggle.accordion-1>
-                                <i class="fa fa-home"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fas fa-home"></i>
                                 <p>Inicio</p>
                             </a>
                             <b-collapse style="display: none;" id="accordion-1" accordion="my-accordion" role="tabpanel" class="mt-2">
@@ -42,7 +42,7 @@
                         </router-link>
                         <router-link class="nav-item" active-class="active" tag="li" to="/users">
                             <a v-b-toggle.accordion-2>
-                                <i class="fa fa-users"></i>
+                                <i active-class="text-light" style="padding-right: 5px; font-size: 20px;" class="fa fa-users"></i>
                                 <p>Usuarios</p>
                                 <span class="caret"></span>
                             </a>
@@ -61,7 +61,7 @@
                         </router-link>
                         <router-link class="nav-item" active-class="active" tag="li" to="/academic-unit">
                             <a v-b-toggle.accordion-3>
-                                <i class="fa fa-address-card"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-address-card"></i>
                                  <p>Cuerpos Académicos</p>
                                 <span class="caret"></span>
                             </a>
@@ -107,7 +107,7 @@
                         </router-link>
                         <router-link class="nav-item" active-class="active" tag="li" to="/prodep">
                             <a v-b-toggle.accordion-4>
-                                <i class="fa fa-university"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-university"></i>
                                 <p>PRODEP</p>
                                 <span class="caret"></span>
                             </a>
@@ -138,7 +138,7 @@
                         </router-link>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar3">
-                                <i class="fa fa-laptop"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-laptop"></i>
                                 <p>SNI</p>
                                 <span class="caret"></span>
                             </a>
@@ -159,7 +159,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar4">
-                                <i class="f/a fa-podcast"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-podcast"></i>
                                 <p>Profesor-Investigador</p>
                                 <span class="caret"></span>
                             </a>
@@ -185,7 +185,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar5">
-                                <i class="fa fa-building"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-building"></i>
                                 <p>Productividad Academica</p>
                                 <span class="caret"></span>
                             </a>
@@ -241,7 +241,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar6">
-                                <i class="icon-organization icons"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-brain"></i>
                                 <p>Propiedad Intelectual</p>
                                 <span class="caret"></span>
                             </a>
@@ -277,7 +277,7 @@
                         </li>
                         <li class="nav-item">
                             <a data-toggle="collapse" href="#sidebar7">
-                                <i class="icon-graduation icons"></i>
+                                <i style="padding-right: 5px; font-size: 20px;" class="fa fa-user-graduate"></i>
                                 <p>Posgrado</p>
                                 <span class="caret"></span>
                             </a>

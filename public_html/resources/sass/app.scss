@@ -8,6 +8,11 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue';
 
+
+.active > a > svg {
+	color: white;
+}
+
 .bar {
 	margin-bottom: 10px;
 	float: right;
