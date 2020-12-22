@@ -31,6 +31,13 @@ export default class AcademicUnitManagementPage extends Vue {
                 model: "status",
                 textOn: "Vigente",
                 textOff: "No vigente"
+            },
+            {
+                type: 'api-select',
+                label: 'Areas PRODEP',
+                model: "prodep",
+                api: 'https://jsonplaceholder.typicode.com/users',
+                textKey: 'name'
             }
         ]
     };

@@ -6,6 +6,7 @@ import CSVButton from './@shared/csv-button/index.vue';
 import PDFButton from './@shared/pdf-button/index.vue';
 import SiipTableComponent from "./@shared/siip-table/index.vue";
 import VfgFieldCalendar from './@shared/vfg-field-calendar/index.vue';
+import VfgFieldApiSelect from './@shared/vfg-field-select-api/index.vue';
 import VfgFieldSwitch from './@shared/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import router from './router';
@@ -22,6 +23,7 @@ Vue.component('csv-button', CSVButton)
 Vue.component('siip-table', SiipTableComponent)
 Vue.component('field-calendar', VfgFieldCalendar);
 Vue.component('field-switch2', VfgFieldSwitch);
+Vue.component('field-api-select', VfgFieldApiSelect);
 
 router.beforeEach((to, from, next) => {
     // This goes through the matched routes from last to first, finding the closest route with a title.
