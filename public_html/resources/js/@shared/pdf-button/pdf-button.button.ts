@@ -1,7 +1,7 @@
-import Vue from "vue"
-import Component from "vue-class-component"
 import * as jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import Vue from "vue"
+import Component from "vue-class-component"
 
 @Component
 export default class PDFButton extends Vue {
@@ -22,8 +22,8 @@ export default class PDFButton extends Vue {
         const text = doc.splitTextToSize(`SISTEMA INSTITUCIONAL DE INDICADORES DE INVESTIGACION Y POSGRADO`, pageWidth - 35, {})
         doc.text(text, 14, 30)
         // @ts-ignore
-        const res = doc.autoTableHtmlToJson(document.getElementById("users-table"));
-        const columns = res.columns.slice(0,5);
+        const res = doc.autoTableHtmlToJson(document.getElementById("main-table"));
+        const columns = res.columns.slice(0, 5);
         // @ts-ignore
         doc.autoTable(columns, res.data, {
             startY: 40,

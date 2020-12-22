@@ -12,7 +12,7 @@
         </div>
         <input  v-model="query" class="form-control mb-4"  type="text" placeholder="Buscar Usuario">
         <div>
-            <table  id="users-table" class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4">
+            <table  id="main-table" class="table table-bordered table-head-bg-warning table-bordered-bd-warning mt-4">
                 <thead>
                 <tr>
                     <th id="nombre" style="width: 20%">Nombre</th>

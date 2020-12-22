@@ -42,7 +42,7 @@
             <div class="b-table-sticky-header">
                 <b-table
                     small
-                    id="my-table"
+                    id="main-table"
                     hover
                     stacked="md"
                     sticky-header
