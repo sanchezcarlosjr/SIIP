@@ -10,27 +10,13 @@ export default class SiipTableComponent extends Vue {
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop() spanishResourceName!: string;
+    @Prop() schema!: any;
     items: any = [];
     totalRows = 1;
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
     filter: string[] = [];
-    model = {
-        id: 1
-    };
-    schema = {
-        fields: [
-            {
-                type: 'input',
-                inputType: 'text',
-                label: 'ID (disabled text field)',
-                model: 'id',
-                readonly: false,
-                disabled: false
-            }
-        ]
-    };
     infoModal: InfoModal = new InfoModal();
     get sortOptions() {
         return this.fields
@@ -42,6 +28,7 @@ export default class SiipTableComponent extends Vue {
 
     mounted() {
         this.infoModal.resource = this.spanishResourceName;
+        this.infoModal.loadModel(this.schema);
         axios.get(`/api/${this.resource}`).then(
             (response) => {
                 this.items = response.data;
@@ -52,8 +39,9 @@ export default class SiipTableComponent extends Vue {
 
     execute() {
         let strategy: any = null;
-        if (this.infoModal.id === 'remove') {
-            strategy = this['removeElement']();
+        switch (this.infoModal.id) {
+            case 'remove': strategy = this['removeElement'](); break;
+            case 'add': strategy = this['addElement'](); break;
         }
         if (strategy) {
             strategy.then(() => this.showSuccessToast());
@@ -97,6 +85,10 @@ export default class SiipTableComponent extends Vue {
     private removeElement() {
         this.items.splice(this.infoModal.rowId, 1);
         return axios.delete(`api/${this.resource}/${this.infoModal.itemId}`);
+    }
+
+    private addElement() {
+        console.log(this.infoModal.model);
     }
 
     private showSuccessToast() {

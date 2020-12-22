@@ -4,6 +4,13 @@ export interface Strategy {
     [key: string]: () => string;
 }
 
+export interface Model {
+    [key: string]: string;
+}
+interface Schema {
+    fields: { model: string }[];
+}
+
 export class InfoModal implements Modal {
     private strategies: Strategy = {
         remove: () => 'Eliminar',
@@ -13,10 +20,10 @@ export class InfoModal implements Modal {
     id: string = '';
     title = '';
     item: any = null;
+    model: Model = {};
     rowId = -1;
     content = '';
     resource = document.title.replace(/s/g, '').toLowerCase();
-
     reset() {
         this.title = '';
         this.content = '';
@@ -29,6 +36,9 @@ export class InfoModal implements Modal {
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
         this.content = JSON.stringify(item, null, 2)
+    }
+    loadModel(schema: Schema) {
+        schema.fields.forEach((field) => this.model[field.model] = '');
     }
     get itemId() {
         return this.item?.id;

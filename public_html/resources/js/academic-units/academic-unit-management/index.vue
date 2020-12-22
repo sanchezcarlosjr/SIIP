@@ -1,5 +1,5 @@
 <template>
-    <siip-table :spanishResourceName="spanishResourceName" :tableTitle="tableTitle" :fields="fields" :resource="apiResource"></siip-table>
+    <siip-table :schema="schema" :spanishResourceName="spanishResourceName" :tableTitle="tableTitle" :fields="fields" :resource="apiResource"></siip-table>
 </template>
 
 <script src="./academic-unit-management.page.ts" lang="ts"></script>

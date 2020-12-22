@@ -77,8 +77,8 @@
                     :columns="fields.length"
                 ></b-skeleton-table>
             </div>
-            <b-modal id="add" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal">
-                <vue-form-generator :schema="schema" :model="model"></vue-form-generator>
+            <b-modal id="add" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal" @ok="execute">
+                <vue-form-generator :schema="schema" :model="infoModal.model"></vue-form-generator>
             </b-modal>
             <b-modal id="edit" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal">
                 <pre>{{ infoModal.content }}</pre>
