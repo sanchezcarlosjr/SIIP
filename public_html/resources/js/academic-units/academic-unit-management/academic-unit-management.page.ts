@@ -15,9 +15,22 @@ export default class AcademicUnitManagementPage extends Vue {
                 model: 'academic_unit_name'
             },
             {
+                type: 'input',
+                inputType: 'text',
+                label: 'Clave PRODEP',
+                model: 'prodep_key'
+            },
+            {
                 type: 'calendar',
-                label: 'Clave prodep',
-                model: 'promep_key'
+                label: 'Fecha de registro',
+                model: 'register_date'
+            },
+            {
+                type: "switch2",
+                label: "Vigencia",
+                model: "status",
+                textOn: "Vigente",
+                textOff: "No vigente"
             }
         ]
     };

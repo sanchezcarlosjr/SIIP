@@ -6,6 +6,7 @@ import CSVButton from './@shared/csv-button/index.vue';
 import PDFButton from './@shared/pdf-button/index.vue';
 import SiipTableComponent from "./@shared/siip-table/index.vue";
 import VfgFieldCalendar from './@shared/vfg-field-calendar/index.vue';
+import VfgFieldSwitch from './@shared/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import router from './router';
 const VueFormGenerator = require('vue-form-generator');
@@ -20,6 +21,7 @@ Vue.component('pdf-button', PDFButton)
 Vue.component('csv-button', CSVButton)
 Vue.component('siip-table', SiipTableComponent)
 Vue.component('field-calendar', VfgFieldCalendar);
+Vue.component('field-switch2', VfgFieldSwitch);
 
 router.beforeEach((to, from, next) => {
     // This goes through the matched routes from last to first, finding the closest route with a title.
