@@ -1,61 +1,92 @@
 <template>
-    <b-container fluid>
-        <b-row>
-            <b-col lg="12" class="my-1">
-                <b-form-group
-                    class="mb-0"
+  <div class="container">
+        <div class="card-header">
+            <b-container style="padding: 0" class="card-title">
+                <b-row>
+                    <b-col style="padding: 0" cols="8">{{tableTitle}}</b-col>
+                    <b-col cols="4">
+                       <b-row>
+                            <b-col cols="9">
+                              <button class="btn btn-success" size="sm" >Agregar cuerpo académico</button>
+                            </b-col>
+                            <b-col>
+                                  <pdf-button></pdf-button>
+                                  <csv-button></csv-button>
+                            </b-col>
+                       </b-row>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </div>
+         <b-container fluid>
+            <b-row>
+                <b-col lg="12" class="my-1">
+                    <b-form-group
+                        class="mb-0"
+                    >
+                        <b-input-group>
+                            <b-form-tags
+                                input-id="tags-pills"
+                                v-model="filter"
+                                tag-variant="primary"
+                                tag-pills
+                                remove-on-delete
+                                size="lg"
+                                addButtonText="Añadir"
+                                placeholder="Buscar"
+                            ></b-form-tags>
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <div class="b-table-sticky-header">
+                <b-table
+                    small
+                    id="my-table"
+                    hover
+                    stacked="md"
+                    sticky-header
+                    head-variant="light"
+                    :items="items"
+                    :fields="fields"
+                    :filter="filter"
+                    :sort-by.sync="sortBy"
+                    :sort-desc.sync="sortDesc"
+                    :filter-function="search"
+                    :sort-direction="sortDirection"
+                    @row-clicked="item=>$set(item, '_showDetails', !item._showDetails)"
                 >
-                    <b-input-group>
-                        <b-form-input
-                            v-model="filter"
-                            type="search"
-                            id="filterInput"
-                            placeholder="Buscar"
-                        ></b-form-input>
-                    </b-input-group>
-                </b-form-group>
-            </b-col>
-        </b-row>
-        <b-table
-            show-empty
-            small
-            stacked="md"
-            :items="items"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filter-included-fields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            @filtered="onFiltered"
-        >
-            <template #cell(name)="row">
-                {{ row.value.first }} {{ row.value.last }}
-            </template>
-
-            <template #cell(actions)="row">
-                <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    Info modal
-                </b-button>
-                <b-button size="sm" @click="row.toggleDetails">
-                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-                </b-button>
-            </template>
-            <template #row-details="row">
-                <b-card>
-                    <ul>
-                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                    </ul>
-                </b-card>
-            </template>
-        </b-table>
-        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
-        </b-modal>
-    </b-container>
+                    <template #cell(actions)="row">
+                        <a style="font-size:20px" @click="edit(row.item, row.index, $event.target)"><i class="fa fa-edit"></i></a>
+                        <a style="font-size:20px" @click="remove(row.item, row.index, $event.target)"><i class="fa fa-trash"></i></a>
+                    </template>
+                    <template #row-details="row">
+                        <b-card>
+                        <b-list-group>
+                            <b-list-group-item class="d-flex justify-content-between align-items-center" v-for="(value, key) in row.item" :key="key">
+                            {{ value }}
+                            <b-badge variant="primary" pill>{{ key }}</b-badge>
+                            </b-list-group-item>
+                        </b-list-group>
+                        </b-card>
+                    </template>
+                </b-table>
+            <b-skeleton-table
+                    v-if="items.length === 0"
+                    :rows="10"
+                    :columns="fields.length"
+                ></b-skeleton-table>
+            </div>
+            <b-modal id="edit" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal">
+                <pre>{{ infoModal.content }}</pre>
+            </b-modal>
+            <b-modal id="remove" :title="infoModal.title" ok-title="Aceptar" cancel-title="Cancelar" @hide="resetModal" @ok="execute">
+                <p>¿Realmente desea eliminar a este {{infoModal.resource}}?</p>
+                <p class="text-warning"><small>Esta acción no puede ser revertida.</small></p>
+            </b-modal>
+        </b-container>
+    </div>
 </template>
 
-<script src="./crud.page.ts" lang="ts"></script>
-<style src="./crud.page.scss" scoped lang="scss"></style>
+<script src="./siip-table.component.ts" lang="ts"></script>
+<style src="./siip-table.component.scss" scoped lang="scss"></style>

@@ -1,83 +1,89 @@
-import Vue from "vue"
-import Component from "vue-class-component"
 import axios from 'axios';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { Prop } from 'vue-property-decorator';
+import { InfoModal } from './info-modal';
 
 @Component
 export default class SiipTableComponent extends Vue {
-    items = [
-        {isActive: true, age: 40, name: {first: 'Dickerson', last: 'Macdonald'}, city: 'Ensenada'},
-        {isActive: false, age: 21, name: {first: 'Larsen', last: 'Shaw'}, city: 'Mexicali'}
-    ];
-    fields = [
-        {key: 'name', label: 'Person full name', sortable: true, sortDirection: 'desc'},
-        {key: 'age', label: 'Person age', sortable: true, class: 'text-center'},
-        {
-            key: 'isActive',
-            label: 'Is Active',
-            formatter: (value: string, key: string, item: string) => {
-                return value ? 'Yes' : 'No'
-            },
-            sortable: true,
-            sortByFormatted: true,
-            filterByFormatted: true
-        },
-        {key: 'actions', label: 'Actions'}
-    ];
+    @Prop() resource!: string;
+    @Prop() fields!: any[];
+    @Prop() tableTitle!: string;
+    items: any = [];
     totalRows = 1;
-    currentPage = 1;
-    perPage = 5;
-    pageOptions = [5, 10, 15, {value: 100, text: "Show a lot"}];
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
-    filter = null;
-    filterOn = [];
-    infoModal = {
-        id: 'info-modal',
-        title: '',
-        content: ''
-    }
-    cities = [
-        {value: 'Ensenada', text: 'Ensenada'},
-        {value: 'Mexicali', text: 'Mexicali'},
-    ];
-
+    filter: string[] = [];
+    infoModal = new InfoModal();
     get sortOptions() {
-        // Create an options list from our fields
         return this.fields
-            .filter(f => f.sortable)
-            .map(f => {
-                return {text: f.label, value: f.key}
+            .filter(field => field.sortable)
+            .map(field => {
+                return { text: field.label, value: field.key }
             })
     }
 
     mounted() {
-        this.index();
-        this.totalRows = this.items.length;
-
+        axios.get(`/api/${this.resource}`).then(
+            (response) => {
+                this.items = response.data;
+                this.totalRows = this.items.length;
+            }
+        );
     }
 
-    info(item: any, index: any, button: any) {
-        this.infoModal.title = `Row index: ${index}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
+    execute() {
+        let strategy: any = null;
+        if (this.infoModal.id === 'remove') {
+            strategy = this['removeElement']();
+        }
+        if (strategy) {
+            strategy.then(() => this.showSuccessToast());
+        }
+    }
+
+    search(row: any, criteria: string[]) {
+        const values: string[] = Object.values(row);
+        const valueString = values.toString();
+        return criteria.filter(value => valueString.toLowerCase().indexOf(value.toLowerCase()) !== -1).length > 0;
+    }
+
+
+    edit(item: any, index: any, button: any) {
+        this.infoModal.id = 'edit';
+        this.showModal(item, index, button);
+    }
+
+    remove(item: any, index: any, button: any) {
+        this.infoModal.id = 'remove';
+        this.showModal(item, index, button);
+    }
+
+
+    resetModal() {
+        this.infoModal.reset();
+    }
+
+
+    private showModal(item: any, index: any, button: any) {
+        this.infoModal.setModal(item, index);
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
     }
 
-    resetInfoModal() {
-        this.infoModal.title = ''
-        this.infoModal.content = ''
+
+    private removeElement() {
+        this.items.splice(this.infoModal.rowId, 1);
+        return axios.delete(`api/${this.resource}/${this.infoModal.itemId}`);
     }
 
-    onFiltered(filteredItems: any) {
-        // Trigger pagination to update the number of buttons/pages due to filtering
-        this.totalRows = filteredItems.length
-        this.currentPage = 1
+    private showSuccessToast() {
+        this.$bvToast.toast(`Su operación fue '${this.infoModal.title}'`, {
+            title: 'Operación exitosa',
+            variant: 'success',
+            solid: true
+        })
     }
 
-    index() {
-        axios.get('/api/academic-units').then((response) => {
-            console.log(response.data);
-        });
-    }
 }
 
