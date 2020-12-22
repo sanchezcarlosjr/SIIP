@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAcademicUnitTable extends Migration
+class CreateAcademicUnitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,11 @@ class CreateAcademicUnitTable extends Migration
     {
         Schema::create('academic_units', function (Blueprint $table) {
             $table->id();
-            $table->string('ClavePROMEP');
+            $table->string('promep_key');
+            $table->string('degree_of_consolidation');
+            $table->string('leader_name');
+            $table->string('academic_unit_name');
+            $table->string('uabc_area');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateAcademicUnitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_unit');
+        Schema::dropIfExists('academic_units');
     }
 }

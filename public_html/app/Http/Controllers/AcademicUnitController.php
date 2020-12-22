@@ -80,6 +80,6 @@ class AcademicUnitController extends Controller
      */
     public function destroy(AcademicUnit $academicUnit)
     {
-        //
+        return $academicUnit->delete();
     }
 }

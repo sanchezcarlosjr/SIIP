@@ -22,7 +22,11 @@ class AcademicUnitFactory extends Factory
     public function definition()
     {
         return [
-            'ClavePROMEP' => $this->faker->company
+            'promep_key' => $this->faker->company,
+            'degree_of_consolidation' => $this->faker->name,
+            'leader_name' => $this->faker->name,
+            'academic_unit_name' => $this->faker->name,
+            'uabc_area' => $this->faker->city
         ];
     }
 }

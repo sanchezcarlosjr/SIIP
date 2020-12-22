@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->makeRoles();
         $this->makeUsers();
-        AcademicUnit::factory()->count(3)->create();
+        AcademicUnit::factory()->count(10)->create();
     }
 
     private function makeRoles()
