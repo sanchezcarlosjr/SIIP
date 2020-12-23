@@ -89,11 +89,18 @@ export default class SiipTableComponent extends Vue {
     }
 
     private addElement() {
-        return axios.post(`api/${this.resource}`, this.infoModal.model);
+        return axios.post(`api/${this.resource}`, {
+            ...this.infoModal.model
+        });
     }
 
     private editElement() {
-        return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, this.infoModal.model);
+        for (const key of Object.keys(this.infoModal.model) as string[]) {
+            this.items[this.infoModal.rowId][key] = this.infoModal.model[key];
+        }
+        return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, {
+            ...this.infoModal.model
+        });
     }
 
     private showSuccessToast() {
