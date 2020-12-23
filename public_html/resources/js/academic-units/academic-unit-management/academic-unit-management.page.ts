@@ -17,8 +17,8 @@ export default class AcademicUnitManagementPage extends Vue {
             {
                 type: 'input',
                 inputType: 'text',
-                label: 'Clave PRODEP',
-                model: 'prodep_key'
+                label: 'Clave PROMEP',
+                model: 'promep_key'
             },
             {
                 type: 'calendar',
@@ -28,35 +28,36 @@ export default class AcademicUnitManagementPage extends Vue {
             {
                 type: "switch2",
                 label: "Vigencia",
-                model: "status",
+                model: "active",
                 textOn: "Vigente",
                 textOff: "No vigente"
             },
             {
                 type: 'api-select',
-                label: 'Nombre del lider',
-                model: "leader_name",
+                label: 'Nombre del líder',
+                model: "leader_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
                 textKey: 'name'
             },
             {
                 type: 'api-select',
-                label: 'Areas PRODEP',
-                model: "prodep",
+                label: 'Área  PRODEP',
+                model: "prodep_area_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
                 textKey: 'name'
-            },
+            }
+            ,
             {
                 type: 'api-select',
-                label: 'Displinas',
-                model: "displines",
+                label: 'Disciplina',
+                model: "displine_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
                 textKey: 'name'
             },
             {
                 type: 'api-select',
                 label: 'DES',
-                model: "des",
+                model: "des_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
                 textKey: 'name'
             }
@@ -66,7 +67,7 @@ export default class AcademicUnitManagementPage extends Vue {
         { key: 'academic_unit_name', label: 'Nombre', sortable: true },
         { key: 'promep_key', label: 'Clave PROMEP', sortable: true },
         { key: 'degree_of_consolidation', label: 'Grado', sortable: true },
-        { key: 'leader_name', label: 'Encargado', sortable: true },
+        { key: 'leader_id', label: 'Encargado', sortable: true },
         { key: 'actions', label: 'Acciones' }
     ];
 }

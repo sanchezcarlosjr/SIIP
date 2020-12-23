@@ -16,10 +16,16 @@ class CreateAcademicUnitsTable extends Migration
         Schema::create('academic_units', function (Blueprint $table) {
             $table->id();
             $table->string('promep_key');
-            $table->string('degree_of_consolidation');
-            $table->string('leader_name');
             $table->string('academic_unit_name');
-            $table->string('uabc_area');
+            $table->string('degree_of_consolidation');
+            $table->dateTime('register_date');
+            $table->dateTime('next_revision_date');
+            $table->integer('prodep_area_id');
+            $table->integer('leader_id');       
+            $table->integer('uabc_area_id');
+            $table->integer('displine_id');
+            $table->integer('des_id');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

@@ -35,7 +35,17 @@ class AcademicUnitController extends Controller
      */
     public function store(Request $request)
     {
-
+        return AcademicUnit::create([
+                'promep_key' => $request->promep_key,
+                'academic_unit_name' =>  $request->academic_unit_name,
+                'register_date' => $request->register_date,
+                'active' => $request->active,
+                'leader_id' => $request->leader_id,
+                'uabc_area_id' => $request->uabc_area_id,
+                'prodep_area_id' => $request->prodep_area_id,
+                'displine_id' => $request->displine_id,
+                'des_id' => $request->des_id
+        ]);
     }
 
     /**
@@ -69,7 +79,7 @@ class AcademicUnitController extends Controller
      */
     public function update(Request $request, AcademicUnit $academicUnit)
     {
-        //
+        return AcademicUnit::find($id)->update($request->all());
     }
 
     /**

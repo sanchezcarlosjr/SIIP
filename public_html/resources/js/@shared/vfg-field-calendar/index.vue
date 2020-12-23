@@ -4,7 +4,7 @@
       today-button
       reset-button
       close-button
-      locale="en"
+      locale="es"
       v-model="value" 
     ></b-form-datepicker>
 </template>

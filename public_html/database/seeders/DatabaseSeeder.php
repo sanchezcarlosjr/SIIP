@@ -18,7 +18,27 @@ class DatabaseSeeder extends Seeder
     {
         $this->makeRoles();
         $this->makeUsers();
-        AcademicUnit::factory()->count(100)->create();
+        $this->makeAcademicUnits();
+    }
+
+    private function makeAcademicUnits() {
+         DB::table('academic_units')->insert([
+            [
+                'promep_key' => 'UABC-CA-281',
+                'academic_unit_name' =>  'ARTE, TECNOLOGÍA Y SOCIEDAD CONTEMPORÁNEA',
+                'degree_of_consolidation' => 'EN FORMACIÓN',
+                'register_date' => '11/7/2016',
+                'next_revision_date' => '11/25/2022',
+                'prodep_area_id' => 2,
+                'leader_id' => 3,
+                'uabc_area_id' => 4,
+                'displine_id' => 1,
+                'des_id' => 5,
+                'active' => true,
+                'created_at' => '10/22/2020',
+                'updated_at' => '12/22/2020'
+            ],
+        ]);
     }
 
     private function makeRoles()
