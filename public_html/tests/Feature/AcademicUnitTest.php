@@ -20,14 +20,19 @@ class AcademicUnitTest extends TestCase
         $response = $this->json('GET', '/api/academic-units');
         $response->assertJsonStructure([
             [
-                'id',
                 'promep_key',
-                'degree_of_consolidation',
-                'leader_name',
                 'academic_unit_name',
-                'uabc_area',
+                'degree_of_consolidation',
+                'register_date',
+                'next_revision_date',
+                'prodep_area_id',
+                'leader_id',
+                'uabc_area_id',
+                'displine_id',
+                'des_id',
+                'active',
                 'created_at',
-                'updated_at'
+                'updated_at',
             ]
         ]);
     }
@@ -38,6 +43,18 @@ class AcademicUnitTest extends TestCase
         $response = $this->deleteJson("/api/academic-units/{$academic_unit->id}");
         $response->assertStatus(200);
         $this->assertDeleted($academic_unit);
+    }
+
+    public function testItShouldUpdateAcademicUnit()
+    {
+        $academic_unit = AcademicUnit::factory()->create();
+        $response = $this->putJson("/api/academic-units/{$academic_unit->id}",
+            ['leader_id' => 3]
+        );
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'leader_id' => 3,
+        ]);
     }
     
 }

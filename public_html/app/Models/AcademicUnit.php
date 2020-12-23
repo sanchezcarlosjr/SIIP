@@ -9,6 +9,16 @@ class AcademicUnit extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'ClavePROMEP',
+        'academic_unit_name',
+        'promep_key',
+        'degree_of_consolidation',
+        'register_date',
+        'next_revision_date',
+        'prodep_area_id',
+        'leader_id',
+        'uabc_area_id',
+        'displine_id',
+        'des_id',
+        'active'
     ];
 }

@@ -79,7 +79,8 @@ class AcademicUnitController extends Controller
      */
     public function update(Request $request, AcademicUnit $academicUnit)
     {
-        return AcademicUnit::find($id)->update($request->all());
+        $academicUnit->update($request->all());
+        return $academicUnit;
     }
 
     /**
