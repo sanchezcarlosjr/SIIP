@@ -43,7 +43,9 @@ export default class SiipTableComponent extends Vue {
 
     execute() {
         // Common code to actions. Example: addElement, editElement, removeElement
-        this[`${this.infoModal.id}Element`]().then(() => this.showSuccessToast());
+        this[`${this.infoModal.id}Element`]()
+            .then(() => this.showSuccessToast())
+            .catch(() => this.showDangerToast());
     }
 
     search(row: any, criteria: string[]) {
@@ -88,7 +90,7 @@ export default class SiipTableComponent extends Vue {
     private addElement() {
         return axios.post(`api/${this.resource}`, {
             ...this.infoModal.model
-        });
+        }).then((element) => this.items.push(element.data));
     }
 
     private editElement() {
@@ -104,6 +106,14 @@ export default class SiipTableComponent extends Vue {
         this.$bvToast.toast(`Su operación fue exitosa`, {
             title: 'Operación exitosa',
             variant: 'success',
+            solid: true
+        })
+    }
+
+    private showDangerToast() {
+        this.$bvToast.toast(`Compruebe los datos.`, {
+            title: 'Problemas en la operación',
+            variant: 'danger',
             solid: true
         })
     }
