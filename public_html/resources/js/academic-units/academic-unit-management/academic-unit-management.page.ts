@@ -34,19 +34,25 @@ export default class AcademicUnitManagementPage extends Vue {
             },
             {
                 type: 'api-select',
+                label: 'UABC Area',
+                model: "uabc_area_id",
+                api: 'https://jsonplaceholder.typicode.com/users',
+                textKey: 'username'
+            },
+            {
+                type: 'api-select',
                 label: 'Nombre del líder',
                 model: "leader_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
-                textKey: 'name'
+                textKey: 'email'
             },
             {
                 type: 'api-select',
                 label: 'Área  PRODEP',
                 model: "prodep_area_id",
                 api: 'https://jsonplaceholder.typicode.com/users',
-                textKey: 'name'
-            }
-            ,
+                textKey: 'address.city'
+            },
             {
                 type: 'api-select',
                 label: 'Disciplina',

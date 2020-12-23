@@ -6,6 +6,7 @@ import { InfoModal } from './info-modal';
 
 @Component
 export default class SiipTableComponent extends Vue {
+    [x: string]: any;
     @Prop() resource!: string;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
@@ -27,8 +28,11 @@ export default class SiipTableComponent extends Vue {
     }
 
     mounted() {
-        this.infoModal.resource = this.spanishResourceName;
-        this.infoModal.loadModel(this.schema);
+        this.infoModal.build(this.schema, this.spanishResourceName);
+        this.index();
+    }
+
+    index() {
         axios.get(`/api/${this.resource}`).then(
             (response) => {
                 this.items = response.data;
@@ -38,15 +42,8 @@ export default class SiipTableComponent extends Vue {
     }
 
     execute() {
-        let strategy: any = null;
-        switch (this.infoModal.id) {
-            case 'remove': strategy = this['removeElement'](); break;
-            case 'edit': strategy = this['editElement'](); break;
-            case 'add': strategy = this['addElement'](); break;
-        }
-        if (strategy) {
-            strategy.then(() => this.showSuccessToast());
-        }
+        // Common code to actions. Example: addElement, editElement, removeElement
+        this[`${this.infoModal.id}Element`]().then(() => this.showSuccessToast());
     }
 
     search(row: any, criteria: string[]) {

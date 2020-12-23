@@ -35,7 +35,7 @@ class AcademicUnitController extends Controller
      */
     public function store(Request $request)
     {
-        return AcademicUnit::create([
+        $academicUnit = AcademicUnit::create([
                 'promep_key' => $request->promep_key,
                 'academic_unit_name' =>  $request->academic_unit_name,
                 'register_date' => $request->register_date,
@@ -46,6 +46,7 @@ class AcademicUnitController extends Controller
                 'displine_id' => $request->displine_id,
                 'des_id' => $request->des_id
         ]);
+        return response()->json($academicUnit, 201);
     }
 
     /**

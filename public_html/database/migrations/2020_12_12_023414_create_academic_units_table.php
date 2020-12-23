@@ -17,9 +17,9 @@ class CreateAcademicUnitsTable extends Migration
             $table->id();
             $table->string('promep_key');
             $table->string('academic_unit_name');
-            $table->string('degree_of_consolidation');
+            $table->string('degree_of_consolidation')->nullable();
             $table->dateTime('register_date');
-            $table->dateTime('next_revision_date');
+            $table->dateTime('next_revision_date')->nullable();
             $table->integer('prodep_area_id');
             $table->integer('leader_id');       
             $table->integer('uabc_area_id');

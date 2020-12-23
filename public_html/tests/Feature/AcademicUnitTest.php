@@ -45,6 +45,25 @@ class AcademicUnitTest extends TestCase
         $this->assertDeleted($academic_unit);
     }
 
+    public function testItShouldStoreAcademicUnit() 
+    {
+        $row =  [
+                'promep_key' => 'UABC-CA-281',
+                'academic_unit_name' =>  'ARTE, TECNOLOGÍA Y SOCIEDAD CONTEMPORÁNEA',
+                'register_date' => '11/7/2016',
+                'prodep_area_id' => 2,
+                'leader_id' => 3,
+                'uabc_area_id' => 4,
+                'displine_id' => 1,
+                'des_id' => 5,
+                'active' => true
+        ];
+        $response = $this->postJson('/api/academic-units/', $row);
+        $response
+            ->assertStatus(201)
+            ->assertJsonFragment($row);
+    }
+
     public function testItShouldUpdateAcademicUnit()
     {
         $academic_unit = AcademicUnit::factory()->create();

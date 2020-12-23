@@ -22,7 +22,11 @@ export class InfoModal implements Modal {
     item: any = null;
     model: Model = {};
     rowId = -1;
-    resource = document.title.replace(/s/g, '').toLowerCase();
+    private resource = '';
+    build(schema: Schema, spanishResourceName: string = document.title.replace(/s/g, '').toLowerCase()) {
+        this.resource = spanishResourceName;
+        this.loadModel(schema);
+    }
     reset() {
         this.title = '';
         this.item = null;
