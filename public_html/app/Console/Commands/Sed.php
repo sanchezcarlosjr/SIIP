@@ -4,6 +4,8 @@
 namespace App\Console\Commands;
 
 
+use Exception;
+
 class Sed
 {
     private $operation = '';
@@ -28,6 +30,7 @@ class Sed
 
     public function exec_in(string $directory)
     {
-        shell_exec("find databases/migrations -type f -exec sed -i 's/A/A/g' {} \;");
+        throw_if($directory === '.', new Exception("Directory cannot be all project"));
+        shell_exec("find $directory -type f -exec sed -i 's/A/A/g' {} \;");
     }
 }
