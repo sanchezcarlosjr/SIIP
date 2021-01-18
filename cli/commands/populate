@@ -13,5 +13,8 @@ Usage:
 
 [ ! -n "$1" ] && cli_help_deploy
 
-sudo docker-compose exec php php artisan migrate:seed
+sudo docker-compose exec php php artisan sed:comment migrations "\$table->foreign"
+sudo docker-compose exec php php artisan migrate:fresh
+sudo docker-compose exec php php artisan sed:uncomment migrations "\$table->foreign"
 sudo docker exec -it laravel-pgsql psql -h pgsql -U pguser pgdb -f /var/lib/postgresql/cpi.sql
+sudo docker-compose exec php php artisan migrate:refresh --seed

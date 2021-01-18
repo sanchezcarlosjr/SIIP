@@ -17,6 +17,7 @@ Usage: $cli_name [command]
 Commands:
   deploy    Deploy
   generate  Generate a schematic
+  populate  Populate your local database
   *         Help
 "
   exit 1
@@ -31,6 +32,9 @@ cli_log "Exporting config ..."
 export $(cat "$BAGCLI_WORKDIR/config" | xargs)
 
 case "$1" in
+  populate|p)
+    "$BAGCLI_WORKDIR/commands/populate" "$2" | tee -ia "$BAGCLI_WORKDIR/logs/populate_${2}.log"
+    ;;
   deploy|d)
     "$BAGCLI_WORKDIR/commands/deploy" "$2" | tee -ia "$BAGCLI_WORKDIR/logs/deploy_${2}.log"
     ;;
