@@ -14,12 +14,12 @@ class Sed
     }
 
     static public function comment_in(string $directory, string $regex) {
-        $sed = new Sed("A", "B");
+        $sed = new Sed($regex, "# $regex");
         $sed->exec_in($directory);
     }
 
     static public function uncomment_in(string $directory, string $regex) {
-        $sed = new Sed("# $regex", "$regex");
+        $sed = new Sed("# $regex", $regex);
         $sed->exec_in($directory);
     }
 
@@ -31,6 +31,6 @@ class Sed
     public function exec_in(string $directory)
     {
         throw_if($directory === '.', new Exception("Directory cannot be all project"));
-        shell_exec("find $directory -type f -exec sed -i 's/A/A/g' {} \;");
+        shell_exec("find $directory -type f -exec $this->operation \;");
     }
 }
