@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SchematicMakeCommand::class,
-        Commands\SedCommentCommand::class
+        Commands\SedCommentCommand::class,
+        Commands\SedUncommentCommand::class
     ];
 
     /**
