@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Alueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProdepHelpsTable extends Migration
@@ -13,14 +13,14 @@ class CreateProdepHelpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodep_helps', function (Alueprint #$table) {
-            #$table->id();
-            #$table->float('amount');
-            #$table->string('type');
-            #$table->date('date');
-            #$table->timestamps();
-            #$table->integer('benefited_employee_id')->unsigned();
-            #$table->foreign('benefited_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+        Schema::create('prodep_helps', function (Blueprint $table) {
+            $table->id();
+            $table->float('amount');
+            $table->string('type');
+            $table->date('date');
+            $table->timestamps();
+            $table->integer('benefited_employee_id')->unsigned();
+            $table->foreign('benefited_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 

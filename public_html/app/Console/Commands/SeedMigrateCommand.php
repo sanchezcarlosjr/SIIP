@@ -37,7 +37,7 @@ class SeedMigrateCommand extends Command
      */
     public function handle()
     {
-        Sed::comment_in(ProjectPath::migrations, "\$table->foreign");
+        Sed::uncomment_in(ProjectPath::migrations, "\$table");
         return 0;
     }
 }

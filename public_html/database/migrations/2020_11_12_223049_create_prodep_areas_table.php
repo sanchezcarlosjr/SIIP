@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Alueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateProdepAreasTable extends Migration
@@ -13,10 +13,10 @@ class CreateProdepAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodep_areas', function (Alueprint #$table) {
-            #$table->id();
-            #$table->string('name');
-            #$table->timestamps();
+        Schema::create('prodep_areas', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Alueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateConsultancyPitsTable extends Migration
@@ -13,15 +13,15 @@ class CreateConsultancyPitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('consultancy_pits', function (Alueprint #$table) {
-            #$table->id();
-            #$table->string('applicant_name');
-            #$table->string('kind_of_application');
-            #$table->string('motive');
-            #$table->date('date');
-            #$table->integer('academic_unit_id')->unsigned();
-            #$table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
-            #$table->timestamps();
+        Schema::create('consultancy_pits', function (Blueprint $table) {
+            $table->id();
+            $table->string('applicant_name');
+            $table->string('kind_of_application');
+            $table->string('motive');
+            $table->date('date');
+            $table->integer('academic_unit_id')->unsigned();
+            $table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

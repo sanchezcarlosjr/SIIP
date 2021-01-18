@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Alueprint;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateEvaluationsTable extends Migration
@@ -13,14 +13,14 @@ class CreateEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_bodies_evaluations', function (Alueprint #$table) {
-            #$table->id();
-            #$table->date('start_date');
-            #$table->date('finish_date');
-            #$table->string('grade');
-            #$table->timestamps();
-            #$table->integer('academic_body_id')->unsigned();
-            #$table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
+        Schema::create('academic_bodies_evaluations', function (Blueprint $table) {
+            $table->id();
+            $table->date('start_date');
+            $table->date('finish_date');
+            $table->string('grade');
+            $table->timestamps();
+            $table->integer('academic_body_id')->unsigned();
+            $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
         });
     }
 
