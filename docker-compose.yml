@@ -40,6 +40,7 @@ services:
     - ./public_html/database/legacy:/var/lib/postgresql
     environment:
       POSTGRES_USER: pguser
+      PGPASSWORD: pgpwd
       POSTGRES_PASSWORD: pgpwd
       POSTGRES_DB: pgdb
     ports:

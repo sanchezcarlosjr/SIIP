@@ -4,22 +4,24 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
-class SeedMigrateCommand extends Command
+class SedCommentCommand extends Command
 {
+    private $projectPath;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'migrate:seed';
+    protected $signature = 'sed:comment {directory} {regex}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Migrate legacy and own SIIP migrations and execute seeders';
+    protected $description = 'Comment files of a directory';
     /**
      * Create a new command instance.
      *
@@ -28,6 +30,7 @@ class SeedMigrateCommand extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->projectPath = new ProjectPath();
     }
 
     /**
@@ -37,7 +40,8 @@ class SeedMigrateCommand extends Command
      */
     public function handle()
     {
-        Sed::uncomment_in(ProjectPath::migrations, "\$table");
+        $path = $this->projectPath[$this->argument('directory')];
+        Sed::comment_in($path, $this->argument('regex'));
         return 0;
     }
 }
