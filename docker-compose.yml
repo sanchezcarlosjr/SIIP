@@ -1,11 +1,12 @@
 version: '3.7'
 
 services:
-
   # PHP Service
   php:
-    build: './php/'
+    build: '.'
     container_name: laravel-php
+    depends_on:
+      - composer_installation
     networks:
       - backend
     volumes:
@@ -36,6 +37,7 @@ services:
     working_dir: /data/pgsql
     volumes:
     - ./postgresql-data:/var/lib/postgresql/data
+    - ./public_html/database/legacy:/var/lib/postgresql
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpwd
@@ -44,6 +46,13 @@ services:
       - 5432:5432
     networks:
       - backend
+  
+  composer_installation:
+   container_name: composer_installation
+   image: composer
+   volumes:
+     - ./public_html/:/app
+   command: sh -c "composer install --ignore-platform-reqs && cp .env.example .env && php artisan key:generate"
 
 networks:
   frontend:

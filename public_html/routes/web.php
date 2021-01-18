@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +12,6 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('home');
-});
-
-Route::get('/users', function () {
-    return view('users');
-});
-
-Route::get('/academic-units', function() {
-    return view('AcademicUnits/index');
-});
-
-Route::get('/academic-units/gestion', function() {
-    return view('AcademicUnits/gestion');
-});
+})->where('any', '.*');;

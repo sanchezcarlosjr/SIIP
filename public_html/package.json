@@ -10,18 +10,30 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@types/jest": "^26.0.16",
         "axios": "^0.19",
         "bootstrap": "^4.5.3",
         "bootstrap-vue": "^2.20.1",
         "cross-env": "^7.0",
+        "jest": "^26.6.3",
         "jquery": "^3.2",
+        "jspdf": "^2.1.1",
+        "jspdf-autotable": "^3.5.13",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
+        "ts-loader": "^8.0.11",
+        "typescript": "^4.1.2",
         "vue": "^2.6.12",
+        "vue-class-component": "^7.2.6",
+        "vue-form-generator": "^2.3.4",
+        "vue-generate-component": "^3.0.1",
+        "vue-property-decorator": "^9.1.2",
+        "vue-router": "^3.4.9",
         "vue-template-compiler": "^2.6.10"
-    }
+    },
+    "dependencies": {}
 }

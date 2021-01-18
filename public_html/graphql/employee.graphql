@@ -1,0 +1,21 @@
+type AcademicUnit {
+    id: ID! @rename(attribute: "nunidad")
+    name: String @rename(attribute: "unidad")
+    campus: String
+}
+
+type Employee {
+    id: ID! @rename(attribute: "nempleado")
+    lead_employee_id: ID! @rename(attribute: "nempleado")
+    name: String @field(resolver: "App\\GraphQL\\Queries\\CustomEmployeeName")
+    sexo: String
+    age: Int @field(resolver: "App\\GraphQL\\Queries\\EmployeeAge")
+    nombre: String
+    apaterno: String
+    amaterno: String
+    grado: String
+    academic_body: String @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyList")
+    academic_unit: AcademicUnit @belongsTo(relation: "academic_unit")
+    academic_bodies: [AcademicBody]
+    active: Boolean
+}

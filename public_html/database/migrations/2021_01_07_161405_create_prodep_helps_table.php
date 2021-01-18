@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Alueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateProdepHelpsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('prodep_helps', function (Alueprint #$table) {
+            #$table->id();
+            #$table->float('amount');
+            #$table->string('type');
+            #$table->date('date');
+            #$table->timestamps();
+            #$table->integer('benefited_employee_id')->unsigned();
+            #$table->foreign('benefited_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('prodep_helps');
+    }
+}

@@ -8,6 +8,14 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue';
 
+.pointer {
+	cursor: pointer;
+}
+
+.active > a > svg {
+	color: white;
+}
+
 .bar {
 	margin-bottom: 10px;
 	float: right;
@@ -20,7 +28,6 @@
 			margin-bottom: 0 !important;
 		}
 
-        
 		.btn-group-xs > .btn, .btn-xs {
 			padding: .25rem .4rem;
 			font-size: .875rem;
@@ -37,7 +44,7 @@
 				min-width: 1000px;
 				box-shadow: 0 1px 1px rgba(0,0,0,.05);
 			}
-			.table-title {        
+			.table-title {
 				padding-bottom: 15px;
 				background:	#027f45;
 				color: #fff;
@@ -94,7 +101,7 @@
 				font-size: 13px;
 				margin: 0 5px;
 				cursor: pointer;
-			}	
+			}
 			table.table td:last-child i {
 				opacity: 0.9;
 				font-size: 22px;
@@ -124,43 +131,11 @@
 				vertical-align: middle;
 				margin-right: 10px;
 			}
-		
+
 			.hint-text {
 				float: left;
 				margin-top: 10px;
 				font-size: 13px;
-			}    
-		
-			/* Modal styles */
-			.modal .modal-dialog {
-				max-width: 400px;
 			}
-			.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-				padding: 20px 30px;
-			}
-			.modal .modal-content {
-				border-radius: 3px;
-				font-size: 14px;
-			}
-			.modal .modal-footer {
-				background: #ecf0f1;
-				border-radius: 0 0 3px 3px;
-			}
-			.modal .modal-title {
-				display: inline-block;
-			}
-			.modal .form-control {
-				border-radius: 2px;
-				box-shadow: none;
-				border-color: #dddddd;
-			}
-			.modal textarea.form-control {
-				resize: vertical;
-			}
-			.modal .btn {
-				border-radius: 2px;
-				min-width: 100px;
-			}	
-			.modal form label {
-				font-weight: normal;
-			}	
+
+

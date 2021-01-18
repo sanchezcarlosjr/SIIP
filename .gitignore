@@ -1,2 +1,3 @@
 /postgresql-data
 /.vscode/
+public_html/database/legacy/cpi.sql

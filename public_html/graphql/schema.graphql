@@ -1,0 +1,121 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
+    users: [User] @paginate(defaultCount: 10)
+    networks: [Network] @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    help(id: ID @eq): Help @find
+    academic_bodies: [AcademicBody] @paginate(defaultCount: 100)
+    evaluations: [Evaluation!]! @paginate(defaultCount: 100)
+    helps: [Help] @paginate(defaultCount: 200)
+    academic_body(id: ID @eq): AcademicBody @find
+    disciplines: [Discipline]  @paginate(defaultCount: 200)
+    prodep_areas: [ProdepArea]  @paginate(defaultCount: 200)
+    uabc_areas: [UABCArea] @paginate(defaultCount: 200)
+    des: [DES] @paginate(defaultCount: 200)
+    lgacs: [LGAC] @paginate(defaultCount: 200)
+    employees: [Employee] @paginate(defaultCount: 200)
+    employees_prodep_active: [Employee] @paginate(defaultCount: 200)
+}
+
+type Mutation {
+    updateLgac(
+        id: ID
+        key: String
+        name: String
+        description: String
+        active: Boolean
+    ): LGAC
+    createLgac(
+        key: String
+        name: String
+        description: String
+        active: Boolean
+        academic_body_id: ID
+    ): LGAC
+    destroyNetwork(name:String): Network
+    createNetwork(
+        name: String
+        type: String
+        class: String
+        start_date: Date
+        range: String
+        finish_date: Date
+        academic_body_id: Int
+    ): Network @create
+    updateNetwork(
+        id: ID
+        name: String
+        type: String
+        class: String
+        start_date: Date
+        range: String
+        finish_date: Date
+        academic_body_id: Int
+    ): Network @update
+    destroyHelp(
+      id: ID
+    ): Help
+    createHelp(
+        academic_body_id: ID
+        amount: Float
+        benefited_employee_id: ID
+        date: Date
+        type: String
+    ): Help @create
+    updateHelp(
+        id: ID
+        academic_body_id: ID
+        amount: Float
+        benefited_employee_id: ID
+        date: Date
+        type: String
+    ): Help @update
+    removeEvaluation(id:ID): Evaluation
+    createEvaluation(
+        grade: String
+        finish_date: Date
+        start_date: Date
+        academic_body_id: ID
+    ): Evaluation
+    updateEvaluation(
+        id:ID
+        grade: String
+        finish_date: Date
+        start_date: Date
+    ): Evaluation
+    addEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
+    removeEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
+    removeAcademicBodies(id: ID): AcademicBody
+    updateAcademicBodies(
+        id: ID
+        name: String,
+        prodep_key: String,
+        active: Boolean,
+        prodep_area_id: Int,
+        lead_employee_id: Int,
+        uabc_areas_id: Int,
+        discipline_id: Int,
+        des_id: Int
+    ): AcademicBody
+    createAcademicBodies(
+        name: String,
+        prodep_key: String,
+        active: Boolean,
+        prodep_area_id: Int,
+        lead_employee_id: Int,
+        uabc_areas_id: Int,
+        discipline_id: Int,
+        des_id: Int
+    ): AcademicBody
+}
+
+#import academic-body.graphql
+#import user.graphql
+#import employee.graphql
+#import prodep.graphql

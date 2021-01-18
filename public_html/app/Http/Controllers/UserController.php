@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,8 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-          $users = User::orderBy('created_at', 'asc')->get();
-          return $users;
+          return User::with('roles')->orderBy('created_at', 'asc')->get();
     }
 
     /**
@@ -26,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return ["user" => "A"];
+        //
     }
 
     /**
@@ -37,14 +35,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       return User::create([
+        $user = User::create([
             'name' => $request->name,
-            'role' => $request->role,
+            'role_id' => $request->role_id,
             'unit' => $request->unit,
             'campus' => $request->campus,
-            'email' => $request->email,
-            'password' => ''
+            'email' => $request->email
         ]);
+        return response()->json($user, 201);
     }
 
     /**

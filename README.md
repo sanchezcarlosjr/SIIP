@@ -28,17 +28,28 @@ docker-compose build && docker-compose up -d
 ```
 
 4. Sync de database.
-
+Copy and replace .env.example to .env
 Finally, to sync the database, you need to update the .env file. An exemple is shown below :
 
 ```
-    DB_CONNECTION=pgsql
-    DB_HOST=pgsql
-    DB_PORT=5432
-    DB_DATABASE=pgdb
-    DB_USERNAME=pguser
-    DB_PASSWORD=pgpwd
+    DA_CONNECTION=pgsql
+    DA_HOST=pgsql
+    DA_PORT=5432
+    DA_DATAAASE=pgdb
+    DA_USERNAME=pguser
+    DA_PASSWORD=pgpwd
 ```
+5. Install dependencies
+In ``public_html`` run:
+```
+	docker-compose exec -u devuser php composer install
+```
+and after:
+```
+	npm i
+```
+
+6. Generate a key 
 
 Now, type the following URL. The port is the one we set up in the docker-compose.yml - If you check the docker-compose file, you can see in the apache service section that port 8080 of the host maps port 80 of the container.
 
@@ -46,7 +57,16 @@ http://localhost:8080
 
 You can connect an external database client such as pgadmin or dbeaver.
 
+
+7. Migrate DA
+```
+	docker-compose exec -u devuser php php artisan migrate:fresh --seed
+```
+
+NOTE: If you see a permission's problems, chmod -R  storage.
+
 ## Docker compose cheatsheet
+
 
 **Note:** you need to cd first to where your docker-compose.yml file lives.
 
