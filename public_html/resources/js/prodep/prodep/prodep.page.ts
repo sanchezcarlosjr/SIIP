@@ -4,7 +4,8 @@ import Component from "vue-class-component";
 @Component
 export default class ProdepPage extends Vue {
     tableTitle = 'Gestión de perfiles PRODEP';
-    apiResource = 'prodep_profiles';
+    private date = new Date();
+    apiResource = `prodep_profiles(finish_date: ${this.date.getFullYear()}-${this.date.getMonth()}-${this.date.getDay()})`;
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {

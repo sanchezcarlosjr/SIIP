@@ -5,7 +5,7 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
+    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -20,7 +20,6 @@ type Query {
     des: [DES] @paginate(defaultCount: 200)
     lgacs: [LGAC] @paginate(defaultCount: 200)
     employees: [Employee] @paginate(defaultCount: 200)
-    employees_prodep_active: [Employee] @paginate(defaultCount: 200)
 }
 
 type Mutation {
