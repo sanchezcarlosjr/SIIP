@@ -5,7 +5,6 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -23,16 +22,6 @@ type Query {
 }
 
 type Mutation {
-    deleteProdepProfile(id: ID): ProdepProfile @delete
-    createProdepProfile(start_date: Date
-        finish_date: Date
-        employee_id: Int
-        prodep_area_id: Int): ProdepProfile @create
-    updateProdepProfile(start_date: Date
-        finish_date: Date
-        employee_id: Int
-        prodep_area_id: Int
-        id: ID): ProdepProfile @update
     updateLgac(
         id: ID
         key: String

@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -15,7 +14,7 @@ class SchematicMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:schematics {module} {path}';
+    protected $signature = 'make:schematics {module}';
     /**
      * The console command description.
      *
@@ -48,8 +47,10 @@ class SchematicMakeCommand extends Command
     {
         $this->info('Generating schematics...');
         $this->ensureIfIsAModel();
-        $this->appendFillableFields();
-        $this->createOperations();
+//        $this->appendFillableFields();
+//        $this->appendRelationships();
+        $this->ensureSchema();
+//        $this->createOperations();
         return 0;
     }
 
@@ -90,12 +91,41 @@ class SchematicMakeCommand extends Command
         Sed::appendLine($file, $line, "protected \$fillable = [\"{$columns}\"];");
     }
 
+    private function appendRelationships()
+    {
+        $this->info('Appending relationships...');
+        $this->fillableFields->filter(function ($value) {
+            return preg_match("/_id/i", $value);
+        })->each(function ($key) {
+            $file = "app/Models/{$this->module}.php";
+            $line = "use HasFactory;";
+            $methodName = str_replace("_id", "", $key);
+            $modelName = Str::studly(Str::singular($methodName));
+            $method = "public function {$methodName}() \\n {\\n return \$this->belongsTo({$modelName}::class, \"{$key}\");\\n}";
+            Sed::appendLine($file, $line, $method);
+        });
+    }
+
+    private function ensureSchema()
+    {
+
+    }
+
     public function createOperations()
     {
         $this->info('Creating operations...');
+        $this->addIndex();
         foreach (array("update", "create", "delete") as &$item) {
             $this->addOperation($item);
         }
+    }
+
+    private function addIndex()
+    {
+        $previousLine = "type Query {";
+        $module_snake_case = Str::snake(Str::plural($this->argument('module')));
+        $line = "$module_snake_case: [$this->module] @paginate(defaultCount: 10)";
+        Sed::appendLine($this->projectPath['schema.graphql'], $previousLine, $line);
     }
 
     /**
@@ -113,7 +143,7 @@ class SchematicMakeCommand extends Command
                 return "{$value}: Int";
             }
             return "{$value}: String";
-        })->implode('\n');
+        })->implode('\\n');
         if ($operation === 'update') {
             $parameters .= "\\nid: ID";
         }
