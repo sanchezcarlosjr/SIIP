@@ -41,7 +41,7 @@ class SedUncommentCommand extends Command
     public function handle()
     {
         $path = $this->projectPath[$this->argument('directory')];
-        Sed::uncomment_in($path, $this->argument('regex'));
+        Sed::uncommentIn($path, $this->argument('regex'));
         return 0;
     }
 }

@@ -41,7 +41,7 @@ class SedCommentCommand extends Command
     public function handle()
     {
         $path = $this->projectPath[$this->argument('directory')];
-        Sed::comment_in($path, $this->argument('regex'));
+        Sed::commentIn($path, $this->argument('regex'));
         return 0;
     }
 }

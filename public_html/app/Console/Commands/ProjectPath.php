@@ -9,7 +9,8 @@ class ProjectPath implements ArrayAccess
     private $container;
     public function __construct() {
         $this->container = array(
-            "migrations"   => "database/migrations"
+            "migrations"   => "database/migrations",
+            "schema.graphql" => "graphql/schema.graphql"
         );
     }
 
