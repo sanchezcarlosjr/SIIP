@@ -23,6 +23,16 @@ type Query {
 }
 
 type Mutation {
+    deleteProdepProfile(id: ID): ProdepProfile @delete
+    createProdepProfile(start_date: Date
+        finish_date: Date
+        employee_id: Int
+        prodep_area_id: Int): ProdepProfile @create
+    updateProdepProfile(start_date: Date
+        finish_date: Date
+        employee_id: Int
+        prodep_area_id: Int
+        id: ID): ProdepProfile @update
     updateLgac(
         id: ID
         key: String
@@ -58,7 +68,7 @@ type Mutation {
         academic_body_id: Int
     ): Network @update
     destroyHelp(
-      id: ID
+        id: ID
     ): Help
     createHelp(
         academic_body_id: ID

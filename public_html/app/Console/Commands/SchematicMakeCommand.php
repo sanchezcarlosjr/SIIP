@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -24,6 +25,7 @@ class SchematicMakeCommand extends Command
     private $projectPath;
     private $model;
     private $module;
+    private $fillableFields;
     /** @var Sed */
 
     /**
@@ -47,6 +49,7 @@ class SchematicMakeCommand extends Command
         $this->info('Generating schematics...');
         $this->ensureIfIsAModel();
         $this->appendFillableFields();
+        $this->createOperations();
         return 0;
     }
 
@@ -76,11 +79,12 @@ class SchematicMakeCommand extends Command
         $line = "use HasFactory;";
         if ($fillableFields[0] === "default") {
             $collection = collect($columnListing);
-            $filtered = $collection->filter(function ($value, $key) {
+            $this->fillableFields = $collection->filter(function ($value, $key) {
                 return $value !== 'id' and $value !== 'created_at' and $value !== 'updated_at';
             });
-            $columns = implode('","', $filtered->all());
+            $columns = implode('","', $this->fillableFields->all());
         } else {
+            $this->fillableFields = $fillableFields;
             $columns = implode('","', $fillableFields);
         }
         Sed::appendLine($file, $line, "protected \$fillable = [\"{$columns}\"];");
@@ -88,6 +92,7 @@ class SchematicMakeCommand extends Command
 
     public function createOperations()
     {
+        $this->info('Creating operations...');
         foreach (array("update", "create", "delete") as &$item) {
             $this->addOperation($item);
         }
@@ -100,7 +105,22 @@ class SchematicMakeCommand extends Command
     {
         $previousLine = "type Mutation {";
         $operationName = "{$operation}{$this->module}";
-        $line = "$operationName(name: string): {$this->module} @$operation";
+        $parameters = $this->fillableFields->map(function ($value) {
+            if (preg_match("/date/i", $value)) {
+                return "{$value}: Date";
+            }
+            if (preg_match("/id/i", $value)) {
+                return "{$value}: Int";
+            }
+            return "{$value}: String";
+        })->implode('\n');
+        if ($operation === 'update') {
+            $parameters .= "\\nid: ID";
+        }
+        if ($operation === 'delete') {
+            $parameters = 'id: ID';
+        }
+        $line = "$operationName($parameters): {$this->module} @$operation";
         Sed::appendLine($this->projectPath['schema.graphql'], $previousLine, $line);
     }
 }
