@@ -4,25 +4,26 @@ namespace App\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class SchematicMakeCommand extends Command
 {
-    private $projectPath;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'make:schematics {module} {path}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new schematic';
+    private $projectPath;
+    private $model;
+    private $module;
     /** @var Sed */
 
     /**
@@ -45,19 +46,50 @@ class SchematicMakeCommand extends Command
     {
         $this->info('Generating schematics...');
         $this->ensureIfIsAModel();
+        $this->appendFillableFields();
         return 0;
     }
 
-    public function ensureIfIsAModel() {
-        $model = 'App\\Models\\' . Str::studly(Str::singular($this->argument('module')));
-        $isNotAEloquentModel = !is_subclass_of($model, 'Illuminate\Database\Eloquent\Model');
+    public function ensureIfIsAModel()
+    {
+        $this->info('Ensuring your module...');
+        $this->module = Str::studly(Str::singular($this->argument('module')));
+        $this->model = 'App\\Models\\' . $this->module;
+        $isNotAEloquentModel = !is_subclass_of($this->model, 'Illuminate\Database\Eloquent\Model');
         throw_if($isNotAEloquentModel, new Exception("Module should be an eloquent model"));
+    }
+
+    private function appendFillableFields(): void
+    {
+        $this->info('Appending fillable fields...');
+        $instance = new $this->model();
+        $columnListing = Schema::getColumnListing($instance->getTable());
+        $fillableFields = $this->choice(
+            'Which are your fillable fields?',
+            array_merge(['default'], $columnListing),
+            0,
+            $maxAttempts = null,
+            $allowMultipleSelections = true
+        );
+        $columns = '';
+        $file = "app/Models/{$this->module}.php";
+        $line = "use HasFactory;";
+        if ($fillableFields[0] === "default") {
+            $collection = collect($columnListing);
+            $filtered = $collection->filter(function ($value, $key) {
+                return $value !== 'id' and $value !== 'created_at' and $value !== 'updated_at';
+            });
+            $columns = implode('","', $filtered->all());
+        } else {
+            $columns = implode('","', $fillableFields);
+        }
+        Sed::appendLine($file, $line, "protected \$fillable = [\"{$columns}\"];");
     }
 
     public function createOperations()
     {
-        foreach (array("Update", "Create", "Delete") as &$item) {
-            $this->addOperation(strtolower($item));
+        foreach (array("update", "create", "delete") as &$item) {
+            $this->addOperation($item);
         }
     }
 
@@ -67,8 +99,8 @@ class SchematicMakeCommand extends Command
     public function addOperation(string $operation): void
     {
         $previousLine = "type Mutation {";
-        $operationName = "{$operation}{$this->argument('module')}";
-        $line = "$operationName(name: string): {$this->argument('module')} @$operation";
+        $operationName = "{$operation}{$this->module}";
+        $line = "$operationName(name: string): {$this->module} @$operation";
         Sed::appendLine($this->projectPath['schema.graphql'], $previousLine, $line);
     }
 }
