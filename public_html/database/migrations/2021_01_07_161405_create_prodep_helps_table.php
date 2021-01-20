@@ -19,8 +19,8 @@ class CreateProdepHelpsTable extends Migration
             $table->string('type');
             $table->date('date');
             $table->timestamps();
-            $table->integer('benefited_employee_id')->unsigned();
-            $table->foreign('benefited_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('employee_id')->unsigned();
+            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 

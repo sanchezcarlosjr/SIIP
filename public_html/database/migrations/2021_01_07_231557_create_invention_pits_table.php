@@ -22,8 +22,8 @@ class CreateInventionPitsTable extends Migration
             $table->date('grant_date');
             $table->integer('request_amount');
             $table->integer('cgip_project_id')->unsigned();
-            $table->integer('regular_employee_id')->unsigned();
-            $table->foreign('regular_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('employee_id')->unsigned();
+            $table->foreign("employee_id")->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->integer('academic_unit_id')->unsigned();
             $table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
             $table->timestamps();
