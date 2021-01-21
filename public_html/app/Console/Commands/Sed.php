@@ -50,6 +50,19 @@ class Sed
         $sed->exec();
     }
 
+    static public function edit(string $file, string $line, string $regex)
+    {
+        $sed = new Sed($line, $regex, $file);
+        $sed->exec();
+    }
+
+    static public function interpolate(string $file, string $line)
+    {
+        $regex = preg_replace("/{.*}/", "", $line);
+        $replace = preg_replace(["/{/", "/}/"], "", $line);
+        Sed::edit($file, $replace, $regex);
+    }
+
     public function exec()
     {
         shell_exec($this->operation);
