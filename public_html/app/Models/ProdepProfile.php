@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProdepProfile extends Model
 {
-    use HasFactory; 
-  public function prodep_area() 
- {
- return $this->belongsTo(ProdepArea::class, "prodep_area_id");
-} 
-  public function employee() 
- {
- return $this->belongsTo(Employee::class, "employee_id");
-} 
-  protected $fillable = ["start_date","finish_date","employee_id","prodep_area_id"];
+    use HasFactory;
+
+    protected $fillable = ["start_date", "finish_date", "employee_id", "prodep_area_id"];
+
+    public function prodep_area()
+    {
+        return $this->belongsTo(ProdepArea::class, "prodep_area_id");
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, "employee_id");
+    }
 }
