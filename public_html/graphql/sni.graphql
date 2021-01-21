@@ -1,0 +1,19 @@
+type Sni {
+    start_date: Date
+    finish_date: Date
+    discipline: String
+    field: String
+    request: String
+    level: String
+    specialty: String
+    employee_id: Int
+    employee: Employee
+    sni_area_id: Int
+    sni_area: SNIArea
+    id: ID
+    active: Boolean
+}
+
+type SNIArea {
+    id: ID
+}

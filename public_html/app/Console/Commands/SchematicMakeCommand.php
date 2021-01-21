@@ -78,7 +78,12 @@ class SchematicMakeCommand extends Command
                 $maxAttempts = null,
                 $allowMultipleSelections = false
             );
-            Sed::appendLastLine("graphql/$file", "type {$this->module} \{\\n{$this->toSchema()} \\n\}");
+            $path = "graphql/$file";
+            if (!file_exists($path)) {
+                touch($path, strtotime('-1 days'));
+                shell_exec("echo '' >> $path");
+            }
+            Sed::appendLastLine($path, "type {$this->module} \{\\n {$this->toSchema('index')} \\n\}");
         }
     }
 

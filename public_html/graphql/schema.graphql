@@ -5,6 +5,7 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
+    snis: [Sni] @paginate(defaultCount: 10)
     prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 10)
     users: [User] @paginate(defaultCount: 10)
@@ -24,6 +25,39 @@ type Query {
 }
 
 type Mutation {
+    deleteSni(start_date: Date
+        finish_date: Date
+        discipline: String
+        field: String
+        request: String
+        level: String
+        specialty: String
+        employee_id: Int
+        employee: Employee
+        sni_area_id: Int
+        sni_area: SniArea): Sni @delete
+    createSni(start_date: Date
+        finish_date: Date
+        discipline: String
+        field: String
+        request: String
+        level: String
+        specialty: String
+        employee_id: Int
+        employee: Employee
+        sni_area_id: Int
+        sni_area: SniArea): Sni @create
+    updateSni(start_date: Date
+        finish_date: Date
+        discipline: String
+        field: String
+        request: String
+        level: String
+        specialty: String
+        employee_id: Int
+        employee: Employee
+        sni_area_id: Int
+        sni_area: SniArea): Sni @update
     deleteProdepProfile(start_date: Date
         finish_date: Date
         employee_id: Int
