@@ -3,8 +3,8 @@ import Component from "vue-class-component";
 
 @Component
 export default class ExamplePage extends Vue {
-    tableTitle = '';
-    apiResource = '';
+    tableTitle = "";
+    apiResource = "";
     toolbar = new Set([]);
     schema = {};
     fields = [];

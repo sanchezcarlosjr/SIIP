@@ -58,8 +58,8 @@ class Sed
 
     static public function interpolate(string $file, string $line)
     {
-        $regex = preg_replace("/{.*}/", "", $line);
-        $replace = preg_replace(["/{/", "/}/"], "", $line);
+        $regex = preg_replace("/\*.*\*/", "", $line);
+        $replace = preg_replace(["/\*/", "/\*/"], "", $line);
         Sed::edit($file, $replace, $regex);
     }
 

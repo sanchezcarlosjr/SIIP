@@ -25,7 +25,11 @@ type Query {
 }
 
 type Mutation {
-    deleteSni(start_date: Date
+    deleteSni(
+        id: ID
+    ): Sni @delete
+    createSni(
+        start_date: Date
         finish_date: Date
         discipline: String
         field: String
@@ -35,8 +39,10 @@ type Mutation {
         employee_id: Int
         employee: Employee
         sni_area_id: Int
-        sni_area: SniArea): Sni @delete
-    createSni(start_date: Date
+    ): Sni @create
+    updateSni(
+        id: ID
+        start_date: Date
         finish_date: Date
         discipline: String
         field: String
@@ -46,51 +52,41 @@ type Mutation {
         employee_id: Int
         employee: Employee
         sni_area_id: Int
-        sni_area: SniArea): Sni @create
-    updateSni(start_date: Date
-        finish_date: Date
-        discipline: String
-        field: String
-        request: String
-        level: String
-        specialty: String
-        employee_id: Int
-        employee: Employee
-        sni_area_id: Int
-        sni_area: SniArea): Sni @update
-    deleteProdepProfile(start_date: Date
+    ): Sni @update
+    deleteProdepProfile(id: ID): ProdepProfile @delete
+    createProdepProfile(
+        start_date: Date
         finish_date: Date
         employee_id: Int
         employee: Employee
         prodep_area_id: Int
-        prodep_area: ProdepArea): ProdepProfile @delete
-    createProdepProfile(start_date: Date
-        finish_date: Date
-        employee_id: Int
-        employee: Employee
-        prodep_area_id: Int
-        prodep_area: ProdepArea): ProdepProfile @create
-    updateProdepProfile(start_date: Date
+        prodep_area: ProdepArea
+    ): ProdepProfile @create
+    updateProdepProfile(
+        id: ID
+        start_date: Date
         finish_date: Date
         employee_id: Int
         employee: Employee
         prodep_area_id: Int
         prodep_area: ProdepArea): ProdepProfile @update
-    deleteProdepHelp(amount: String
-        type: String
-        date: Date
-        employee_id: Int
-        employee: Employee): ProdepHelp @delete
-    createProdepHelp(amount: String
+    deleteProdepHelp(
+        id: ID
+    ): ProdepHelp @delete
+    createProdepHelp(
+        amount: String
         type: String
         date: Date
         employee_id: Int
         employee: Employee): ProdepHelp @create
-    updateProdepHelp(amount: String
+    updateProdepHelp(
+        id: ID
+        amount: String
         type: String
         date: Date
         employee_id: Int
-        employee: Employee): ProdepHelp @update
+        employee: Employee
+    ): ProdepHelp @update
     updateLgac(
         id: ID
         key: String
