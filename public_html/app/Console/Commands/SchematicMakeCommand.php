@@ -47,10 +47,10 @@ class SchematicMakeCommand extends Command
     {
         $this->info('Generating schematics...');
         $this->ensureIfIsAModel();
-//        $this->appendFillableFields();
-//        $this->appendRelationships();
+        $this->appendFillableFields();
+        $this->appendRelationships();
         $this->ensureSchema();
-//        $this->createOperations();
+        $this->createOperations();
         return 0;
     }
 
@@ -61,6 +61,78 @@ class SchematicMakeCommand extends Command
         $this->model = 'App\\Models\\' . $this->module;
         $isNotAEloquentModel = !is_subclass_of($this->model, 'Illuminate\Database\Eloquent\Model');
         throw_if($isNotAEloquentModel, new Exception("Module should be an eloquent model"));
+    }
+
+    private function ensureSchema()
+    {
+        $this->info('Ensure graphql schema');
+        $grep = shell_exec("grep -rIn 'type {$this->module} {' graphql");
+        if (!$grep) {
+            $ls = shell_exec("ls graphql");
+            $directories = preg_split('/\s+/', trim($ls));
+            $module = Str::kebab($this->module);
+            $file = $this->choice(
+                'Where would you like to save schema?',
+                array_merge(["$module.graphql"], $directories),
+                0,
+                $maxAttempts = null,
+                $allowMultipleSelections = false
+            );
+            Sed::appendLastLine("graphql/$file", "type {$this->module} \{\\n{$this->toSchema()} \\n\}");
+        }
+    }
+
+    public function createOperations()
+    {
+        $this->info('Creating operations...');
+        $this->addIndex();
+        foreach (array("update", "create", "delete") as &$item) {
+            $this->addOperation($item);
+        }
+    }
+
+    private function addIndex()
+    {
+        $previousLine = "type Query {";
+        $module_snake_case = Str::snake(Str::plural($this->argument('module')));
+        $line = "$module_snake_case: [$this->module] @paginate(defaultCount: 10)";
+        Sed::appendLine($this->projectPath['schema.graphql'], $line, $previousLine);
+    }
+
+    /**
+     * @param string $operation
+     */
+    public function addOperation(string $operation): void
+    {
+        $previousLine = "type Mutation {";
+        $operationName = "{$operation}{$this->module}";
+        $parameters = $this->toSchema();
+        $line = "$operationName($parameters): {$this->module} @$operation";
+        Sed::appendLine($this->projectPath['schema.graphql'], $line, $previousLine);
+    }
+
+    private function toSchema($operation = ''): string
+    {
+        if ($operation === 'delete') {
+            return 'id: ID';
+        }
+        $parameters = $this->fillableFields->map(function ($value) {
+            if (preg_match("/date/i", $value)) {
+                return "{$value}: Date";
+            }
+            if (preg_match("/id/i", $value)) {
+                list($methodName, $modelName) = $this->generateModelName($value);
+                return "{$value}: Int\\n $methodName: $modelName";
+            }
+            return "{$value}: String";
+        })->implode('\\n');
+        if ($operation === 'index') {
+            return $parameters .= "\\n id: ID \\n active: Boolean";
+        }
+        if ($operation === 'update') {
+            return $parameters .= "\\nid: ID";
+        }
+        return $parameters;
     }
 
     private function appendFillableFields(): void
@@ -88,7 +160,7 @@ class SchematicMakeCommand extends Command
             $this->fillableFields = $fillableFields;
             $columns = implode('","', $fillableFields);
         }
-        Sed::appendLine($file, $line, "protected \$fillable = [\"{$columns}\"];");
+        Sed::appendLine($file, "protected \$fillable = [\"{$columns}\"];", $line);
     }
 
     private function appendRelationships()
@@ -99,58 +171,20 @@ class SchematicMakeCommand extends Command
         })->each(function ($key) {
             $file = "app/Models/{$this->module}.php";
             $line = "use HasFactory;";
-            $methodName = str_replace("_id", "", $key);
-            $modelName = Str::studly(Str::singular($methodName));
+            list($methodName, $modelName) = $this->generateModelName($key);
             $method = "public function {$methodName}() \\n {\\n return \$this->belongsTo({$modelName}::class, \"{$key}\");\\n}";
-            Sed::appendLine($file, $line, $method);
+            Sed::appendLine($file, $method, $line);
         });
     }
 
-    private function ensureSchema()
-    {
-
-    }
-
-    public function createOperations()
-    {
-        $this->info('Creating operations...');
-        $this->addIndex();
-        foreach (array("update", "create", "delete") as &$item) {
-            $this->addOperation($item);
-        }
-    }
-
-    private function addIndex()
-    {
-        $previousLine = "type Query {";
-        $module_snake_case = Str::snake(Str::plural($this->argument('module')));
-        $line = "$module_snake_case: [$this->module] @paginate(defaultCount: 10)";
-        Sed::appendLine($this->projectPath['schema.graphql'], $previousLine, $line);
-    }
-
     /**
-     * @param string $operation
+     * @param $key
+     * @return array
      */
-    public function addOperation(string $operation): void
+    private function generateModelName($key): array
     {
-        $previousLine = "type Mutation {";
-        $operationName = "{$operation}{$this->module}";
-        $parameters = $this->fillableFields->map(function ($value) {
-            if (preg_match("/date/i", $value)) {
-                return "{$value}: Date";
-            }
-            if (preg_match("/id/i", $value)) {
-                return "{$value}: Int";
-            }
-            return "{$value}: String";
-        })->implode('\\n');
-        if ($operation === 'update') {
-            $parameters .= "\\nid: ID";
-        }
-        if ($operation === 'delete') {
-            $parameters = 'id: ID';
-        }
-        $line = "$operationName($parameters): {$this->module} @$operation";
-        Sed::appendLine($this->projectPath['schema.graphql'], $previousLine, $line);
+        $methodName = str_replace("_id", "", $key);
+        $modelName = Str::studly(Str::singular($methodName));
+        return array($methodName, $modelName);
     }
 }
