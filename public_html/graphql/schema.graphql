@@ -4,8 +4,8 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
-type Query { 
-  prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
+type Query {
+    prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 10)
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
@@ -23,25 +23,25 @@ type Query {
     employees: [Employee] @paginate(defaultCount: 200)
 }
 
-type Mutation { 
-  deleteProdepProfile(start_date: Date
-finish_date: Date
-employee_id: Int
- employee: Employee
-prodep_area_id: Int
- prodep_area: ProdepArea): ProdepProfile @delete 
-  createProdepProfile(start_date: Date
-finish_date: Date
-employee_id: Int
- employee: Employee
-prodep_area_id: Int
- prodep_area: ProdepArea): ProdepProfile @create 
-  updateProdepProfile(start_date: Date
-finish_date: Date
-employee_id: Int
- employee: Employee
-prodep_area_id: Int
- prodep_area: ProdepArea): ProdepProfile @update
+type Mutation {
+    deleteProdepProfile(start_date: Date
+        finish_date: Date
+        employee_id: Int
+        employee: Employee
+        prodep_area_id: Int
+        prodep_area: ProdepArea): ProdepProfile @delete
+    createProdepProfile(start_date: Date
+        finish_date: Date
+        employee_id: Int
+        employee: Employee
+        prodep_area_id: Int
+        prodep_area: ProdepArea): ProdepProfile @create
+    updateProdepProfile(start_date: Date
+        finish_date: Date
+        employee_id: Int
+        employee: Employee
+        prodep_area_id: Int
+        prodep_area: ProdepArea): ProdepProfile @update
     deleteProdepHelp(amount: String
         type: String
         date: Date
