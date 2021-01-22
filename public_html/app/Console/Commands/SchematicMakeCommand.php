@@ -51,6 +51,7 @@ class SchematicMakeCommand extends Command
         $this->appendRelationships();
         $this->ensureSchema();
         $this->createOperations();
+        $this->factory();
         return 0;
     }
 
@@ -122,13 +123,16 @@ class SchematicMakeCommand extends Command
         if ($operation === 'delete') {
             return 'id: ID!';
         }
-        $parameters = $this->fillableFields->map(function ($value) {
+        $parameters = $this->fillableFields->map(function ($value) use ($operation) {
             if (preg_match("/date/i", $value)) {
                 return "{$value}: Date";
             }
             if (preg_match("/id/i", $value)) {
+                return "{$value}: Int";
+            }
+            if (preg_match("/id/i", $value) && $operation === 'index') {
                 list($methodName, $modelName) = $this->generateModelName($value);
-                return "{$value}: Int\\n $methodName: $modelName";
+                return "$methodName: $modelName";
             }
             return "{$value}: String";
         })->implode('\\n');
@@ -144,8 +148,15 @@ class SchematicMakeCommand extends Command
     private function appendFillableFields(): void
     {
         $this->info('Appending fillable fields...');
+        $file = "app/Models/{$this->module}.php";
+        $line = "use HasFactory;";
         $instance = new $this->model();
         $columnListing = Schema::getColumnListing($instance->getTable());
+        while (count($columnListing) == 0) {
+            $tableName = $this->anticipate("What is name of table?", [Str::snake(Str::plural($this->module))]);
+            Sed::appendLine($file, "protected \$table = \"{$tableName}\";", $line);
+            $columnListing = Schema::getColumnListing($tableName);
+        }
         $fillableFields = $this->choice(
             'Which are your fillable fields?',
             array_merge(['default'], $columnListing),
@@ -154,8 +165,6 @@ class SchematicMakeCommand extends Command
             $allowMultipleSelections = true
         );
         $columns = '';
-        $file = "app/Models/{$this->module}.php";
-        $line = "use HasFactory;";
         if ($fillableFields[0] === "default") {
             $collection = collect($columnListing);
             $this->fillableFields = $collection->filter(function ($value, $key) {
@@ -192,5 +201,27 @@ class SchematicMakeCommand extends Command
         $methodName = str_replace("_id", "", $key);
         $modelName = Str::studly(Str::singular($methodName));
         return array($methodName, $modelName);
+    }
+
+    private function factory()
+    {
+        $factoryPath = "database/factories/{$this->module}Factory.php";
+        $parameters = $this->fillableFields->map(function ($value) {
+            if (preg_match("/date/i", $value)) {
+                return "\"{$value}\" =>  \$this->faker->date ,";
+            }
+            if (preg_match("/employee_id/i", $value)) {
+                return "";
+            }
+            if (preg_match("/id/i", $value)) {
+                return "\"{$value}\" =>  \$this->faker->numberBetween(\$min = 1, \$max = 10),";
+            }
+            return "\"{$value}\" => \$this->faker->name,";
+        })->implode('\\n');
+        Sed::edit($factoryPath, $parameters, '\/\/');
+        $line = "{$this->module}::factory()->create();";
+        Sed::appendLine('database/seeders/DatabaseSeeder.php', $line, "Network::factory(200)->create();");
+        $import = "use App\\\Models\\\{$this->module};";
+        Sed::appendLine('database/seeders/DatabaseSeeder.php', $import, "AcademicBody;");
     }
 }
