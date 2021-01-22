@@ -17,10 +17,9 @@ export default class HelpsPage extends Vue {
         ]
     };
     fields = [
-{ key: "type", label: "Tipo", sortable: true },
-{ key: "employee", label: "Beneficiario", sortable: true },
-{ key: "date", label: "Fecha", sortable: true },
-{ key: "amount", label: "Cantidad", sortable: true },
-{ key: "actions", label: "Acciones" }
-];
+        {key: "type", label: "Tipo", sortable: true},
+        {key: "date", label: "Fecha", sortable: true},
+        {key: "employee.name", label: "Beneficiario", sortable: true},
+        {key: "amount", label: "Cantidad", sortable: true}
+    ];
 }
