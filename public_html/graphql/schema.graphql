@@ -26,7 +26,7 @@ type Query {
 
 type Mutation {
     deleteSni(
-        id: ID
+        id: ID!
     ): Sni @delete
     createSni(
         start_date: Date
@@ -41,7 +41,7 @@ type Mutation {
         sni_area_id: Int
     ): Sni @create
     updateSni(
-        id: ID
+        id: ID!
         start_date: Date
         finish_date: Date
         discipline: String
@@ -53,7 +53,7 @@ type Mutation {
         employee: Employee
         sni_area_id: Int
     ): Sni @update
-    deleteProdepProfile(id: ID): ProdepProfile @delete
+    deleteProdepProfile(id: ID!): ProdepProfile @delete
     createProdepProfile(
         start_date: Date
         finish_date: Date
@@ -63,7 +63,7 @@ type Mutation {
         prodep_area: ProdepArea
     ): ProdepProfile @create
     updateProdepProfile(
-        id: ID
+        id: ID!
         start_date: Date
         finish_date: Date
         employee_id: Int
@@ -71,7 +71,7 @@ type Mutation {
         prodep_area_id: Int
         prodep_area: ProdepArea): ProdepProfile @update
     deleteProdepHelp(
-        id: ID
+        id: ID!
     ): ProdepHelp @delete
     createProdepHelp(
         amount: String
@@ -80,7 +80,7 @@ type Mutation {
         employee_id: Int
         employee: Employee): ProdepHelp @create
     updateProdepHelp(
-        id: ID
+        id: ID!
         amount: String
         type: String
         date: Date
@@ -88,7 +88,7 @@ type Mutation {
         employee: Employee
     ): ProdepHelp @update
     updateLgac(
-        id: ID
+        id: ID!
         key: String
         name: String
         description: String
@@ -112,7 +112,7 @@ type Mutation {
         academic_body_id: Int
     ): Network @create
     updateNetwork(
-        id: ID
+        id: ID!
         name: String
         type: String
         class: String
@@ -122,7 +122,7 @@ type Mutation {
         academic_body_id: Int
     ): Network @update
     destroyHelp(
-        id: ID
+        id: ID!
     ): Help
     createHelp(
         academic_body_id: ID
@@ -132,7 +132,7 @@ type Mutation {
         type: String
     ): Help @create
     updateHelp(
-        id: ID
+        id: ID!
         academic_body_id: ID
         amount: Float
         benefited_employee_id: ID
@@ -147,7 +147,7 @@ type Mutation {
         academic_body_id: ID
     ): Evaluation
     updateEvaluation(
-        id:ID
+        id:ID!
         grade: String
         finish_date: Date
         start_date: Date
@@ -156,7 +156,7 @@ type Mutation {
     removeEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
     removeAcademicBodies(id: ID): AcademicBody
     updateAcademicBodies(
-        id: ID
+        id: ID!
         name: String,
         prodep_key: String,
         active: Boolean,
@@ -182,3 +182,4 @@ type Mutation {
 #import user.graphql
 #import employee.graphql
 #import prodep.graphql
+#import sni.graphql

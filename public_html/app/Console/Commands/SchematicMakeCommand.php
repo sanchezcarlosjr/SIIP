@@ -84,6 +84,7 @@ class SchematicMakeCommand extends Command
                 shell_exec("echo '' >> $path");
             }
             Sed::appendLastLine($path, "type {$this->module} \{\\n {$this->toSchema('index')} \\n\}");
+            Sed::appendLastLine('graphql/schema.graphql', "#import  {$file}");
         }
     }
 
@@ -119,7 +120,7 @@ class SchematicMakeCommand extends Command
     private function toSchema($operation = ''): string
     {
         if ($operation === 'delete') {
-            return 'id: ID';
+            return 'id: ID!';
         }
         $parameters = $this->fillableFields->map(function ($value) {
             if (preg_match("/date/i", $value)) {
@@ -135,7 +136,7 @@ class SchematicMakeCommand extends Command
             return $parameters .= "\\n id: ID \\n active: Boolean";
         }
         if ($operation === 'update') {
-            return $parameters .= "\\nid: ID";
+            return $parameters .= "\\nid: ID!";
         }
         return $parameters;
     }
