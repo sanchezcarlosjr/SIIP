@@ -139,6 +139,11 @@ export const routes = [
                 name: 'Gestión',
                 path: '',
                 component: () => import('./sni/sni/index.vue')
+            },
+            {
+                name: 'Profesor-Investigador',
+                path: 'investigadores',
+                component: () => import('./sni/researcher/index.vue')
             }
         ]
     },

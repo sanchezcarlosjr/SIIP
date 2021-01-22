@@ -25,5 +25,5 @@ type Researcher {
     employee_id: Int
     id: ID
     active: Boolean
-    Employee: Employee
+    employee: Employee
 }
