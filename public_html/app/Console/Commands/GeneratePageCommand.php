@@ -92,12 +92,26 @@ class GeneratePageCommand extends Command
 
     private function appendFields()
     {
-        $fields = ['{ key: \"name\", label: \"Nombre\", sortable: true }'];
+        $module = Str::studly(Str::singular($this->argument('api-resource')));
+        $schemaGraphQL = "grep -rInl 'type {$module} {' graphql | xargs sed -n '/type {$module} {/,/}/p' | sed '1d;\$d;' |  awk -F ':' '{print $1}'";
+        $grep = shell_exec($schemaGraphQL);
+        $schema = preg_split('/\s+/', trim($grep));
+        $fields = collect();
+        $choices = $this->choice(
+            'Which fields do you want show?',
+            $schema,
+            0,
+            $maxAttempts = null,
+            $allowMultipleSelections = true
+        );
+        collect($choices)->each(function ($choice) use ($fields) {
+            $field = $this->anticipate("What is label of ${choice}?", [$choice]);
+            $fields->push("{ key: \"$choice\", label: \"{$field}\", sortable: true }");
+        });
         if (!$this->noFormSchema) {
-            $str = (array)'{ key: \"actions\", label: \"Acciones\" }';
-            array_push($str);
+            $fields->push('{ key: "actions", label: "Acciones" }');
         }
-        $fieldsToShow = implode('\\n', $fields);
+        $fieldsToShow = $fields->implode(',\\n');
         Sed::interpolate($this->typescriptFile, "fields = \[*\\n$fieldsToShow\\n*\]");
     }
 }

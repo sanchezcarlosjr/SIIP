@@ -6,6 +6,15 @@ export default class ExamplePage extends Vue {
     tableTitle = "";
     apiResource = "";
     toolbar = new Set([]);
-    schema = {};
+    schema = {
+        fields: [
+            {
+                type: 'input',
+                inputType: 'text',
+                label: 'Nombre',
+                model: 'name'
+            }
+        ]
+    };
     fields = [];
 }
