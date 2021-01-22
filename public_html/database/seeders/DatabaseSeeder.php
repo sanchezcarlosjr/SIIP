@@ -13,6 +13,7 @@ use App\Models\ProdepArea;
 use App\Models\ProdepHelp;
 use App\Models\ProdepNPTC;
 use App\Models\ProdepProfile;
+use App\Models\Researcher;
 use App\Models\Sni;
 use App\Models\SNIArea;
 use Illuminate\Database\Seeder;
@@ -41,6 +42,7 @@ class DatabaseSeeder extends Seeder
         Employee::factory(5)->has(ProdepHelp::factory()->count(3), 'prodep_helps')->create();
         Employee::factory(5)->has(ProdepNPTC::factory()->count(3), 'prodep_nptcs')->create();
         Employee::factory(5)->has(Sni::factory()->count(5), 'snis')->create();
+        Employee::factory(5)->has(Researcher::factory()->count(5), 'researchers')->create();
         LGAC::factory(200)->create();
         Evaluation::factory(200)->create();
         SNIArea::factory(50)->create();

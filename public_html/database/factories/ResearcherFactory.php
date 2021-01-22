@@ -22,7 +22,8 @@ class ResearcherFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "valid" => $this->faker->date,
+            "probative" => $this->faker->date
         ];
     }
 }

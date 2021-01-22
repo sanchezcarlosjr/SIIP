@@ -51,4 +51,9 @@ class Employee extends Model
     {
         return $this->hasMany(Sni::class, 'employee_id');
     }
+
+    public function researchers()
+    {
+        return $this->hasMany(Researcher::class, 'employee_id');
+    }
 }

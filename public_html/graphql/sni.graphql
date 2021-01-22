@@ -18,3 +18,12 @@ type SNIArea {
     id: ID
     name: String
 }
+
+type Researcher {
+    valid: Date
+    probative: Date
+    employee_id: Int
+    id: ID
+    active: Boolean
+    Employee: Employee
+}
