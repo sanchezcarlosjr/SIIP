@@ -36,16 +36,17 @@
                         <router-link
                             v-if="route.name"
                             v-for="(route, index) in routes"
-                            :key="index" class="nav-item"
+                            :key="index"
+                            :to="route.path"
                             active-class="active"
-                            v-b-toggle="'accordion-' + index"
-                            tag="li" :to="route.path">
-                            <a>
+                            class="nav-item"
+                            tag="li">
+                            <a v-b-toggle="'accordion-' + index">
                                 <i
                                     active-class="text-light"
                                     style="padding-right: 5px; font-size: 20px;"
-                                   :class="`fa ${route.icon}`"></i>
-                                <p>{{route.name}}</p>
+                                    :class="`fa ${route.icon}`"></i>
+                                <p>{{ route.name }}</p>
                                 <span v-if="route.children" class="caret"></span>
                             </a>
                             <b-collapse
@@ -56,7 +57,7 @@
                                 class="mt-2">
                                 <router-link
                                     v-for="(subRoute, i) in route.children"
-                                    active-class="active"
+                                    exact-active-class="active"
                                     v-if="!subRoute.path.match(':')"
                                     :key="i"
                                     tag="li"
