@@ -5,6 +5,7 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
+    prodep_nptcs: [ProdepNPTC] @paginate(defaultCount: 10)
     snis: [Sni] @paginate(defaultCount: 10)
     prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
@@ -25,6 +26,18 @@ type Query {
 }
 
 type Mutation {
+    deleteProdepNPTC(id: ID!): ProdepNPTC @delete
+    createProdepNPTC(
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @create
+    updateProdepNPTC(
+        id:ID!
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @update
     deleteSni(
         id: ID!
     ): Sni @delete
@@ -177,3 +190,4 @@ type Mutation {
 #import employee.graphql
 #import prodep.graphql
 #import sni.graphql
+#import  prodep.graphql

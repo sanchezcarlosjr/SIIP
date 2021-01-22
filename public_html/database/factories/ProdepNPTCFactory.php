@@ -22,7 +22,9 @@ class ProdepNPTCFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "amount" => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+            "type" => $this->faker->name,
+            "date" => $this->faker->date,
         ];
     }
 }

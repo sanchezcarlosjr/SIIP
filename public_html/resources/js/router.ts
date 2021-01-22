@@ -120,6 +120,12 @@ export const routes = [
                 path: 'beneficios',
                 component: () => import('./prodep/helps/index.vue')
             }
+            ,
+            {
+                name: 'NPTCS',
+                path: 'nptcs',
+                component: () => import('./prodep/nptcs/index.vue')
+            }
         ],
     },
     {

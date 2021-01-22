@@ -41,4 +41,9 @@ class Employee extends Model
     {
         return $this->hasMany(ProdepHelp::class, 'employee_id');
     }
+
+    public function prodep_nptcs()
+    {
+        return $this->hasMany(ProdepNPTC::class, 'employee_id');
+    }
 }

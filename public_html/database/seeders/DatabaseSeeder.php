@@ -11,6 +11,7 @@ use App\Models\LGAC;
 use App\Models\Network;
 use App\Models\ProdepArea;
 use App\Models\ProdepHelp;
+use App\Models\ProdepNPTC;
 use App\Models\ProdepProfile;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         Employee::factory(100)->has(Help::factory()->count(3))->create();
         Employee::factory(10)->has(ProdepProfile::factory()->count(3), 'prodep_profiles')->create();
         Employee::factory(5)->has(ProdepHelp::factory()->count(3), 'prodep_helps')->create();
+        Employee::factory(5)->has(ProdepNPTC::factory()->count(3), 'prodep_nptcs')->create();
         LGAC::factory(200)->create();
         Evaluation::factory(200)->create();
         Network::factory(200)->create();
