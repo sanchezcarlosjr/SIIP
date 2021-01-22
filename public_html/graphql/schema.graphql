@@ -37,7 +37,6 @@ type Mutation {
         level: String
         specialty: String
         employee_id: Int
-        employee: Employee
         sni_area_id: Int
     ): Sni @create
     updateSni(
@@ -50,7 +49,6 @@ type Mutation {
         level: String
         specialty: String
         employee_id: Int
-        employee: Employee
         sni_area_id: Int
     ): Sni @update
     deleteProdepProfile(id: ID!): ProdepProfile @delete
@@ -58,18 +56,15 @@ type Mutation {
         start_date: Date
         finish_date: Date
         employee_id: Int
-        employee: Employee
         prodep_area_id: Int
-        prodep_area: ProdepArea
     ): ProdepProfile @create
     updateProdepProfile(
         id: ID!
         start_date: Date
         finish_date: Date
         employee_id: Int
-        employee: Employee
         prodep_area_id: Int
-        prodep_area: ProdepArea): ProdepProfile @update
+    ): ProdepProfile @update
     deleteProdepHelp(
         id: ID!
     ): ProdepHelp @delete
@@ -78,14 +73,13 @@ type Mutation {
         type: String
         date: Date
         employee_id: Int
-        employee: Employee): ProdepHelp @create
+    ): ProdepHelp @create
     updateProdepHelp(
         id: ID!
         amount: String
         type: String
         date: Date
         employee_id: Int
-        employee: Employee
     ): ProdepHelp @update
     updateLgac(
         id: ID!
