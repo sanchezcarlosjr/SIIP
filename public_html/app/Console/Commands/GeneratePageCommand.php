@@ -39,12 +39,16 @@ class GeneratePageCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info('Creating page...');
         $path = explode('/', $this->argument('name'));
         $module = end($path);
         $resource = "resources/js/{$this->argument('name')}";
+        if (count($path) == 1 && !is_dir("resources/js/{$this->argument('name')}")) {
+            shell_exec("mkdir resources/js/{$this->argument('name')} && cp resources/js/academic-bodies/academic-body.module.vue resources/js/{$this->argument('name')}/{$this->argument('name')}.module.vue");
+            $resource = "resources/js/{$this->argument('name')}/{$this->argument('name')}";
+        }
         shell_exec("cp -r resources/js/@shared/example {$resource}");
         shell_exec("mv {$resource}/example.page.scss {$resource}/{$module}.page.scss");
         $this->typescriptFile = "{$resource}/{$module}.page.ts";
