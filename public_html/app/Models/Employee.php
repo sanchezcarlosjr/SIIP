@@ -46,4 +46,9 @@ class Employee extends Model
     {
         return $this->hasMany(ProdepNPTC::class, 'employee_id');
     }
+
+    public function snis()
+    {
+        return $this->hasMany(Sni::class, 'employee_id');
+    }
 }

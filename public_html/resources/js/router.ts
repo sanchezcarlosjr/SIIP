@@ -17,20 +17,20 @@ export const routes = [
         path: '/inicio',
         name: 'Inicio',
         icon: 'fa-home',
-        meta: { title: 'Inicio' },
+        meta: {title: 'Inicio'},
         component: HomeModule
     },
     {
         path: '/usuarios',
         name: 'Usuarios',
         icon: 'fa-users',
-        meta: { title: 'Usuarios' },
+        meta: {title: 'Usuarios'},
         component: AdminModule,
         children: [
             {
                 path: '',
                 name: 'Gestión',
-                component:  UsersPage
+                component: UsersPage
             },
             {
                 name: 'Permisos',
@@ -107,7 +107,7 @@ export const routes = [
         path: '/prodep',
         name: 'PRODEP',
         icon: 'fa-university',
-        meta: { title: 'PRODEP' },
+        meta: {title: 'PRODEP'},
         component: () => import('./prodep/prodep.module.vue'),
         children: [
             {
@@ -127,6 +127,20 @@ export const routes = [
                 component: () => import('./prodep/nptcs/index.vue')
             }
         ],
+    },
+    {
+        path: '/sni',
+        name: 'Profesor-Investigador',
+        icon: 'fa-podcast',
+        meta: {title: 'SNI'},
+        component: () => import('./sni/sni.module.vue'),
+        children: [
+            {
+                name: 'Gestión',
+                path: '',
+                component: () => import('./sni/sni/index.vue')
+            }
+        ]
     },
     {
         path: '*', component: NotFoundPage

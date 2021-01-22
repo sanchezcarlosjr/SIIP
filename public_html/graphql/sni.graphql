@@ -16,4 +16,5 @@ type Sni {
 
 type SNIArea {
     id: ID
+    name: String
 }

@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SNIArea extends Model
 {
+    protected $table = 'sni_areas';
     use HasFactory;
 }
