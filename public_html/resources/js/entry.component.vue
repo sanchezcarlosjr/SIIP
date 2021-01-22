@@ -3,7 +3,8 @@
         <div class="main-header">
             <div class="logo-header" data-background-color="green">
                 <router-link class="logo" to="/">SIIIP</router-link>
-                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
+                        data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
 						<i class="icon-menu"></i>
 					</span>
@@ -17,7 +18,7 @@
             </div>
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="green">
                 <div class="container-fluid">
-                    <div  id="search-nav">
+                    <div id="search-nav">
                         <span style="color: #ffffff;max-width: 500px; ">SISTEMA INSTITUCIONAL DE INDICADORES DE INVESTIGACION Y POSGRADO</span>
                     </div>
                 </div>
@@ -32,17 +33,35 @@
                         </center>
                     </div>
                     <ul class="nav nav-primary">
+                        <router-link
+                            v-if="route.name"
+                            v-for="(route, index) in routes"
+                            :key="index" class="nav-item"
+                            active-class="active"
+                            tag="li" :to="route.path">
+                            <a>
+                                <i
+                                    active-class="text-light"
+                                    style="padding-right: 5px; font-size: 20px;"
+                                   :class="`fa ${route.icon}`"></i>
+                                <p>{{route.name}}</p>
+                                <span v-if="route.children" class="caret"></span>
+                            </a>
+                        </router-link>
+
                         <router-link class="nav-item" active-class="active" tag="li" to="/inicio">
                             <a v-b-toggle.accordion-1>
                                 <i style="padding-right: 5px; font-size: 20px;" class="fas fa-home"></i>
                                 <p>Inicio</p>
                             </a>
-                            <b-collapse style="display: none;" id="accordion-1" accordion="my-accordion" role="tabpanel" class="mt-2">
+                            <b-collapse style="display: none;" id="accordion-1" accordion="my-accordion" role="tabpanel"
+                                        class="mt-2">
                             </b-collapse>
                         </router-link>
                         <router-link class="nav-item" active-class="active" tag="li" to="/usuarios">
                             <a v-b-toggle.accordion-2>
-                                <i active-class="text-light" style="padding-right: 5px; font-size: 20px;" class="fa fa-users"></i>
+                                <i active-class="text-light" style="padding-right: 5px; font-size: 20px;"
+                                   class="fa fa-users"></i>
                                 <p>Usuarios</p>
                                 <span class="caret"></span>
                             </a>
@@ -62,7 +81,7 @@
                         <router-link class="nav-item" active-class="active" tag="li" to="/cuerpos-academicos">
                             <a v-b-toggle.accordion-3>
                                 <i style="padding-right: 5px; font-size: 20px;" class="fa fa-address-card"></i>
-                                 <p>Cuerpos Académicos</p>
+                                <p>Cuerpos Académicos</p>
                                 <span class="caret"></span>
                             </a>
                             <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel" class="mt-2">
@@ -108,7 +127,7 @@
                             </a>
                             <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel" class="mt-2">
                                 <ul class="nav nav-collapse">
-                                    <router-link  active-class="active" tag="li" to="/prodep">
+                                    <router-link active-class="active" tag="li" to="/prodep">
                                         <a>
                                             <span class="sub-item">Gestión</span>
                                         </a>
@@ -325,7 +344,8 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="copyright ml-auto">
-                        {{year}}, hecho con <i class="fa fa-heart heart text-danger"></i> por <a href="https://sanchezcarlosjr.com/">alumnos de UABC</a>
+                        {{year}}, hecho con <i class="fa fa-heart heart text-danger"></i> por <a
+                        href="https://sanchezcarlosjr.com/">alumnos de UABC</a>
                     </div>
                 </div>
             </footer>
@@ -334,13 +354,17 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue"
-    import Component from "vue-class-component"
-    @Component
-    export default class EntryComponent extends Vue {
-        year = new Date().getFullYear();
-        mounted() {
-            console.log('%c Interested in working with us?\n See https://www.sanchezcarlosjr.com', 'background: #222; color: #bada55');
-        }
+import Vue from "vue"
+import Component from "vue-class-component"
+import {routes} from "./router";
+
+@Component
+export default class EntryComponent extends Vue {
+    year = new Date().getFullYear();
+    routes = routes.slice(1);
+
+    mounted() {
+        console.log('%c Interested in working with us?\n See https://www.sanchezcarlosjr.com', 'background: #222; color: #bada55');
     }
+}
 </script>

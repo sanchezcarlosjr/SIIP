@@ -15,13 +15,15 @@ export const routes = [
     },
     {
         path: '/inicio',
-        name: 'home',
+        name: 'Inicio',
+        icon: 'fa-home',
         meta: { title: 'Inicio' },
         component: HomeModule
     },
     {
         path: '/usuarios',
-        name: 'users',
+        name: 'Usuarios',
+        icon: 'fa-users',
         meta: { title: 'Usuarios' },
         component: AdminModule,
         children: [
@@ -37,7 +39,8 @@ export const routes = [
     },
     {
         path: '/cuerpos-academicos',
-        name: 'Academic Unit',
+        name: 'Cuerpos Académicos',
+        icon: 'fa-address-card',
         meta: {title: 'Cuerpos Académicos'},
         component: () => import('./academic-bodies/academic-body.module.vue'),
         children: [
@@ -89,7 +92,8 @@ export const routes = [
     },
     {
         path: '/prodep',
-        name: 'prodep',
+        name: 'PRODEP',
+        icon: 'fa-university',
         meta: { title: 'PRODEP' },
         component: () => import('./prodep/prodep.module.vue'),
         children: [
