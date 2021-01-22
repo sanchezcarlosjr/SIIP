@@ -29,10 +29,12 @@ export const routes = [
         children: [
             {
                 path: '',
+                name: 'Gestión',
                 component:  UsersPage
             },
             {
-                path: 'permissions',
+                name: 'Permisos',
+                path: 'permisos',
                 component: UserPermissionsPage
             }
         ],
@@ -46,46 +48,57 @@ export const routes = [
         children: [
             {
                 path: '',
+                name: 'Gestión',
                 component: () => import('./academic-bodies/academic-body-management/index.vue')
             },
             {
                 path: 'redes',
+                name: 'Redes',
                 component: () => import('./academic-bodies/networks/index.vue')
             },
             {
                 path: 'evaluaciones',
+                name: 'Evaluaciones',
                 component: () => import('./academic-bodies/evaluations/index.vue')
             },
             {
                 path: 'ayudas',
+                name: 'Ayudas',
                 component: () => import('./academic-bodies/helps/index.vue')
             },
             {
                 path: 'miembros',
+                name: 'Miembros',
                 component: () => import('./academic-bodies/members/index.vue')
             },
             {
                 path: 'lgacs',
+                name: 'LGACS',
                 component: () => import('./academic-bodies/lgac/index.vue')
             },
             {
                 path: ':id/lgacs',
+                name: 'LGAC',
                 component: () => import('./academic-bodies/lgac-by-academic-body/index.vue')
             },
             {
                 path: ':id/evaluaciones',
+                name: 'Evaluacion',
                 component: () => import('./academic-bodies/evaluations-by-academic-body/index.vue')
             },
             {
                 path: ':id/miembros',
+                name: 'Miembro',
                 component: () => import('./academic-bodies/members-by-academic-body/index.vue')
             },
             {
                 path: ':id/apoyos',
+                name: 'Apoyo',
                 component: () => import('./academic-bodies/helps-by-academic-body/index.vue')
             },
             {
                 path: ':id/redes',
+                name: 'Red',
                 component: () => import('./academic-bodies/networks-by-academic-body/index.vue')
             }
         ]
@@ -98,6 +111,7 @@ export const routes = [
         component: () => import('./prodep/prodep.module.vue'),
         children: [
             {
+                name: 'Gestión',
                 path: '',
                 component:  () => import('./prodep/prodep/index.vue')
             }
