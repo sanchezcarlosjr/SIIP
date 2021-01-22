@@ -22,7 +22,9 @@ class ProdepHelpFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'amount' => 10,
+            'type' => 'A',
+            'date' => $this->faker->date
         ];
     }
 }

@@ -165,6 +165,7 @@ export class GraphQLBuilder {
           }`
             }
         }).then((response) => {
+            console.log(response);
             this.mapToDataframeIfSubResource(response, this.resourceGraphQL);
             return {
                 resourceName: this.isASubResource ? response.data.data[this.resourceGraphQL].name.toLowerCase() : '',

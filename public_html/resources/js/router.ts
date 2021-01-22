@@ -113,7 +113,12 @@ export const routes = [
             {
                 name: 'Gestión',
                 path: '',
-                component:  () => import('./prodep/prodep/index.vue')
+                component: () => import('./prodep/prodep/index.vue')
+            },
+            {
+                name: 'Beneficios',
+                path: 'beneficios',
+                component: () => import('./prodep/helps/index.vue')
             }
         ],
     },

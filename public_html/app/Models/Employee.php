@@ -31,8 +31,14 @@ class Employee extends Model
     {
         return $this->hasMany(Help::class, 'benefited_employee_id');
     }
+
     public function prodep_profiles()
     {
         return $this->hasMany(ProdepProfile::class, 'employee_id');
+    }
+
+    public function prodep_helps()
+    {
+        return $this->hasMany(ProdepHelp::class, 'employee_id');
     }
 }
