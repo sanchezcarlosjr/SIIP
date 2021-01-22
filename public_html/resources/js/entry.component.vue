@@ -58,7 +58,7 @@
                                     v-for="(subRoute, i) in route.children"
                                     active-class="active"
                                     v-if="!subRoute.path.match(':')"
-                                    :key="index"
+                                    :key="i"
                                     tag="li"
                                     :to="route.path+'/'+subRoute.path">
                                     <a>
