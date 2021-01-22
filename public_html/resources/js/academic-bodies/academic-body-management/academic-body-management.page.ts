@@ -101,12 +101,12 @@ export default class AcademicBodyManagementPage extends Vue {
         ]
     };
     fields = [
-        { key: 'name', label: 'Nombre', sortable: true },
-        { key: 'prodep_key', label: 'Clave PRODEP', sortable: true },
-        { key: 'last_evaluation.grade', label: 'Grado', sortable: true },
-        { key: 'leader.nombre', label: 'Líder', sortable: true },
-        { key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true },
-        { key: 'actions', label: 'Acciones' }
+        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'prodep_key', label: 'Clave PRODEP', sortable: true},
+        {key: 'last_evaluation.grade', label: 'Grado', sortable: true},
+        {key: 'leader.name', label: 'Líder', sortable: true},
+        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+        {key: 'actions', label: 'Acciones'}
     ];
 }
 
