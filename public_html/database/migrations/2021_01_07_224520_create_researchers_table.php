@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReseachersTable extends Migration
+class CreateResearchersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReseachersTable extends Migration
      */
     public function up()
     {
-        Schema::create('reseachers', function (Blueprint $table) {
+        Schema::create('researchers', function (Blueprint $table) {
             $table->id();
             $table->date('valid');
             $table->date('probative');

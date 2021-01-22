@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Reseacher;
+use App\Models\Researcher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ReseacherFactory extends Factory
+class ResearcherFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Reseacher::class;
+    protected $model = Researcher::class;
 
     /**
      * Define the model's default state.
