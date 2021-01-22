@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 type Query {
     snis: [Sni] @paginate(defaultCount: 10)
     prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
-    prodep_helps: [ProdepHelp] @paginate(defaultCount: 10)
+    prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -69,14 +69,14 @@ type Mutation {
         id: ID!
     ): ProdepHelp @delete
     createProdepHelp(
-        amount: String
+        amount: Float
         type: String
         date: Date
         employee_id: Int
     ): ProdepHelp @create
     updateProdepHelp(
         id: ID!
-        amount: String
+        amount: Float
         type: String
         date: Date
         employee_id: Int

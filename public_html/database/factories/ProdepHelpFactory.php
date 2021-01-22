@@ -22,8 +22,17 @@ class ProdepHelpFactory extends Factory
     public function definition()
     {
         return [
-            'amount' => 10,
-            'type' => 'A',
+            'amount' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+            'type' => $this->faker->randomElement($array = array(
+                'Apoyo inicial',
+                'Apoyo complementario',
+                'Apoyo 6 años',
+                'Estancias cortas',
+                'Apoyo publicación',
+                'Convocatoria redes',
+                'Convocatoria fortalecimiento',
+                'Beca postdoctorado'
+            )),
             'date' => $this->faker->date
         ];
     }

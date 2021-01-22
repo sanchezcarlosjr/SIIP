@@ -104,18 +104,47 @@
                 var _this = _super !== null && _super.apply(this, arguments) || this;
                 _this.tableTitle = "Beneficios PRODEP";
                 _this.apiResource = "prodep_helps";
+                _this.spanishResourceName = 'beneficio';
                 _this.toolbar = new Set(["add"]);
                 _this.schema = {
                     fields: [
                         {
+                            type: 'graphql-select',
+                            label: 'Nombre del empleado beneficiado',
+                            model: "employee_id",
+                            query: 'employees',
+                            textKey: 'name'
+                        },
+                        {
+                            type: 'select',
+                            label: 'Tipo de beneficio',
+                            model: 'type',
+                            values: [
+                                'Apoyo inicial',
+                                'Apoyo complementario',
+                                'Apoyo 6 años',
+                                'Estancias cortas',
+                                'Apoyo publicación',
+                                'Convocatoria redes',
+                                'Convocatoria fortalecimiento',
+                                'Beca postdoctorado'
+                            ]
+                        },
+                        {
+                            type: 'calendar',
+                            label: 'Fecha de apoyo',
+                            model: 'date'
+                        },
+                        {
                             type: 'input',
-                            inputType: 'text',
-                            label: 'Nombre',
-                            model: 'name'
-                        }
+                            inputType: 'number',
+                            label: 'Cantidad de apoyo',
+                            model: 'amount'
+                        },
                     ]
                 };
                 _this.fields = [
+                    {key: 'prodepHelp.'},
                     {key: "type", label: "Tipo", sortable: true},
                     {key: "date", label: "Fecha", sortable: true},
                     {key: "employee.name", label: "Beneficiario", sortable: true},
@@ -163,6 +192,7 @@
                     toolbar: _vm.toolbar,
                     schema: _vm.schema,
                     tableTitle: _vm.tableTitle,
+                    spanishResourceName: _vm.spanishResourceName,
                     fields: _vm.fields,
                     communicationType: "GraphQL",
                     resource: _vm.apiResource

@@ -123,6 +123,7 @@ export class GraphQLBuilder {
                   `
             }
         }).then((response) => {
+            console.log(response);
             this.isAResource = false;
             if (this.isAEditableResource()) {
                 return {

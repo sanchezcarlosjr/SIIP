@@ -3,6 +3,7 @@
         :toolbar="toolbar"
         :schema="schema"
         :tableTitle="tableTitle"
+        :spanishResourceName="spanishResourceName"
         :fields="fields"
         communicationType="GraphQL"
         :resource="apiResource"

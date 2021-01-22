@@ -11,7 +11,7 @@ type ProdepProfile {
 type ProdepHelp {
     id: ID!
     active: Boolean
-    amount: String
+    amount: Float
     type: String
     date: Date
     employee_id: Int
