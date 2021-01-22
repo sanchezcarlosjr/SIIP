@@ -87,7 +87,7 @@ var ProdepPage = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.tableTitle = 'Gestión de perfiles PRODEP';
         _this.date = new Date();
-        _this.apiResource = "prodep_profiles(finish_date: " + _this.date.getFullYear() + "-" + _this.date.getMonth() + "-" + _this.date.getDay() + ")";
+        _this.apiResource = "prodep_profiles";
         _this.toolbar = new Set(['add', 'edit']);
         _this.defaultCriteria = [
             {

@@ -6,7 +6,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 
 type Query {
     snis: [Sni] @paginate(defaultCount: 10)
-    prodep_profiles: [ProdepProfile] @paginate(defaultCount: 10)
+    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 10)
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
