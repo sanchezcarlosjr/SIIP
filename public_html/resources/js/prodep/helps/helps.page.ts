@@ -3,11 +3,24 @@ import Component from "vue-class-component";
 
 @Component
 export default class HelpsPage extends Vue {
-    tableTitle = "A";
+    tableTitle = "Beneficios PRODEP";
     apiResource = "prodep_helps";
-    toolbar = new Set([]);
-    
+    toolbar = new Set(["add"]);
+    schema = {
+        fields: [
+            {
+                type: 'input',
+                inputType: 'text',
+                label: 'Nombre',
+                model: 'name'
+            }
+        ]
+    };
     fields = [
-{ key: "name", label: "Nombre", sortable: true }
+{ key: "type", label: "Tipo", sortable: true },
+{ key: "employee", label: "Beneficiario", sortable: true },
+{ key: "date", label: "Fecha", sortable: true },
+{ key: "amount", label: "Cantidad", sortable: true },
+{ key: "actions", label: "Acciones" }
 ];
 }

@@ -1,7 +1,7 @@
 <template>
     <siip-table
         :toolbar="toolbar"
-        
+        :schema="schema"
         :tableTitle="tableTitle"
         :fields="fields"
         communicationType="GraphQL"
