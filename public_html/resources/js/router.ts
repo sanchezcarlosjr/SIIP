@@ -130,7 +130,7 @@ export const routes = [
     },
     {
         path: '/sni',
-        name: 'Profesor-Investigador',
+        name: 'SNI',
         icon: 'fa-podcast',
         meta: {title: 'SNI'},
         component: () => import('./sni/sni.module.vue'),
