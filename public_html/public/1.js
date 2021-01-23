@@ -249,8 +249,8 @@ render._withStripped = true
 /*!************************************************************************************************************************************************************!*\
   !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& ***!
   \************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+    /*! no static exports found */
+    /***/ (function (module, __webpack_exports__, __webpack_require__) {
 
         "use strict";
         __webpack_require__.r(__webpack_exports__);
@@ -311,13 +311,13 @@ render._withStripped = true
 
         var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
             _academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "2638531c",
-  null
-)
+            _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+            _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+            false,
+            null,
+            "2638531c",
+            null
+        )
 
 /* hot reload */
 if (false) { var api; }

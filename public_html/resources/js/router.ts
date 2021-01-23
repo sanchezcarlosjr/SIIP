@@ -151,7 +151,7 @@ export const routes = [
         path: '/propiedad-intelectual',
         name: 'Propiedad intelectual',
         meta: {title: 'Propiedad intelectual'},
-        icon: 'fa-podcast',
+        icon: 'fa-brain',
         component: () => import('./activities-pits/activities-pits.module.vue'),
         children: [
             {
