@@ -22,7 +22,12 @@ class ActivitiesPitFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "kind_of_applicant" => $this->faker->name,
+            "name_event" => $this->faker->name,
+            "asistence" => $this->faker->name,
+            "goal" => $this->faker->name,
+            "date" => $this->faker->date,
+            "academic_unit_id" => $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }
 }

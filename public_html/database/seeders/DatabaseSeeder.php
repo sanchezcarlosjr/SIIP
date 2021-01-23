@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\{ActivitiesPit};
 use App\Models\AcademicBody;
 use App\Models\Discipline;
 use App\Models\Employee;
@@ -47,6 +48,7 @@ class DatabaseSeeder extends Seeder
         Evaluation::factory(200)->create();
         SNIArea::factory(50)->create();
         Network::factory(200)->create();
+        ActivitiesPit::factory()->create();
     }
 
     private function makeRoles()

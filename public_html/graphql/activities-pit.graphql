@@ -1,0 +1,11 @@
+type ActivitiesPit {
+    kind_of_applicant: String
+    name_event: String
+    asistence: String
+    goal: String
+    date: Date
+    academic_unit_id: Int
+    academic_unit: AcademicUnit
+    id: ID
+    active: Boolean
+}

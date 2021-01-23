@@ -5,6 +5,7 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
+    activities_pits: [ActivitiesPit] @paginate(defaultCount: 10)
     researchers: [Researcher] @paginate(defaultCount: 10)
     prodep_nptcs: [ProdepNPTC] @paginate(defaultCount: 10)
     snis: [Sni] @paginate(defaultCount: 10)
@@ -27,6 +28,22 @@ type Query {
 }
 
 type Mutation {
+    deleteActivitiesPit(id: ID!): ActivitiesPit @delete
+    createActivitiesPit(
+        kind_of_applicant: String
+        name_event: String
+        asistence: String
+        goal: String
+        date: Date
+        academic_unit_id: Int): ActivitiesPit @create
+    updateActivitiesPit(
+        id: ID!
+        kind_of_applicant: String
+        name_event: String
+        asistence: String
+        goal: String
+        date: Date
+        academic_unit_id: Int): ActivitiesPit @update
     deleteResearcher(
         id: ID!
     ): Researcher @delete
@@ -205,3 +222,4 @@ type Mutation {
 #import sni.graphql
 #import  prodep.graphql
 #import  sni.graphql
+#import  activities-pit.graphql

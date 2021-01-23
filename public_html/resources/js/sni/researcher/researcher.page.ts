@@ -3,7 +3,7 @@ import Component from "vue-class-component";
 
 @Component
 export default class ResearcherPage extends Vue {
-    tableTitle = "Gestión Profesor-investigador";
+    tableTitle = "Gestión profesor-investigador";
     apiResource = "researchers";
     spanishResourceName = "investigador";
     toolbar = new Set(["add"]);
