@@ -24,7 +24,11 @@ export default class PDFButton extends Vue {
         doc.text(text, 14, 30)
         // @ts-ignore
         const res = doc.autoTableHtmlToJson(document.getElementById("main-table"));
-        const columns = res.columns.slice(0, res.columns.length - 1);
+        //const columns = res.columns.slice(0, res.columns.length - 0);
+        const columns = res.columns.filter((column:string) => column !== 'Acciones');
+        for(var i=0; i < columns.length; i++) {
+            columns[i] = columns[i].split('(')[0];
+           }
         // @ts-ignore
         doc.autoTable(columns, res.data, {
             startY: 40,

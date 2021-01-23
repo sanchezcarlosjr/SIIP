@@ -7,9 +7,11 @@ export class CSV {
     download() {
         var csvFile;
         var downloadLink;
+        var BOM = "\uFEFF";
+        var csvData = BOM + this.csv;
 
         // CSV file
-        csvFile = new Blob([this.csv], {type: "text/csv"});
+        csvFile = new Blob([csvData], {type: "text/csv"});
 
         // Download link
         downloadLink = document.createElement("a");
