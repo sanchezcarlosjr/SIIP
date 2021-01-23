@@ -94,7 +94,7 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
                 default: false
             },
             {
-                value: 'Vigente',
+                value: 'No vigente',
                 default: false
             },
             {
@@ -245,10 +245,11 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&":
-/*!************************************************************************************************************************************************************!*\
-  !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& ***!
-  \************************************************************************************************************************************************************/
+/***/
+    "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&":
+    /*!************************************************************************************************************************************************************!*\
+      !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& ***!
+      \************************************************************************************************************************************************************/
     /*! no static exports found */
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
 

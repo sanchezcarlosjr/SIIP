@@ -12,7 +12,7 @@ export default class AcademicBodyManagementPage extends Vue {
             default: false
         },
         {
-            value: 'Vigente',
+            value: 'No vigente',
             default: false
         },
         {
