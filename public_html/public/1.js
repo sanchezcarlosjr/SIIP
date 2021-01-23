@@ -191,12 +191,12 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
             ]
         };
         _this.fields = [
-            {key: 'name', label: 'Nombre', sortable: true},
-            {key: 'prodep_key', label: 'Clave PRODEP', sortable: true},
-            {key: 'last_evaluation.grade', label: 'Grado', sortable: true},
-            {key: 'leader.name', label: 'Líder', sortable: true},
-            {key: "leader.academic_unit.name", label: 'Unidad Académica', sortable: true},
-            {key: 'actions', label: 'Acciones'}
+            { key: 'name', label: 'Nombre', sortable: true },
+            { key: 'prodep_key', label: 'Clave PRODEP', sortable: true },
+            { key: 'last_evaluation.grade', label: 'Grado', sortable: true },
+            { key: 'leader.name', label: 'Líder', sortable: true },
+            { key: "leader.academic_unit.name", label: 'Unidad Académica', sortable: true },
+            { key: 'actions', label: 'Acciones' }
         ];
         return _this;
     }
@@ -245,80 +245,67 @@ render._withStripped = true
 
 /***/ }),
 
-/***/
-    "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&":
-    /*!************************************************************************************************************************************************************!*\
-      !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& ***!
-      \************************************************************************************************************************************************************/
-    /*! no static exports found */
-    /***/ (function (module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&":
+/*!************************************************************************************************************************************************************!*\
+  !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& ***!
+  \************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-        "use strict";
-        __webpack_require__.r(__webpack_exports__);
-        /* harmony import */
-        var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!./academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&");
-        /* harmony import */
-        var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-        /* harmony reexport (unknown) */
-        for (var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if (["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function (key) {
-            __webpack_require__.d(__webpack_exports__, key, function () {
-                return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key];
-            })
-        }(__WEBPACK_IMPORT_KEY__));
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--8-3!./academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_dist_cjs_js_ref_8_3_academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
-        /***/
-    }),
+/***/ }),
 
-    /***/
-    "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&":
-    /*!*************************************************************************************************************************!*\
-      !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts& ***!
-      \*************************************************************************************************************************/
-    /*! exports provided: default */
-    /***/ (function (module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts& ***!
+  \*************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-        "use strict";
-        __webpack_require__.r(__webpack_exports__);
-        /* harmony import */
-        var _node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/ts-loader??ref--5!./academic-body-management.page.ts?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&");
-        /* empty/unused harmony star reexport */ /* harmony default export */
-        __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/ts-loader??ref--5!./academic-body-management.page.ts?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
-        /***/
-    }),
+/***/ }),
 
-    /***/
-    "./resources/js/academic-bodies/academic-body-management/index.vue":
-    /*!*************************************************************************!*\
-      !*** ./resources/js/academic-bodies/academic-body-management/index.vue ***!
-      \*************************************************************************/
-    /*! exports provided: default */
-    /***/ (function (module, __webpack_exports__, __webpack_require__) {
+/***/ "./resources/js/academic-bodies/academic-body-management/index.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/academic-bodies/academic-body-management/index.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-        "use strict";
-        __webpack_require__.r(__webpack_exports__);
-        /* harmony import */
-        var _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=2638531c&scoped=true& */ "./resources/js/academic-bodies/academic-body-management/index.vue?vue&type=template&id=2638531c&scoped=true&");
-        /* harmony import */
-        var _academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./academic-body-management.page.ts?vue&type=script&lang=ts& */ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&");
-        /* empty/unused harmony star reexport *//* harmony import */
-        var _academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& */ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&");
-        /* harmony import */
-        var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=2638531c&scoped=true& */ "./resources/js/academic-bodies/academic-body-management/index.vue?vue&type=template&id=2638531c&scoped=true&");
+/* harmony import */ var _academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./academic-body-management.page.ts?vue&type=script&lang=ts& */ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&");
+/* empty/unused harmony star reexport *//* harmony import */ var _academic_body_management_page_scss_vue_type_style_index_0_id_2638531c_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss& */ "./resources/js/academic-bodies/academic-body-management/academic-body-management.page.scss?vue&type=style&index=0&id=2638531c&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
-        /* normalize component */
 
-        var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-            _academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
-            _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-            _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-            false,
-            null,
-            "2638531c",
-            null
-        )
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_2638531c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2638531c",
+  null
+  
+)
 
 /* hot reload */
 if (false) { var api; }

@@ -39,7 +39,7 @@ export class CSV {
 
             for (var j = 0; j < cols.length-1; j++)
                 { // @ts-ignore
-                    row.push(`"${cols[j].innerText}"`);
+                    row.push(cols[j].innerText.replace(/\n\(.*\)/, ''));
                 }
             csv.push(row.join(','));
         }
