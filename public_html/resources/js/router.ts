@@ -62,8 +62,8 @@ export const routes = [
                 component: () => import('./academic-bodies/evaluations/index.vue')
             },
             {
-                path: 'ayudas',
-                name: 'Ayudas',
+                path: 'apoyos',
+                name: 'Apoyos',
                 component: () => import('./academic-bodies/helps/index.vue')
             },
             {
