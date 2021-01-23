@@ -148,6 +148,20 @@ export const routes = [
         ]
     },
     {
+        path: '/propiedad-intelectual',
+        name: 'Propiedad intelectual',
+        meta: {title: 'Propiedad intelectual'},
+        icon: 'fa-podcast',
+        component: () => import('./activities-pits/activities-pits.module.vue'),
+        children: [
+            {
+                name: 'Gestion',
+                path: '',
+                component: () => import('./activities-pits/activities-pits/index.vue')
+            }
+        ]
+    },
+    {
         path: '*', component: NotFoundPage
     },
 ];

@@ -8,6 +8,14 @@ export default class AcademicBodyManagementPage extends Vue {
     toolbar = new Set(['add', 'edit', 'archive']);
     defaultCriteria = [
         {
+            value: 'Vigente',
+            default: false
+        },
+        {
+            value: 'Vigente',
+            default: false
+        },
+        {
             value: 'Mexicali',
             default: false
         },
