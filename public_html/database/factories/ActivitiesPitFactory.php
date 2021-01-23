@@ -27,7 +27,7 @@ class ActivitiesPitFactory extends Factory
             "asistence" => $this->faker->name,
             "goal" => $this->faker->name,
             "date" => $this->faker->date,
-            "academic_unit_id" => $this->faker->numberBetween($min = 1, $max = 10),
+            "academic_unit_id" => $this->faker->randomElement($array = array(114, 122, 123, 175)),
         ];
     }
 }
