@@ -3,7 +3,6 @@ import Component from "vue-class-component";
 
 @Component
 export default class EvaluationsPage extends Vue {
-    tableTitle = 'Todos los evaluaciones';
     apiResource = 'academic_bodies';
     toolbar = new Set<String>([]);
     fields = [

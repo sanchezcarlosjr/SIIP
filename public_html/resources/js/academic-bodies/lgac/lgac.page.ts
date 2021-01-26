@@ -3,7 +3,6 @@ import Component from "vue-class-component"
 
 @Component
 export default class LGACPage extends Vue {
-    tableTitle = 'Todas las Líneas de Generación y Aplicación de Conocimiento';
     apiResource = 'lgacs';
     spanishResourceName = 'LGAC'
     toolbar = new Set<string>([]);

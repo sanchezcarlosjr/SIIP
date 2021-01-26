@@ -3,17 +3,21 @@
         <div class="card-header">
             <b-container style="padding: 0" class="card-title">
                 <b-row>
-                    <b-col style="padding: 0" :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 8 : 11">{{title}}</b-col>
-                    <b-col  v-if="!toolbar.has('add') && !toolbar.has('add-relation')">
+                    <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 8 : 11" style="padding: 0">
+                        <siip-breadcrumb :title="title"></siip-breadcrumb>
+                    </b-col>
+                    <b-col v-if="!toolbar.has('add') && !toolbar.has('add-relation')">
                         <pdf-button></pdf-button>
                         <csv-button></csv-button>
                     </b-col>
                     <b-col v-if="toolbar.has('add') || toolbar.has('add-relation')">
-                       <b-row>
+                        <b-row>
                             <b-col v-if="toolbar.has('add')" cols="9">
-                              <button style="width: 220px"  @click="create($event.target)" class="btn btn-success" size="sm" >Agregar {{infoModal.resource}}</button>
+                                <button style="width: 220px" @click="create($event.target)" class="btn btn-success"
+                                        size="sm">Agregar {{ infoModal.resource }}
+                                </button>
                             </b-col>
-                           <b-col v-if="toolbar.has('add-relation')" cols="9">
+                            <b-col v-if="toolbar.has('add-relation')" cols="9">
                                <button style="width: 220px"  @click="add($event.target)" class="btn btn-success" size="sm" >Agregar {{infoModal.resource}}</button>
                            </b-col>
                             <b-col>

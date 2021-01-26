@@ -85,7 +85,6 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
     __extends(AcademicBodyManagementPage, _super);
     function AcademicBodyManagementPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.tableTitle = 'Gestión de cuerpos académicos';
         _this.apiResource = 'academic_bodies';
         _this.toolbar = new Set(['add', 'edit', 'archive']);
         _this.defaultCriteria = [
@@ -230,7 +229,6 @@ var render = function() {
       toolbar: _vm.toolbar,
       links: _vm.links,
       schema: _vm.schema,
-      tableTitle: _vm.tableTitle,
       fields: _vm.fields,
       filter: _vm.defaultCriteria,
       communicationType: "GraphQL",

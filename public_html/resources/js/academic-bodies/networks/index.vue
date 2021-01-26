@@ -1,7 +1,6 @@
 <template>
     <siip-table
         :toolbar="toolbar"
-        :tableTitle="tableTitle"
         :fields="fields"
         communicationType="GraphQL"
         :resource="apiResource"

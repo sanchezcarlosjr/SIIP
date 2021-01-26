@@ -3,7 +3,6 @@ import Component from "vue-class-component";
 
 @Component
 export default class NetworksPage extends Vue {
-    tableTitle = 'Todas las redes';
     apiResource = 'networks';
     spanishResourceName = 'red'
     toolbar = new Set<String>([]);

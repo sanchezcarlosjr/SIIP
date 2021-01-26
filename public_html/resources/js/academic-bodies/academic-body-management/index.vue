@@ -3,7 +3,6 @@
     :toolbar="toolbar"
     :links="links"
     :schema="schema"
-    :tableTitle="tableTitle"
     :fields="fields"
     :filter="defaultCriteria"
     communicationType="GraphQL"

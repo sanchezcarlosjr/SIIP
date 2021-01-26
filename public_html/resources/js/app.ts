@@ -1,7 +1,8 @@
 require('./bootstrap');
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import {BootstrapVue, IconsPlugin} from 'bootstrap-vue';
 import Vue from 'vue';
 import CardTitleComponent from './@shared/card-title.component.vue';
+import SiipBreadcrumb from './@shared/breadcrumb.component.vue';
 import CSVButton from './@shared/csv-button/index.vue';
 import PDFButton from './@shared/pdf-button/index.vue';
 import SiipTableComponent from "./@shared/siip-table/index.vue";
@@ -12,6 +13,7 @@ import VfgFieldGraphQLSelect from './@shared/vfg-field-select-graphql/index.vue'
 import VfgFieldSwitch from './@shared/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import router from './router';
+
 const VueFormGenerator = require('vue-form-generator');
 
 Vue.use(BootstrapVue)
@@ -22,7 +24,8 @@ Vue.component('entry-component', EntryComponent)
 Vue.component('card-title-component', CardTitleComponent)
 Vue.component('pdf-button', PDFButton)
 Vue.component('csv-button', CSVButton)
-Vue.component('siip-table', SiipTableComponent)
+Vue.component('siip-table', SiipTableComponent);
+Vue.component('siip-breadcrumb', SiipBreadcrumb)
 Vue.component('field-calendar', VfgFieldCalendar);
 Vue.component('field-switch2', VfgFieldSwitch);
 Vue.component('field-api-select', VfgFieldApiSelect);

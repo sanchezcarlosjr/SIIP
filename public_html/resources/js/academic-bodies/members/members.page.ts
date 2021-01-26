@@ -3,7 +3,6 @@ import Component from "vue-class-component"
 
 @Component
 export default class MembersPage extends Vue {
-    tableTitle = 'Todos los miembros';
     apiResource = 'employees';
     spanishResourceName = 'miembro'
     toolbar = new Set<String>([]);

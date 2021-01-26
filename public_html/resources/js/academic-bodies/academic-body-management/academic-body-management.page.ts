@@ -3,7 +3,6 @@ import Component from "vue-class-component";
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    tableTitle = 'Gestión de cuerpos académicos';
     apiResource = 'academic_bodies';
     toolbar = new Set(['add', 'edit', 'archive']);
     defaultCriteria = [

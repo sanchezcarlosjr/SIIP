@@ -85,7 +85,6 @@ var LGACPage = /** @class */ (function (_super) {
     __extends(LGACPage, _super);
     function LGACPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.tableTitle = 'Todas las Líneas de Generación y Aplicación de Conocimiento';
         _this.apiResource = 'lgacs';
         _this.spanishResourceName = 'LGAC';
         _this.toolbar = new Set([]);
@@ -133,7 +132,6 @@ var render = function() {
     attrs: {
       toolbar: _vm.toolbar,
       spanishResourceName: _vm.spanishResourceName,
-      tableTitle: _vm.tableTitle,
       fields: _vm.fields,
       communicationType: "GraphQL",
       resource: _vm.apiResource,

@@ -85,7 +85,6 @@ var EvaluationsPage = /** @class */ (function (_super) {
     __extends(EvaluationsPage, _super);
     function EvaluationsPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.tableTitle = 'Todos los evaluaciones';
         _this.apiResource = 'academic_bodies';
         _this.toolbar = new Set([]);
         _this.fields = [
@@ -137,7 +136,6 @@ var render = function() {
   return _c("siip-table", {
     attrs: {
       toolbar: _vm.toolbar,
-      tableTitle: _vm.tableTitle,
       fields: _vm.fields,
       filter: _vm.defaultCriteria,
       communicationType: "GraphQL",

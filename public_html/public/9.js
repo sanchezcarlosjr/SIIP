@@ -85,7 +85,6 @@ var MembersPage = /** @class */ (function (_super) {
     __extends(MembersPage, _super);
     function MembersPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.tableTitle = 'Todos los miembros';
         _this.apiResource = 'employees';
         _this.spanishResourceName = 'miembro';
         _this.toolbar = new Set([]);
@@ -146,7 +145,6 @@ var render = function() {
     attrs: {
       toolbar: _vm.toolbar,
       spanishResourceName: _vm.spanishResourceName,
-      tableTitle: _vm.tableTitle,
       fields: _vm.fields,
       filter: _vm.defaultCriteria,
       communicationType: "GraphQL",

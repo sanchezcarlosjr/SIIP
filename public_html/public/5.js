@@ -85,7 +85,6 @@ var HelpsPage = /** @class */ (function (_super) {
     __extends(HelpsPage, _super);
     function HelpsPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.tableTitle = 'Todos los apoyos';
         _this.apiResource = 'helps';
         _this.toolbar = new Set([]);
         _this.fields = [
@@ -127,7 +126,6 @@ var render = function() {
   return _c("siip-table", {
     attrs: {
       toolbar: _vm.toolbar,
-      tableTitle: _vm.tableTitle,
       fields: _vm.fields,
       communicationType: "GraphQL",
       resource: _vm.apiResource

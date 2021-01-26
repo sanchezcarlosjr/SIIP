@@ -3,7 +3,6 @@ import Component from "vue-class-component";
 
 @Component
 export default class HelpsPage extends Vue {
-    tableTitle = 'Todos los apoyos';
     apiResource = 'helps';
     toolbar = new Set<String>([]);
     fields = [

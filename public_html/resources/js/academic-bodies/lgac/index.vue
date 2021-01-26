@@ -2,7 +2,6 @@
     <siip-table
        :toolbar="toolbar"
        :spanishResourceName="spanishResourceName"
-       :tableTitle="tableTitle"
        :fields="fields"
        communicationType="GraphQL"
        :resource="apiResource"
