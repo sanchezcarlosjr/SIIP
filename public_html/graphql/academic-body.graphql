@@ -14,6 +14,7 @@ type AcademicBody {
     prodep_key: String
     evaluations: [Evaluation]
     lgacs: [LGAC]
+    created_at: Date
     networks: [Network]
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
 }

@@ -142,7 +142,7 @@ export class GraphQLBuilder {
     }
 
     private isAEditableResource() {
-        return this.type == 'create' || this.type == 'update' && this.fatherID;
+        return (this.type == 'create' || this.type == 'update') && this.fatherID;
     }
 
     private parameters(model: Model) {

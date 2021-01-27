@@ -19,7 +19,8 @@ class AcademicBody extends Model
         'lead_employee_id',
         'uabc_areas_id',
         'discipline_id',
-        'des_id'
+        'des_id',
+        'created_at'
     ];
     public function lgacs()
     {

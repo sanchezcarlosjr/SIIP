@@ -15,7 +15,7 @@ type Query {
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
     help(id: ID @eq): Help @find
-    academic_bodies: [AcademicBody] @paginate(defaultCount: 10)
+    academic_bodies (orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 10)
     evaluations: [Evaluation!]! @paginate(defaultCount: 100)
     helps: [Help] @paginate(defaultCount: 200)
     academic_body(id: ID @eq): AcademicBody @find
