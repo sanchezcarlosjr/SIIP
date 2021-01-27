@@ -33,8 +33,12 @@
             <b-row>
                 <b-col lg="12" class="my-1">
                     <b-form-group
-                        class="mb-0"
+                        class="mb-0 p-0"
                     >
+                        <b-badge v-for="(badge, index) in originalFilter" v-bind:key="index" class="pointer"
+                                 variant="light" v-on:click="criteria.push(badge)">
+                            {{ badge }}
+                        </b-badge>
                         <b-input-group>
                             <b-form-tags
                                 input-id="tags-pills"
@@ -47,9 +51,7 @@
                                 placeholder="Buscar"
                             ></b-form-tags>
                         </b-input-group>
-                        <b-badge class="pointer" v-on:click="criteria.push(badge)" v-for="(badge, index) in originalFilter" v-bind:key="index" variant="light">
-                          {{badge}}
-                        </b-badge>
+
                     </b-form-group>
                 </b-col>
             </b-row>
