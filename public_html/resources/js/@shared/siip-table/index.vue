@@ -2,64 +2,82 @@
   <div class="container">
         <div class="card-header">
             <b-container style="padding: 0" class="card-title">
-                <b-row>
-                    <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 8 : 11" style="padding: 0">
+                <b-row align-h="between">
+                    <b-col :cols="toolbar.has('add') || toolbar.has('add-relation')" style="padding: 0">
                         <siip-breadcrumb :title="title"></siip-breadcrumb>
                     </b-col>
-                    <b-col v-if="!toolbar.has('add') && !toolbar.has('add-relation')">
-                        <pdf-button></pdf-button>
-                        <csv-button></csv-button>
-                    </b-col>
-                    <b-col v-if="toolbar.has('add') || toolbar.has('add-relation')">
-                        <b-row>
-                            <b-col v-if="toolbar.has('add')" cols="9">
-                                <button style="width: 220px" @click="create($event.target)" class="btn btn-success"
-                                        size="sm">Agregar {{ infoModal.resource }}
-                                </button>
-                            </b-col>
-                            <b-col v-if="toolbar.has('add-relation')" cols="9">
-                               <button style="width: 220px"  @click="add($event.target)" class="btn btn-success" size="sm" >Agregar {{infoModal.resource}}</button>
-                           </b-col>
-                            <b-col>
-                                  <pdf-button></pdf-button>
-                                  <csv-button></csv-button>
-                            </b-col>
-                       </b-row>
+                    <b-col cols="3">
+                        <b-dropdown size="sm" block split text="De 1/13/2021 a 1/21/2021"  variant="outline-success">
+                            <b-dropdown-item href="#">Action</b-dropdown-item>
+                            <b-dropdown-item href="#">Another action</b-dropdown-item>
+                            <b-dropdown-item href="#">Something else here...</b-dropdown-item>
+                        </b-dropdown>
                     </b-col>
                 </b-row>
-                <b-row>
-                    <b-col>
-                        A
+                <b-row align-h="between">
+                    <b-col cols="10" align-self="start">
+                        <b-row align-h="start">
+                            <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 2 : 1"  style="max-width: 14%;" class="pr-0">
+                                <b-button
+                                    v-if="toolbar.has('add')"
+                                    @click="create($event.target)"
+                                    style="border-radius:100%;"
+                                    v-b-tooltip.hover :title="'Agregar '+infoModal.resource"
+                                    variant="outline-success"
+                                >
+                                    <i class="fa fa-plus" aria-hidden="false"></i>
+                                </b-button>
+                                <b-button
+                                    v-if="toolbar.has('add-relation')"
+                                    @click="add($event.target)"
+                                    style="border-radius:100%;"
+                                    v-b-tooltip.hover :title="'Agregar '+infoModal.resource"
+                                    variant="outline-success"
+                                >
+                                    <i class="fa fa-plus" aria-hidden="false"></i>
+                                </b-button>
+                                <b-dropdown
+                                    v-b-tooltip.hover
+                                    title="Filtros"
+                                    variant="secondary-link"
+                                    toggle-class="text-decoration-none"
+                                    no-caret>
+                                    <template #button-content>
+                                        <i class="pointer fa fa-filter" aria-hidden="false"></i>
+                                    </template>
+                                    <b-dropdown-item
+                                        v-for="(filter, index) in originalFilter"
+                                        v-on:click="criteria.push(filter)"
+                                        v-bind:key="index">{{ filter }}</b-dropdown-item>
+                                </b-dropdown>
+                            </b-col>
+                            <b-col class="pl-0">
+                                <b-form-group
+                                    class="mb-0 p-0"
+                                >
+                                    <b-input-group>
+                                        <b-form-tags
+                                            input-id="tags-pills"
+                                            v-model="criteria"
+                                            tag-variant="primary"
+                                            tag-pills
+                                            remove-on-delete
+                                            addButtonText="Añadir"
+                                            placeholder="Añadir filtro"
+                                        ></b-form-tags>
+                                    </b-input-group>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                    </b-col>
+                    <b-col cols="1">
+                        <pdf-button></pdf-button>
+                        <csv-button></csv-button>
                     </b-col>
                 </b-row>
             </b-container>
         </div>
          <b-container fluid>
-            <b-row>
-                <b-col lg="12" class="my-1">
-                    <b-form-group
-                        class="mb-0 p-0"
-                    >
-                        <b-badge v-for="(badge, index) in originalFilter" v-bind:key="index" class="pointer"
-                                 variant="light" v-on:click="criteria.push(badge)">
-                            {{ badge }}
-                        </b-badge>
-                        <b-input-group>
-                            <b-form-tags
-                                input-id="tags-pills"
-                                v-model="criteria"
-                                tag-variant="primary"
-                                tag-pills
-                                remove-on-delete
-                                size="lg"
-                                addButtonText="Añadir"
-                                placeholder="Buscar"
-                            ></b-form-tags>
-                        </b-input-group>
-
-                    </b-form-group>
-                </b-col>
-            </b-row>
             <div class="b-table-sticky-header">
                 <b-table
                     small
