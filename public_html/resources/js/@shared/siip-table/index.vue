@@ -27,6 +27,11 @@
                        </b-row>
                     </b-col>
                 </b-row>
+                <b-row>
+                    <b-col>
+                        A
+                    </b-col>
+                </b-row>
             </b-container>
         </div>
          <b-container fluid>

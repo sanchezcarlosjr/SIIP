@@ -21,6 +21,7 @@
                     <div>
                         <span style="color: #ffffff;max-width: 500px; ">Sistema institucional de indicadores de investigación y posgrado</span>
                     </div>
+                    <b-avatar></b-avatar>
                 </div>
             </nav>
         </div>
