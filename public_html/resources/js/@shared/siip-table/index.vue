@@ -3,7 +3,7 @@
       <div class="card-header">
           <b-container style="padding: 0" class="card-title">
               <b-row align-h="between">
-                  <b-col :cols="toolbar.has('add') || toolbar.has('add-relation')" style="padding: 0">
+                  <b-col style="padding: 0">
                       <siip-breadcrumb :title="title"></siip-breadcrumb>
                   </b-col>
                   <b-col cols="3">
