@@ -13,7 +13,6 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
     texts: any = {};
 
     get idState() {
-        console.log(this.value);
         return this.isTouched && !isNaN(this.value) && typeof Number(this.value) === 'number' && !!this.texts[this.value];
     }
 
