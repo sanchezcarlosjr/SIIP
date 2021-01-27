@@ -83,6 +83,9 @@ export default class SiipTableComponent extends Vue {
                     const id = await this.infoVariant(this.items);
                     this.items[id]._rowVariant = 'info';
                 }
+                if (!this.tableTitle) {
+                    return;
+                }
                 const isAInjectedElement = this.tableTitle.indexOf('*') !== -1;
                 if (isAInjectedElement) {
                     const injectedSymbolByAttribute: RegExp = /\*[a-z_.]+/gi;
