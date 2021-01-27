@@ -9,6 +9,7 @@ import {InfoModal} from './info-modal';
 @Component
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
+
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: string;
     @Prop() fields!: any[];
@@ -18,33 +19,42 @@ export default class SiipTableComponent extends Vue {
     @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
     @Prop({default: 'REST'}) communicationType!: string;
-    @Prop({default(){return {
-            fields: [
-                {
-                    type: '',
-                    label: '',
-                    model: "",
-                    query: '',
-                    textKey: ''
-                },
-            ]
-        }}}) schema!: any;
+    @Prop({
+        default() {
+            return {
+                fields: [
+                    {
+                        type: '',
+                        label: '',
+                        model: "",
+                        query: '',
+                        textKey: ''
+                    },
+                ]
+            }
+        }
+    }) schema!: any;
     @Prop() links!: Object;
-    @Prop({default(){return []}}) filter!: {default: boolean; value: string}[];
+    @Prop({
+        default() {
+            return []
+        }
+    }) filter!: { default: boolean; value: string }[];
     criteria: string[] = [];
-    @Prop({default: new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
-    private originalFilter: string[] = [];
+    @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     items: any = [];
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
     infoModal: InfoModal = new InfoModal(this.schema, this.resource);
+    private originalFilter: string[] = [];
     private graphQLBuilder: GraphQLBuilder | undefined;
+
     get sortOptions() {
         return this.fields
             .filter(field => field.sortable)
             .map(field => {
-                return { text: field.label, value: field.key }
+                return {text: field.label, value: field.key}
             })
     }
 
@@ -69,7 +79,7 @@ export default class SiipTableComponent extends Vue {
             this.graphQLBuilder = new GraphQLBuilder(this.resource, this.fields, this.$route.params.id);
             this.graphQLBuilder.index().then(async (response) => {
                 this.items = response.data;
-                if (typeof this.infoVariant ==='function') {
+                if (typeof this.infoVariant === 'function') {
                     const id = await this.infoVariant(this.items);
                     this.items[id]._rowVariant = 'info';
                 }
@@ -147,7 +157,7 @@ export default class SiipTableComponent extends Vue {
     private removeElement() {
         this.items.splice(this.infoModal.rowId, 1);
         if (this.communicationType === 'GraphQL') {
-          return this.graphQLBuilder?.remove(this.resourceGraphQL, this.infoModal.itemId);
+            return this.graphQLBuilder?.remove(this.resourceGraphQL, this.infoModal.itemId);
         }
         return axios.delete(`api/${this.resource}/${this.infoModal.itemId}`);
     }
@@ -170,8 +180,8 @@ export default class SiipTableComponent extends Vue {
 
     private createElement() {
         if (this.communicationType === 'GraphQL') {
-           return this.graphQLBuilder?.store(this.infoModal.model, this.infoModal.id)
-               .then((element) => this.items.push(element));
+            return this.graphQLBuilder?.store(this.infoModal.model, this.infoModal.id)
+                .then((element) => this.items.push(element));
         }
         return axios.post(`api/${this.resource}`, {
             ...this.infoModal.model
