@@ -94,7 +94,6 @@
                     :sort-desc.sync="sortDesc"
                     :filter-function="search"
                     :sort-direction="sortDirection"
-                    @row-clicked="item=>$set(item, '_showDetails', !item._showDetails)"
                 >
                     <template #cell(actions)="row">
                         <router-link
@@ -103,22 +102,44 @@
                             class="pointer"
                             v-b-tooltip.hover :title="value.tooltip"
                             :to="value.link.replace('*', row.item.id)">
-                                <i style="font-size:20px" class="fas" v-bind:class="'fa-'+key"></i>
+                            <i style="font-size:20px" class="fas" v-bind:class="'fa-'+key"></i>
                         </router-link>
-                        <a class="pointer" v-b-tooltip.hover :title="'Archivar ' + infoModal.resource" style="font-size:20px" @click="archive(row.item, row.index, $event.target)" v-if="toolbar.has('archive')"><i class="fas fa-archive"></i></a>
-                        <a class="pointer" v-b-tooltip.hover :title="'Editar ' + infoModal.resource" style="font-size:20px" @click="edit(row.item, row.index, $event.target)" v-if="toolbar.has('edit')"><i class="fa fa-edit"></i></a>
-                        <a class="pointer" v-b-tooltip.hover :title="'Eliminar ' + infoModal.resource"style="font-size:20px" @click="remove(row.item, row.index, $event.target)" v-if="toolbar.has('remove')"><i class="fa fa-trash"></i></a>
-                        <a class="pointer" v-b-tooltip.hover :title="'Remover ' + infoModal.resource"style="font-size:20px" @click="removeRelation(row.item, row.index, $event.target)" v-if="toolbar.has('remove-relation')"><i class="fa fa-trash"></i></a>
+                        <a class="pointer" v-b-tooltip.hover :title="'Archivar ' + infoModal.resource"
+                           style="font-size:20px" @click="archive(row.item, row.index, $event.target)"
+                           v-if="toolbar.has('archive')"><i class="fas fa-archive"></i></a>
+                        <a class="pointer" v-b-tooltip.hover :title="'Editar ' + infoModal.resource"
+                           style="font-size:20px" @click="edit(row.item, row.index, $event.target)"
+                           v-if="toolbar.has('edit')"><i class="fa fa-edit"></i></a>
+                        <a class="pointer" v-b-tooltip.hover :title="'Eliminar ' + infoModal.resource"
+                           style="font-size:20px" @click="remove(row.item, row.index, $event.target)"
+                           v-if="toolbar.has('remove')"><i class="fa fa-trash"></i></a>
+                        <a class="pointer" v-b-tooltip.hover :title="'Remover ' + infoModal.resource"
+                           style="font-size:20px" @click="removeRelation(row.item, row.index, $event.target)"
+                           v-if="toolbar.has('remove-relation')"><i class="fa fa-trash"></i></a>
                     </template>
-                    <template #row-details="row">
-                        <b-card>
-                        <b-list-group>
-                            <b-list-group-item v-if="!key.match('id') && key !== '_showDetails'" class="d-flex justify-content-between align-items-center" v-for="(value, key) in toBeatyItem(row.item)" :key="key">
-                                {{value}}
-                                <b-badge variant="primary" pill>{{ key  }}</b-badge>
-                            </b-list-group-item>
-                        </b-list-group>
-                        </b-card>
+                    <template #cell()="data">
+                        <div class="cell">
+                            {{ data.value }}
+                            <b-dropdown
+                                id="dropdown-form" ref="dropdown" class="update"
+                                no-caret toggle-class="text-decoration-none p-0" variant="link">
+                                <template #button-content>
+                                    <i class="fas fa-pen"></i>
+                                </template>
+                                <b-dropdown-form>
+                                    <b-form-group :label="data.field.label"
+                                                  :label-for="'dropdown-form-'+data.field.key+'-'+data.index"
+                                                  @submit.stop.prevent>
+                                        <b-form-input
+                                            :id="'dropdown-form-'+data.field.key+'-'+data.index"
+                                            :value="data.value"
+                                            size="sm"
+                                        ></b-form-input>
+                                    </b-form-group>
+                                    <b-button size="sm" variant="primary">Guardar</b-button>
+                                </b-dropdown-form>
+                            </b-dropdown>
+                        </div>
                     </template>
                 </b-table>
             <b-skeleton-table

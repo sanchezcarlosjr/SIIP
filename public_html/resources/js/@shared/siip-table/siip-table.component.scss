@@ -22,3 +22,11 @@
     padding: 0 1rem 0 0.7rem;
 }
 
+.cell .update {
+    display: none;
+}
+
+.cell:hover .update {
+    color: #5f6368;
+    display: inline;
+}
