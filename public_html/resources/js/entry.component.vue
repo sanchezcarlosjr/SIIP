@@ -3,16 +3,9 @@
         <div class="main-header">
             <div class="logo-header" data-background-color="green">
                 <router-link class="logo" to="/">SIIIP</router-link>
-                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
-                        data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon">
-						<i class="icon-menu"></i>
-					</span>
-                </button>
-                <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
                 <div class="nav-toggle">
-                    <button class="btn btn-toggle toggle-sidebar">
-                        <i class="icon-menu"></i>
+                    <button class="btn btn-toggle toggle-sidebar" @click="changeStatusSidebar">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
@@ -25,7 +18,7 @@
                 </div>
             </nav>
         </div>
-        <div class="sidebar sidebar-style-2">
+        <div class="sidebar sidebar-style-2" v-bind:style="{ display: displaySidebar }">
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
                     <div class="user">
@@ -81,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="main-panel">
+        <div class="main-panel" v-bind:style="{ width: displayWidth }">
             <div class="content">
                 <div class="page-inner">
                     <div class="row">
@@ -114,9 +107,22 @@ import {routes} from "./router";
 export default class EntryComponent extends Vue {
     year = new Date().getFullYear();
     routes = routes.slice(1);
+    sidebar = true;
 
     mounted() {
         console.log('%c Interested in working with us?\n See https://www.sanchezcarlosjr.com', 'background: #222; color: #bada55');
+    }
+
+    get displaySidebar() {
+        return this.sidebar ? 'block' : 'none';
+    }
+
+    get displayWidth() {
+        return this.sidebar ? 'calc(100% - 250px)' : '100%';
+    }
+
+    changeStatusSidebar() {
+        this.sidebar = !this.sidebar;
     }
 }
 </script>

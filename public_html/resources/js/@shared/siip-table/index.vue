@@ -1,15 +1,15 @@
 <template>
-  <div class="container">
-        <div class="card-header">
-            <b-container style="padding: 0" class="card-title">
-                <b-row align-h="between">
-                    <b-col :cols="toolbar.has('add') || toolbar.has('add-relation')" style="padding: 0">
-                        <siip-breadcrumb :title="title"></siip-breadcrumb>
-                    </b-col>
-                    <b-col cols="3">
-                        <b-dropdown size="sm" block split text="De 1/13/2021 a 1/21/2021"  variant="outline-success">
-                            <b-dropdown-item href="#">Action</b-dropdown-item>
-                            <b-dropdown-item href="#">Another action</b-dropdown-item>
+  <div class="container m-0">
+      <div class="card-header">
+          <b-container style="padding: 0" class="card-title">
+              <b-row align-h="between">
+                  <b-col :cols="toolbar.has('add') || toolbar.has('add-relation')" style="padding: 0">
+                      <siip-breadcrumb :title="title"></siip-breadcrumb>
+                  </b-col>
+                  <b-col cols="3">
+                      <b-dropdown size="sm" block split text="De 1/13/2021 a 1/21/2021" variant="outline-success">
+                          <b-dropdown-item href="#">Action</b-dropdown-item>
+                          <b-dropdown-item href="#">Another action</b-dropdown-item>
                             <b-dropdown-item href="#">Something else here...</b-dropdown-item>
                         </b-dropdown>
                     </b-col>
@@ -17,7 +17,7 @@
                 <b-row align-h="between">
                     <b-col cols="10" align-self="start">
                         <b-row align-h="start">
-                            <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 2 : 1"  style="max-width: 14%;" class="pr-0">
+                            <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 2 : 1" class="pr-0">
                                 <b-button
                                     v-if="toolbar.has('add')"
                                     @click="create($event.target)"
