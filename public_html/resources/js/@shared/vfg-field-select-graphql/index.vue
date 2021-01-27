@@ -1,12 +1,21 @@
 <template>
     <div>
-        <b-form-input @blur="handleBlur" :state="idState" trim :id="schema.model" debounce="100" v-model="value" :list="schema.model.concat('select')" ></b-form-input>
+        <b-form-input
+            :id="schema.model"
+            v-model="value"
+            :list="schema.model.concat('select')"
+            :state="idState" debounce="100"
+            trim
+            @blur="handleBlur"
+        ></b-form-input>
         <b-form-invalid-feedback :id="schema.model.concat('feedback')">
             Ingresa un recurso correcto.
         </b-form-invalid-feedback>
-        <b-form-text :id="schema.model.concat('text')" >{{texts[value]}}</b-form-text>
-        <b-form-datalist :id="schema.model.concat('select')" :options="options"></b-form-datalist>
-    </div>  
+        <b-form-text :id="schema.model.concat('text')">{{ texts[value] }}</b-form-text>
+        <datalist :id="schema.model.concat('select')">
+            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
+        </datalist>
+    </div>
 </template>
-<script src="./vfg-field-select-graphql.ts" lang="ts"></script>
-<style src="./vfg-field-select-graphql.scss" scoped lang="scss"></style>
+<script lang="ts" src="./vfg-field-select-graphql.ts"></script>
+<style lang="scss" scoped src="./vfg-field-select-graphql.scss"></style>
