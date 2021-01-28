@@ -78,10 +78,10 @@
                       <csv-button></csv-button>
                       <b-button
                           v-b-tooltip.hover
-                          title="Mostrar gráfico"
+                          :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
                           variant="link-secondary"
                           @click="toggleChart">
-                          <i class="fas fa-chevron-up"></i>
+                          <font-awesome-icon  :icon="chartIcon"></font-awesome-icon>
                       </b-button>
                   </b-col>
               </b-row>

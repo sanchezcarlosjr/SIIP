@@ -5,7 +5,6 @@ import {Prop} from 'vue-property-decorator';
 import {flattenObj, GraphQLBuilder} from './GraphQL';
 import {InfoModal} from './info-modal';
 
-
 @Component
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
@@ -155,6 +154,10 @@ export default class SiipTableComponent extends Vue {
 
     private toggleChart() {
         this.isVisibleChart = !this.isVisibleChart;
+    }
+
+    get chartIcon() {
+        return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
     }
 
     private showModal(item: any, index: any, button: any) {

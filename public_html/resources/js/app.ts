@@ -14,6 +14,8 @@ import VfgFieldSwitch from './@shared/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import SiipChartComponent from './@shared/siip-table/chart/RandomChart.vue';
 import router from './router';
+// @ts-ignore
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 
 const VueFormGenerator = require('vue-form-generator');
 
@@ -33,6 +35,7 @@ Vue.component('field-api-select', VfgFieldApiSelect);
 Vue.component('field-email', VfgFieldEmail);
 Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
 Vue.component('siip-chart', SiipChartComponent);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 router.beforeEach((to, from, next) => {
     // This goes through the matched routes from last to first, finding the closest route with a title.
