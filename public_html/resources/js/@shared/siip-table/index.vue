@@ -7,7 +7,7 @@
                       <siip-breadcrumb :title="title"></siip-breadcrumb>
                   </b-col>
                   <b-col cols="3">
-                      <b-dropdown size="sm" block split text="De 1/13/2021 a 1/21/2021" variant="outline-success">
+                      <b-dropdown size="sm" block  text="De 1/13/2021 a 1/21/2021" variant="outline-success">
                           <b-dropdown-item href="#">Action</b-dropdown-item>
                           <b-dropdown-item href="#">Another action</b-dropdown-item>
                           <b-dropdown-item href="#">Something else here...</b-dropdown-item>
