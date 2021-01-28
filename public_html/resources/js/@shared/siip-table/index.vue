@@ -44,14 +44,17 @@
                                     title="Filtros"
                                     variant="secondary-link"
                                     toggle-class="text-decoration-none"
-                                    no-caret>
+                                    no-caret
+                                >
                                     <template #button-content>
                                         <i class="pointer fa fa-filter" aria-hidden="false"></i>
                                     </template>
-                                    <b-dropdown-item
-                                        v-for="(filter, index) in originalFilter"
-                                        v-on:click="criteria.push(filter)"
-                                        v-bind:key="index">{{ filter }}</b-dropdown-item>
+                                    <b-dropdown-form style="width: 200px">
+                                        <b-form-checkbox-group
+                                            v-model="criteria"
+                                            :options="originalFilter"
+                                        ></b-form-checkbox-group>
+                                    </b-dropdown-form>
                                 </b-dropdown>
                             </b-col>
                             <b-col class="pl-0">
@@ -136,7 +139,7 @@
                                 <template #button-content>
                                     <i class="fas fa-pen"></i>
                                 </template>
-                                <b-dropdown-form>
+                                <b-dropdown-form style="width: 250px">
                                     <b-form-group :label="data.field.label"
                                                   :label-for="'dropdown-form-'+data.field.key+'-'+data.index"
                                                   @submit.stop.prevent>
