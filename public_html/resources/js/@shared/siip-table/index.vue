@@ -70,9 +70,12 @@
                             </b-col>
                         </b-row>
                     </b-col>
-                    <b-col cols="1">
+                    <b-col cols="2" style="    text-align-last: end;">
                         <pdf-button></pdf-button>
                         <csv-button></csv-button>
+                        <b-button variant="link-secondary">
+                            <i class="fas fa-chevron-up"></i>
+                        </b-button>
                     </b-col>
                 </b-row>
             </b-container>
