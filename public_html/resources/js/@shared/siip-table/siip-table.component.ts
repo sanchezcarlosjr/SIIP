@@ -47,6 +47,7 @@ export default class SiipTableComponent extends Vue {
     sortDesc = false;
     sortDirection = 'asc';
     infoModal: InfoModal = new InfoModal(this.schema, this.resource);
+    isVisibleChart = false;
     private originalFilter: string[] = [];
     private graphQLBuilder: GraphQLBuilder | undefined;
 
@@ -150,6 +151,10 @@ export default class SiipTableComponent extends Vue {
 
     toBeatyItem(item: any) {
         return flattenObj(item, '');
+    }
+
+    private toggleChart() {
+        this.isVisibleChart = !this.isVisibleChart;
     }
 
     private showModal(item: any, index: any, button: any) {
