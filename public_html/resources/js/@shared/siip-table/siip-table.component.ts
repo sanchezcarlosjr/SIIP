@@ -206,34 +206,29 @@ export default class SiipTableComponent extends Vue {
     }
 
     private archiveElement() {
-        this.updateTable();
-        if (this.communicationType === 'GraphQL') {
-            return this.graphQLBuilder?.store({
-                id: this.infoModal.itemId,
-                active: !this.infoModal.model['active']
-            }, 'update');
-        }
-        return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, {
-            active: false
-        });
+        this.infoModal.model['active'] = false;
+        return this.editElement();
     }
 
     private editElement() {
-        this.updateTable();
+        const rowId = this.infoModal.rowId;
+        const isASubResource = this.infoModal.isASubResource;
         if (this.communicationType === 'GraphQL') {
-            return this.graphQLBuilder?.store(this.infoModal.model, 'update');
+            return this.graphQLBuilder?.store(this.infoModal.model, 'update').then((result) =>
+                this.updateTable(result, rowId, isASubResource)
+            );
         }
         return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, {
             ...this.infoModal.model
         });
     }
 
-    private updateTable() {
-        for (const key of Object.keys(this.infoModal.model) as string[]) {
-            if (this.infoModal.isASubResource) {
-                this.items[this.infoModal.rowId][Object.keys(this.items[this.infoModal.rowId])[0]][key] = this.infoModal.model[key];
+    private updateTable(result: any, rowId: number, isASubResource: boolean) {
+        for (const key of Object.keys(result) as string[]) {
+            if (isASubResource) {
+                this.items[rowId][Object.keys(this.items[rowId])[0]][key] = result[key];
             } else {
-                this.items[this.infoModal.rowId][key] = this.infoModal.model[key];
+                this.items[rowId][key] = result[key];
             }
         }
     }

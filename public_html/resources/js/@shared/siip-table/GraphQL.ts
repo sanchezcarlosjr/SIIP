@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {Model} from "./info-modal";
 import {es} from "./es-MX";
 
-function isObject(obj: any) {
+export function isObject(obj: any) {
     return Object.prototype.toString.call(obj) === '[object Object]' && obj.constructor.name === 'Object';
 }
 
