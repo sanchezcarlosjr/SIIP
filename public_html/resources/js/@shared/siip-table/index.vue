@@ -180,6 +180,10 @@
                      scrollable @hide="resetModal" @ok="execute">
                 <p>¿Realmente desea archivar a este {{ infoModal.resource }}?</p>
             </b-modal>
+            <b-modal id="show" :title="infoModal.title" ok-title="Regresar"
+                     scrollable @hide="resetModal" @ok="execute">
+                A
+            </b-modal>
         </b-container>
     </div>
 </template>

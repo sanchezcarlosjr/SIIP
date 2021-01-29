@@ -104,7 +104,7 @@ export const routes = [
             {
                 path: ':id',
                 name: 'Cuerpo Académico',
-                component: () => import('./academic-bodies/academic-body/index.vue')
+                component: () => import('./academic-bodies/academic-body-management/index.vue')
             }
         ]
     },
