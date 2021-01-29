@@ -1,7 +1,7 @@
 <template>
     <div class="container m-0">
-        <div class="card-header">
-            <b-container class="card-title" style="padding: 0">
+        <div class="card-header b-0">
+            <b-container class="card-title p-0">
                 <b-row align-h="between">
                     <b-col style="padding: 0">
                         <siip-breadcrumb :title="title"></siip-breadcrumb>
@@ -101,6 +101,7 @@
                     :items="items"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
+                    @row-dblclicked="goTo"
                     :sort-direction="sortDirection"
                     head-variant="light"
                     hover

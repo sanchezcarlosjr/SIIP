@@ -12,12 +12,12 @@ export default {
     },
     props: ['title'],
     mounted() {
-        this.$route.matched.forEach((route) => {
+        this.$route.matched.forEach((route) =>
             this.items.push({
                 text: route.name,
                 to: {path: route.path}
-            });
-        })
+            })
+        );
     },
     watch: {
         title: function (newVal, oldVal) {

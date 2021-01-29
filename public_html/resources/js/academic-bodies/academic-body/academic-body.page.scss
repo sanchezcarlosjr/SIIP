@@ -1,0 +1,19 @@
+.container {
+    max-width: 100%;
+}
+
+.b-table-sticky-header {
+    overflow-y: auto;
+    max-height: 62vh;
+}
+
+.card-header {
+    padding: 1rem 1.25rem 1rem 1.25rem;
+    border-radius: 0;
+    border-bottom: 0 !important;
+}
+
+.card-title {
+    margin-bottom: 0;
+    font-size: 22px;
+}

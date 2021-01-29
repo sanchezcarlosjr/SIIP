@@ -100,6 +100,11 @@ export const routes = [
                 path: ':id/redes',
                 name: 'Red',
                 component: () => import('./academic-bodies/networks-by-academic-body/index.vue')
+            },
+            {
+                path: ':id',
+                name: 'Cuerpo Académico',
+                component: () => import('./academic-bodies/academic-body/index.vue')
             }
         ]
     },

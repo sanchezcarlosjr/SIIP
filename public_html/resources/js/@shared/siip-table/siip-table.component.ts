@@ -165,6 +165,12 @@ export default class SiipTableComponent extends Vue {
         this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button)
     }
 
+    goTo(item: any, index: number, event: any) {
+        if (this.links) {
+            this.$router.push(`${this.$route.path}/${item.name}`);
+        }
+    }
+
     private removeElement() {
         this.items.splice(this.infoModal.rowId, 1);
         if (this.communicationType === 'GraphQL') {
