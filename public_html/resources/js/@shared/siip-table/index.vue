@@ -158,6 +158,7 @@
                         <div class="cell">
                             {{ data.value }}
                             <b-dropdown
+                                v-if="data.field.editable"
                                 id="dropdown-form" ref="dropdown" class="update"
                                 no-caret toggle-class="text-decoration-none p-0" variant="link">
                                 <template #button-content>

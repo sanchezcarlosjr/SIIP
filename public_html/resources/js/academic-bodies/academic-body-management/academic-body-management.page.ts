@@ -26,8 +26,8 @@ export default class AcademicBodyManagementPage extends Vue {
             value: 'Tijuana',
             default: false
         }
-        ];
-    links =  {
+    ];
+    links = {
         'project-diagram': {
             'link': '/cuerpos-academicos/*/lgacs',
             'tooltip': 'Ver sus LGAC'
@@ -108,11 +108,11 @@ export default class AcademicBodyManagementPage extends Vue {
         ]
     };
     fields = [
-        {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'prodep_key', label: 'Clave PRODEP', sortable: true},
-        {key: 'last_evaluation.grade', label: 'Grado', sortable: true},
-        {key: 'leader.name', label: 'Líder', sortable: true},
-        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+        {key: 'name', label: 'Nombre', sortable: true, editable: true},
+        {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true},
+        {key: 'last_evaluation.grade', label: 'Grado', sortable: true, editable: true},
+        {key: 'leader.name', label: 'Líder', sortable: true, editable: true},
+        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false},
         {key: 'actions', label: 'Acciones'}
     ];
 }
