@@ -98,6 +98,9 @@
                     :fields="tableFields"
                     :filter="criteria"
                     :filter-function="search"
+                    :busy.sync="isBusy"
+                    :per-page="perPage"
+                    :current-page="currentPage"
                     :items="items"
                     :sort-by.sync="sortBy"
                     responsive="sm"
@@ -187,6 +190,18 @@
                     :rows="10"
                 ></b-skeleton-table>
             </div>
+            <b-pagination
+                class="d-flex justify-content-end"
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                first-text="First"
+                prev-text="Prev"
+                next-text="Next"
+                last-text="Last"
+                size="lg"
+                aria-controls="main-table"
+            ></b-pagination>
             <b-modal id="create" :title="infoModal.title" cancel-title="Cancelar" ok-title="Añadir" scrollable
                      @hide="resetModal" @ok="execute">
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>

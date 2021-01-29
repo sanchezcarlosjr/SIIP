@@ -15,6 +15,7 @@ export default class SiipTableComponent extends Vue {
     @Prop() tableTitle!: string;
     tableFields: {}[] = this.fields.filter((field) => field.label);
     title = 'Cargando...';
+    isBusy = false;
     @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
     @Prop({default: 'REST'}) communicationType!: string;
@@ -42,6 +43,8 @@ export default class SiipTableComponent extends Vue {
     criteria: string[] = [];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     items: any = [];
+    perPage = 5;
+    currentPage = 1;
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
@@ -58,33 +61,47 @@ export default class SiipTableComponent extends Vue {
             })
     }
 
-    mounted() {
+    get rows() {
+        return this.items.length;
+    }
+
+    get chartIcon() {
+        return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
+    }
+
+    async index(ctx: any, callback: any) {
+        this.isBusy = true;
+        return this.loadElements();
+    }
+
+    async mounted() {
         this.infoModal.build(this.spanishResourceName);
+        await this.loadElements();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
-        this.index();
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
     }
 
-    async index() {
+    async loadElements() {
         // TODO: Migrate to GraphQL
         if (this.communicationType === 'REST') {
             axios.get(`/api/${this.resource}`).then(
                 (response) => {
                     this.items = response.data;
                     this.title = this.tableTitle;
+                    return response.data;
                 }
             );
         }
         if (this.communicationType === 'GraphQL') {
-            this.graphQLBuilder = new GraphQLBuilder(this.resource, this.fields, this.$route.params.id);
-            this.graphQLBuilder.index().then(async (response) => {
+            this.graphQLBuilder = new GraphQLBuilder(`${this.resource}`, this.fields, this.$route.params.id);
+            return this.graphQLBuilder.index().then(async (response) => {
                 this.items = response.data;
                 if (typeof this.infoVariant === 'function') {
                     const id = await this.infoVariant(this.items);
                     this.items[id]._rowVariant = 'info';
                 }
                 if (!this.tableTitle) {
-                    return;
+                    return this.items;
                 }
                 const isAInjectedElement = this.tableTitle.indexOf('*') !== -1;
                 if (isAInjectedElement) {
@@ -95,6 +112,7 @@ export default class SiipTableComponent extends Vue {
                 } else {
                     this.title = this.tableTitle;
                 }
+                return this.items;
             });
         }
     }
@@ -162,10 +180,6 @@ export default class SiipTableComponent extends Vue {
         this.isVisibleChart = !this.isVisibleChart;
     }
 
-    get chartIcon() {
-        return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
-    }
-
     private showModal(item: any, index: any, button: any) {
         this.infoModal.setModal(item, index);
         this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button)
@@ -184,7 +198,7 @@ export default class SiipTableComponent extends Vue {
             id: this.$route.params.id,
             ...this.infoModal.model
         }, `add ${this.schema.fields[0].query} to`)
-            .then((element) => this.index());
+            .then((element) => this.items.push(element));
     }
 
     private removeRelationElement() {
