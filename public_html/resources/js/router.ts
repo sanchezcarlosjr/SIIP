@@ -83,17 +83,17 @@ export const routes = [
             },
             {
                 path: ':id/evaluaciones',
-                name: 'Evaluacion',
+                name: 'Evaluaciones por cuerpo',
                 component: () => import('./academic-bodies/evaluations-by-academic-body/index.vue')
             },
             {
                 path: ':id/miembros',
-                name: 'Miembro',
+                name: 'Miembros por cuerpo',
                 component: () => import('./academic-bodies/members-by-academic-body/index.vue')
             },
             {
                 path: ':id/apoyos',
-                name: 'Apoyo',
+                name: 'Apoyos por cuerpo',
                 component: () => import('./academic-bodies/helps-by-academic-body/index.vue')
             },
             {

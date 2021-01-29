@@ -24,6 +24,15 @@ export default {
         );
     },
     watch: {
+        '$route.matched': function (newVal, oldVal) {
+            this.items = []
+            newVal.forEach((route) =>
+                this.items.push({
+                    text: route.name,
+                    to: {path: route.path}
+                })
+            );
+        },
         title: function (newVal, oldVal) {
             this.items[this.items.length - 1].text = newVal;
         }

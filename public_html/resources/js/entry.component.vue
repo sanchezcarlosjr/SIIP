@@ -12,7 +12,7 @@
             <nav class="navbar navbar-header navbar-expand-lg" data-background-color="green">
                 <div class="container-fluid">
                     <div>
-                        <span style="color: #ffffff;max-width: 500px; ">Sistema institucional de indicadores de investigación y posgrado</span>
+                        <siip-breadcrumb></siip-breadcrumb>
                     </div>
                     <b-avatar></b-avatar>
                 </div>
@@ -126,3 +126,24 @@ export default class EntryComponent extends Vue {
     }
 }
 </script>
+
+<style scoped>
+.breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.breadcrumb >>> a {
+    color: var(--light);
+}
+.breadcrumb >>> span {
+    color: var(--light);
+    opacity: 0.7;
+}
+.breadcrumb >>> .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--light);
+    opacity: 0.7;
+}
+</style>
