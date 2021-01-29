@@ -3,64 +3,24 @@
         <div class="card-header b-0">
             <b-container class="card-title p-0">
                 <b-row align-h="between">
-                    <b-col style="padding: 0">
+                    <b-col cols="4" style="padding: 0">
                         <siip-breadcrumb :title="title" isAPage="true"></siip-breadcrumb>
                     </b-col>
-                    <b-col cols="3">
-                        <b-dropdown block size="sm" text="De 1/13/2021 a 1/21/2021" variant="outline-success">
-                            <b-dropdown-item href="#">Action</b-dropdown-item>
-                            <b-dropdown-item href="#">Another action</b-dropdown-item>
-                            <b-dropdown-item href="#">Something else here...</b-dropdown-item>
-                        </b-dropdown>
-                    </b-col>
-                </b-row>
-                <b-row v-if="isVisibleChart">
-                    <siip-chart></siip-chart>
-                </b-row>
-                <b-row align-h="between">
-                    <b-col align-self="start" cols="10">
-                        <b-row align-h="start">
-                            <b-col :cols="(toolbar.has('add') || toolbar.has('add-relation')) ? 2 : 1" class="pr-0">
-                                <b-button
-                                    v-if="toolbar.has('add')"
-                                    v-b-tooltip.hover
-                                    :title="'Agregar '+infoModal.resource"
-                                    style="border-radius:100%;" variant="outline-success"
-                                    @click="create($event.target)"
-                                >
-                                    <i aria-hidden="false" class="fa fa-plus"></i>
-                                </b-button>
-                                <b-button
-                                    v-if="toolbar.has('add-relation')"
-                                    v-b-tooltip.hover
-                                    :title="'Agregar '+infoModal.resource"
-                                    style="border-radius:100%;" variant="outline-success"
-                                    @click="add($event.target)"
-                                >
-                                    <i aria-hidden="false" class="fa fa-plus"></i>
-                                </b-button>
-                                <b-dropdown
-                                    v-b-tooltip.hover
-                                    no-caret
-                                    title="Filtros"
-                                    toggle-class="text-decoration-none"
-                                    variant="secondary-link"
-                                >
-                                    <template #button-content>
-                                        <i aria-hidden="false" class="pointer fa fa-filter"></i>
-                                    </template>
-                                    <b-dropdown-form style="width: 200px">
-                                        <b-form-checkbox-group
-                                            v-model="criteria"
-                                            :options="originalFilter"
-                                        ></b-form-checkbox-group>
-                                    </b-dropdown-form>
-                                </b-dropdown>
-                            </b-col>
-                            <b-col class="pl-0">
-                                <b-form-group
-                                    class="mb-0 p-0"
-                                >
+                    <b-col cols="5">
+                        <b-button-group class="float-right">
+                            <b-dropdown
+                                v-b-tooltip.hover
+                                no-caret
+                                title="Filtros"
+                                toggle-class="text-decoration-none"
+                                variant="secondary-link"
+                            >
+                                <template #button-content>
+                                    <b-button class="text-muted b-0" size="sm" variant="outline-light">
+                                        Filtros
+                                    </b-button>
+                                </template>
+                                <b-dropdown-form style="width: 500px">
                                     <b-input-group>
                                         <b-form-tags
                                             v-model="criteria"
@@ -72,21 +32,67 @@
                                             tag-variant="primary"
                                         ></b-form-tags>
                                     </b-input-group>
-                                </b-form-group>
-                            </b-col>
-                        </b-row>
+                                    <b-form-checkbox-group
+                                        v-model="criteria"
+                                        :options="originalFilter"
+                                    ></b-form-checkbox-group>
+                                </b-dropdown-form>
+                            </b-dropdown>
+
+                            <b-button class="text-muted b-0" size="sm" variant="outline-light">
+                                <font-awesome-icon icon="search"/>
+                                Buscar
+                            </b-button>
+                            <b-dropdown
+                                v-b-tooltip.hover
+                                no-caret
+                                size="sm"
+                                title="Otras acciones"
+                                toggle-class="text-decoration-none"
+                                variant="secondary-link"
+                            >
+                                <template #button-content>
+                                    <font-awesome-icon class="text-muted b-0" icon="ellipsis-h"/>
+                                </template>
+                                <b-dropdown-item>
+                                    <pdf-button></pdf-button>
+                                    <csv-button></csv-button>
+                                </b-dropdown-item>
+                            </b-dropdown>
+                            <b-button
+                                v-b-tooltip.hover
+                                :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
+                                size="sm"
+                                variant="link-secondary"
+                                @click="toggleChart">
+                                <font-awesome-icon :icon="chartIcon" class="text-muted"></font-awesome-icon>
+                            </b-button>
+                            <b-button
+                                v-if="toolbar.has('add')"
+                                v-b-tooltip.hover
+                                :title="'Agregar '+infoModal.resource"
+                                class="b-0"
+                                size="sm"
+                                squared
+                                variant="outline-success"
+                                @click="create($event.target)">
+                                Nuevo
+                            </b-button>
+                            <b-button
+                                v-if="toolbar.has('add-relation')"
+                                v-b-tooltip.hover
+                                :title="'Agregar '+infoModal.resource"
+                                size="sm"
+                                variant="success"
+                                @click="add($event.target)">
+                                Nuevo
+                            </b-button>
+                        </b-button-group>
+
                     </b-col>
-                    <b-col cols="2" style="    text-align-last: end;">
-                        <pdf-button></pdf-button>
-                        <csv-button></csv-button>
-                        <b-button
-                            v-b-tooltip.hover
-                            :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
-                            variant="link-secondary"
-                            @click="toggleChart">
-                            <font-awesome-icon :icon="chartIcon"></font-awesome-icon>
-                        </b-button>
-                    </b-col>
+                </b-row>
+                <b-row v-if="isVisibleChart">
+                    <siip-chart></siip-chart>
                 </b-row>
             </b-container>
         </div>
@@ -95,23 +101,23 @@
                 <b-table
                     id="main-table"
                     ref="table"
+                    :busy.sync="isBusy"
+                    :current-page="currentPage"
                     :fields="tableFields"
                     :filter="criteria"
                     :filter-function="search"
-                    :busy.sync="isBusy"
-                    :per-page="perPage"
-                    :current-page="currentPage"
                     :items="items"
+                    :per-page="perPage"
                     :sort-by.sync="sortBy"
-                    responsive="sm"
                     :sort-desc.sync="sortDesc"
                     :sort-direction="sortDirection"
-                    hover
-                    striped
                     head-variant="light"
+                    hover
+                    responsive="sm"
                     small
                     stacked="md"
                     sticky-header
+                    striped
                     @row-clicked="rowClicked"
                 >
                     <template #row-details="row">
@@ -135,9 +141,9 @@
                                 </b-col>
                             </b-row>
                             <b-row>
-                              <b-col class="pl-0">
-                                  <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
-                              </b-col>
+                                <b-col class="pl-0">
+                                    <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
+                                </b-col>
                             </b-row>
                         </b-container>
                     </template>
@@ -191,16 +197,15 @@
                 ></b-skeleton-table>
             </div>
             <b-pagination
-                class="d-flex justify-content-end"
                 v-model="currentPage"
-                :total-rows="rows"
                 :per-page="perPage"
-                first-text="First"
-                prev-text="Prev"
-                next-text="Next"
-                last-text="Last"
-                size="lg"
+                :total-rows="rows"
                 aria-controls="main-table"
+                class="d-flex justify-content-end"
+                first-text="First"
+                last-text="Last"
+                next-text="Next"
+                prev-text="Prev"
             ></b-pagination>
             <b-modal id="create" :title="infoModal.title" cancel-title="Cancelar" ok-title="Añadir" scrollable
                      @hide="resetModal" @ok="execute">

@@ -43,7 +43,7 @@ export default class SiipTableComponent extends Vue {
     criteria: string[] = [];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     items: any = [];
-    perPage = 5;
+    perPage = 10;
     currentPage = 1;
     sortBy = '';
     sortDesc = false;

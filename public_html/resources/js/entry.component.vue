@@ -141,9 +141,11 @@ export default class EntryComponent extends Vue {
 .breadcrumb >>> span {
     color: var(--light);
     opacity: 0.7;
+    font-size: 14px;
 }
 .breadcrumb >>> .breadcrumb-item + .breadcrumb-item::before {
     color: var(--light);
     opacity: 0.7;
+    font-size: 14px;
 }
 </style>

@@ -4,7 +4,7 @@
 
 .b-table-sticky-header {
     overflow-y: auto;
-    max-height: 62vh;
+    max-height: 70vh;
 }
 
 .card-header {
@@ -33,4 +33,8 @@
 
 a i {
     font-size: 18px !important;
+}
+
+.b-0 {
+    border: none;
 }
