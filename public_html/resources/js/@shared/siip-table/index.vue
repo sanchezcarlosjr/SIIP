@@ -100,15 +100,16 @@
                     :filter-function="search"
                     :items="items"
                     :sort-by.sync="sortBy"
+                    responsive="sm"
                     :sort-desc.sync="sortDesc"
                     :sort-direction="sortDirection"
-                    head-variant="light"
                     hover
-                    responsive
+                    striped
+                    head-variant="light"
                     small
                     stacked="md"
                     sticky-header
-                    @row-clicked="item=> links ? $set(item, '_showDetails', !item._showDetails) : ''"
+                    @row-clicked="item => links ? $set(item, '_showDetails', !item._showDetails) : ''"
                 >
                     <template #row-details="row">
                         <b-container class="mt-3">
