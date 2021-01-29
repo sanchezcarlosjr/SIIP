@@ -108,7 +108,35 @@
                     small
                     stacked="md"
                     sticky-header
+                    @row-clicked="item=> links ? $set(item, '_showDetails', !item._showDetails) : ''"
                 >
+                    <template #row-details="row">
+                        <b-container class="mt-3">
+                            <b-row align-h="between">
+                                <b-col class="pl-0" cols="4">
+                                    <h4>Detalles de {{row.item.name}}</h4>
+                                </b-col>
+                                <b-col cols="4">
+                                    <b-button-group>
+                                        <router-link
+                                            v-for="(value, key) in links" :key="key"
+                                            v-b-tooltip.hover
+                                            :title="value.tooltip"
+                                            :to="value.link.replace('*', row.item.id)" class="pointer"
+                                            tag="b-button">
+                                            <i class="fas" style="font-size:20px"
+                                               v-bind:class="'fa-'+key"></i>
+                                        </router-link>
+                                    </b-button-group>
+                                </b-col>
+                            </b-row>
+                            <b-row>
+                              <b-col class="pl-0">
+                                  <p>A</p>
+                              </b-col>
+                            </b-row>
+                        </b-container>
+                    </template>
                     <template #cell(actions)="row">
                         <a v-if="toolbar.has('archive')" v-b-tooltip.hover :title="'Archivar ' + infoModal.resource"
                            class="pointer" style="font-size:20px"

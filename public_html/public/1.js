@@ -110,7 +110,7 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
             }
         ];
         _this.links = {
-            'address-book': {
+            'project-diagram': {
                 'link': '/cuerpos-academicos/*/lgacs',
                 'tooltip': 'Ver sus LGAC'
             },
@@ -118,11 +118,11 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
                 link: '/cuerpos-academicos/*/miembros',
                 tooltip: 'Ver sus miembros'
             },
-            'vial': {
+            'file-alt': {
                 link: '/cuerpos-academicos/*/evaluaciones',
                 tooltip: 'Ver sus evaluaciones'
             },
-            'hands-helping': {
+            'hand-holding-usd': {
                 link: '/cuerpos-academicos/*/apoyos',
                 tooltip: 'Ver sus apoyos'
             },
