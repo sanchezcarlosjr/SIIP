@@ -109,7 +109,7 @@
                     small
                     stacked="md"
                     sticky-header
-                    @row-clicked="item => links ? $set(item, '_showDetails', !item._showDetails) : ''"
+                    @row-clicked="rowClicked"
                 >
                     <template #row-details="row">
                         <b-container class="mt-3">
@@ -133,7 +133,7 @@
                             </b-row>
                             <b-row>
                               <b-col class="pl-0">
-                                  <p>A</p>
+                                  <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
                               </b-col>
                             </b-row>
                         </b-container>

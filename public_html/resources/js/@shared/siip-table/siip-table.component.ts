@@ -148,6 +148,12 @@ export default class SiipTableComponent extends Vue {
         this.infoModal.reset();
     }
 
+    rowClicked(item: any, index: number, event: any) {
+        this.infoModal.id = 'edit';
+        this.infoModal.setModal(item, index);
+        return this.links ? this.$set(item, '_showDetails', !item._showDetails) : '';
+    }
+
     toBeatyItem(item: any) {
         return flattenObj(item, '');
     }
