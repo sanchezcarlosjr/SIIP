@@ -4,7 +4,7 @@
             <b-container class="card-title p-0">
                 <b-row align-h="between">
                     <b-col style="padding: 0">
-                        <siip-breadcrumb :title="title"></siip-breadcrumb>
+                        <siip-breadcrumb :title="title" isAPage="true"></siip-breadcrumb>
                     </b-col>
                     <b-col cols="3">
                         <b-dropdown block size="sm" text="De 1/13/2021 a 1/21/2021" variant="outline-success">

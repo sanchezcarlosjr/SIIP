@@ -10,9 +10,13 @@ export default {
             items: []
         }
     },
-    props: ['title'],
+    props: ['title', 'isAPage'],
     mounted() {
-        this.$route.matched.forEach((route) =>
+        let routes = this.$route.matched;
+        if (this.isAPage) {
+            routes = routes.slice(routes.length - 1);
+        }
+        routes.forEach((route) =>
             this.items.push({
                 text: route.name,
                 to: {path: route.path}
