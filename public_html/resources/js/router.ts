@@ -173,5 +173,6 @@ export const routes = [
 
 export default new VueRouter({
     mode: 'history',
+    base: process.env.BASE_URL,
     routes: routes
 })

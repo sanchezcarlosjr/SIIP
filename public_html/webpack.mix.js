@@ -11,5 +11,25 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.options({
+    resourceRoot: process.env.VUE_PUBLIC_PATH,
+});
+
+mix.webpackConfig(webpack => {
+    return {
+        output: {
+            publicPath: process.env.VUE_PUBLIC_PATH
+        },
+        plugins: [
+            new webpack.EnvironmentPlugin (
+                {
+                    BASE_URL: process.env.VUE_PUBLIC_PATH
+                }
+            )
+        ]
+    };
+});
+
 mix.ts('resources/js/app.ts', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
