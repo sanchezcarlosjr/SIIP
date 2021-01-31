@@ -51,8 +51,7 @@ export default class UsersPage extends Vue {
         { key: 'email', label: 'Correo Electrónico	', sortable: true },
         { key: 'unit', label: 'Unidad Académica', sortable: true },
         { key: 'campus', label: 'Campus', sortable: true },
-        { key: 'roles.role', label: 'Rol', sortable: true },
-        { key: 'actions', label: 'Acciones' }
+        {key: 'roles.role', label: 'Rol', sortable: true}
     ];
     tableTitle = 'Gestión de usuarios';
     apiResource = 'users';

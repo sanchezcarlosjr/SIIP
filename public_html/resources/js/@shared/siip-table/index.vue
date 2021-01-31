@@ -195,6 +195,7 @@
                 :ref="'vueSimpleContextMenu1'"
                 :elementId="'myFirstMenu'"
                 :options="options"
+                :links="links"
                 @option-clicked="optionClicked"
             >
             </context-menu>

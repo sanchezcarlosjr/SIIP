@@ -7,6 +7,18 @@
             :id="elementId"
             class="vue-simple-context-menu"
         >
+            <b-button-group tag="li">
+                <router-link
+                    v-for="(value, key) in links" :key="key"
+                    v-b-tooltip.hover
+                    :title="value.tooltip"
+                    :to="value.link.replace('*', item.id)"
+                    class="pointer" tag="b-button"
+                    varant="secondary">
+                    <i class="fas" style="font-size:20px"
+                       v-bind:class="'fa-'+key"></i>
+                </router-link>
+            </b-button-group>
             <li
                 v-for="(option, index) in options"
                 :key="index"
@@ -30,6 +42,10 @@ export default {
     props: {
         elementId: {
             type: String,
+            required: true
+        },
+        links: {
+            type: Array,
             required: true
         },
         options: {

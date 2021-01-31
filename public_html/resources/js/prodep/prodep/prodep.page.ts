@@ -88,6 +88,5 @@ export default class ProdepPage extends Vue {
         { key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true },
         { key: 'start_date', label: 'Fecha de inicio', sortable: true },
         { key: 'finish_date', label: 'Fecha fin', sortable: true },
-        { key: 'actions', label: 'Acciones' }
     ];
 }
