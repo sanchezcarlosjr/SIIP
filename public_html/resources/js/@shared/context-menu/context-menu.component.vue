@@ -1,16 +1,18 @@
 <template>
-    <div>
+    <div
+        v-click-outside="onClickOutside"
+        @contextmenu.prevent.stop=""
+    >
         <ul
             :id="elementId"
-            v-click-outside="onClickOutside"
             class="vue-simple-context-menu"
         >
             <li
                 v-for="(option, index) in options"
                 :key="index"
+                @click.stop="optionClicked(option)"
                 :class="[option.class, (option.type === 'divider' ? 'vue-simple-context-menu__divider' : '')]"
                 class="vue-simple-context-menu__item"
-                @click.stop="optionClicked(option)"
             >
                 <span v-html="option.name"></span>
             </li>
@@ -45,8 +47,9 @@ export default {
     },
     methods: {
         showMenu(event, item) {
+            event.preventDefault();
             this.item = item
-            var menu = document.getElementById(this.elementId)
+            const menu = document.getElementById(this.elementId)
             if (!menu) {
                 return
             }
@@ -57,18 +60,8 @@ export default {
                 this.menuHeight = menu.offsetHeight
                 menu.removeAttribute("style")
             }
-            const isGreaterThanInnerWidth = (this.menuWidth + event.pageX) >= window.innerWidth;
-            if (isGreaterThanInnerWidth) {
-                menu.style.left = (event.pageX - this.menuWidth + 2) + "px"
-            } else {
-                menu.style.left = (event.pageX - 284) + "px"
-            }
-            const isGreaterThanInnerHeight = (this.menuHeight + event.pageY) >= window.innerHeight;
-            if (isGreaterThanInnerHeight) {
-                menu.style.top = (event.pageY - this.menuHeight + 50) + "px"
-            } else {
-                menu.style.top = (event.pageY - 2) + "px"
-            }
+            menu.style.left = event.layerX + this.menuHeight - 15 + "px";
+            menu.style.top = event.layerY + (2 * this.menuHeight) - 5 + "px";
             menu.classList.add('vue-simple-context-menu--active')
         },
         hideContextMenu() {
@@ -81,7 +74,7 @@ export default {
             this.hideContextMenu()
         },
         optionClicked(option) {
-            this.hideContextMenu()
+            this.hideContextMenu();
             this.$emit('option-clicked', {
                 item: this.item,
                 option: option
@@ -116,14 +109,7 @@ $black: #333;
     display: none;
     list-style: none;
     position: absolute;
-    z-index: 1000000;
     background-color: $light-grey;
-    border-bottom-width: 0px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-    box-shadow: 0 3px 6px 0 rgba($black, 0.2);
-    border-radius: 4px;
 
     &--active {
         display: block;

@@ -172,6 +172,21 @@ export default class SiipTableComponent extends Vue {
         return this.links ? this.$set(item, '_showDetails', !item._showDetails) : '';
     }
 
+    options = [
+        {
+            name: 'A'
+        }
+    ];
+
+    optionClicked() {
+    }
+
+    rowContextMenu(item: any, index: number, event: any) {
+        // @ts-ignore
+        this.$refs.vueSimpleContextMenu1.showMenu(event, item);
+    }
+
+
     toBeatyItem(item: any) {
         return flattenObj(item, '');
     }

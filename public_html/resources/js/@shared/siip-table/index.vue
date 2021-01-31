@@ -119,6 +119,7 @@
                     sticky-header
                     striped
                     @row-clicked="rowClicked"
+                    @row-contextmenu="rowContextMenu"
                 >
                     <template #row-details="row">
                         <b-container class="mt-3">
@@ -207,6 +208,13 @@
                 next-text="Next"
                 prev-text="Prev"
             ></b-pagination>
+            <context-menu
+                :ref="'vueSimpleContextMenu1'"
+                :elementId="'myFirstMenu'"
+                :options="options"
+                @option-clicked="optionClicked"
+            >
+            </context-menu>
             <b-modal id="create" :title="infoModal.title" cancel-title="Cancelar" ok-title="Añadir" scrollable
                      @hide="resetModal" @ok="execute">
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
