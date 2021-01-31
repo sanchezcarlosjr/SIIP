@@ -11,7 +11,6 @@
                 v-for="(option, index) in options"
                 :key="index"
                 @click.stop="optionClicked(option)"
-                :class="[option.class, (option.type === 'divider' ? 'vue-simple-context-menu__divider' : '')]"
                 class="vue-simple-context-menu__item"
             >
                 <span v-html="option.name"></span>
@@ -60,8 +59,8 @@ export default {
                 this.menuHeight = menu.offsetHeight
                 menu.removeAttribute("style")
             }
-            menu.style.left = event.layerX + this.menuHeight - 15 + "px";
-            menu.style.top = event.layerY + (2 * this.menuHeight) - 5 + "px";
+            menu.style.left = event.layerX + "px";
+            menu.style.top = event.layerY + this.menuHeight + "px";
             menu.classList.add('vue-simple-context-menu--active')
         },
         hideContextMenu() {

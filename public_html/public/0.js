@@ -86,7 +86,7 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
     function AcademicBodyManagementPage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.apiResource = 'academic_bodies';
-        _this.toolbar = new Set(['add', 'edit', 'archive']);
+        _this.toolbar = new Set(['add', 'edit']);
         _this.defaultCriteria = [
             {
                 value: 'Vigente',
@@ -194,8 +194,7 @@ var AcademicBodyManagementPage = /** @class */ (function (_super) {
             { key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true },
             { key: 'last_evaluation.grade', label: 'Grado', sortable: true, editable: true },
             { key: 'leader.name', label: 'Líder', sortable: true, editable: true },
-            { key: "leader.academic_unit.name", label: 'Unidad Académica', sortable: true, editable: false },
-            { key: 'actions', label: 'Acciones' }
+            {key: "leader.academic_unit.name", label: 'Unidad Académica', sortable: true, editable: false}
         ];
         return _this;
     }
@@ -269,7 +268,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/ts-loader??ref--5!./academic-body-management.page.ts?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./resources/js/academic-bodies/academic-body-management/academic-body-management.page.ts?vue&type=script&lang=ts&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_academic_body_management_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -302,7 +301,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "2638531c",
   null
-  
+
 )
 
 /* hot reload */

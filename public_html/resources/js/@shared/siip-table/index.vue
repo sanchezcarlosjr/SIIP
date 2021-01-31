@@ -148,23 +148,6 @@
                             </b-row>
                         </b-container>
                     </template>
-                    <template #cell(actions)="row">
-                        <a v-if="toolbar.has('archive')" v-b-tooltip.hover :title="'Archivar ' + infoModal.resource"
-                           class="pointer" style="font-size:20px"
-                           @click="archive(row.item, row.index, $event.target)">
-                            <i class="fas fa-archive"></i>
-                        </a>
-                        <a v-if="toolbar.has('edit')" v-b-tooltip.hover :title="'Editar ' + infoModal.resource"
-                           class="pointer" style="font-size:20px"
-                           @click="edit(row.item, row.index, $event.target)"><i class="fa fa-edit"></i></a>
-                        <a v-if="toolbar.has('remove')" v-b-tooltip.hover :title="'Eliminar ' + infoModal.resource"
-                           class="pointer" style="font-size:20px"
-                           @click="remove(row.item, row.index, $event.target)"><i class="fa fa-trash"></i></a>
-                        <a v-if="toolbar.has('remove-relation')" v-b-tooltip.hover
-                           :title="'Remover ' + infoModal.resource"
-                           class="pointer" style="font-size:20px"
-                           @click="removeRelation(row.item, row.index, $event.target)"><i class="fa fa-trash"></i></a>
-                    </template>
                     <template #cell()="data">
                         <div class="cell">
                             {{ data.value }}

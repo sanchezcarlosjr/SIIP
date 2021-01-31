@@ -4,7 +4,7 @@ import Component from "vue-class-component";
 @Component
 export default class AcademicBodyManagementPage extends Vue {
     apiResource = 'academic_bodies';
-    toolbar = new Set(['add', 'edit', 'archive']);
+    toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
             value: 'Vigente',
@@ -112,8 +112,7 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true},
         {key: 'last_evaluation.grade', label: 'Grado', sortable: true, editable: true},
         {key: 'leader.name', label: 'Líder', sortable: true, editable: true},
-        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false},
-        {key: 'actions', label: 'Acciones'}
+        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
 }
 

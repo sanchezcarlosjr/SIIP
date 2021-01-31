@@ -50,6 +50,7 @@ export default class SiipTableComponent extends Vue {
     sortDirection = 'asc';
     infoModal: InfoModal = new InfoModal(this.schema, this.resource);
     isVisibleChart = false;
+    options: any[] = [];
     private originalFilter: string[] = [];
     private graphQLBuilder: GraphQLBuilder | undefined;
 
@@ -79,6 +80,16 @@ export default class SiipTableComponent extends Vue {
         await this.loadElements();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
+        this.toolbar.forEach((value) => {
+            if (value === 'add' || value === 'add-relation') {
+                return;
+            }
+            this.options.push(this.getItems(value));
+        });
+    }
+
+    optionClicked(event: { option: any, item: any }) {
+        this[event.option.click](event.item.row, event.item.index);
     }
 
     async loadElements() {
@@ -172,18 +183,57 @@ export default class SiipTableComponent extends Vue {
         return this.links ? this.$set(item, '_showDetails', !item._showDetails) : '';
     }
 
-    options = [
-        {
-            name: 'A'
-        }
-    ];
-
-    optionClicked() {
-    }
-
     rowContextMenu(item: any, index: number, event: any) {
         // @ts-ignore
-        this.$refs.vueSimpleContextMenu1.showMenu(event, item);
+        this.$refs.vueSimpleContextMenu1.showMenu(event, {
+            index,
+            row: item
+        });
+    }
+
+    private getItems(value: string) {
+        switch (value) {
+            case 'archive':
+                return {
+                    click: 'archive',
+                    name: `
+                        <a>
+                            <i class="fas fa-archive"></i>
+                            Archivar  ${this.infoModal.resource}
+                        </a>
+                   `
+                };
+            case 'edit':
+                return {
+                    click: 'edit',
+                    name: `
+                        <a>
+                            <i class="fas fa-edit"></i>
+                            Editar ${this.infoModal.resource}
+                        </a>
+                   `
+                };
+            case 'remove':
+                return {
+                    click: 'remove',
+                    name: `
+                        <a>
+                            <i class="fas fa-trash"></i>
+                            Eliminar ${this.infoModal.resource}
+                        </a>
+                   `
+                }
+            case 'remove-relation':
+                return {
+                    click: 'removeRelation',
+                    name: `
+                        <a>
+                            <i class="fas fa-trash"></i>
+                            Remover ${this.infoModal.resource}
+                        </a>
+                   `
+                }
+        }
     }
 
 
