@@ -1,11 +1,13 @@
 import axios from 'axios';
 import Vue from "vue";
-import Component from "vue-class-component";
-import {Prop} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import {flattenObj, GraphQLBuilder} from './GraphQL';
 import {InfoModal} from './info-modal';
+import {permission} from "../../store/auth/permission";
 
-@Component
+@Component({
+    directives: {permission}
+})
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
 

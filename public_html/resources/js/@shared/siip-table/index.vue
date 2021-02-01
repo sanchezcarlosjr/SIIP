@@ -69,6 +69,7 @@
                             </b-button>
                             <b-button
                                 v-if="toolbar.has('add')"
+                                v-permission="['admin']"
                                 v-b-tooltip.hover
                                 :title="'Agregar '+infoModal.resource"
                                 class="b-0"
