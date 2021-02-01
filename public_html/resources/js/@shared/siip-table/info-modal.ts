@@ -1,9 +1,15 @@
 import {toSingular} from "./GraphQL";
+import store from "../../store/store";
 
-interface Modal { id: string, title: string, item: any, rowId: number };
+interface Modal {
+    id: string,
+    title: string,
+    item: any,
+    rowId: number
+}
 
 export interface Strategy {
-    [key: string]: () => string;
+    [key: string]: () => { title: string, icon: string };
 }
 
 export interface Model {
@@ -15,11 +21,36 @@ interface Schema {
 
 export class InfoModal implements Modal {
     private strategies: Strategy = {
-        remove: () => 'Eliminar',
-        edit: () => 'Editar ',
-        create: () => 'Añadir',
-        archive: () => 'Archivar',
-        removeRelation: () => 'Remover'
+        remove: () => {
+            return {
+                icon: 'trash',
+                title: 'Eliminar'
+            }
+        },
+        edit: () => {
+            return {
+                icon: 'edit',
+                title: store.user.canEdit ? 'Editar' : 'Detalles'
+            }
+        },
+        create: () => {
+            return {
+                icon: '',
+                title: 'Añadir'
+            }
+        },
+        archive: () => {
+            return {
+                icon: 'archive',
+                title: 'Archivar'
+            }
+        },
+        removeRelation: () => {
+            return {
+                title: 'Remover',
+                icon: 'trash'
+            }
+        }
     };
     private _id: string = '';
     title = '';
@@ -36,6 +67,7 @@ export class InfoModal implements Modal {
     build(spanishResourceName: string = document.title.replace(/s/g, '').toLowerCase()) {
         this.resource = spanishResourceName;
     }
+
     reset() {
         this.title = '';
         this.item = null;
@@ -54,7 +86,7 @@ export class InfoModal implements Modal {
     }
 
     setModal(item: any, index: any) {
-        const strategy = this.strategies[this.id]();
+        const strategy = this.strategies[this.id]().title;
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
         this.ifItemThenMatchSchema(item);
@@ -83,7 +115,22 @@ export class InfoModal implements Modal {
     }
 
     loadModel() {
-        this.schema.fields.forEach((field) => this.model[field.model] = '');
+        this.schema.fields.forEach((field: any) => {
+            field.readonly = !store.user.canEdit;
+            this.model[field.model] = '';
+        });
+    }
+
+    getActions(value: string) {
+        const strategy = this.strategies[value]();
+        return {
+            click: value,
+            name: `
+           <a>
+                  <i class="fas fa-${strategy.icon}"></i>
+                   ${strategy.title} ${this.resource}
+           </a>`
+        };
     }
 
     loadSchema() {

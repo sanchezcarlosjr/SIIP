@@ -84,7 +84,7 @@ export default class SiipTableComponent extends Vue {
             if (value === 'add' || value === 'add-relation') {
                 return;
             }
-            this.options.push(this.getItems(value));
+            this.options.push(this.infoModal.getActions(value));
         });
     }
 
@@ -177,63 +177,12 @@ export default class SiipTableComponent extends Vue {
         this.infoModal.reset();
     }
 
-    rowClicked(item: any, index: number, event: any) {
-        this.infoModal.id = 'edit';
-        this.infoModal.setModal(item, index);
-        return this.links ? this.$set(item, '_showDetails', !item._showDetails) : '';
-    }
-
     rowContextMenu(item: any, index: number, event: any) {
         // @ts-ignore
         this.$refs.vueSimpleContextMenu1.showMenu(event, {
             index,
             row: item
         });
-    }
-
-    private getItems(value: string) {
-        switch (value) {
-            case 'archive':
-                return {
-                    click: 'archive',
-                    name: `
-                        <a>
-                            <i class="fas fa-archive"></i>
-                            Archivar  ${this.infoModal.resource}
-                        </a>
-                   `
-                };
-            case 'edit':
-                return {
-                    click: 'edit',
-                    name: `
-                        <a>
-                            <i class="fas fa-edit"></i>
-                            Editar ${this.infoModal.resource}
-                        </a>
-                   `
-                };
-            case 'remove':
-                return {
-                    click: 'remove',
-                    name: `
-                        <a>
-                            <i class="fas fa-trash"></i>
-                            Eliminar ${this.infoModal.resource}
-                        </a>
-                   `
-                }
-            case 'remove-relation':
-                return {
-                    click: 'removeRelation',
-                    name: `
-                        <a>
-                            <i class="fas fa-trash"></i>
-                            Remover ${this.infoModal.resource}
-                        </a>
-                   `
-                }
-        }
     }
 
 

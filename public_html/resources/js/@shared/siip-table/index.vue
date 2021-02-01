@@ -119,36 +119,9 @@
                     stacked="md"
                     sticky-header
                     striped
-                    @row-clicked="rowClicked"
+                    @row-clicked="edit"
                     @row-contextmenu="rowContextMenu"
                 >
-                    <template #row-details="row">
-                        <b-container class="mt-3">
-                            <b-row align-h="between">
-                                <b-col class="pl-0" cols="4">
-                                    <h4>Detalles de {{row.item.name}}</h4>
-                                </b-col>
-                                <b-col cols="4">
-                                    <b-button-group>
-                                        <router-link
-                                            v-for="(value, key) in links" :key="key"
-                                            v-b-tooltip.hover
-                                            :title="value.tooltip"
-                                            :to="value.link.replace('*', row.item.id)" class="pointer"
-                                            tag="b-button">
-                                            <i class="fas" style="font-size:20px"
-                                               v-bind:class="'fa-'+key"></i>
-                                        </router-link>
-                                    </b-button-group>
-                                </b-col>
-                            </b-row>
-                            <b-row>
-                                <b-col class="pl-0">
-                                    <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
-                                </b-col>
-                            </b-row>
-                        </b-container>
-                    </template>
                     <template #cell()="data">
                         <div class="cell">
                             {{ data.value }}
