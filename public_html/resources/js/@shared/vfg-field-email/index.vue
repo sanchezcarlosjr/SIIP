@@ -1,6 +1,7 @@
 <template>
     <b-input-group append="@uabc.edu.mx">
                     <b-form-input
+                        :readonly="schema.readonly"
                         v-model="userName"
                         type="email"
                         placeholder="Ingresa usuario uabc"

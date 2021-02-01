@@ -23,7 +23,7 @@
                 <div class="sidebar-content">
                     <div class="user">
                         <center>
-                            <img src="img/logo.png">
+                            <img src="/img/logo.png">
                         </center>
                     </div>
                     <ul class="nav nav-primary">

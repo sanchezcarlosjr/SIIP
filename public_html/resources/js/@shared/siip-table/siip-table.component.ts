@@ -22,15 +22,7 @@ export default class SiipTableComponent extends Vue {
     @Prop({
         default() {
             return {
-                fields: [
-                    {
-                        type: '',
-                        label: '',
-                        model: "",
-                        query: '',
-                        textKey: ''
-                    },
-                ]
+                fields: []
             }
         }
     }) schema!: any;
@@ -154,6 +146,9 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
+        if (this.schema.fields.length === 0) {
+            return;
+        }
         this.infoModal.id = 'edit';
         this.showModal(item, index, button);
     }

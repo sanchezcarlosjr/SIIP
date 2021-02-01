@@ -110,11 +110,7 @@ export default {
 </script>
 
 <style lang="scss">
-$light-grey: #ecf0f1;
-$grey: darken($light-grey, 15%);
-$blue: #007aff;
-$white: #fff;
-$black: #333;
+
 .vue-simple-context-menu {
     top: 0;
     left: 0;
@@ -123,7 +119,6 @@ $black: #333;
     display: none;
     list-style: none;
     position: absolute;
-    background-color: $light-grey;
 
     &--active {
         display: block;
@@ -131,21 +126,19 @@ $black: #333;
 
     &__item {
         display: flex;
-        color: $black;
         cursor: pointer;
         padding: 5px 15px;
         align-items: center;
 
         &:hover {
-            background-color: $blue;
-            color: $white;
+            background-color: var(--secondary);
+            color: var(--light);
         }
     }
 
     &__divider {
         box-sizing: content-box;
         height: 2px;
-        background-color: $grey;
         padding: 4px 0;
         background-clip: content-box;
         pointer-events: none;

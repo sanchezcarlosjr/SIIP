@@ -1,7 +1,8 @@
 <template>
    <b-form-datepicker
       block
-      v-model="value" 
+      :readonly="schema.readonly"
+      v-model="value"
     ></b-form-datepicker>
 </template>
 <script src="./vfg-field-calendar.ts" lang="ts"></script>

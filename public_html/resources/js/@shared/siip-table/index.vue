@@ -3,7 +3,7 @@
         <div class="card-header b-0">
             <b-container class="card-title p-0">
                 <b-row align-h="between">
-                    <b-col cols="4" style="padding: 0">
+                    <b-col cols="6" style="padding: 0">
                         <siip-breadcrumb :title="title" isAPage="true"></siip-breadcrumb>
                     </b-col>
                     <b-col cols="5">
@@ -177,7 +177,12 @@
                      @hide="resetModal" @ok="execute">
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
             </b-modal>
-            <b-modal id="edit" :title="infoModal.title" cancel-title="Cancelar" ok-title="Aceptar cambios" scrollable
+            <b-modal id="edit"
+                     :title="infoModal.title"
+                     cancel-title="Cancelar"
+                     :hide-footer="!infoModal.canEdit"
+                     ok-title="Aceptar cambios"
+                     scrollable
                      @hide="resetModal" @ok="execute">
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
             </b-modal>

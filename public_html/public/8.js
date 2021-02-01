@@ -92,10 +92,7 @@ var MembersPage = /** @class */ (function (_super) {
         _this.spanishResourceName = 'miembro';
         _this.toolbar = new Set(['removeRelation', 'add-relation']);
         _this.infoVariant = function (items) {
-            var graphql = new _shared_siip_table_GraphQL__WEBPACK_IMPORTED_MODULE_2__["GraphQLBuilder"]('academic_body', [{
-                key: 'leader.id',
-                sortable: true
-            }]);
+            var graphql = new _shared_siip_table_GraphQL__WEBPACK_IMPORTED_MODULE_2__["GraphQLBuilder"]('academic_body', [{ key: 'leader.id', sortable: true }]);
             return graphql.find(_this.$route.params.id).then(function (response) {
                 var index = 0;
                 items.forEach(function (value, i) {
@@ -109,7 +106,7 @@ var MembersPage = /** @class */ (function (_super) {
         _this.fields = [
             { key: 'employees.name', label: 'Nombre', sortable: true },
             { key: 'employees.academic_unit.name', label: 'Unidad Académica', sortable: true },
-            {key: 'employees.grado', label: 'Grado', sortable: true}
+            { key: 'employees.grado', label: 'Grado', sortable: true }
         ];
         _this.schema = {
             fields: [
@@ -221,7 +218,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   "659c6e50",
   null
-
+  
 )
 
 /* hot reload */
@@ -275,7 +272,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_ts_loader_index_js_ref_5_members_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/ts-loader??ref--5!./members.page.ts?vue&type=script&lang=ts& */ "./node_modules/ts-loader/index.js?!./resources/js/academic-bodies/members-by-academic-body/members.page.ts?vue&type=script&lang=ts&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_members_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]);
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_5_members_page_ts_vue_type_script_lang_ts___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ })
 

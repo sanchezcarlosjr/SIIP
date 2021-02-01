@@ -6,7 +6,7 @@ const state = Vue.observable({
         token: '',
         role: 'admin',
         canSee: true,
-        canEdit: true
+        canEdit: false
     }
 });
 

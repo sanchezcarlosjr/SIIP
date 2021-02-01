@@ -137,6 +137,10 @@ export class InfoModal implements Modal {
         this.schema.fields.forEach((field) => field.module = this.module);
     }
 
+    get canEdit() {
+        return store.user.canEdit;
+    }
+
     get itemId() {
         return this.item?.id;
     }

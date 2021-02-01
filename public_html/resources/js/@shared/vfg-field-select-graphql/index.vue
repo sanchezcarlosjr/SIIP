@@ -1,6 +1,7 @@
 <template>
     <div>
         <b-form-input
+            :readonly="schema.readonly"
             :id="schema.model"
             v-model="value"
             :list="schema.model.concat('select')"
