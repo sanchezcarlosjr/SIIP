@@ -3,31 +3,30 @@
         v-click-outside="onClickOutside"
         @contextmenu.prevent.stop=""
     >
-        <ul
+        <b-list-group
             :id="elementId"
             class="vue-simple-context-menu"
         >
-            <b-button-group tag="li">
+            <b-button-group v-if="links" tag="b-list-group-item">
                 <router-link
                     v-for="(value, key) in links" :key="key"
                     v-b-tooltip.hover
                     :title="value.tooltip"
-                    :to="value.link.replace('*', item.id)"
+                    v-if="item"
+                    :to="value.link.replace('*', item.row.id)"
                     class="pointer" tag="b-button"
                     varant="secondary">
                     <i class="fas" style="font-size:20px"
                        v-bind:class="'fa-'+key"></i>
                 </router-link>
             </b-button-group>
-            <li
+            <b-list-group-item
                 v-for="(option, index) in options"
                 :key="index"
                 @click.stop="optionClicked(option)"
                 class="vue-simple-context-menu__item"
-            >
-                <span v-html="option.name"></span>
-            </li>
-        </ul>
+            >    <span v-html="option.name"></span></b-list-group-item>
+        </b-list-group>
     </div>
 </template>
 
@@ -45,8 +44,8 @@ export default {
             required: true
         },
         links: {
-            type: Array,
-            required: true
+            type: Object,
+            required: false
         },
         options: {
             type: Array,
@@ -63,7 +62,7 @@ export default {
     methods: {
         showMenu(event, item) {
             event.preventDefault();
-            this.item = item
+            this.item = item;
             const menu = document.getElementById(this.elementId)
             if (!menu) {
                 return

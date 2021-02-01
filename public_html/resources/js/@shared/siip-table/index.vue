@@ -82,8 +82,9 @@
                                 v-if="toolbar.has('add-relation')"
                                 v-b-tooltip.hover
                                 :title="'Agregar '+infoModal.resource"
+                                class="b-0"
                                 size="sm"
-                                variant="success"
+                                variant="outline-success"
                                 @click="add($event.target)">
                                 Nuevo
                             </b-button>
