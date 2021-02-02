@@ -4,9 +4,9 @@ const state = Vue.observable({
     user: {
         name: '',
         token: '',
-        role: 'admin',
+        role: 'admin2',
         canSee: false,
-        canEdit: true
+        canEdit: false
     }
 });
 

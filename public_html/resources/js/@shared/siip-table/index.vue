@@ -186,6 +186,19 @@
                      ok-title="Aceptar cambios"
                      scrollable
                      @hide="resetModal" @ok="execute">
+                <b-button-group v-if="links" tag="b-list-group-item">
+                    <router-link
+                        v-for="(value, key) in links" :key="key"
+                        v-b-tooltip.hover
+                        :title="value.tooltip"
+                        v-if="infoModal.item"
+                        :to="value.link.replace('*', infoModal.itemId)"
+                        class="pointer" tag="b-button"
+                        varant="secondary">
+                        <i class="fas" style="font-size:20px"
+                           v-bind:class="'fa-'+key"></i>
+                    </router-link>
+                </b-button-group>
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
             </b-modal>
             <b-modal id="remove" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo eliminar"
