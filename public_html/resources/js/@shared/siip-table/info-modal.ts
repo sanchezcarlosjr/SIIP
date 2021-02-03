@@ -1,5 +1,4 @@
 import {toSingular} from "./GraphQL";
-import store from "../../store/store";
 import {hasPermissions} from "../../store/auth/permission";
 
 interface Modal {
