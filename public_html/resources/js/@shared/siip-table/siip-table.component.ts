@@ -3,10 +3,11 @@ import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
 import {flattenObj, GraphQLBuilder} from './GraphQL';
 import {InfoModal} from './info-modal';
-import {permission} from "../../store/auth/permission";
+import {permission, hasPermissions} from "../../store/auth/permission";
 
 @Component({
-    directives: {permission}
+    directives: {permission},
+    methods: {hasPermissions}
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;

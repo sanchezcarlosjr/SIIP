@@ -182,11 +182,11 @@
             <b-modal id="edit"
                      :title="infoModal.title"
                      cancel-title="Cancelar"
-                     :hide-footer="!infoModal.canEdit"
+                     :hide-footer="!hasPermissions(['admin'])"
                      ok-title="Aceptar cambios"
                      scrollable
                      @hide="resetModal" @ok="execute">
-                <b-button-group v-if="links" tag="b-list-group-item b-0">
+                <b-button-group v-if="links" tag="b-list-group-item" class="b-0">
                     <router-link
                         v-for="(value, key) in links" :key="key"
                         v-b-tooltip.hover

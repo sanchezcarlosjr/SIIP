@@ -1,5 +1,6 @@
 import {toSingular} from "./GraphQL";
 import store from "../../store/store";
+import {hasPermissions} from "../../store/auth/permission";
 
 interface Modal {
     id: string,
@@ -30,7 +31,7 @@ export class InfoModal implements Modal {
         edit: () => {
             return {
                 icon: 'edit',
-                title: store.user.canEdit ? 'Editar' : 'Detalles'
+                title: hasPermissions(['admin']) ? 'Editar' : 'Detalles'
             }
         },
         create: () => {
@@ -116,7 +117,7 @@ export class InfoModal implements Modal {
 
     loadModel() {
         this.schema.fields.forEach((field: any) => {
-            field.readonly = !store.user.canEdit;
+            field.readonly = !hasPermissions(['admin']);
             this.model[field.model] = '';
         });
     }
@@ -135,10 +136,6 @@ export class InfoModal implements Modal {
 
     loadSchema() {
         this.schema.fields.forEach((field) => field.module = this.module);
-    }
-
-    get canEdit() {
-        return store.user.canEdit;
     }
 
     get itemId() {
