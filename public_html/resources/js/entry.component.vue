@@ -38,7 +38,8 @@
                             <a v-b-toggle="'accordion-' + index">
                                 <i
                                     active-class="text-light"
-                                    style="padding-right: 5px; font-size: 20px;"
+                                    class="mr-2"
+                                    style="font-size: 20px;"
                                     :class="`fa ${route.icon}`"></i>
                                 <p>{{ route.name }}</p>
                                 <span v-if="route.children" class="caret"></span>
