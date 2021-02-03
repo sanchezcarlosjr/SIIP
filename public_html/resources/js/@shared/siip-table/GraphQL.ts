@@ -24,7 +24,7 @@ function makeGraphqlParameters(model: Model): string {
     Object.keys(model).forEach((field) =>
     {
         const value = toType(model[field]);
-        if (!!value) {
+        if (typeof value !== "undefined") {
             params = params.concat(`${field}: ${value},`)
         }
     });
