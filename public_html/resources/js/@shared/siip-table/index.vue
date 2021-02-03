@@ -186,7 +186,7 @@
                      ok-title="Aceptar cambios"
                      scrollable
                      @hide="resetModal" @ok="execute">
-                <b-button-group v-if="links" tag="b-list-group-item">
+                <b-button-group v-if="links" tag="b-list-group-item b-0">
                     <router-link
                         v-for="(value, key) in links" :key="key"
                         v-b-tooltip.hover
