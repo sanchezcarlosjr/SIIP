@@ -24,6 +24,7 @@ function makeGraphqlParameters(model: Model): string {
     Object.keys(model).forEach((field) =>
     {
         const value = toType(model[field]);
+        console.log(value);
         if (typeof value !== "undefined") {
             params = params.concat(`${field}: ${value},`)
         }
@@ -70,6 +71,7 @@ export interface GraphQLIndexResponse {
 }
 
 export class GraphQLBuilder {
+    private readonly url: string = `/${process.env.BASE_URL}graphql`;
     private isASubResource = this.resource.indexOf('(') !== -1;
     private isAResource = false;
     private subCollection = '';
@@ -79,7 +81,7 @@ export class GraphQLBuilder {
 
     remove(resourceGraphQL: string, id: string) {
         return axios({
-            url: '/graphql',
+            url: this.url,
             method: 'post',
             data: {
                 query: `
@@ -95,7 +97,7 @@ export class GraphQLBuilder {
     find(id: string) {
         const query = this.toSingular();
         return axios({
-            url: '/graphql',
+            url: this.url,
             method: 'post',
             data: {
                 query: `
@@ -115,12 +117,13 @@ export class GraphQLBuilder {
 
     private type: string = '';
 
+
     store(model: Model, type = 'create') {
         this.type = type;
         const mutation = this.generateParameters();
         this.isAResource = true;
         return axios({
-            url: '/graphql',
+            url: this.url,
             method: 'post',
             data: {
                 query: `
@@ -165,7 +168,7 @@ export class GraphQLBuilder {
     index(subCollection = 'active'): Promise<GraphQLIndexResponse> {
         this.subCollection = subCollection;
         return axios({
-            url: '/graphql',
+            url: this.url,
             method: 'post',
             data: {
                 query: `query GetElementsToTable {
