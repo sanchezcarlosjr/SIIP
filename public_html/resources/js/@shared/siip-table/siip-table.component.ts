@@ -3,7 +3,7 @@ import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
 import {flattenObj, GraphQLBuilder} from './GraphQL';
 import {InfoModal} from './info-modal';
-import {permission, hasPermissions} from "../../store/auth/permission";
+import {hasPermissions, permission} from "../../store/auth/permission";
 
 @Component({
     directives: {permission},
@@ -72,7 +72,11 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        await this.loadElements();
+        try {
+            await this.loadElements();
+        } catch (e) {
+            console.warn(e.message);
+        }
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
@@ -90,7 +94,7 @@ export default class SiipTableComponent extends Vue {
     async loadElements() {
         // TODO: Migrate to GraphQL
         if (this.communicationType === 'REST') {
-            axios.get(`/api/${this.resource}`).then(
+            axios.get(`${process.env.BASE_URL}api/${this.resource}`).then(
                 (response) => {
                     this.items = response.data;
                     this.title = this.tableTitle;
@@ -202,7 +206,7 @@ export default class SiipTableComponent extends Vue {
         if (this.communicationType === 'GraphQL') {
             return this.graphQLBuilder?.remove(this.resourceGraphQL, this.infoModal.itemId);
         }
-        return axios.delete(`api/${this.resource}/${this.infoModal.itemId}`);
+        return axios.delete(`${process.env.BASE_URL}api/${this.resource}/${this.infoModal.itemId}`);
     }
 
     private addRelationElement() {
@@ -226,7 +230,7 @@ export default class SiipTableComponent extends Vue {
             return this.graphQLBuilder?.store(this.infoModal.model, this.infoModal.id)
                 .then((element) => this.items.push(element));
         }
-        return axios.post(`api/${this.resource}`, {
+        return axios.post(`${process.env.BASE_URL}api/${this.resource}`, {
             ...this.infoModal.model
         }).then((element) => this.items.push(element.data));
     }
@@ -244,7 +248,7 @@ export default class SiipTableComponent extends Vue {
                 this.updateTable(result, rowId, isASubResource)
             );
         }
-        return axios.put(`api/${this.resource}/${this.infoModal.itemId}`, {
+        return axios.put(`${process.env.BASE_URL}api/${this.resource}/${this.infoModal.itemId}`, {
             ...this.infoModal.model
         });
     }
