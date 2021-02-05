@@ -71,7 +71,7 @@ export interface GraphQLIndexResponse {
 }
 
 export class GraphQLBuilder {
-    private readonly url: string = `/${process.env.BASE_URL}graphql`;
+    private readonly url: string = `${process.env.BASE_URL}graphql`;
     private isASubResource = this.resource.indexOf('(') !== -1;
     private isAResource = false;
     private subCollection = '';
@@ -166,6 +166,7 @@ export class GraphQLBuilder {
     }
 
     index(subCollection = 'active'): Promise<GraphQLIndexResponse> {
+        console.log(this.url);
         this.subCollection = subCollection;
         return axios({
             url: this.url,
