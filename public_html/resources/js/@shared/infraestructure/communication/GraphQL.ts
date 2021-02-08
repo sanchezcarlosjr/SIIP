@@ -107,7 +107,7 @@ export class GraphQLBuilder<T> implements Http<T> {
                         }
                     }
                   `
-        }).then((response) => response.data.data[query]);
+        }).then((response) => response.data[query]);
 
     }
 
@@ -147,7 +147,7 @@ export class GraphQLBuilder<T> implements Http<T> {
             console.log(response);
             this.mapToDataframeIfSubResource(response, this.resourceGraphQL);
             return {
-                resourceName: this.isASubResource ? response.data.data[this.resourceGraphQL].name.toLowerCase() : '',
+                resourceName: this.isASubResource ? response.data[this.resourceGraphQL].name.toLowerCase() : '',
                 isASubResource: this.isASubResource,
                 items: response.data[this.resourceGraphQL].data
             }
@@ -216,19 +216,19 @@ export class GraphQLBuilder<T> implements Http<T> {
 
     private mapToDataframeIfSubResource(response: AxiosResponse, resourceGraphQL: string) {
         if (this.isASubResource) {
-            response.data.data[resourceGraphQL].data = [];
-            Object.keys(response.data.data[resourceGraphQL]).filter((key) => Array.isArray(response.data.data[resourceGraphQL][key])).forEach((key) => {
+            response.data[resourceGraphQL].data = [];
+            Object.keys(response.data[resourceGraphQL]).filter((key) => Array.isArray(response.data[resourceGraphQL][key])).forEach((key) => {
                 if (key === 'data') {
                     return;
                 }
-                const map = response.data.data[resourceGraphQL][key].map((value: any) => {
+                const map = response.data[resourceGraphQL][key].map((value: any) => {
                     return {
                         [`${key}`]: {
                             ...value
                         }
                     }
                 });
-                response.data.data[resourceGraphQL].data = response.data.data[resourceGraphQL].data.concat(map);
+                response.data[resourceGraphQL].data = response.data[resourceGraphQL].data.concat(map);
             });
         }
     }
