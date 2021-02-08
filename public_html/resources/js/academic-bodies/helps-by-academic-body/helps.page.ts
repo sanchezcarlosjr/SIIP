@@ -13,8 +13,7 @@ export default class HelpsPage extends Vue {
         {key: 'helps.amount', label: 'Cantidad', sortable: true},
         {key: 'helps.benefited_employee.name', label: 'Beneficiario', sortable: true},
         {key: 'helps.academic_body.leader.academic_unit.name', label: 'Unidad académica', sortable: true},
-        {key: 'helps.academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true},
-        {key: 'actions', label: 'Acciones'}
+        {key: 'helps.academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true}
     ];
     schema = {
         fields: [

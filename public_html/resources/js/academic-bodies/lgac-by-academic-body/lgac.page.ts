@@ -11,8 +11,7 @@ export default class LGACPage extends Vue {
         {key: 'lgacs.key', label: 'Clave', sortable: true},
         {key: 'lgacs.name', label: 'Nombre', sortable: true},
         {key: 'lgacs.description', label: 'Descripción', sortable: true},
-        {key: 'lgacs.active', label: 'Vigente', sortable: true},
-        {key: 'actions', label: 'Acciones', sortable: false}
+        {key: 'lgacs.active', label: 'Vigente', sortable: true}
     ];
     schema = {
         fields: [

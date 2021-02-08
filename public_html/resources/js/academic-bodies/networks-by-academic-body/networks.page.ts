@@ -14,8 +14,7 @@ export default class NetworksPage extends Vue {
         {key: 'networks.range', label: 'Alcance', sortable: true},
         {key: 'networks.start_date', label: 'Fecha de inicio', sortable: true},
         {key: 'networks.finish_date', label: 'Fecha de fin', sortable: true},
-        {key: 'networks.academic_body.leader.name', label: 'Líder', sortable: true},
-        {key: 'actions', label: 'Acciones'}
+        {key: 'networks.academic_body.leader.name', label: 'Líder', sortable: true}
     ];
     defaultCriteria = [
         {
