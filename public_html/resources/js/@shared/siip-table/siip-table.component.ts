@@ -16,9 +16,6 @@ export default class SiipTableComponent extends Vue {
     @Prop() resource!: string;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
-    tableFields: {}[] = this.fields.filter((field) => field.label);
-    title = 'Cargando...';
-    isBusy = false;
     @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
     @Prop({default: 'REST'}) communicationType!: string;
@@ -35,8 +32,11 @@ export default class SiipTableComponent extends Vue {
             return []
         }
     }) filter!: { default: boolean; value: string }[];
-    criteria: string[] = [];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
+    tableFields: {}[] = this.fields.filter((field) => field.label);
+    title = 'Cargando...';
+    isBusy = false;
+    criteria: string[] = [];
     items: any = [];
     perPage = 10;
     currentPage = 1;
