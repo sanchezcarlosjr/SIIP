@@ -1,6 +1,6 @@
 import Component from "vue-class-component";
 import {Mixins} from 'vue-property-decorator';
-import {GraphQLBuilder, GraphQLIndexResponse} from "../siip-table/GraphQL";
+import {GraphQLBuilder, GraphQLIndexResponse} from "../infraestructure/communication/GraphQL";
 
 const VueFormGenerator = require('vue-form-generator');
 
@@ -26,7 +26,7 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
     }
 
     loadItems(response: GraphQLIndexResponse) {
-        response.data.forEach((element: any) => {
+        response.items.forEach((element: any) => {
             this.options.push({
                 value: element['id'],
                 text: element[this.schema.textKey]

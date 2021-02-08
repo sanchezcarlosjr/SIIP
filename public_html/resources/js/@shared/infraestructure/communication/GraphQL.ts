@@ -1,6 +1,6 @@
-import axios, {AxiosResponse} from "axios";
-import {Model} from "./info-modal";
-import {es} from "./es-MX";
+import {AxiosResponse} from "axios";
+import {HttpClient} from "./http-client";
+import {Http} from "./http";
 
 export function isObject(obj: any) {
     return Object.prototype.toString.call(obj) === '[object Object]' && obj.constructor.name === 'Object';
@@ -19,10 +19,9 @@ function toType(value: any): string {
     return isNaN(Number(value)) ? `"${value}"` : value;
 }
 
-function makeGraphqlParameters(model: Model): string {
+function makeGraphqlParameters(model: any): string {
     let params = '';
-    Object.keys(model).forEach((field) =>
-    {
+    Object.keys(model).forEach((field) => {
         const value = toType(model[field]);
         console.log(value);
         if (typeof value !== "undefined") {
@@ -66,147 +65,96 @@ export function upperCamelize(str: string, replaceValue = '') {
 
 export interface GraphQLIndexResponse {
     resourceName?: string;
-    data: any[];
+    items: any[];
     isASubResource?: boolean;
 }
 
-export class GraphQLBuilder {
+export class GraphQLBuilder<T> implements Http<T> {
     private readonly url: string = `${process.env.BASE_URL}graphql`;
+    private httpClient = new HttpClient();
     private isASubResource = this.resource.indexOf('(') !== -1;
     private isAResource = false;
     private subCollection = '';
     private resourceGraphQL = this.resource.split('(')[0];
+    private type: string = '';
+
     constructor(private resource: string, private fields: { sortable: boolean, key: string }[], private fatherID?: string) {
     }
 
-    remove(resourceGraphQL: string, id: string) {
-        return axios({
-            url: this.url,
-            method: 'post',
-            data: {
-                query: `
+    post(body: any) {
+        return this.httpClient.post(this.url, body);
+    }
+
+    remove(id: string) {
+        return this.post({
+            query: `
                     mutation {
-                        ${camelize(`Update ${resourceGraphQL}`)}(id: ${id}) {
+                        ${camelize(`Update ${this.resource}`)}(id: ${id}) {
                             id
                         }
                       }
                   `
-            }
-        });
+        }) as Promise<T>;
     }
+
     find(id: string) {
         const query = this.toSingular();
-        return axios({
-            url: this.url,
-            method: 'post',
-            data: {
-                query: `
+        return this.post({
+            query: `
                     query {
                         ${query}(id: ${id}) {
                           ${this.fields.filter((field) => field.sortable).map((field) => toGraphQL(field)).join('\n')}
                         }
                     }
                   `
-            }
         }).then((response) => response.data.data[query]);
+
     }
 
-    private toSingular(resourceGraphQL: string = this.resourceGraphQL) {
-        return toSingular(resourceGraphQL);
+    update(id: string, body: any) {
+        return this.store(body, 'update');
     }
 
-    private type: string = '';
-
-
-    store(model: Model, type = 'create') {
+    store(model: any, type = 'create') {
         this.type = type;
         const mutation = this.generateParameters();
         this.isAResource = true;
-        return axios({
-            url: this.url,
-            method: 'post',
-            data: {
-                query: `
+        return this.post({
+            query: `
                     mutation {
                         ${mutation}${this.parameters(model)} ${this.generateRequest(model)}
                     }
                   `
-            }
         }).then((response) => {
             console.log(response);
             this.isAResource = false;
             if (this.isAEditableResource()) {
                 return {
-                    [`${this.fields[0].key.split('.')[0]}`]:  response.data.data[mutation]
+                    [`${this.fields[0].key.split('.')[0]}`]: response.data.data[mutation]
                 }
             }
             return response.data.data[mutation];
         });
     }
 
-    private isAEditableResource() {
-        return (this.type == 'create' || this.type == 'update') && this.fatherID;
-    }
-
-    private parameters(model: Model) {
-        if (this.type == 'create' && this.fatherID) {
-            return `(${makeGraphqlParameters({
-                [`${this.resourceGraphQL}_id`]: this.fatherID,
-                ...model
-            })})`;
-        }
-        return `(${makeGraphqlParameters(model)})`;
-    }
-
-    private generateParameters(): string {
-        if (this.isAEditableResource()) {
-            return camelize(`${this.type}  ${this.fields[0].key.split('.')[0]}`).replace(/ies/, 'y').replace(/s/, '');
-        }
-        return camelize(`${this.type} ${this.resourceGraphQL.replace(/_/g,' ')}`);
-    }
-
-    index(subCollection = 'active'): Promise<GraphQLIndexResponse> {
-        console.log(this.url);
+    index(subCollection = 'active'): Promise<any> {
         this.subCollection = subCollection;
-        return axios({
-            url: this.url,
-            method: 'post',
-            data: {
-                query: `query GetElementsToTable {
+        return this.post({
+            query: `query GetElementsToTable {
                      ${this.generateRequest()}
           }`
-            }
         }).then((response) => {
             console.log(response);
             this.mapToDataframeIfSubResource(response, this.resourceGraphQL);
             return {
                 resourceName: this.isASubResource ? response.data.data[this.resourceGraphQL].name.toLowerCase() : '',
                 isASubResource: this.isASubResource,
-                data: response.data.data[this.resourceGraphQL].data
+                items: response.data[this.resourceGraphQL].data
             }
         })
     }
 
-    private mapToDataframeIfSubResource(response: AxiosResponse, resourceGraphQL: string) {
-        if (this.isASubResource) {
-            response.data.data[resourceGraphQL].data = [];
-            Object.keys(response.data.data[resourceGraphQL]).filter((key) => Array.isArray(response.data.data[resourceGraphQL][key])).forEach((key) => {
-                if (key === 'data') {
-                    return;
-                }
-                const map = response.data.data[resourceGraphQL][key].map((value: any) => {
-                    return {
-                        [`${key}`]: {
-                            ...value
-                        }
-                    }
-                });
-                response.data.data[resourceGraphQL].data = response.data.data[resourceGraphQL].data.concat(map);
-            });
-        }
-    }
-
-    generateRequest(model?: Model) {
+    generateRequest(model?: any) {
         if (this.isAEditableResource()) {
             return ` {
               ${createGqlQuery(model)}
@@ -240,6 +188,50 @@ export class GraphQLBuilder {
        }
       `
     }
+
+    private toSingular(resourceGraphQL: string = this.resourceGraphQL) {
+        return toSingular(resourceGraphQL);
+    }
+
+    private isAEditableResource() {
+        return (this.type == 'create' || this.type == 'update') && this.fatherID;
+    }
+
+    private parameters(model: any) {
+        if (this.type == 'create' && this.fatherID) {
+            return `(${makeGraphqlParameters({
+                [`${this.resourceGraphQL}_id`]: this.fatherID,
+                ...model
+            })})`;
+        }
+        return `(${makeGraphqlParameters(model)})`;
+    }
+
+    private generateParameters(): string {
+        if (this.isAEditableResource()) {
+            return camelize(`${this.type}  ${this.fields[0].key.split('.')[0]}`).replace(/ies/, 'y').replace(/s/, '');
+        }
+        return camelize(`${this.type} ${this.resourceGraphQL.replace(/_/g, ' ')}`);
+    }
+
+    private mapToDataframeIfSubResource(response: AxiosResponse, resourceGraphQL: string) {
+        if (this.isASubResource) {
+            response.data.data[resourceGraphQL].data = [];
+            Object.keys(response.data.data[resourceGraphQL]).filter((key) => Array.isArray(response.data.data[resourceGraphQL][key])).forEach((key) => {
+                if (key === 'data') {
+                    return;
+                }
+                const map = response.data.data[resourceGraphQL][key].map((value: any) => {
+                    return {
+                        [`${key}`]: {
+                            ...value
+                        }
+                    }
+                });
+                response.data.data[resourceGraphQL].data = response.data.data[resourceGraphQL].data.concat(map);
+            });
+        }
+    }
 }
 
 export function flattenObj(obj: any, parent: any, res: any = {}) {
@@ -249,9 +241,6 @@ export function flattenObj(obj: any, parent: any, res: any = {}) {
             flattenObj(obj[key], propName, res);
         } else {
             res[`${propName}`] = obj[key];
-            if (typeof obj[key] == 'boolean') {
-                res[es[propName] || propName] = obj[key] ? 'Sí' : 'No'
-            }
         }
     }
     return res;

@@ -1,9 +1,10 @@
-import axios from 'axios';
 import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
-import {flattenObj, GraphQLBuilder} from './GraphQL';
+import {flattenObj} from '../infraestructure/communication/GraphQL';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
+import {Http} from "../infraestructure/communication/http";
+import {communicationFactory} from "../infraestructure/communication/factory";
 
 @Component({
     directives: {permission},
@@ -37,6 +38,7 @@ export default class SiipTableComponent extends Vue {
     title = 'Cargando...';
     isBusy = false;
     criteria: string[] = [];
+    private http: Http<any> | null = communicationFactory(this.communicationType, this.resource, this.fields, this.$route.params.id);
     items: any = [];
     perPage = 10;
     currentPage = 1;
@@ -47,8 +49,6 @@ export default class SiipTableComponent extends Vue {
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];
-    private graphQLBuilder: GraphQLBuilder | undefined;
-
     get sortOptions() {
         return this.fields
             .filter(field => field.sortable)
@@ -72,11 +72,7 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        try {
-            await this.loadElements();
-        } catch (e) {
-            console.warn(e.message);
-        }
+        await this.loadElements();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
@@ -92,39 +88,18 @@ export default class SiipTableComponent extends Vue {
     }
 
     async loadElements() {
-        // TODO: Migrate to GraphQL
-        if (this.communicationType === 'REST') {
-            axios.get(`${process.env.BASE_URL}api/${this.resource}`).then(
-                (response) => {
-                    this.items = response.data;
-                    this.title = this.tableTitle;
-                    return response.data;
-                }
-            );
-        }
-        if (this.communicationType === 'GraphQL') {
-            this.graphQLBuilder = new GraphQLBuilder(`${this.resource}`, this.fields, this.$route.params.id);
-            return this.graphQLBuilder.index().then(async (response) => {
-                this.items = response.data;
-                if (typeof this.infoVariant === 'function') {
-                    const id = await this.infoVariant(this.items);
-                    this.items[id]._rowVariant = 'info';
-                }
-                if (!this.tableTitle) {
-                    return this.items;
-                }
-                const isAInjectedElement = this.tableTitle.indexOf('*') !== -1;
-                if (isAInjectedElement) {
-                    const injectedSymbolByAttribute: RegExp = /\*[a-z_.]+/gi;
-                    if (typeof response.resourceName === "string") {
-                        this.title = this.tableTitle.replace(injectedSymbolByAttribute, response.resourceName);
-                    }
-                } else {
-                    this.title = this.tableTitle;
-                }
-                return this.items;
-            });
-        }
+        return this.http?.index().then(async (response) => {
+            this.items = response.items;
+            if (typeof this.infoVariant === 'function') {
+                const id = await this.infoVariant(this.items);
+                this.items[id]._rowVariant = 'info';
+            }
+            const isAInjectedElement = this.tableTitle ? this.tableTitle.indexOf('*') !== -1 : null;
+            if (isAInjectedElement) {
+                const injectedSymbolByAttribute: RegExp = /\*[a-z_.]+/gi;
+                this.title = this.tableTitle?.replace(injectedSymbolByAttribute, <string>response.resourceName);
+            }
+        });
     }
 
     execute() {
@@ -203,36 +178,26 @@ export default class SiipTableComponent extends Vue {
 
     private removeElement() {
         this.items.splice(this.infoModal.rowId, 1);
-        if (this.communicationType === 'GraphQL') {
-            return this.graphQLBuilder?.remove(this.resourceGraphQL, this.infoModal.itemId);
-        }
-        return axios.delete(`${process.env.BASE_URL}api/${this.resource}/${this.infoModal.itemId}`);
+        return this.http?.remove(this.infoModal.itemId);
     }
 
     private addRelationElement() {
-        return this.graphQLBuilder?.store({
+        return this.http?.update(`add ${this.schema.fields[0].query} to`, {
             id: this.$route.params.id,
             ...this.infoModal.model
-        }, `add ${this.schema.fields[0].query} to`)
-            .then((element) => this.items.push(element));
+        }).then((element) => this.items.push(element));
     }
 
     private removeRelationElement() {
         this.items.splice(this.infoModal.rowId, 1);
-        return this.graphQLBuilder?.store({
+        return this.http?.update(`remove ${this.schema.fields[0].query} to`, {
             id: this.$route.params.id,
             [`${this.schema.fields[0].query}_id`]: this.infoModal.item[this.schema.fields[0].query].id
-        }, `remove ${this.schema.fields[0].query} to`);
+        });
     }
 
     private createElement() {
-        if (this.communicationType === 'GraphQL') {
-            return this.graphQLBuilder?.store(this.infoModal.model, this.infoModal.id)
-                .then((element) => this.items.push(element));
-        }
-        return axios.post(`${process.env.BASE_URL}api/${this.resource}`, {
-            ...this.infoModal.model
-        }).then((element) => this.items.push(element.data));
+        return this.http?.store(this.infoModal.model).then((element) => this.items.push(element));
     }
 
     private archiveElement() {
@@ -243,14 +208,7 @@ export default class SiipTableComponent extends Vue {
     private editElement() {
         const rowId = this.infoModal.rowId;
         const isASubResource = this.infoModal.isASubResource;
-        if (this.communicationType === 'GraphQL') {
-            return this.graphQLBuilder?.store(this.infoModal.model, 'update').then((result) =>
-                this.updateTable(result, rowId, isASubResource)
-            );
-        }
-        return axios.put(`${process.env.BASE_URL}api/${this.resource}/${this.infoModal.itemId}`, {
-            ...this.infoModal.model
-        });
+        return this.http?.update('update', this.infoModal.model).then((result) => this.updateTable(result, rowId, isASubResource));
     }
 
     private updateTable(result: any, rowId: number, isASubResource: boolean) {
