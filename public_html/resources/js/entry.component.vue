@@ -101,7 +101,7 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
-import {routes} from "./router";
+import {routes} from "./routes";
 
 @Component
 export default class EntryComponent extends Vue {
