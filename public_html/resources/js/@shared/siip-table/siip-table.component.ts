@@ -182,6 +182,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     private addRelationElement() {
+        console.log(this.items);
         return this.http?.update(`add ${this.schema.fields[0].query} to`, {
             id: this.$route.params.id,
             ...this.infoModal.model

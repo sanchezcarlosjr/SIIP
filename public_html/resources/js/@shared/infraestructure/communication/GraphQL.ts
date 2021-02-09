@@ -111,8 +111,8 @@ export class GraphQLBuilder<T> implements Http<T> {
 
     }
 
-    update(id: string, body: any) {
-        return this.store(body, 'update');
+    update(id: string = 'update', body: any) {
+        return this.store(body, id);
     }
 
     store(model: any, type = 'create') {
@@ -133,7 +133,7 @@ export class GraphQLBuilder<T> implements Http<T> {
                     [`${this.fields[0].key.split('.')[0]}`]: response.data.data[mutation]
                 }
             }
-            return response.data.data[mutation];
+            return response.data[mutation];
         });
     }
 
