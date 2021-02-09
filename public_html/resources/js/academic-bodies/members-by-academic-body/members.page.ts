@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Component from "vue-class-component"
-import {GraphQLBuilder} from "../../@shared/siip-table/GraphQL";
+import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
 
 @Component
 export default class MembersPage extends Vue {
@@ -10,7 +10,7 @@ export default class MembersPage extends Vue {
     toolbar = new Set<string>(['removeRelation', 'add-relation']);
     infoVariant = (items: { employees: { id: string } }[]) => {
         const graphql = new GraphQLBuilder('academic_body', [{key: 'leader.id', sortable: true}]);
-        return graphql.find(this.$route.params.id).then((response) => {
+        return graphql.find(this.$route.params.id).then((response: any) => {
             let index = 0;
             items.forEach((value, i) => {
                 if (value.employees.id === response.leader.id) {

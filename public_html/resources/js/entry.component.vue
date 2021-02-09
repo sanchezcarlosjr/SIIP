@@ -90,8 +90,7 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="copyright ml-auto">
-                        {{year}}, hecho con <i class="fa fa-heart heart text-danger"></i> por <a
-                        href="https://sanchezcarlosjr.com/">alumnos de UABC</a>
+                        {{year}}, <a href="https://sanchezcarlosjr.com/">Copyright CGIP-UABC</a>
                     </div>
                 </div>
             </footer>
@@ -102,7 +101,7 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
-import {routes} from "./router";
+import {routes} from "./routes";
 
 @Component
 export default class EntryComponent extends Vue {

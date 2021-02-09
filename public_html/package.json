@@ -41,5 +41,14 @@
         "vue-router": "^3.4.9",
         "vue-template-compiler": "^2.6.10"
     },
-    "dependencies": {}
+    "dependencies": {
+        "apollo-boost": "^0.4.9",
+        "apollo-cache-inmemory": "^1.6.6",
+        "apollo-client": "^2.6.10",
+        "apollo-link": "^1.2.14",
+        "apollo-link-http": "^1.5.17",
+        "graphql": "^15.5.0",
+        "graphql-tag": "^2.11.0",
+        "vue-apollo": "^3.0.5"
+    }
 }

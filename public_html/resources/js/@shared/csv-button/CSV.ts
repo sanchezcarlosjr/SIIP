@@ -22,11 +22,9 @@ export class CSV {
         const rows = document.querySelectorAll("table tr");
         for (let i = 0; i < rows.length; i++) {
             const row = [], cols = rows[i].querySelectorAll("td, th");
-
-            for (let j = 0; j < cols.length-1; j++)
-                { // @ts-ignore
-                    row.push(cols[j].innerText.replace(/\n\(.*\)/, ''));
-                }
+            for (let j = 0; j < cols.length; j++) { // @ts-ignore
+                row.push(cols[j].innerText.replace(/\n\(.*\)/, ''));
+            }
             csv.push(row.join(','));
         }
         this.csv = csv.join('\n');
