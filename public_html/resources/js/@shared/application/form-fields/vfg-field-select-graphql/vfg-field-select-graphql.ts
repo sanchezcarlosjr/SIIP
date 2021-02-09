@@ -1,6 +1,6 @@
 import Component from "vue-class-component";
 import {Mixins} from 'vue-property-decorator';
-import {GraphQLBuilder, GraphQLIndexResponse} from "../infraestructure/communication/GraphQL";
+import {GraphQLBuilder, GraphQLIndexResponse} from "../../../infraestructure/communication/GraphQL";
 
 const VueFormGenerator = require('vue-form-generator');
 

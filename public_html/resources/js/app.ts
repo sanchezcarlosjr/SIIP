@@ -1,19 +1,18 @@
 require('./bootstrap');
 import {BootstrapVue, IconsPlugin} from 'bootstrap-vue';
 import Vue from 'vue';
-import CardTitleComponent from './@shared/card-title.component.vue';
-import SiipBreadcrumb from './@shared/breadcrumb.component.vue';
-import CSVButton from './@shared/csv-button/index.vue';
-import PDFButton from './@shared/pdf-button/index.vue';
+import SiipBreadcrumb from './@shared/application/breadcrumb.component.vue';
+import CSVButton from './@shared/application/csv-button/index.vue';
+import PDFButton from './@shared/application/pdf-button/index.vue';
 import SiipTableComponent from "./@shared/siip-table/index.vue";
-import VfgFieldCalendar from './@shared/vfg-field-calendar/index.vue';
-import VfgFieldEmail from './@shared/vfg-field-email/index.vue';
-import VfgFieldApiSelect from './@shared/vfg-field-select-api/index.vue';
-import VfgFieldGraphQLSelect from './@shared/vfg-field-select-graphql/index.vue';
-import VfgFieldSwitch from './@shared/vfg-field-switch/index.vue';
+import VfgFieldCalendar from './@shared/application/form-fields/vfg-field-calendar/index.vue';
+import VfgFieldEmail from './@shared/application/form-fields/vfg-field-email/index.vue';
+import VfgFieldApiSelect from './@shared/application/form-fields/vfg-field-select-api/index.vue';
+import VfgFieldGraphQLSelect from './@shared/application/form-fields/vfg-field-select-graphql/index.vue';
+import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import SiipChartComponent from './@shared/siip-table/chart/RandomChart.vue';
-import ContextMenu from './@shared/context-menu/context-menu.component.vue';
+import ContextMenu from './@shared/application/context-menu/context-menu.component.vue';
 import router from './routes';
 // @ts-ignore
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -26,7 +25,6 @@ Vue.use(IconsPlugin)
 Vue.use(VueFormGenerator);
 
 Vue.component('entry-component', EntryComponent)
-Vue.component('card-title-component', CardTitleComponent)
 Vue.component('pdf-button', PDFButton)
 Vue.component('csv-button', CSVButton)
 Vue.component('siip-table', SiipTableComponent);
