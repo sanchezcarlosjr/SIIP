@@ -126,27 +126,6 @@
                     <template #cell()="data">
                         <div class="cell">
                             {{ data.value }}
-                            <b-dropdown
-                                v-permission="['admin']"
-                                v-if="data.field.editable"
-                                id="dropdown-form" ref="dropdown" class="update"
-                                no-caret toggle-class="text-decoration-none p-0" variant="link">
-                                <template #button-content>
-                                    <i class="fas fa-pen"></i>
-                                </template>
-                                <b-dropdown-form style="width: 250px">
-                                    <b-form-group :label="data.field.label"
-                                                  :label-for="'dropdown-form-'+data.field.key+'-'+data.index"
-                                                  @submit.stop.prevent>
-                                        <b-form-input
-                                            :id="'dropdown-form-'+data.field.key+'-'+data.index"
-                                            :value="data.value"
-                                            size="sm"
-                                        ></b-form-input>
-                                    </b-form-group>
-                                    <b-button size="sm" variant="primary">Guardar</b-button>
-                                </b-dropdown-form>
-                            </b-dropdown>
                         </div>
                     </template>
                 </b-table>
