@@ -17,9 +17,10 @@ import ContextMenu from './@shared/context-menu/context-menu.component.vue';
 import router from './router';
 // @ts-ignore
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import apolloProvider from "./settings/apollo";
 
 const VueFormGenerator = require('vue-form-generator');
-    
+
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -80,5 +81,6 @@ router.beforeEach((to, from, next) => {
 
 const app = new Vue({
     el: '#app',
+    apolloProvider,
     router
 });
