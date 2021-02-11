@@ -72,6 +72,9 @@ export class InfoModal implements Modal {
         this.title = '';
         this.item = null;
         this.rowId = -1;
+        if (this.model.id === '') {
+            delete this.model.id;
+        }
         for (const key of Object.keys(this.model) as string[]) {
             this.model[key] = '';
         }

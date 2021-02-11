@@ -193,15 +193,7 @@ type Mutation {
     removeEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
     removeAcademicBodies(id: ID): AcademicBody
     updateAcademicBodies(
-        id: ID!
-        name: String,
-        prodep_key: String,
-        active: Boolean,
-        prodep_area_id: Int,
-        lead_employee_id: Int,
-        uabc_areas_id: Int,
-        discipline_id: Int,
-        des_id: Int
+       data: updateAcademicBodyInput
     ): AcademicBody
     createAcademicBodies(
         data: createAcademicBodyInput

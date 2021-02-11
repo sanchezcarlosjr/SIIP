@@ -207,6 +207,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
+        console.log(this.infoModal.model);
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
@@ -226,9 +227,16 @@ export default class SiipTableComponent extends Vue {
     }
 
     private editElement() {
-        const rowId = this.infoModal.rowId;
-        const isASubResource = this.infoModal.isASubResource;
-        return this.http?.update('update', this.infoModal.model).then((result) => this.updateTable(result, rowId, isASubResource));
+        return this.$apollo.mutate({
+            mutation: this.resource.edit,
+            variables: {
+                data: {
+                    ...this.infoModal.model
+                }
+            }
+        }).then(() =>
+            this.$apollo.queries.items.refetch()
+        );
     }
 
     private updateTable(result: any, rowId: number, isASubResource: boolean) {
