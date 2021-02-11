@@ -1,25 +1,11 @@
 import gql from 'graphql-tag';
-import {toGraphQL} from "../../../@shared/infraestructure/communication/GraphQL";
+import {Repository} from "../../../@shared/infraestructure/communication/graphql/repository";
 
+export class AcademicBodyRepository implements Repository {
+    private fields: any;
 
-function factory(t: any) {
-    console.log(t);
-    return new AcademicBodyRepository('')
-}
-
-export class GraphqlRepository {
-    query() {
-        // @ts-ignore
-        return new AcademicBodyRepository(this.fields.filter((field) => field.sortable).map((field) => toGraphQL(field))).query();
-    }
-    update(data: any) {
-        // @ts-ignore
-        return new AcademicBodyRepository(this.fields.filter((field) => field.sortable).map((field) => toGraphQL(field))).update(data);
-    }
-}
-
-export class AcademicBodyRepository {
-    constructor(private fields: any) {
+    public setFields(fields: any[]) {
+        this.fields = fields;
     }
 
     public query() {
@@ -39,10 +25,3 @@ export class AcademicBodyRepository {
     }
 }
 
-export function adapt() {
-    let repository: GraphqlRepository = new GraphqlRepository();
-    return {
-        query: repository.query,
-        update: repository.update
-    };
-}

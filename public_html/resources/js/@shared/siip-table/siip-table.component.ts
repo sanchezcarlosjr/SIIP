@@ -5,7 +5,7 @@ import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
-import {adapt} from "../../academic-bodies/academic-body-management/infraestructure/AcademicBodyRepository";
+import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 
 @Component({
     directives: {permission},
@@ -40,14 +40,14 @@ export default class SiipTableComponent extends Vue {
     tableFields: {}[] = this.fields.filter((field) => field.label);
     title = 'Cargando...';
     criteria: string[] = [];
-    private http: Http<any> | null = communicationFactory(this.communicationType, this.resource, this.fields, this.$route.params.id);
+    private http: Http<any> | null = communicationFactory(this.communicationType, '', this.fields, this.$route.params.id);
     items: any = [];
     perPage = 10;
     currentPage = 1;
     sortBy = '';
     sortDesc = false;
     sortDirection = 'asc';
-    infoModal: InfoModal = new InfoModal(this.schema, this.resource);
+    infoModal: InfoModal = new InfoModal(this.schema, '');
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];

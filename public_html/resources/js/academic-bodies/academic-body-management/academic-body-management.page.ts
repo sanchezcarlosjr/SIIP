@@ -1,9 +1,10 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {AcademicBodyRepository} from "./infraestructure/AcademicBodyRepository";
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = 'academic_bodies';
+    apiResource = new AcademicBodyRepository();
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
