@@ -25,7 +25,21 @@ export class AcademicBodyRepository implements Repository {
         return gql`
             mutation createNewAcademicBody($data: createAcademicBodyInput!) {
                 createAcademicBodies(data: $data) {
-                    id
+                    active
+                    name
+                    ${this.fields}
+                }
+            }
+        `
+    }
+
+    public get edit() {
+        return gql`
+            mutation editNewAcademicBody($data: updateAcademicBodyInput!) {
+                updateAcademicBodies(data: $data) {
+                    active
+                    name
+                    ${this.fields}
                 }
             }
         `

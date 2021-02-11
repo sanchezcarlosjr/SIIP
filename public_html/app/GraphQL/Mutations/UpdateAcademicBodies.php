@@ -12,6 +12,7 @@ class UpdateAcademicBodies
      */
     public function __invoke($_, array $args)
     {
+        $args = $args['data'];
         AcademicBody::find($args['id'])->update($args);
         return AcademicBody::find($args['id']);
     }
