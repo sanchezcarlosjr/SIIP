@@ -94,11 +94,12 @@
                     </b-col>
                 </b-row>
                 <b-row v-if="isVisibleChart">
+                    <p class="p-0 m-0 ml-3">Mostrando 1 a {{perPage}} de {{rows}} resultados.</p>
                     <siip-chart></siip-chart>
                 </b-row>
             </b-container>
         </div>
-        <b-container fluid>
+        <b-container fluid class="p-0 m-0">
             <div class="b-table-sticky-header">
                 <b-table
                     id="main-table"
@@ -139,17 +140,25 @@
                     </template>
                 </b-table>
             </div>
-            <b-pagination
-                v-model="currentPage"
-                :per-page="perPage"
-                :total-rows="rows"
-                aria-controls="main-table"
-                class="d-flex justify-content-end"
-                first-text="Primero"
-                last-text="Ultimo"
-                next-text="Siguiente"
-                prev-text="Anterior"
-            ></b-pagination>
+            <b-container class="bv-example-row">
+                <b-row align-h="between">
+                    <b-col cols="4">
+                        <p>
+                            <b-form-select id="perPageSelected" v-model="perPage" :options="[5, 10, 25]" size="sm" class="mt-0 w-25"></b-form-select>
+                            resultados por página.
+                        </p>
+                    </b-col>
+                    <b-col cols="4">
+                        <b-pagination
+                            v-model="currentPage"
+                            :total-rows="rows"
+                            class="d-flex justify-content-end"
+                            :per-page="perPage"
+                            aria-controls="main-table"
+                        ></b-pagination>
+                    </b-col>
+                </b-row>
+            </b-container>
             <context-menu
                 :ref="'vueSimpleContextMenu1'"
                 :elementId="'myFirstMenu'"
