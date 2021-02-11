@@ -117,7 +117,7 @@ export class InfoModal implements Modal {
     loadModel() {
         this.schema.fields.forEach((field: any) => {
             field.readonly = !hasPermissions(['admin']);
-            this.model[field.model] = '';
+            this.model[field.model] = null;
         });
     }
 

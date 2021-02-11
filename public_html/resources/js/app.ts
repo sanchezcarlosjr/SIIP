@@ -13,12 +13,13 @@ import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/i
 import EntryComponent from './entry.component.vue';
 import SiipChartComponent from './@shared/siip-table/chart/RandomChart.vue';
 import ContextMenu from './@shared/application/context-menu/context-menu.component.vue';
-import router from './routes';
 // @ts-ignore
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import apolloProvider from "./settings/apollo";
+import router from './routes';
+// @ts-ignore
+import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 
-const VueFormGenerator = require('vue-form-generator');
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

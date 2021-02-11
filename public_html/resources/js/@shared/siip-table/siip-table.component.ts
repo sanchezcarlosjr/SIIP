@@ -46,11 +46,18 @@ export default class SiipTableComponent extends Vue {
     currentPage = 1;
     sortBy = '';
     sortDesc = false;
+    okDisabled = true;
+    formOptions = {
+        validateAsync: true,
+        validateAfterLoad: true,
+        validateAfterChanged: true
+    };
     sortDirection = 'asc';
     infoModal: InfoModal = new InfoModal(this.schema, '');
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];
+
     get sortOptions() {
         return this.fields
             .filter(field => field.sortable)
@@ -77,6 +84,10 @@ export default class SiipTableComponent extends Vue {
             }
             this.options.push(this.infoModal.getActions(value));
         });
+    }
+
+    onValidated(isValid: boolean) {
+        this.okDisabled = !isValid;
     }
 
     optionClicked(event: { option: any, item: any }) {

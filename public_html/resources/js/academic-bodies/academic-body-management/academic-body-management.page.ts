@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import {AcademicBodyRepository} from "./infraestructure/AcademicBodyRepository";
+// @ts-ignore
+import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
@@ -53,16 +55,32 @@ export default class AcademicBodyManagementPage extends Vue {
     schema = {
         fields: [
             {
-                type: 'input',
-                inputType: 'text',
-                label: 'Nombre del cuerpo académico',
-                model: 'name'
+                type: "input",
+                inputType: "text",
+                label: "Nombre del cuerpo académico",
+                model: "name",
+                readonly: false,
+                featured: true,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                })
             },
             {
-                type: 'input',
-                inputType: 'text',
+                type: "input",
+                inputType: "text",
                 label: 'Clave PRODEP',
-                model: 'prodep_key'
+                model: 'prodep_key',
+                readonly: false,
+                featured: true,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                })
             },
             {
                 type: "switch2",

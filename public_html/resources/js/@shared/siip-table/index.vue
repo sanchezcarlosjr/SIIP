@@ -159,11 +159,13 @@
             </context-menu>
             <b-modal id="create"
                      :title="infoModal.title"
+                     :ok-disabled="okDisabled"
                      cancel-title="Cancelar"
                      ok-title="Añadir"
                      scrollable
                      @hide="resetModal" @ok="execute">
-                <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
+                <vue-form-generator :model="infoModal.model" :options="formOptions" :schema="schema"
+                                    @validated="onValidated"></vue-form-generator>
             </b-modal>
             <b-modal id="edit"
                      :title="infoModal.title"
