@@ -104,6 +104,7 @@
                     id="main-table"
                     ref="table"
                     emptyText="Sin elementos"
+                    empty-filtered-text="Sin resultados"
                     :busy="$apollo.loading"
                     :items="items"
                     :fields="tableFields"
