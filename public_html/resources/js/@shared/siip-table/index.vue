@@ -1,5 +1,5 @@
 <template>
-    <div class="container m-0">
+    <div class="w-100 m-0">
         <div class="card-header b-0">
             <b-container class="card-title p-0">
                 <b-row align-h="between">
@@ -103,12 +103,13 @@
                 <b-table
                     id="main-table"
                     ref="table"
-                    :busy.sync="isBusy"
-                    :current-page="currentPage"
+                    emptyText="Sin elementos"
+                    :busy="$apollo.loading"
+                    :items="items"
                     :fields="tableFields"
+                    :current-page="currentPage"
                     :filter="criteria"
                     :filter-function="search"
-                    :items="items"
                     :per-page="perPage"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
@@ -120,20 +121,22 @@
                     stacked="md"
                     sticky-header
                     striped
+                    show-empty
                     @row-clicked="edit"
                     @row-contextmenu="rowContextMenu"
                 >
+                    <template #table-busy>
+                        <b-skeleton-table
+                            :columns="fields.length"
+                            :rows="10"
+                        ></b-skeleton-table>
+                    </template>
                     <template #cell()="data">
                         <div class="cell">
                             {{ data.value }}
                         </div>
                     </template>
                 </b-table>
-                <b-skeleton-table
-                    v-if="items.length === 0"
-                    :columns="fields.length"
-                    :rows="10"
-                ></b-skeleton-table>
             </div>
             <b-pagination
                 v-model="currentPage"
@@ -141,10 +144,10 @@
                 :total-rows="rows"
                 aria-controls="main-table"
                 class="d-flex justify-content-end"
-                first-text="First"
-                last-text="Last"
-                next-text="Next"
-                prev-text="Prev"
+                first-text="Primero"
+                last-text="Ultimo"
+                next-text="Siguiente"
+                prev-text="Anterior"
             ></b-pagination>
             <context-menu
                 :ref="'vueSimpleContextMenu1'"
@@ -154,7 +157,11 @@
                 @option-clicked="optionClicked"
             >
             </context-menu>
-            <b-modal id="create" :title="infoModal.title" cancel-title="Cancelar" ok-title="Añadir" scrollable
+            <b-modal id="create"
+                     :title="infoModal.title"
+                     cancel-title="Cancelar"
+                     ok-title="Añadir"
+                     scrollable
                      @hide="resetModal" @ok="execute">
                 <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
             </b-modal>

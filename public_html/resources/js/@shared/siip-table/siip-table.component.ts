@@ -5,14 +5,17 @@ import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
+import {adapt} from "../../academic-bodies/academic-body-management/infraestructure/AcademicBodyRepository";
 
 @Component({
     directives: {permission},
-    methods: {hasPermissions}
+    methods: {hasPermissions},
+    apollo: {
+        items: adapt()
+    }
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
-
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: string;
     @Prop() fields!: any[];
@@ -36,7 +39,6 @@ export default class SiipTableComponent extends Vue {
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     tableFields: {}[] = this.fields.filter((field) => field.label);
     title = 'Cargando...';
-    isBusy = false;
     criteria: string[] = [];
     private http: Http<any> | null = communicationFactory(this.communicationType, this.resource, this.fields, this.$route.params.id);
     items: any = [];
@@ -65,14 +67,8 @@ export default class SiipTableComponent extends Vue {
         return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
     }
 
-    async index(ctx: any, callback: any) {
-        this.isBusy = true;
-        return this.loadElements();
-    }
-
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        await this.loadElements();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
