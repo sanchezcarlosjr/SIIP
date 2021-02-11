@@ -5,7 +5,9 @@
             :id="schema.model"
             v-model="value"
             :list="schema.model.concat('select')"
-            :state="idState" debounce="100"
+            :required="schema.required"
+            :state="idState"
+            debounce="100"
             trim
             @blur="handleBlur"
         ></b-form-input>
