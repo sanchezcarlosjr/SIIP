@@ -77,7 +77,7 @@
                                 squared
                                 variant="outline-success"
                                 @click="create($event.target)">
-                                Nuevo
+                                +Nuevo
                             </b-button>
                             <b-button
                                 v-if="toolbar.has('add-relation')"
@@ -87,7 +87,7 @@
                                 size="sm"
                                 variant="outline-success"
                                 @click="add($event.target)">
-                                Nuevo
+                                +Nuevo
                             </b-button>
                         </b-button-group>
 
