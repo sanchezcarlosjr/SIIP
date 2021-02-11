@@ -192,7 +192,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private addRelationElement() {
-        console.log(this.items);
         return this.http?.update(`add ${this.schema.fields[0].query} to`, {
             id: this.$route.params.id,
             ...this.infoModal.model
@@ -208,7 +207,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        console.log(this.infoModal.model);
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
