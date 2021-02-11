@@ -19,6 +19,17 @@ type AcademicBody {
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
 }
 
+input createAcademicBodyInput {
+    name: String,
+    prodep_key: String,
+    active: Boolean,
+    prodep_area_id: Int,
+    lead_employee_id: Int,
+    uabc_areas_id: Int,
+    discipline_id: Int,
+    des_id: Int
+}
+
 type Help {
     id: ID!
     active: Boolean

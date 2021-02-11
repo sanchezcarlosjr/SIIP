@@ -2,7 +2,6 @@ import * as jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import Vue from "vue"
 import Component from "vue-class-component"
-import { Prop } from 'vue-property-decorator';
 
 @Component
 export default class PDFButton extends Vue {

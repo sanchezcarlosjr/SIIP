@@ -5,16 +5,21 @@ import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
+import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
+import {AcademicBodyRepository} from "../../academic-bodies/academic-body-management/infraestructure/AcademicBodyRepository";
 
 @Component({
     directives: {permission},
-    methods: {hasPermissions}
+    methods: {hasPermissions},
+    apollo: {
+        items: adapt()
+    }
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
 
     @Prop() infoVariant!: (response: any) => Promise<number>;
-    @Prop() resource!: string;
+    @Prop() resource!: AcademicBodyRepository;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
@@ -36,19 +41,25 @@ export default class SiipTableComponent extends Vue {
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     tableFields: {}[] = this.fields.filter((field) => field.label);
     title = 'Cargando...';
-    isBusy = false;
     criteria: string[] = [];
-    private http: Http<any> | null = communicationFactory(this.communicationType, this.resource, this.fields, this.$route.params.id);
+    private http: Http<any> | null = communicationFactory(this.communicationType, '', this.fields, this.$route.params.id);
     items: any = [];
     perPage = 10;
     currentPage = 1;
     sortBy = '';
     sortDesc = false;
+    okDisabled = true;
+    formOptions = {
+        validateAsync: true,
+        validateAfterLoad: true,
+        validateAfterChanged: true
+    };
     sortDirection = 'asc';
-    infoModal: InfoModal = new InfoModal(this.schema, this.resource);
+    infoModal: InfoModal = new InfoModal(this.schema, '');
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];
+
     get sortOptions() {
         return this.fields
             .filter(field => field.sortable)
@@ -65,14 +76,8 @@ export default class SiipTableComponent extends Vue {
         return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
     }
 
-    async index(ctx: any, callback: any) {
-        this.isBusy = true;
-        return this.loadElements();
-    }
-
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        await this.loadElements();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
@@ -81,6 +86,10 @@ export default class SiipTableComponent extends Vue {
             }
             this.options.push(this.infoModal.getActions(value));
         });
+    }
+
+    onValidated(isValid: boolean) {
+        this.okDisabled = !isValid;
     }
 
     optionClicked(event: { option: any, item: any }) {
@@ -106,6 +115,7 @@ export default class SiipTableComponent extends Vue {
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()
             .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
     }
 
@@ -182,7 +192,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private addRelationElement() {
-        console.log(this.items);
         return this.http?.update(`add ${this.schema.fields[0].query} to`, {
             id: this.$route.params.id,
             ...this.infoModal.model
@@ -198,7 +207,17 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        return this.http?.store(this.infoModal.model).then((element) => this.items.push(element));
+        return this.$apollo.mutate({
+            mutation: this.resource.create,
+            variables: {
+                data: {
+                    ...this.infoModal.model
+                }
+            }
+        })
+            .then(() =>
+                this.$apollo.queries.items.refetch()
+            )
     }
 
     private archiveElement() {

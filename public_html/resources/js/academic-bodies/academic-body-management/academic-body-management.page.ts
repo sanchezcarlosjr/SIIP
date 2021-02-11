@@ -1,9 +1,12 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {AcademicBodyRepository} from "./infraestructure/AcademicBodyRepository";
+// @ts-ignore
+import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = 'academic_bodies';
+    apiResource = new AcademicBodyRepository();
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
@@ -52,16 +55,32 @@ export default class AcademicBodyManagementPage extends Vue {
     schema = {
         fields: [
             {
-                type: 'input',
-                inputType: 'text',
-                label: 'Nombre del cuerpo académico',
-                model: 'name'
+                type: "input",
+                inputType: "text",
+                label: "Nombre del cuerpo académico",
+                model: "name",
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                })
             },
             {
-                type: 'input',
-                inputType: 'text',
+                type: "input",
+                inputType: "text",
                 label: 'Clave PRODEP',
-                model: 'prodep_key'
+                model: 'prodep_key',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                })
             },
             {
                 type: "switch2",
@@ -75,11 +94,28 @@ export default class AcademicBodyManagementPage extends Vue {
                 label: 'Líder de cuerpo académico',
                 model: "lead_employee_id",
                 query: 'employees',
-                textKey: 'name'
+                textKey: 'name',
+                hint: 'Número o nombre de empleado',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                }),
             },
             {
                 type: 'graphql-select',
                 label: 'Área UABC',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                }),
                 model: "uabc_areas_id",
                 query: 'uabc_areas',
                 textKey: 'area'
@@ -89,21 +125,45 @@ export default class AcademicBodyManagementPage extends Vue {
                 label: 'Área PRODEP',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
-                textKey: 'name'
+                textKey: 'name',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                }),
             },
             {
                 type: 'graphql-select',
                 label: 'Disciplina',
                 model: "discipline_id",
                 query: 'disciplines',
-                textKey: 'name'
+                textKey: 'name',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                }),
             },
             {
                 type: 'graphql-select',
                 label: 'DES',
                 model: "des_id",
                 query: 'des',
-                textKey: 'des'
+                textKey: 'des',
+                readonly: false,
+                featured: false,
+                required: true,
+                disabled: false,
+                placeholder: "",
+                validator: VueFormGenerator.validators.string.locale({
+                    fieldIsRequired: ""
+                }),
             }
         ]
     };
