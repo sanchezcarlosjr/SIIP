@@ -20,6 +20,16 @@ export class AcademicBodyRepository implements Repository {
         }`;
     }
 
+    public get create() {
+        return gql`
+            mutation createNewAcademicBody($data: createAcademicBodyInput!) {
+                createAcademicBodies(data: $data) {
+                    id
+                }
+            }
+        `
+    }
+
     update(data: { academic_bodies: { data: any; }; }) {
         return data.academic_bodies.data;
     }

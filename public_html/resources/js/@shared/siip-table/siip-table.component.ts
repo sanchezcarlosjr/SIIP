@@ -6,6 +6,7 @@ import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
+import {AcademicBodyRepository} from "../../academic-bodies/academic-body-management/infraestructure/AcademicBodyRepository";
 
 @Component({
     directives: {permission},
@@ -16,8 +17,9 @@ import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
+
     @Prop() infoVariant!: (response: any) => Promise<number>;
-    @Prop() resource!: string;
+    @Prop() resource!: AcademicBodyRepository;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
@@ -113,6 +115,7 @@ export default class SiipTableComponent extends Vue {
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()
             .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
     }
 
@@ -205,7 +208,18 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        return this.http?.store(this.infoModal.model).then((element) => this.items.push(element));
+        console.log(this.infoModal.model);
+        return this.$apollo.mutate({
+            mutation: this.resource.create,
+            variables: {
+                data: {
+                    ...this.infoModal.model
+                }
+            }
+        })
+            .then(() =>
+                this.$apollo.queries.items.refetch()
+            )
     }
 
     private archiveElement() {

@@ -16,7 +16,7 @@ class CreateAcademicBodiesTable extends Migration
         Schema::create('academic_bodies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('prodep_key');
+            $table->string('prodep_key')->unique();
             $table->boolean('active');
             $table->integer('lead_employee_id')->unsigned();
             $table->integer('prodep_area_id')->unsigned();

@@ -163,9 +163,13 @@
                      cancel-title="Cancelar"
                      ok-title="Añadir"
                      scrollable
-                     @hide="resetModal" @ok="execute">
-                <vue-form-generator :model="infoModal.model" :options="formOptions" :schema="schema"
-                                    @validated="onValidated"></vue-form-generator>
+                     @cancel="resetModal"
+                     @ok="execute">
+                <vue-form-generator
+                    :model="infoModal.model"
+                    :options="formOptions"
+                    :schema="schema"
+                    @validated="onValidated"></vue-form-generator>
             </b-modal>
             <b-modal id="edit"
                      :title="infoModal.title"
@@ -173,7 +177,9 @@
                      :hide-footer="!hasPermissions(['admin'])"
                      ok-title="Aceptar cambios"
                      scrollable
-                     @hide="resetModal" @ok="execute">
+                     @cancel="resetModal"
+                     @ok="execute"
+            >
                 <b-button-group v-if="links" tag="b-list-group-item" class="b-0">
                     <router-link
                         v-for="(value, key) in links" :key="key"

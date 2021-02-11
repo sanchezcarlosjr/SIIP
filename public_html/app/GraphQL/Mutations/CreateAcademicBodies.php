@@ -8,6 +8,6 @@ class CreateAcademicBodies
 {
     public function __invoke($_, array $args)
     {
-        return AcademicBody::create($args);
+        return AcademicBody::create($args['data']);
     }
 }
