@@ -96,17 +96,8 @@ export class InfoModal implements Modal {
         if (!item) {
             return;
         }
-        const module = Object.keys(item)[0];
-        const itemElement = item[module];
-        this.isASubResource = typeof item === 'object' && typeof itemElement === 'object';
-        this.item = this.isASubResource ? itemElement : item;
-        if (this.itemId) {
-            this.model['id'] = this.itemId;
-        }
-        if (!this.module) {
-            this.module = toSingular((this.isASubResource) ? module : this.apiResource);
-            this.loadSchema();
-        }
+        this.item = item;
+        this.model.id = this.itemId;
         for (const key of Object.keys(this.item) as string[]) {
             if (this.model[key] === '') {
                 this.model[key] = this.item[key];
@@ -117,7 +108,7 @@ export class InfoModal implements Modal {
     loadModel() {
         this.schema.fields.forEach((field: any) => {
             field.readonly = !hasPermissions(['admin']);
-            this.model[field.model] = null;
+            this.model[field.model] = '';
         });
     }
 

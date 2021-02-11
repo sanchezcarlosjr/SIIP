@@ -7,14 +7,15 @@
             :list="schema.model.concat('select')"
             :required="schema.required"
             :state="idState"
-            debounce="100"
+            debounce="500"
             trim
+            @change="showFeedback"
             @blur="handleBlur"
         ></b-form-input>
         <b-form-invalid-feedback :id="schema.model.concat('feedback')">
             Ingresa un recurso correcto.
         </b-form-invalid-feedback>
-        <b-form-valid-feedback :id="schema.model.concat('text')">{{ texts[value] }}</b-form-valid-feedback>
+        <b-form-text :id="schema.model.concat('text')">{{feedback}}</b-form-text>
         <datalist :id="schema.model.concat('select')">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
         </datalist>

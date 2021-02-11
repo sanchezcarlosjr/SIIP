@@ -1,42 +1,84 @@
-import Component from "vue-class-component";
-import {Mixins} from 'vue-property-decorator';
-import {GraphQLBuilder, GraphQLIndexResponse} from "../../../infraestructure/communication/GraphQL";
+import gql from 'graphql-tag';
+import {Mixins, Component} from 'vue-property-decorator';
 
 const VueFormGenerator = require('vue-form-generator');
 
-@Component
+@Component({
+    apollo: {
+        options: {
+            query() {
+                return gql`
+                    query {
+                        ${this.schema.query} {
+                            data {
+                                id
+                                ${this.schema.textKey}
+                            }
+                        }
+                    }
+                `
+            },
+            update(data) {
+                return data[this.schema.query].data.map(
+                    (result: any) => {
+                        return {
+                            value: result.id,
+                            text: result[this.schema.textKey]
+                        }
+                    });
+            }
+        },
+        value: {
+             skip: true,
+             manual: true,
+             result ({ data, loading }) {
+                 if (!loading) {
+                     this.value = data.academic_body[this.schema.model];
+                     this.showFeedback(String(this.value));
+                 }
+             },
+             query() {
+                const query =  this.schema.model;
+                return gql`
+                    query getResourceById($id: ID) {
+                        academic_body(id: $id) {
+                             ${query}
+                        }
+                    }
+                `
+            },
+            variables() {
+                return {
+                    id: this.model.id
+                }
+            }
+        }
+    }
+})
 export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstractField) {
     [x: string]: any;
 
     options: { text: string, value: string }[] = [];
     isTouched: any = null;
-    texts: any = {};
+    feedback = '';
 
     get idState() {
-        return this.isTouched && !isNaN(this.value) && typeof Number(this.value) === 'number' && !!this.texts[this.value];
+        return this.isTouched;
     }
 
     mounted() {
-        const allItems = new GraphQLBuilder(this.schema.query, [{sortable: true, key: this.schema.textKey}]);
-        allItems.index('').then(this.loadItems);
         if (this.model.id) {
-            const itemWantsToEdit = new GraphQLBuilder(this.schema.module, [{sortable: true, key: this.schema.model}]);
-            itemWantsToEdit.find(this.model.id).then((response) => this.value = response[this.schema.model]);
+            this.$apollo.queries.value.start();
         }
-    }
-
-    loadItems(response: GraphQLIndexResponse) {
-        response.items.forEach((element: any) => {
-            this.options.push({
-                value: element['id'],
-                text: element[this.schema.textKey]
-            });
-            this.texts[element['id']] = element[this.schema.textKey]
-        })
     }
 
     handleBlur() {
         this.isTouched = true;
+    }
+
+    showFeedback(id: string) {
+        // @ts-ignore
+        this.feedback = this.options.find((ob) => ob.value === id)?.text;
     }
 
 }

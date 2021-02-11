@@ -13,6 +13,7 @@ export class AcademicBodyRepository implements Repository {
             academic_bodies {
                 data {
                     id
+                    active
                     name
                     ${this.fields}
                 }
