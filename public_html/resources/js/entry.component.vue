@@ -80,7 +80,7 @@
                 <div class="page-inner">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
+                            <div class="card" style="border: 0">
                                 <router-view :key="$route.path"></router-view>
                             </div>
                         </div>

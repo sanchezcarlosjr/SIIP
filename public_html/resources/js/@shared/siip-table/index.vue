@@ -1,6 +1,6 @@
 <template>
     <div class="w-100 m-0">
-        <div class="card-header b-0">
+        <div class="b-0" style="padding: 1rem 1.25rem 1rem 1.25rem;">
             <b-container class="card-title p-0">
                 <b-row align-h="between">
                     <b-col cols="6" style="padding: 0">
