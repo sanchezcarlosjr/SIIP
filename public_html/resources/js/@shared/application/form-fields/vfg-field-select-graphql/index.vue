@@ -14,7 +14,7 @@
         <b-form-invalid-feedback :id="schema.model.concat('feedback')">
             Ingresa un recurso correcto.
         </b-form-invalid-feedback>
-        <b-form-text :id="schema.model.concat('text')">{{ texts[value] }}</b-form-text>
+        <b-form-valid-feedback :id="schema.model.concat('text')">{{ texts[value] }}</b-form-valid-feedback>
         <datalist :id="schema.model.concat('select')">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
         </datalist>

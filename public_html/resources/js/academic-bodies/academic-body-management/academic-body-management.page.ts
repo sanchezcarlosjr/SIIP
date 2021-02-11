@@ -95,6 +95,7 @@ export default class AcademicBodyManagementPage extends Vue {
                 model: "lead_employee_id",
                 query: 'employees',
                 textKey: 'name',
+                hint: 'Número o nombre de empleado',
                 readonly: false,
                 featured: false,
                 required: true,

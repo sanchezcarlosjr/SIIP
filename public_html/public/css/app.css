@@ -14464,12 +14464,16 @@ table.table .avatar {
 }
 
 .breadcrumb {
-  background-color: white;
-  margin: 0;
+    background-color: white;
+    margin: 0;
 }
 
 .breadcrumb-item.active {
-  color: var(--black);
-  font-size: 30px;
+    color: var(--black);
+    font-size: 30px;
+}
+
+.hint {
+    font-size: 80%;
 }
 
