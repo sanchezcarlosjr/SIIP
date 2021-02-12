@@ -1,11 +1,12 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
+import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
 
 @Component
 export default class MembersPage extends Vue {
-    tableTitle = `Miembros de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `Miembros de *`;
+    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'employees');
     spanishResourceName = 'miembro'
     toolbar = new Set<string>(['removeRelation', 'add-relation']);
     infoVariant = (items: { employees: { id: string } }[]) => {
@@ -21,16 +22,16 @@ export default class MembersPage extends Vue {
         });
     };
     fields = [
-        {key: 'employees.name', label: 'Nombre', sortable: true},
-        {key: 'employees.academic_unit.name', label: 'Unidad Académica', sortable: true},
-        {key: 'employees.grado', label: 'Grado', sortable: true}
+        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
+        {key: 'grado', label: 'Grado', sortable: true}
     ];
     schema = {
         fields: [
             {
                 type: 'graphql-select',
                 label: 'Empleado',
-                model: "employees_id",
+                model: "lead_employee_id",
                 query: 'employees',
                 textKey: 'nombre'
             }

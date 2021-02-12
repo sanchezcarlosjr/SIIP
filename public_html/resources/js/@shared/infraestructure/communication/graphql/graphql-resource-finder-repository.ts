@@ -1,19 +1,33 @@
 import {MutationRepository} from "./siipTableRepository";
 import gql from "graphql-tag";
+import {camelize, toSingular} from "../GraphQL";
 
 
 export class GraphqlResourceFinderRepository implements MutationRepository {
     private fields: string[] | undefined;
+
     constructor(
         private _query: string,
         private _sub_query: string,
-        private fragment: { index: string } = {
-            index: ''
-        },
         private editMutate?: string,
         private createMutate?: string,
         private updateInput?: string,
-        private createInput?: string) {
+        private createInput?: string,
+        private fragment: { index: string } = {
+            index: ''
+        }) {
+    }
+
+    static createDefaultFinder(query: string, sub_query: string) {
+        const resource = toSingular(`${sub_query}`);
+        return new GraphqlResourceFinderRepository(
+            query,
+            sub_query,
+            camelize(`update ${resource}`),
+            camelize(`create ${resource}`),
+            camelize(`update ${resource} input`),
+            camelize(`create ${resource} input`)
+        );
     }
 
     public get foreign_key() {
@@ -46,7 +60,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
 
     public query() {
         return gql`
-            query getAcademicBodyById($id: ID) {
+            query getResourceById($id: ID) {
                 ${this._query}(id: $id) {
                 id
                 name
