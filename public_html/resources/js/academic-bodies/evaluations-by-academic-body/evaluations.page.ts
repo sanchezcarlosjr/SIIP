@@ -10,7 +10,6 @@ export default class EvaluationsPage extends Vue {
     toolbar = new Set(['add', 'edit']);
     fields = [
         {key: 'grade', label: 'Grado', sortable: true},
-        {key: 'academic_body.leader.academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'start_date', label: 'Primera evaluación', sortable: true},
         {key: 'finish_date', label: 'Última evaluación', sortable: true}
     ];
