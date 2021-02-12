@@ -12,6 +12,7 @@ type AcademicBody {
     last_evaluation: Evaluation @field(resolver: "App\\GraphQL\\Queries\\LastEvaluation")
     leader: Employee @field(resolver: "App\\GraphQL\\Queries\\Leader")
     prodep_key: String
+    prodep_area: ProdepArea
     evaluations: [Evaluation]
     lgacs: [LGAC]
     created_at: Date
