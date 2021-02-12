@@ -24,6 +24,8 @@ export default class MembersPage extends Vue {
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
+        {key: 'academic_unit.campus', label: 'Campus', sortable: true},
+        {key: 'correo1', label: 'Correo', sortable: true},
         {key: 'grado', label: 'Grado', sortable: true}
     ];
     schema = {

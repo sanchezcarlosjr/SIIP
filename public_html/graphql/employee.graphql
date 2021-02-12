@@ -12,6 +12,7 @@ type Employee {
     age: Int @field(resolver: "App\\GraphQL\\Queries\\EmployeeAge")
     nombre: String
     apaterno: String
+    correo1: String
     amaterno: String
     grado: String
     academic_body: String @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyList")
