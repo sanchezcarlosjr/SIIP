@@ -50,4 +50,9 @@ class AcademicBody extends Model
     {
         return $this->belongsTo(ProdepArea::class);
     }
+
+    public function uabc_area()
+    {
+        return $this->belongsTo(UABCArea::class, 'uabc_areas_id', 'narea');
+    }
 }
