@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class NptcsPage extends Vue {
     tableTitle = "NPTC";
-    apiResource = "prodep_nptcs";
+    apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_nptcs');
     spanishResourceName = "NPTC";
     toolbar = new Set(["add"]);
     schema = {

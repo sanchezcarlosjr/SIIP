@@ -7,6 +7,7 @@ import {HomeRoutes} from "./home/routes";
 import {ProdepRoutes} from "./prodep/routes";
 import {SniRoutes} from "./sni/routes";
 import {ActivityPitRoutes} from "./activities-pits/routes";
+import {ResearchRoutes} from "./researcher/routes";
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,7 @@ export const routes = [
     AcademicBodyRoutes,
     ProdepRoutes,
     SniRoutes,
+    ResearchRoutes,
     ActivityPitRoutes,
     {
         path: '*', component: NotFoundPage

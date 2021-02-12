@@ -9,11 +9,6 @@ export const SniRoutes = {
             name: 'Gestión',
             path: '',
             component: () => import('./sni/index.vue')
-        },
-        {
-            name: 'Profesor-Investigador',
-            path: 'investigadores',
-            component: () => import('./researcher/index.vue')
         }
     ]
 };

@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class SniPage extends Vue {
     tableTitle = "Gestión SNI";
-    apiResource = "snis";
+    apiResource = GraphqlResourceRepository.createDefaultRepository('snis');
     toolbar = new Set(["add"]);
     schema = {
         fields: [
