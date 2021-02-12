@@ -14469,11 +14469,19 @@ table.table .avatar {
 }
 
 .breadcrumb-item.active {
-  color: var(--black);
-  font-size: 30px;
+  color: #555554;
 }
 
 .hint {
   font-size: 80%;
+}
+
+.table .thead-light th {
+  color: #6c757d !important;
+  background-color: #FCFCFC !important;
+}
+
+.thead-light tr {
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.04);
 }
 
