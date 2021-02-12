@@ -38,7 +38,6 @@
                                     ></b-form-checkbox-group>
                                 </b-dropdown-form>
                             </b-dropdown>
-
                             <b-button class="text-muted b-0" size="sm" variant="outline-light">
                                 <i class="fas fa-search"></i>
                                 Buscar

@@ -20,6 +20,10 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
         return `${this._query}_id`;
     }
 
+    mark(tableTitle: string, data: any) {
+        return tableTitle.replace('*', data[this._query].name);
+    }
+
     public get create() {
         return gql`
             mutation editResource($data: ${this.createInput}!) {
@@ -45,6 +49,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
             query getAcademicBodyById($id: ID) {
                 ${this._query}(id: $id) {
                 id
+                name
                 ${this._sub_query} {
                 ${this.fields}
             }
