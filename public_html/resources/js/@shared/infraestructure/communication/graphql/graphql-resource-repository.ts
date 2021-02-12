@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import {SiipTableRepository} from "./siipTableRepository";
+import {camelize, toSingular} from "../GraphQL";
 
 export class GraphqlResourceRepository implements SiipTableRepository {
     private fields: any;
@@ -13,6 +14,18 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         private createMutate?: string,
         private updateInput?: string,
         private createInput?: string) {
+    }
+
+    static createDefaultRepository(query: string, fragment?: { index: string }) {
+        const resource = toSingular(`${query}`);
+        return new GraphqlResourceRepository(
+            query,
+            fragment,
+            camelize(`update ${resource}`),
+            camelize(`create ${resource}`),
+            camelize(`update ${resource} input`),
+            camelize(`create ${resource} input`)
+        );
     }
 
     public get create() {

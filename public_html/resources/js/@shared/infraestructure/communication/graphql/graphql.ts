@@ -11,7 +11,7 @@ export class ApolloSiipTableRepository implements ApolloRepository {
 
     update(data: any) {
         // @ts-ignore
-        if (this.tableTitle) {
+        if (this.tableTitle && this.resource.mark) {
             // @ts-ignore
             this.title = this.resource.mark(this.tableTitle, data);
         }

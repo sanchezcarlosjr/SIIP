@@ -96,10 +96,8 @@ type Mutation {
     ): Sni @update
     deleteProdepProfile(id: ID!): ProdepProfile @delete
     createProdepProfile(
-        start_date: Date
-        finish_date: Date
-        employee_id: Int
-        prodep_area_id: Int
+        data: createProdepProfileInput
+        @spread
     ): ProdepProfile @create
     updateProdepProfile(
         id: ID!
