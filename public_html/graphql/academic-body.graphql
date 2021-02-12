@@ -136,6 +136,19 @@ type Evaluation {
     academic_body: AcademicBody! @belongsTo(relation: "academic_bodies")
 }
 
+input createEvaluationInput {
+    grade: String
+    finish_date: Date
+    start_date: Date
+    academic_body_id: ID
+}
+
+input updateEvaluationInput {
+    id:ID!
+    grade: String
+    finish_date: Date
+    start_date: Date
+}
 
 type ProdepArea {
     id: ID!

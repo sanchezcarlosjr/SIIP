@@ -1,17 +1,25 @@
 import Vue from "vue"
 import Component from "vue-class-component"
+import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
 
 @Component
 export default class EvaluationsPage extends Vue {
-    tableTitle = `Evaluaciones de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `Evaluaciones de *`;
+    apiResource = new GraphqlResourceFinderRepository(
+        'academic_body',
+        'evaluations',
+        {index: ''},
+        'updateEvaluation',
+        'createEvaluation',
+        'updateEvaluationInput',
+        'createEvaluationInput'
+    );
     spanishResourceName = 'Evaluación'
     toolbar = new Set(['add', 'edit']);
     fields = [
-        {key: 'evaluations.grade', label: 'Grado', sortable: true},
-        {key: 'evaluations.academic_body.leader.academic_unit.name', label: 'Unidad académica', sortable: true},
-        {key: 'evaluations.finish_date', label: 'Última evaluación', sortable: true},
-        {key: 'evaluations.start_date', label: 'Primera evaluación', sortable: true}
+        {key: 'grade', label: 'Grado', sortable: true},
+        {key: 'finish_date', label: 'Última evaluación', sortable: true},
+        {key: 'start_date', label: 'Primera evaluación', sortable: true}
     ];
     schema = {
         fields: [

@@ -126,16 +126,20 @@ type Mutation {
     ): ProdepHelp @update
     updateLgac(
         data: updateLgacInput
-    ): LGAC
+        @spread
+    ): LGAC @update
     createLgac(
         data: createLgacInput
-    ): LGAC
+        @spread
+    ): LGAC @create
     destroyNetwork(name:String): Network
     createNetwork(
         data: createNetworkInput
+        @spread
     ): Network @create
     updateNetwork(
         data: updateNetworkInput
+        @spread
     ): Network @update
     destroyHelp(
         id: ID!
@@ -157,26 +161,24 @@ type Mutation {
     ): Help @update
     removeEvaluation(id:ID): Evaluation
     createEvaluation(
-        grade: String
-        finish_date: Date
-        start_date: Date
-        academic_body_id: ID
-    ): Evaluation
+        data: createEvaluationInput
+        @spread
+    ): Evaluation @create
     updateEvaluation(
-        id:ID!
-        grade: String
-        finish_date: Date
-        start_date: Date
-    ): Evaluation
+        data: updateEvaluationInput
+        @spread
+    ): Evaluation @update
     addEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
     removeEmployeesToAcademicBody(id: ID, employees_id: ID): AcademicBody
     removeAcademicBodies(id: ID): AcademicBody
     updateAcademicBodies(
-       data: updateAcademicBodyInput
-    ): AcademicBody
+        data: updateAcademicBodyInput
+        @spread
+    ): AcademicBody @update
     createAcademicBodies(
         data: createAcademicBodyInput
-    ): AcademicBody
+        @spread
+    ): AcademicBody @create
 }
 
 #import academic-body.graphql
