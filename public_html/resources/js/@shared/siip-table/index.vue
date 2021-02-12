@@ -17,7 +17,8 @@
                             >
                                 <template #button-content>
                                     <b-button class="text-muted b-0" size="sm" variant="outline-light">
-                                        Filtros
+                                        <i class="fas fa-search"></i>
+                                        Buscar
                                     </b-button>
                                 </template>
                                 <b-dropdown-form style="width: 500px">
@@ -38,10 +39,7 @@
                                     ></b-form-checkbox-group>
                                 </b-dropdown-form>
                             </b-dropdown>
-                            <b-button class="text-muted b-0" size="sm" variant="outline-light">
-                                <i class="fas fa-search"></i>
-                                Buscar
-                            </b-button>
+
                             <b-dropdown
                                 v-b-tooltip.hover
                                 no-caret
