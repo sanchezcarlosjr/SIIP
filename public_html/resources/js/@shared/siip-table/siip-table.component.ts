@@ -6,7 +6,7 @@ import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
-import {AcademicBodyRepository} from "../../academic-bodies/academic-body-management/infraestructure/AcademicBodyRepository";
+import {Repository} from "../infraestructure/communication/graphql/repository";
 
 @Component({
     directives: {permission},
@@ -19,7 +19,7 @@ export default class SiipTableComponent extends Vue {
     [x: string]: any;
 
     @Prop() infoVariant!: (response: any) => Promise<number>;
-    @Prop() resource!: AcademicBodyRepository;
+    @Prop() resource!: Repository;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
@@ -207,7 +207,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        console.log(this.infoModal.model);
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {

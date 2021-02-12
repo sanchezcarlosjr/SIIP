@@ -1,12 +1,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
-import {AcademicBodyRepository} from "./infraestructure/AcademicBodyRepository";
 // @ts-ignore
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new AcademicBodyRepository();
+    apiResource = new GraphqlResourceRepository(
+        'academic_bodies',
+        'updateAcademicBodies',
+        'createAcademicBodies',
+        'updateAcademicBodyInput',
+        'createAcademicBodyInput',
+        {
+            index: 'active name'
+        });
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
