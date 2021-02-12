@@ -5,7 +5,7 @@ export function adapt(repository: ApolloRepository = new ApolloSiipTableReposito
     return {
         query: repository.query,
         update: repository.update,
-        variables(): any {
+        variables (): any {
             return {
                 // @ts-ignore
                 id: this.$route.params.id || this.resourceID

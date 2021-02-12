@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 
 export class GraphqlResourceFinderRepository implements MutationRepository {
     private fields: string[] | undefined;
-
     constructor(
         private _query: string,
         private fragment: { index: string } = {
@@ -35,7 +34,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
             mutation editResource($data: updateLgacInput!) {
                 updateLgac (data: $data) {
                     id
-                }
+              }
             }
         `
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        No encontrado
+       No encontrado
     </div>
 </template>
 <script src="./not-found.page.ts" lang="ts"></script>
