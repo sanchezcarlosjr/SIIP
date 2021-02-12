@@ -3,7 +3,7 @@ import Component from "vue-class-component";
 
 @Component
 export default class NetworksPage extends Vue {
-    tableTitle = `Redes de *academic_unit.name`;
+    tableTitle = `Redes de *`;
     apiResource = `academic_body(id: ${this.$route.params.id})`;
     spanishResourceName = 'red'
     toolbar = new Set<String>(['add', 'edit']);

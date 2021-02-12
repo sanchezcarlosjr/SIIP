@@ -53,6 +53,23 @@ type Help {
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }
 
+input createHelpInput {
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}
+
+input updateHelpInput {
+    id: ID!
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}
+
 type Network {
     id: ID!
     active: Boolean

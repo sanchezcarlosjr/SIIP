@@ -26,7 +26,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
 
     public get create() {
         return gql`
-            mutation editResource($data: ${this.createInput}!) {
+            mutation editResource($data: ${this.createInput}) {
                 ${this.createMutate} (data: $data) {
                 id
             }
@@ -36,7 +36,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
 
     public get edit() {
         return gql`
-            mutation editResource($data: ${this.updateInput}!) {
+            mutation editResource($data: ${this.updateInput}) {
                 ${this.editMutate} (data: $data) {
                 id
             }

@@ -145,19 +145,12 @@ type Mutation {
         id: ID!
     ): Help
     createHelp(
-        academic_body_id: ID
-        amount: Float
-        benefited_employee_id: ID
-        date: Date
-        type: String
+        data: createHelpInput
+        @spread
     ): Help @create
     updateHelp(
-        id: ID!
-        academic_body_id: ID
-        amount: Float
-        benefited_employee_id: ID
-        date: Date
-        type: String
+        data: updateHelpInput
+        @spread
     ): Help @update
     removeEvaluation(id:ID): Evaluation
     createEvaluation(
