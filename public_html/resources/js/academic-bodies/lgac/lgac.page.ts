@@ -17,7 +17,7 @@ export default class LGACPage extends Vue {
     toolbar = new Set<string>([]);
     defaultCriteria = [{
         value: 'vigente',
-        default: true
+        default: false
     },
         {
             value: 'no vigente',
