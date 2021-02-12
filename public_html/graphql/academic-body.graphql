@@ -1,7 +1,7 @@
 type AcademicBody {
     id: ID!
     name: String
-    active: Boolean
+    active: String
     uabc_areas_id: Int
     discipline_id: Int
     lead_employee_id: Int
@@ -109,7 +109,7 @@ type LGAC {
     key: String!
     name: String!
     description: String!
-    active: Boolean!
+    active: String!
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
 }
 
