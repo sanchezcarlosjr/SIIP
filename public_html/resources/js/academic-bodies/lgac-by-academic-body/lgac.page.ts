@@ -1,17 +1,18 @@
 import Vue from "vue"
 import Component from "vue-class-component"
+import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
 
 @Component
 export default class LGACPage extends Vue {
-    tableTitle = `LGACS de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `LGACS de *`;
+    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
     spanishResourceName = 'LGAC'
-    toolbar = new Set(['archive', 'add', 'edit']);
+    toolbar = new Set(['archive', 'add', 'edit', 'remove']);
     fields = [
-        {key: 'lgacs.key', label: 'Clave', sortable: true},
-        {key: 'lgacs.name', label: 'Nombre', sortable: true},
-        {key: 'lgacs.description', label: 'Descripción', sortable: true},
-        {key: 'lgacs.active', label: 'Vigente', sortable: true}
+        {key: 'key', label: 'Clave', sortable: true},
+        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'description', label: 'Descripción', sortable: true},
+        {key: 'active', label: 'Vigente', sortable: true}
     ];
     schema = {
         fields: [
@@ -44,13 +45,13 @@ export default class LGACPage extends Vue {
     };
     defaultCriteria = [
         {
-        value: 'vigente',
-        default: true
-    },
+            value: 'vigente',
+            default: false
+        },
         {
             value: 'no vigente',
             default: false
         }
-        ];
+    ];
 }
 

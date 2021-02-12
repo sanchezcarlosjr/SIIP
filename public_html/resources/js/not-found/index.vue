@@ -1,6 +1,6 @@
 <template>
     <div>
-        <card-title-component title="No encontrado"></card-title-component>
+       No encontrado
     </div>
 </template>
 <script src="./not-found.page.ts" lang="ts"></script>

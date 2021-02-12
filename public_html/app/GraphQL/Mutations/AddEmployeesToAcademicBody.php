@@ -8,7 +8,8 @@ class AddEmployeesToAcademicBody
 {
     public function __invoke($_, array $args)
     {
-        AcademicBody::find($args['id'])->employees()->attach($args['employees_id']);
-        return AcademicBody::find($args['id']);
+        $args = $args['data'];
+        AcademicBody::find($args['academic_body_id'])->employees()->attach($args['employees_id']);
+        return AcademicBody::find($args['academic_body_id']);
     }
 }

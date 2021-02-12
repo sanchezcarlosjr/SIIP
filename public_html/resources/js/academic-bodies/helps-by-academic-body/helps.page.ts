@@ -1,19 +1,20 @@
 import Vue from "vue"
 import Component from "vue-class-component"
+import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
 
 @Component
 export default class HelpsPage extends Vue {
-    tableTitle = `Apoyos de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `Apoyos de *`;
+    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'helps');
     spanishResourceName = 'apoyo'
     toolbar = new Set(['add', 'edit']);
     fields = [
-        {key: 'helps.type', label: 'Tipo', sortable: true},
-        {key: 'helps.date', label: 'Fecha', sortable: true},
-        {key: 'helps.amount', label: 'Cantidad', sortable: true},
-        {key: 'helps.benefited_employee.name', label: 'Beneficiario', sortable: true},
-        {key: 'helps.academic_body.leader.academic_unit.name', label: 'Unidad académica', sortable: true},
-        {key: 'helps.academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true}
+        {key: 'type', label: 'Tipo', sortable: true},
+        {key: 'date', label: 'Fecha', sortable: true},
+        {key: 'amount', label: 'Cantidad', sortable: true},
+        {key: 'benefited_employee.name', label: 'Beneficiario', sortable: true},
+        {key: 'academic_body.leader.academic_unit.name', label: 'Unidad académica', sortable: true},
+        {key: 'academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true}
     ];
     schema = {
         fields: [

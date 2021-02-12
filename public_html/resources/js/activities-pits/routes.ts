@@ -6,7 +6,7 @@ export const ActivityPitRoutes = {
     component: () => import('./activities-pits.module.vue'),
     children: [
         {
-            name: 'Gestion',
+            name: 'Gestión',
             path: '',
             component: () => import('./activities-pits/index.vue')
         }

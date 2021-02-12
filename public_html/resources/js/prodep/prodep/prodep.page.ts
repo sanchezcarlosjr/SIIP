@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class ProdepPage extends Vue {
     tableTitle = 'Gestión de perfiles PRODEP';
     private date = new Date();
-    apiResource = `prodep_profiles`;
+    apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_profiles');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
@@ -24,58 +25,28 @@ export default class ProdepPage extends Vue {
     schema = {
         fields: [
             {
-                type: 'input',
-                inputType: 'text',
-                label: 'Nombre del cuerpo académico',
-                model: 'name'
+                type: 'calendar',
+                label: 'Fecha de inicio',
+                model: 'start_date'
             },
             {
-                type: 'input',
-                inputType: 'text',
-                label: 'Clave PRODEP',
-                model: 'prodep_key'
-            },
-            {
-                type: "switch2",
-                label: "Vigencia",
-                model: "active",
-                textOn: "Vigente",
-                textOff: "No vigente"
+                type: 'calendar',
+                label: 'Fecha fin',
+                model: 'finish_date'
             },
             {
                 type: 'graphql-select',
-                label: 'Líder de cuerpo académico',
-                model: "lead_employee_id",
+                label: 'Empleado',
+                model: "employee_id",
                 query: 'employees',
                 textKey: 'name'
             },
             {
                 type: 'graphql-select',
-                label: 'Área UABC',
-                model: "uabc_areas_id",
-                query: 'uabc_areas',
-                textKey: 'area'
-            },
-            {
-                type: 'graphql-select',
-                label: 'Área PRODEP',
+                label: 'PRODEP AREAS',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
                 textKey: 'name'
-            },
-            {
-                type: 'graphql-select',
-                label: 'Disciplina',
-                model: "discipline_id",
-                query: 'disciplines',
-                textKey: 'name'
-            },
-            {
-                type: 'graphql-select',
-                label: 'DES',
-                model: "des_id",
-                query: 'des',
-                textKey: 'des'
             }
         ]
     };

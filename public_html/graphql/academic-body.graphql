@@ -1,7 +1,7 @@
 type AcademicBody {
     id: ID!
     name: String
-    active: Boolean
+    active: String
     uabc_areas_id: Int
     discipline_id: Int
     lead_employee_id: Int
@@ -9,9 +9,11 @@ type AcademicBody {
     employees: [Employee]
     des_id: Int
     helps: [Help]
+    uabc_area: UABCArea
     last_evaluation: Evaluation @field(resolver: "App\\GraphQL\\Queries\\LastEvaluation")
     leader: Employee @field(resolver: "App\\GraphQL\\Queries\\Leader")
     prodep_key: String
+    prodep_area: ProdepArea
     evaluations: [Evaluation]
     lgacs: [LGAC]
     created_at: Date
@@ -53,6 +55,23 @@ type Help {
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }
 
+input createHelpInput {
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}
+
+input updateHelpInput {
+    id: ID!
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}
+
 type Network {
     id: ID!
     active: Boolean
@@ -86,13 +105,30 @@ input updateNetworkInput {
     finish_date: Date
     academic_body_id: Int
 }
+
 type LGAC {
     id: ID!
     key: String!
     name: String!
     description: String!
-    active: Boolean!
+    active: String!
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
+}
+
+input updateLgacInput {
+    id: ID!
+    key: String
+    name: String
+    description: String
+    active: Boolean
+}
+
+input createLgacInput {
+    key: String
+    name: String
+    description: String
+    active: Boolean
+    academic_body_id: ID
 }
 
 type Discipline {
@@ -119,6 +155,19 @@ type Evaluation {
     academic_body: AcademicBody! @belongsTo(relation: "academic_bodies")
 }
 
+input createEvaluationInput {
+    grade: String
+    finish_date: Date
+    start_date: Date
+    academic_body_id: ID
+}
+
+input updateEvaluationInput {
+    id:ID!
+    grade: String
+    finish_date: Date
+    start_date: Date
+}
 
 type ProdepArea {
     id: ID!

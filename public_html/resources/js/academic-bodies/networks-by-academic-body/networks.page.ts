@@ -1,20 +1,21 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
 
 @Component
 export default class NetworksPage extends Vue {
-    tableTitle = `Redes de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `Redes de *`;
+    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'networks');
     spanishResourceName = 'red'
     toolbar = new Set<String>(['add', 'edit']);
     fields = [
-        {key: 'networks.name', label: 'Nombre del grupo de investigación', sortable: true},
-        {key: 'networks.class', label: 'Clase', sortable: true},
-        {key: 'networks.type', label: 'Tipo', sortable: true},
-        {key: 'networks.range', label: 'Alcance', sortable: true},
-        {key: 'networks.start_date', label: 'Fecha de inicio', sortable: true},
-        {key: 'networks.finish_date', label: 'Fecha de fin', sortable: true},
-        {key: 'networks.academic_body.leader.name', label: 'Líder', sortable: true}
+        {key: 'name', label: 'Nombre del grupo de investigación', sortable: true},
+        {key: 'class', label: 'Clase', sortable: true},
+        {key: 'type', label: 'Tipo', sortable: true},
+        {key: 'range', label: 'Alcance', sortable: true},
+        {key: 'start_date', label: 'Fecha de inicio', sortable: true},
+        {key: 'finish_date', label: 'Fecha de fin', sortable: true},
+        {key: 'academic_body.leader.name', label: 'Líder', sortable: true}
     ];
     defaultCriteria = [
         {

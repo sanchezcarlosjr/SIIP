@@ -1,13 +1,14 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
+import {MembersRepository} from "./members.repository";
 
 @Component
 export default class MembersPage extends Vue {
-    tableTitle = `Miembros de *academic_unit.name`;
-    apiResource = `academic_body(id: ${this.$route.params.id})`;
+    tableTitle = `Miembros de *`;
+    apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
-    toolbar = new Set<string>(['removeRelation', 'add-relation']);
+    toolbar = new Set<string>(['removeRelation', 'add']);
     infoVariant = (items: { employees: { id: string } }[]) => {
         const graphql = new GraphQLBuilder('academic_body', [{key: 'leader.id', sortable: true}]);
         return graphql.find(this.$route.params.id).then((response: any) => {
@@ -21,9 +22,11 @@ export default class MembersPage extends Vue {
         });
     };
     fields = [
-        {key: 'employees.name', label: 'Nombre', sortable: true},
-        {key: 'employees.academic_unit.name', label: 'Unidad Académica', sortable: true},
-        {key: 'employees.grado', label: 'Grado', sortable: true}
+        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
+        {key: 'academic_unit.campus', label: 'Campus', sortable: true},
+        {key: 'correo1', label: 'Correo', sortable: true},
+        {key: 'grado', label: 'Grado', sortable: true}
     ];
     schema = {
         fields: [

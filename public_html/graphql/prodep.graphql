@@ -8,6 +8,14 @@ type ProdepProfile {
     employee: Employee
     prodep_area: ProdepArea
 }
+
+input createProdepProfileInput {
+    start_date: Date
+    finish_date: Date
+    employee_id: Int
+    prodep_area_id: Int
+}
+
 type ProdepHelp {
     id: ID!
     active: Boolean

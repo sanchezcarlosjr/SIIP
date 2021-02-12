@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcademicBody extends Model
 {
+    use ActiveMessage;
     use HasFactory;
     protected $table = 'academic_bodies';
     protected $fillable = [
@@ -34,12 +35,24 @@ class AcademicBody extends Model
     {
         return $this->hasMany(Help::class);
     }
+
     public function employees(): BelongsToMany
     {
         return $this->belongsToMany(Employee::class, 'academic_body_member', 'academic_body_id', 'employee_id');
     }
+
     public function evaluations(): HasMany
     {
         return $this->hasMany(Evaluation::class)->orderBy('finish_date', 'desc');
+    }
+
+    public function prodep_area()
+    {
+        return $this->belongsTo(ProdepArea::class);
+    }
+
+    public function uabc_area()
+    {
+        return $this->belongsTo(UABCArea::class, 'uabc_areas_id', 'narea');
     }
 }

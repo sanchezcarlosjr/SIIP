@@ -6,15 +6,9 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new GraphqlResourceRepository(
-        'academic_bodies',
-        'updateAcademicBodies',
-        'createAcademicBodies',
-        'updateAcademicBodyInput',
-        'createAcademicBodyInput',
-        {
-            index: 'active name'
-        });
+    apiResource = new GraphqlResourceRepository('academic_bodies', {
+        index: 'active'
+    }, 'updateAcademicBodies', 'createAcademicBodies', 'updateAcademicBodyInput', 'createAcademicBodyInput');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
@@ -22,7 +16,7 @@ export default class AcademicBodyManagementPage extends Vue {
             default: false
         },
         {
-            value: 'No vigente',
+            value: 'Sin vigencia',
             default: false
         },
         {
@@ -177,9 +171,10 @@ export default class AcademicBodyManagementPage extends Vue {
     };
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, editable: true},
-        {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true},
-        {key: 'last_evaluation.grade', label: 'Grado', sortable: true, editable: true},
+        {key: 'last_evaluation.grade', label: 'Grado de consolidación', sortable: true, editable: true},
         {key: 'leader.name', label: 'Líder', sortable: true, editable: true},
+        {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true},
+        {key: 'prodep_area.name', label: 'Área PRODEP', sortable: true},
         {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
 }

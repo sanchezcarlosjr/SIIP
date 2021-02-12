@@ -1,6 +1,7 @@
 import {toGraphQL} from "../GraphQL";
+import {ApolloRepository} from "./siipTableRepository";
 
-export class GraphqlRepository {
+export class ApolloSiipTableRepository implements ApolloRepository {
     query() {
         // @ts-ignore
         this.resource.setFields(this.fields.filter((field) => field.sortable).map((field) => toGraphQL(field)));
@@ -9,6 +10,11 @@ export class GraphqlRepository {
     }
 
     update(data: any) {
+        // @ts-ignore
+        if (this.tableTitle && this.resource.mark) {
+            // @ts-ignore
+            this.title = this.resource.mark(this.tableTitle, data);
+        }
         // @ts-ignore
         return this.resource.update(data);
     }

@@ -8,6 +8,6 @@ class CreateLgac
 {
     public function __invoke($_, array $args)
     {
-        return LGAC::create($args);
+        return LGAC::create($args['data']);
     }
 }

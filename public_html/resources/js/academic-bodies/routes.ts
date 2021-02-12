@@ -37,7 +37,7 @@ export const AcademicBodyRoutes = {
         },
         {
             path: ':id/lgacs',
-            name: 'LGAC',
+            name: 'LGACS por cuerpo',
             component: () => import('./lgac-by-academic-body/index.vue')
         },
         {
@@ -59,11 +59,6 @@ export const AcademicBodyRoutes = {
             path: ':id/redes',
             name: 'Red',
             component: () => import('./networks-by-academic-body/index.vue')
-        },
-        {
-            path: ':id',
-            name: 'Cuerpo Académico',
-            component: () => import('./academic-body-management/index.vue')
         }
     ]
 };

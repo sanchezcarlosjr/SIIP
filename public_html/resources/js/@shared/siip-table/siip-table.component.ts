@@ -6,7 +6,7 @@ import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
-import {Repository} from "../infraestructure/communication/graphql/repository";
+import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 
 @Component({
     directives: {permission},
@@ -19,7 +19,7 @@ export default class SiipTableComponent extends Vue {
     [x: string]: any;
 
     @Prop() infoVariant!: (response: any) => Promise<number>;
-    @Prop() resource!: Repository;
+    @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
@@ -55,7 +55,7 @@ export default class SiipTableComponent extends Vue {
         validateAfterChanged: true
     };
     sortDirection = 'asc';
-    infoModal: InfoModal = new InfoModal(this.schema, '');
+    infoModal: InfoModal = new InfoModal(this.schema, this.resource);
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];
@@ -138,10 +138,13 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
-        if (this.schema.fields.length === 0) {
+        if (this.schema.fields.length === 0 || !this.toolbar.has('edit')) {
             return;
         }
         this.infoModal.id = 'edit';
+        if (this.links) {
+            this.infoModal.id = 'editCollapse';
+        }
         this.showModal(item, index, button);
     }
 
@@ -199,14 +202,16 @@ export default class SiipTableComponent extends Vue {
     }
 
     private removeRelationElement() {
-        this.items.splice(this.infoModal.rowId, 1);
-        return this.http?.update(`remove ${this.schema.fields[0].query} to`, {
-            id: this.$route.params.id,
-            [`${this.schema.fields[0].query}_id`]: this.infoModal.item[this.schema.fields[0].query].id
+        this.infoModal.addToModel({
+            routeID: this.$route.params.id
         });
+        return this.editElement();
     }
 
     private createElement() {
+        this.infoModal.addToModel({
+            routeID: this.$route.params.id
+        });
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
@@ -236,16 +241,6 @@ export default class SiipTableComponent extends Vue {
         }).then(() =>
             this.$apollo.queries.items.refetch()
         );
-    }
-
-    private updateTable(result: any, rowId: number, isASubResource: boolean) {
-        for (const key of Object.keys(result) as string[]) {
-            if (isASubResource) {
-                this.items[rowId][Object.keys(this.items[rowId])[0]][key] = result[key];
-            } else {
-                this.items[rowId][key] = result[key];
-            }
-        }
     }
 
     private showSuccessToast() {

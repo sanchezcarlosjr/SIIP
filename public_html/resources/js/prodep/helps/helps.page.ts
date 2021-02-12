@@ -1,10 +1,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class HelpsPage extends Vue {
     tableTitle = "Beneficios PRODEP";
-    apiResource = "prodep_helps";
+    apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_helps');
     spanishResourceName = 'beneficio';
     toolbar = new Set(["add"]);
     schema = {
