@@ -3,20 +3,23 @@ import {Repository} from "./repository";
 
 export class GraphqlResourceRepository implements Repository {
     private fields: any;
+
     constructor(
         private _query: string,
-        private editMutate: string,
-        private createMutate: string,
-        private updateInput: string,
-        private createInput: string,
-        private fragment: { index: string }) {
+        private fragment: { index: string } = {
+            index: ''
+        },
+        private editMutate?: string,
+        private createMutate?: string,
+        private updateInput?: string,
+        private createInput?: string) {
     }
 
     public get create() {
         return gql`
             mutation createNewResource($data: ${this.createInput}!) {
                 ${this.createMutate} (data: $data) {
-                ${this.fragment.index}
+                ${this.fragment?.index}
                 ${this.fields}
             }
             }
@@ -27,7 +30,7 @@ export class GraphqlResourceRepository implements Repository {
         return gql`
             mutation editResource($data: ${this.updateInput}!) {
                 ${this.editMutate} (data: $data) {
-                ${this.fragment.index}
+                ${this.fragment?.index}
                 ${this.fields}
             }
             }
@@ -43,7 +46,7 @@ export class GraphqlResourceRepository implements Repository {
             ${this._query} {
             data {
                 id
-                ${this.fragment.index}
+                ${this.fragment?.index}
                 ${this.fields}
             }
         }

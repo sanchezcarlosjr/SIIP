@@ -6,15 +6,9 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new GraphqlResourceRepository(
-        'academic_bodies',
-        'updateAcademicBodies',
-        'createAcademicBodies',
-        'updateAcademicBodyInput',
-        'createAcademicBodyInput',
-        {
-            index: 'active name'
-        });
+    apiResource = new GraphqlResourceRepository('academic_bodies', {
+        index: 'active name'
+    }, 'updateAcademicBodies', 'createAcademicBodies', 'updateAcademicBodyInput', 'createAcademicBodyInput');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {

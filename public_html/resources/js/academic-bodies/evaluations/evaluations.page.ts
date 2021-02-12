@@ -4,15 +4,9 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class EvaluationsPage extends Vue {
-    apiResource = new GraphqlResourceRepository(
-        'academic_bodies',
-        '',
-        '',
-        '',
-        '',
-        {
-            index: 'active name'
-        });
+    apiResource = new GraphqlResourceRepository('academic_bodies', {
+        index: 'active name'
+    });
     toolbar = new Set<String>([]);
     fields = [
         {key: 'name', label: 'Cuerpo académico', sortable: true},

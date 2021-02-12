@@ -4,15 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class LGACPage extends Vue {
-    apiResource = new GraphqlResourceRepository(
-        'lgacs',
-        '',
-        '',
-        '',
-        '',
-        {
-            index: ''
-        });
+    apiResource = new GraphqlResourceRepository('lgacs');
     spanishResourceName = 'LGAC'
     toolbar = new Set<string>([]);
     defaultCriteria = [{

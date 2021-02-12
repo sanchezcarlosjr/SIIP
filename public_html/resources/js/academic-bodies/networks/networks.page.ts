@@ -4,15 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class NetworksPage extends Vue {
-    apiResource = new GraphqlResourceRepository(
-        'networks',
-        '',
-        '',
-        '',
-        '',
-        {
-            index: 'active name'
-        });
+    apiResource = new GraphqlResourceRepository('networks');
     spanishResourceName = 'red'
     toolbar = new Set<String>([]);
     fields = [
