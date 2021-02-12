@@ -4,16 +4,16 @@ import {camelize, toSingular} from "../GraphQL";
 
 
 export class GraphqlResourceFinderRepository implements MutationRepository {
-    private fields: string[] | undefined;
+    protected fields: string[] | undefined;
 
     constructor(
-        private _query: string,
-        private _sub_query: string,
-        private editMutate?: string,
-        private createMutate?: string,
-        private updateInput?: string,
-        private createInput?: string,
-        private fragment: { index: string } = {
+        protected _query: string,
+        protected _sub_query: string,
+        protected editMutate?: string,
+        protected createMutate?: string,
+        protected updateInput?: string,
+        protected createInput?: string,
+        protected fragment: { index: string } = {
             index: ''
         }) {
     }

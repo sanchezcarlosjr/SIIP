@@ -128,7 +128,7 @@
                     <template #table-busy>
                         <b-skeleton-table
                             :columns="fields.length"
-                            :rows="10"
+                            :rows="2"
                         ></b-skeleton-table>
                     </template>
                     <template #cell()="data">

@@ -19,3 +19,8 @@ type Employee {
     academic_bodies: [AcademicBody]
     active: Boolean
 }
+
+input employeeToAcademicBodyInput {
+    academic_body_id: ID
+    employees_id: ID
+}

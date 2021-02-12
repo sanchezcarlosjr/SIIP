@@ -1,4 +1,5 @@
 import {hasPermissions} from "../../store/auth/permission";
+import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 
 interface Modal {
     id: string,
@@ -68,7 +69,7 @@ export class InfoModal implements Modal {
     resource = '';
     private module = '';
 
-    constructor(private schema: Schema, private apiResource: string) {
+    constructor(private schema: Schema, private apolloRepository: SiipTableRepository) {
         this.loadModel();
     }
 
@@ -103,16 +104,10 @@ export class InfoModal implements Modal {
         this.ifItemThenMatchSchema(item);
     }
 
-    private ifItemThenMatchSchema(item: any) {
-        if (!item) {
-            return;
-        }
-        this.item = item;
-        this.model.id = this.itemId;
-        for (const key of Object.keys(this.item) as string[]) {
-            if (this.model[key] === '') {
-                this.model[key] = this.item[key];
-            }
+    addToModel(parameters: { routeID: string }) {
+        if (parameters.routeID) {
+            // @ts-ignore
+            this.model[this.apolloRepository.foreign_key] = parameters.routeID;
         }
     }
 
@@ -138,6 +133,20 @@ export class InfoModal implements Modal {
 
     loadSchema() {
         this.schema.fields.forEach((field) => field.module = this.module);
+    }
+
+    private ifItemThenMatchSchema(item: any) {
+        if (!item) {
+            return;
+        }
+        // @ts-ignore
+        this.item = this.apolloRepository.map ? this.apolloRepository.map(item) : item;
+        this.model.id = this.itemId;
+        for (const key of Object.keys(this.item) as string[]) {
+            if (this.model[key] === '') {
+                this.model[key] = this.item[key];
+            }
+        }
     }
 
     get itemId() {

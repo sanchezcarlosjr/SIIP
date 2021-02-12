@@ -1,14 +1,14 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
-import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
+import {MembersRepository} from "./members.repository";
 
 @Component
 export default class MembersPage extends Vue {
     tableTitle = `Miembros de *`;
-    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'employees');
+    apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
-    toolbar = new Set<string>(['removeRelation', 'add-relation']);
+    toolbar = new Set<string>(['removeRelation', 'add']);
     infoVariant = (items: { employees: { id: string } }[]) => {
         const graphql = new GraphQLBuilder('academic_body', [{key: 'leader.id', sortable: true}]);
         return graphql.find(this.$route.params.id).then((response: any) => {
@@ -31,7 +31,7 @@ export default class MembersPage extends Vue {
             {
                 type: 'graphql-select',
                 label: 'Empleado',
-                model: "lead_employee_id",
+                model: "employees_id",
                 query: 'employees',
                 textKey: 'nombre'
             }

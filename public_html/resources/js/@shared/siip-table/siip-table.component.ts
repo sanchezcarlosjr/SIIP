@@ -55,7 +55,7 @@ export default class SiipTableComponent extends Vue {
         validateAfterChanged: true
     };
     sortDirection = 'asc';
-    infoModal: InfoModal = new InfoModal(this.schema, '');
+    infoModal: InfoModal = new InfoModal(this.schema, this.resource);
     isVisibleChart = false;
     options: any[] = [];
     private originalFilter: string[] = [];
@@ -138,7 +138,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
-        if (this.schema.fields.length === 0) {
+        if (this.schema.fields.length === 0 || !this.toolbar.has('edit')) {
             return;
         }
         this.infoModal.id = 'edit';
@@ -202,18 +202,16 @@ export default class SiipTableComponent extends Vue {
     }
 
     private removeRelationElement() {
-        this.items.splice(this.infoModal.rowId, 1);
-        return this.http?.update(`remove ${this.schema.fields[0].query} to`, {
-            id: this.$route.params.id,
-            [`${this.schema.fields[0].query}_id`]: this.infoModal.item[this.schema.fields[0].query].id
+        this.infoModal.addToModel({
+            routeID: this.$route.params.id
         });
+        return this.editElement();
     }
 
     private createElement() {
-        if (this.$route.params.id) {
-            // @ts-ignore
-            this.infoModal.model[this.resource.foreign_key] = this.$route.params.id;
-        }
+        this.infoModal.addToModel({
+            routeID: this.$route.params.id
+        });
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
