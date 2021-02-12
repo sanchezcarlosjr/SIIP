@@ -78,6 +78,9 @@ export class InfoModal implements Modal {
     }
 
     get id() {
+        if (this._id === 'editCollapse') {
+            return 'edit';
+        }
         return this._id;
     }
 
