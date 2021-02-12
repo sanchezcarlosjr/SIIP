@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcademicBody extends Model
 {
-    use ActiveMessage;
     use HasFactory;
     protected $table = 'academic_bodies';
     protected $fillable = [

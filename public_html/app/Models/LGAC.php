@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LGAC extends Model
 {
-    use ActiveMessage;
     use HasFactory;
     protected $table = 'academic_bodies_lgacs';
     protected $fillable = [
