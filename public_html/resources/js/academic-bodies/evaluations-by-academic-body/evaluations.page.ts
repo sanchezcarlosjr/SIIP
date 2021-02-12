@@ -11,7 +11,7 @@ export default class EvaluationsPage extends Vue {
     fields = [
         {key: 'grade', label: 'Grado', sortable: true},
         {key: 'start_date', label: 'Primera evaluación', sortable: true},
-        {key: 'finish_date', label: 'Última evaluación', sortable: true}
+        {key: 'finish_date', label: 'Vigencia hasta', sortable: true}
     ];
     schema = {
         fields: [
