@@ -1,5 +1,4 @@
 import {hasPermissions} from "../../store/auth/permission";
-import {toSingular} from "../infraestructure/communication/GraphQL";
 
 interface Modal {
     id: string,
@@ -61,51 +60,47 @@ export class InfoModal implements Modal {
     private _id: string = '';
     title = '';
     item: any = null;
+    private _model: Model = {};
     model: Model = {};
     action = '';
     rowId = -1;
     isASubResource = false;
     resource = '';
     private module = '';
+
     constructor(private schema: Schema, private apiResource: string) {
         this.loadModel();
     }
+
     build(spanishResourceName: string = document.title.replace(/s/g, '').toLowerCase()) {
         this.resource = spanishResourceName;
+    }
+
+    get id() {
+        if (this._id === 'editCollapse') {
+            return 'edit';
+        }
+        return this._id;
+    }
+
+    set id(id: string) {
+        this._id = id;
     }
 
     reset() {
         this.title = '';
         this.item = null;
         this.rowId = -1;
-        if (this.model.id === '') {
-            delete this.model.id;
-        }
-        for (const key of Object.keys(this.model) as string[]) {
-            this.model[key] = '';
-        }
-    }
-
-    set id(id: string) {
-        this._id  = id;
-    }
-
-    get id() {
-        return this._id;
+        this.model = {
+            ...this._model
+        };
     }
 
     setModal(item: any, index: any) {
-        const strategy = this.strategies[this.id]().title;
+        const strategy = this.strategies[this._id]().title;
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
         this.ifItemThenMatchSchema(item);
-    }
-
-    addKeys(keys: any) {
-        this.model = {
-            ...this.model,
-            keys
-        };
     }
 
     private ifItemThenMatchSchema(item: any) {
@@ -125,6 +120,7 @@ export class InfoModal implements Modal {
         this.schema.fields.forEach((field: any) => {
             field.readonly = !hasPermissions(['admin']);
             this.model[field.model] = '';
+            this._model[field.model] = '';
         });
     }
 

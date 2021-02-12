@@ -6,6 +6,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
     private fields: string[] | undefined;
     constructor(
         private _query: string,
+        private _sub_query: string,
         private fragment: { index: string } = {
             index: ''
         },
@@ -16,25 +17,25 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
     }
 
     public get foreign_key() {
-        return `academic_body_id`;
+        return `${this._query}_id`;
     }
 
     public get create() {
         return gql`
-            mutation editResource($data: createLgacInput!) {
-                createLgac (data: $data) {
-                    id
-                }
+            mutation editResource($data: ${this.createInput}!) {
+                ${this.createMutate} (data: $data) {
+                id
+            }
             }
         `
     }
 
     public get edit() {
         return gql`
-            mutation editResource($data: updateLgacInput!) {
-                updateLgac (data: $data) {
-                    id
-              }
+            mutation editResource($data: ${this.updateInput}!) {
+                ${this.editMutate} (data: $data) {
+                id
+            }
             }
         `
     }
@@ -42,12 +43,12 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
     public query() {
         return gql`
             query getAcademicBodyById($id: ID) {
-                academic_body(id: $id) {
-                    id
-                    lgacs {
-                        ${this.fields}
-                    }
-                }
+                ${this._query}(id: $id) {
+                id
+                ${this._sub_query} {
+                ${this.fields}
+            }
+            }
             }`;
     }
 
@@ -56,6 +57,6 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
     }
 
     update(data: any) {
-        return data['academic_body']['lgacs'];
+        return data[this._query][this._sub_query];
     }
 }

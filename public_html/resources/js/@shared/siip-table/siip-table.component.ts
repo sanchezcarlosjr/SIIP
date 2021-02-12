@@ -112,10 +112,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     execute() {
-        if (this.$route.params.id) {
-            // @ts-ignore
-            this.infoModal.model[this.resource.foreign_key]= this.$route.params.id;
-        }
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()
             .then(() => this.showSuccessToast())
@@ -214,6 +210,10 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
+        if (this.$route.params.id) {
+            // @ts-ignore
+            this.infoModal.model[this.resource.foreign_key] = this.$route.params.id;
+        }
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
@@ -243,16 +243,6 @@ export default class SiipTableComponent extends Vue {
         }).then(() =>
             this.$apollo.queries.items.refetch()
         );
-    }
-
-    private updateTable(result: any, rowId: number, isASubResource: boolean) {
-        for (const key of Object.keys(result) as string[]) {
-            if (isASubResource) {
-                this.items[rowId][Object.keys(this.items[rowId])[0]][key] = result[key];
-            } else {
-                this.items[rowId][key] = result[key];
-            }
-        }
     }
 
     private showSuccessToast() {
