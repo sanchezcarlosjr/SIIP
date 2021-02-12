@@ -12,6 +12,7 @@ import VfgFieldGraphQLSelect from './@shared/application/form-fields/vfg-field-s
 import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import SiipChartComponent from './@shared/siip-table/chart/RandomChart.vue';
+import AcademicBodyLgacs from './academic-bodies/lgac-by-academic-body/index.vue';
 import ContextMenu from './@shared/application/context-menu/context-menu.component.vue';
 // @ts-ignore
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
@@ -38,6 +39,7 @@ Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
 Vue.component('siip-chart', SiipChartComponent);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('context-menu', ContextMenu);
+Vue.component('siip-academic-body-lgacs', AcademicBodyLgacs);
 
 const app = new Vue({
     el: '#app',

@@ -86,6 +86,7 @@ input updateNetworkInput {
     finish_date: Date
     academic_body_id: Int
 }
+
 type LGAC {
     id: ID!
     key: String!
@@ -93,6 +94,22 @@ type LGAC {
     description: String!
     active: Boolean!
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
+}
+
+input updateLgacInput {
+    id: ID!
+    key: String
+    name: String
+    description: String
+    active: Boolean
+}
+
+input createLgacInput {
+    key: String
+    name: String
+    description: String
+    active: Boolean
+    academic_body_id: ID
 }
 
 type Discipline {

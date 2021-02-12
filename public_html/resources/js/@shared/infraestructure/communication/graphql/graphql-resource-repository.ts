@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
-import {Repository} from "./repository";
+import {SiipTableRepository} from "./siipTableRepository";
 
-export class GraphqlResourceRepository implements Repository {
+export class GraphqlResourceRepository implements SiipTableRepository {
     private fields: any;
 
     constructor(

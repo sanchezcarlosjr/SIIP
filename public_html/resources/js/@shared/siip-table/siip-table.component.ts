@@ -6,7 +6,7 @@ import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
-import {Repository} from "../infraestructure/communication/graphql/repository";
+import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 
 @Component({
     directives: {permission},
@@ -19,7 +19,7 @@ export default class SiipTableComponent extends Vue {
     [x: string]: any;
 
     @Prop() infoVariant!: (response: any) => Promise<number>;
-    @Prop() resource!: Repository;
+    @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
@@ -112,6 +112,9 @@ export default class SiipTableComponent extends Vue {
     }
 
     execute() {
+        if (this.$route.params.id) {
+            this.infoModal.model[this.resource.foreign_key] = this.$route.params.id;
+        }
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()
             .then(() => this.showSuccessToast())
@@ -142,6 +145,9 @@ export default class SiipTableComponent extends Vue {
             return;
         }
         this.infoModal.id = 'edit';
+        if (this.links) {
+            this.infoModal.id = 'editCollapse';
+        }
         this.showModal(item, index, button);
     }
 

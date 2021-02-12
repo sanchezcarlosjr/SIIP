@@ -125,18 +125,10 @@ type Mutation {
         employee_id: Int
     ): ProdepHelp @update
     updateLgac(
-        id: ID!
-        key: String
-        name: String
-        description: String
-        active: Boolean
+        data: updateLgacInput
     ): LGAC
     createLgac(
-        key: String
-        name: String
-        description: String
-        active: Boolean
-        academic_body_id: ID
+        data: createLgacInput
     ): LGAC
     destroyNetwork(name:String): Network
     createNetwork(

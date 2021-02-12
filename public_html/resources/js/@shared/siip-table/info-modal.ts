@@ -1,5 +1,4 @@
 import {hasPermissions} from "../../store/auth/permission";
-import {toSingular} from "../infraestructure/communication/GraphQL";
 
 interface Modal {
     id: string,
@@ -21,6 +20,12 @@ interface Schema {
 
 export class InfoModal implements Modal {
     private strategies: Strategy = {
+        editCollapse: () => {
+            return {
+                icon: 'edit',
+                title: `Detalles de `
+            }
+        },
         remove: () => {
             return {
                 icon: 'trash',
@@ -93,6 +98,13 @@ export class InfoModal implements Modal {
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
         this.ifItemThenMatchSchema(item);
+    }
+
+    addKeys(keys: any) {
+        this.model = {
+            ...this.model,
+            keys
+        };
     }
 
     private ifItemThenMatchSchema(item: any) {

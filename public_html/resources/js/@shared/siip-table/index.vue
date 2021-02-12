@@ -90,7 +90,6 @@
                                 +Nuevo
                             </b-button>
                         </b-button-group>
-
                     </b-col>
                 </b-row>
                 <b-row v-if="isVisibleChart">
@@ -180,6 +179,25 @@
                     :options="formOptions"
                     :schema="schema"
                     @validated="onValidated"></vue-form-generator>
+            </b-modal>
+            <b-modal
+                id="editCollapse"
+                :hide-footer="!hasPermissions(['admin'])"
+                :title="infoModal.title"
+                cancel-title="Cancelar"
+                ok-title="Aceptar"
+                scrollable
+                size="xl"
+                @cancel="resetModal"
+                @ok="execute">
+                <b-tabs content-class="mt-3" lazy>
+                    <b-tab title="Detalles">
+                        <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
+                    </b-tab>
+                    <b-tab title="LGACS">
+                        <siip-academic-body-lgacs></siip-academic-body-lgacs>
+                    </b-tab>
+                </b-tabs>
             </b-modal>
             <b-modal id="edit"
                      :title="infoModal.title"
