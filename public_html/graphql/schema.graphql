@@ -140,23 +140,10 @@ type Mutation {
     ): LGAC
     destroyNetwork(name:String): Network
     createNetwork(
-        name: String
-        type: String
-        class: String
-        start_date: Date
-        range: String
-        finish_date: Date
-        academic_body_id: Int
+        data: createNetworkInput
     ): Network @create
     updateNetwork(
-        id: ID!
-        name: String
-        type: String
-        class: String
-        start_date: Date
-        range: String
-        finish_date: Date
-        academic_body_id: Int
+        data: updateNetworkInput
     ): Network @update
     destroyHelp(
         id: ID!

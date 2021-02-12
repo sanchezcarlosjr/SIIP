@@ -66,6 +66,26 @@ type Network {
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }
 
+input createNetworkInput {
+    name: String
+    type: String
+    class: String
+    start_date: Date
+    range: String
+    finish_date: Date
+    academic_body_id: Int
+}
+
+input updateNetworkInput {
+    id: ID!
+    name: String
+    type: String
+    class: String
+    start_date: Date
+    range: String
+    finish_date: Date
+    academic_body_id: Int
+}
 type LGAC {
     id: ID!
     key: String!

@@ -1,16 +1,25 @@
 import Vue from "vue"
 import Component from "vue-class-component"
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class MembersPage extends Vue {
-    apiResource = 'employees';
+    apiResource = new GraphqlResourceRepository(
+        'employees',
+        '',
+        '',
+        '',
+        '',
+        {
+            index: 'active'
+        });
     spanishResourceName = 'miembro'
     toolbar = new Set<String>([]);
     fields = [
-        { key: 'name', label: 'Nombre', sortable: true },
-        { key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
-        { key: 'academic_body', label: 'Cuerpos Académicos', sortable: true},
-        { key: 'grado', label: 'Grado', sortable: true}
+        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
+        {key: 'academic_body', label: 'Cuerpos Académicos', sortable: true},
+        {key: 'grado', label: 'Grado', sortable: true}
     ];
     defaultCriteria = [{
         value: 'Próximos a jubilarse',
