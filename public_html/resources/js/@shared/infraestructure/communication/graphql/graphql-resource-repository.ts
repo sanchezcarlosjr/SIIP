@@ -3,7 +3,6 @@ import {Repository} from "./repository";
 
 export class GraphqlResourceRepository implements Repository {
     private fields: any;
-
     constructor(
         private _query: string,
         private editMutate: string,
