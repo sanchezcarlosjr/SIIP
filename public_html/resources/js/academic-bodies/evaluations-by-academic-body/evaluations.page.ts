@@ -10,29 +10,33 @@ export default class EvaluationsPage extends Vue {
     toolbar = new Set(['add', 'edit']);
     fields = [
         {key: 'grade', label: 'Grado', sortable: true},
-        {key: 'start_date', label: 'Primera evaluación', sortable: true},
+        {key: 'start_date', label: 'Vigente desde', sortable: true},
         {key: 'finish_date', label: 'Vigencia hasta', sortable: true}
     ];
     schema = {
         fields: [
             {
-                type: 'input',
-                inputType: 'text',
+                type: 'select',
                 label: 'Grado',
-                model: 'grade'
+                model: 'grade',
+                values: [
+                    'Formación',
+                    'Consolidación',
+                    'Consolidado',
+                ]
             },
             {
                 type: 'calendar',
                 inputType: 'text',
-                label: 'Fecha final',
+                label: 'Vigente desde',
+                model: 'start_date'
+            },
+            {
+                type: 'calendar',
+                inputType: 'text',
+                label: 'Vigente hasta',
                 model: 'finish_date'
             },
-            {
-                type: 'calendar',
-                inputType: 'text',
-                label: 'Fecha inicial',
-                model: 'start_date'
-            }
         ]
     };
 }
