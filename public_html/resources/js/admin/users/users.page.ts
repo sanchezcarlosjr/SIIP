@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 enum Role {
     COORDINATOR_UA = 3,
@@ -50,11 +51,10 @@ export default class UsersPage extends Vue {
         { key: 'name', label: 'Nombre', sortable: true },
         { key: 'email', label: 'Correo Electrónico	', sortable: true },
         { key: 'unit', label: 'Unidad Académica', sortable: true },
-        { key: 'campus', label: 'Campus', sortable: true },
-        {key: 'roles.role', label: 'Rol', sortable: true}
+        { key: 'campus', label: 'Campus', sortable: true }
     ];
     tableTitle = 'Gestión de usuarios';
-    apiResource = 'users';
+    apiResource = GraphqlResourceRepository.createDefaultRepository('users');
     spanishResourceName = 'usuario';
 }
 

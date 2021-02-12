@@ -2,4 +2,6 @@ type User {
     id: ID!
     name: String!
     email: String
+    unit: String
+    campus: String
 }
