@@ -7,7 +7,7 @@ export default class LGACPage extends Vue {
     tableTitle = `LGACS de *`;
     apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
     spanishResourceName = 'LGAC'
-    toolbar = new Set(['archive', 'add', 'edit']);
+    toolbar = new Set(['archive', 'add', 'edit', 'remove']);
     fields = [
         {key: 'key', label: 'Clave', sortable: true},
         {key: 'name', label: 'Nombre', sortable: true},
