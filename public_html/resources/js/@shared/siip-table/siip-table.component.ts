@@ -113,7 +113,8 @@ export default class SiipTableComponent extends Vue {
 
     execute() {
         if (this.$route.params.id) {
-            this.infoModal.model[this.resource.foreign_key] = this.$route.params.id;
+            // @ts-ignore
+            this.infoModal.model[this.resource.foreign_key]= this.$route.params.id;
         }
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()

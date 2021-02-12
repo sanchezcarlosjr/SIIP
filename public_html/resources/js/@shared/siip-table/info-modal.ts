@@ -1,4 +1,5 @@
 import {hasPermissions} from "../../store/auth/permission";
+import {toSingular} from "../infraestructure/communication/GraphQL";
 
 interface Modal {
     id: string,

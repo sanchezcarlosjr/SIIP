@@ -6,7 +6,7 @@ export class ApolloSiipTableRepository implements ApolloRepository {
         // @ts-ignore
         if (this.$route.params.id) {
             // @ts-ignore
-            this.infoModal.model[this.resource.foreign_key] = this.$route.params.id;
+            this.infoModal.model[this.resource.foreign_key]= this.$route.params.id;
         }
         // @ts-ignore
         this.resource.setFields(this.fields.filter((field) => field.sortable).map((field) => toGraphQL(field)));
