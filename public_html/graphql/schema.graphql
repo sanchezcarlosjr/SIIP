@@ -150,11 +150,11 @@ type Mutation {
         data: updateHelpInput
         @spread
     ): Help @update
-    removeEvaluation(id:ID): Evaluation
+    removeEvaluation(id:ID!): Evaluation @delete
     createEvaluation(
         data: createEvaluationInput
         @spread
-    ): Evaluation @create
+    ): Evaluation
     updateEvaluation(
         data: updateEvaluationInput
         @spread

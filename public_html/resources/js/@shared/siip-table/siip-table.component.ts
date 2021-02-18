@@ -119,6 +119,10 @@ export default class SiipTableComponent extends Vue {
             .catch(() => this.showDangerToast());
     }
 
+    private editCollapseElement() {
+        return this.editElement();
+    }
+
     search(row: any, criteria: string[]) {
         const values: string[] = Object.values(row);
         const valueString = values.toString();

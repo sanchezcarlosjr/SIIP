@@ -1,7 +1,7 @@
 type AcademicBody {
     id: ID!
     name: String
-    active: String
+    active: Boolean
     uabc_areas_id: Int
     discipline_id: Int
     lead_employee_id: Int
@@ -157,7 +157,7 @@ type Evaluation {
 
 input createEvaluationInput {
     grade: String
-    finish_date: Date
+    years_to_finish: Int
     start_date: Date
     academic_body_id: ID
 }
