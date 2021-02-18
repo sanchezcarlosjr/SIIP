@@ -157,7 +157,7 @@ type Evaluation {
 
 input createEvaluationInput {
     grade: String
-    finish_date: Date
+    years_to_finish: Int
     start_date: Date
     academic_body_id: ID
 }

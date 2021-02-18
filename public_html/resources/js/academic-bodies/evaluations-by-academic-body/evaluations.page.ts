@@ -32,10 +32,10 @@ export default class EvaluationsPage extends Vue {
                 model: 'start_date'
             },
             {
-                type: 'calendar',
-                inputType: 'text',
-                label: 'Vigente hasta',
-                model: 'finish_date'
+                type: 'input',
+                inputType: 'number',
+                label: 'Años de vigencia',
+                model: 'years_to_finish'
             },
         ]
     };
