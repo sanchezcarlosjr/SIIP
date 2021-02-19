@@ -108,7 +108,6 @@ input updateNetworkInput {
 
 type LGAC {
     id: ID!
-    key: String!
     name: String!
     description: String!
     active: String!
@@ -117,14 +116,12 @@ type LGAC {
 
 input updateLgacInput {
     id: ID!
-    key: String
     name: String
     description: String
     active: Boolean
 }
 
 input createLgacInput {
-    key: String
     name: String
     description: String
     active: Boolean

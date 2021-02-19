@@ -15,7 +15,6 @@ class CreateLGACSTable extends Migration
     {
         Schema::create('academic_bodies_lgacs', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
             $table->string('name');
             $table->string('description');
             $table->boolean('active');

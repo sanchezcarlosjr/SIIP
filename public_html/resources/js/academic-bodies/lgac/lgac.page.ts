@@ -16,7 +16,6 @@ export default class LGACPage extends Vue {
             default: false
         }];
     fields = [
-        {key: 'key', label: 'Clave', sortable: true},
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_body.name', label: 'Cuerpo académico', sortable: true},
         {key: 'academic_body.uabc_area.area', label: 'Área del conocimiento', sortable: true},

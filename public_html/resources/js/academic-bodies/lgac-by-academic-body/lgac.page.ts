@@ -9,7 +9,6 @@ export default class LGACPage extends Vue {
     spanishResourceName = 'LGAC'
     toolbar = new Set(['archive', 'add', 'edit', 'remove']);
     fields = [
-        {key: 'key', label: 'Clave', sortable: true},
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'description', label: 'Descripción', sortable: true},
         {key: 'active', label: 'Vigente', sortable: true}
@@ -21,12 +20,6 @@ export default class LGACPage extends Vue {
                 inputType: 'text',
                 label: 'Nombre del LGAC',
                 model: 'name'
-            },
-            {
-                type: 'input',
-                inputType: 'text',
-                label: 'Clave',
-                model: 'key'
             },
             {
                 type: 'input',
