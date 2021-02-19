@@ -35,23 +35,23 @@ export default class AcademicBodyManagementPage extends Vue {
     links = {
         'project-diagram': {
             'link': '/cuerpos-academicos/*/lgacs',
-            'tooltip': 'Ver sus LGAC'
+            'tooltip': 'LGACS'
         },
         'user-tie': {
             link: '/cuerpos-academicos/*/miembros',
-            tooltip: 'Ver sus miembros'
+            tooltip: 'Miembros'
         },
         'file-alt': {
             link: '/cuerpos-academicos/*/evaluaciones',
-            tooltip: 'Ver sus evaluaciones'
+            tooltip: 'Evaluaciones'
         },
         'hand-holding-usd': {
             link: '/cuerpos-academicos/*/apoyos',
-            tooltip: 'Ver sus apoyos'
+            tooltip: 'Apoyos'
         },
         'network-wired': {
             link: '/cuerpos-academicos/*/redes',
-            tooltip: 'Ver sus redes'
+            tooltip: 'Redes'
         }
     };
     schema = {

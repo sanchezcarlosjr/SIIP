@@ -8,7 +8,34 @@ export const AcademicBodyRoutes = {
         {
             path: '',
             name: 'Gestión',
-            component: () => import('./academic-body-management/index.vue')
+            component: () => import('./academic-body-management/index.vue'),
+            children: [
+                {
+                    path: ':id/lgacs',
+                    name: 'Gestión',
+                    component: () => import('./lgac-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/evaluaciones',
+                    name: 'Evaluaciones por cuerpo',
+                    component: () => import('./evaluations-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/miembros',
+                    name: 'Miembros por cuerpo',
+                    component: () => import('./members-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/apoyos',
+                    name: 'Apoyos por cuerpo',
+                    component: () => import('./helps-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/redes',
+                    name: 'Red',
+                    component: () => import('./networks-by-academic-body/index.vue')
+                }
+            ]
         },
         {
             path: 'redes',
@@ -34,31 +61,6 @@ export const AcademicBodyRoutes = {
             path: 'lgacs',
             name: 'LGACS',
             component: () => import('./lgac/index.vue')
-        },
-        {
-            path: ':id/lgacs',
-            name: 'LGACS por cuerpo',
-            component: () => import('./lgac-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/evaluaciones',
-            name: 'Evaluaciones por cuerpo',
-            component: () => import('./evaluations-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/miembros',
-            name: 'Miembros por cuerpo',
-            component: () => import('./members-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/apoyos',
-            name: 'Apoyos por cuerpo',
-            component: () => import('./helps-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/redes',
-            name: 'Red',
-            component: () => import('./networks-by-academic-body/index.vue')
         }
     ]
 };

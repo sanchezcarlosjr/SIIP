@@ -78,6 +78,7 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
+        this.showCollapseModal();
         this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
@@ -147,9 +148,20 @@ export default class SiipTableComponent extends Vue {
         }
         this.infoModal.id = 'edit';
         if (this.links) {
-            this.infoModal.id = 'editCollapse';
+            this.$router.push(`/cuerpos-academicos/${item.id}/lgacs`);
         }
         this.showModal(item, index, button);
+    }
+
+    showCollapseModal() {
+        if (this.$route.params.id && this.links) {
+            this.infoModal.id = 'editCollapse';
+            this.showModal({id: this.$route.params.id}, null, null);
+        }
+    }
+
+    hideModal() {
+        this.$router.push(`/cuerpos-academicos/`);
     }
 
     removeRelation(item: any, index: any, button: any) {
@@ -190,7 +202,7 @@ export default class SiipTableComponent extends Vue {
 
     private showModal(item: any, index: any, button: any) {
         this.infoModal.setModal(item, index);
-        this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button)
+        this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
     }
 
     private removeElement() {
