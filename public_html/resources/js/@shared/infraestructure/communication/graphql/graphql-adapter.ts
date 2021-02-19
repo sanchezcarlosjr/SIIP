@@ -8,7 +8,7 @@ export function adapt(repository: ApolloRepository = new ApolloSiipTableReposito
         variables (): any {
             return {
                 // @ts-ignore
-                id: this.$route.params.id || this.resourceID
+                id: this.$route.params.id
             }
         },
     };

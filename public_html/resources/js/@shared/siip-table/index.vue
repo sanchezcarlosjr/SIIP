@@ -177,23 +177,27 @@
                     @validated="onValidated"></vue-form-generator>
             </b-modal>
             <b-modal
-                id="editCollapse"
+                :id="'editCollapse'+infoModal.resource"
                 :hide-footer="!hasPermissions(['admin'])"
                 :title="infoModal.title"
                 cancel-title="Cancelar"
                 ok-title="Aceptar"
                 scrollable
                 size="xl"
+                @hide="hideModal"
                 @cancel="resetModal"
                 @ok="execute">
-                <b-tabs content-class="mt-3" lazy>
-                    <b-tab title="Detalles">
-                        <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
-                    </b-tab>
-                    <b-tab title="LGACS">
-                        <siip-academic-body-lgacs></siip-academic-body-lgacs>
-                    </b-tab>
-                </b-tabs>
+                <b-nav tabs>
+                    <b-nav-item
+                        v-for="(value, key) in links" :key="key"
+                        :to="value.link.replace('*', infoModal.itemId)"
+                        active-class="active">
+                        <i class="fas" style="font-size:20px"
+                           v-bind:class="'fa-'+key"></i>
+                        {{ value.tooltip }}
+                    </b-nav-item>
+                </b-nav>
+                <router-view :key="$route.path"></router-view>
             </b-modal>
             <b-modal
                 id="edit"
