@@ -1,12 +1,13 @@
 <template>
-    <b-modal id="create"
-             :ok-disabled="okDisabled"
-             :title="title"
-             cancel-title="Cancelar"
-             ok-title="Añadir"
-             scrollable
-             @cancel="reset"
-             @ok="ok">
+    <b-modal
+        :id="'create'+title"
+        :ok-disabled="okDisabled"
+        :title="title"
+        cancel-title="Cancelar"
+        ok-title="Añadir"
+        scrollable
+        @cancel="reset"
+        @ok="ok">
         <vue-form-generator
             :model="model"
             :options="formOptions"
