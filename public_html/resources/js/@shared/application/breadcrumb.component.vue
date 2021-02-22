@@ -10,7 +10,7 @@ export default {
             items: []
         }
     },
-    props: ['title', 'isAPage'],
+    props: ['isAPage'],
     mounted() {
         let routes = this.$route.matched;
         if (this.isAPage) {
@@ -32,9 +32,6 @@ export default {
                     to: {path: route.path}
                 })
             );
-        },
-        title: function (newVal, oldVal) {
-            this.items[this.items.length - 1].text = newVal;
         }
     }
 }

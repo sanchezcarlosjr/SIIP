@@ -4,7 +4,6 @@ import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/com
 
 @Component
 export default class LGACPage extends Vue {
-    tableTitle = `LGACS de *`;
     apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
     spanishResourceName = 'LGAC'
     toolbar = new Set(['archive', 'add', 'edit', 'remove']);

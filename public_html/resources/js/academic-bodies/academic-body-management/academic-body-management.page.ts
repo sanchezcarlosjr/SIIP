@@ -34,8 +34,8 @@ export default class AcademicBodyManagementPage extends Vue {
     ];
     links = {
         'project-diagram': {
-            'link': '/cuerpos-academicos/*/lgacs',
-            'tooltip': 'LGACS'
+            'link': '/cuerpos-academicos/*/lgac',
+            'tooltip': 'LGAC'
         },
         'user-tie': {
             link: '/cuerpos-academicos/*/miembros',
