@@ -162,20 +162,16 @@
                 @option-clicked="optionClicked"
             >
             </context-menu>
-            <b-modal id="create"
-                     :title="infoModal.title"
-                     :ok-disabled="okDisabled"
-                     cancel-title="Cancelar"
-                     ok-title="Añadir"
-                     scrollable
-                     @cancel="resetModal"
-                     @ok="execute">
-                <vue-form-generator
-                    :model="infoModal.model"
-                    :options="formOptions"
-                    :schema="schema"
-                    @validated="onValidated"></vue-form-generator>
-            </b-modal>
+            <create-modal-component
+                :form-options="formOptions"
+                :model="infoModal.model"
+                :ok-disabled="okDisabled"
+                :schema="schema"
+                :title="infoModal.title"
+                @ok="execute"
+                @onValidated="onValidated"
+                @reset="resetModal"
+            ></create-modal-component>
             <b-modal
                 :id="'editCollapse'+infoModal.resource"
                 :hide-footer="!hasPermissions(['admin'])"

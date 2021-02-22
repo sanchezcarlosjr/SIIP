@@ -8,11 +8,13 @@ import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
+import CreateModalComponent from './application/create-modal.component.vue';
 
 @Component({
     directives: {permission},
     components: {
-        EditModalComponent
+        EditModalComponent,
+        CreateModalComponent
     },
     methods: {hasPermissions},
     apollo: {
