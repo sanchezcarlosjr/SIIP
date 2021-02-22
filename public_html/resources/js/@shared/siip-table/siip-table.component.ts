@@ -7,9 +7,13 @@ import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
+import EditModalComponent from './application/edit-modal.component.vue';
 
 @Component({
     directives: {permission},
+    components: {
+        EditModalComponent
+    },
     methods: {hasPermissions},
     apollo: {
         items: adapt()

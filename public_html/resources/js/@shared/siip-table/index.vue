@@ -199,31 +199,13 @@
                 </b-nav>
                 <router-view :key="$route.path"></router-view>
             </b-modal>
-            <b-modal
-                id="edit"
+            <edit-modal-component
                 :title="infoModal.title"
-                cancel-title="Cancelar"
-                :hide-footer="!hasPermissions(['admin'])"
-                ok-title="Aceptar cambios"
-                scrollable
-                @cancel="resetModal"
+                :model="infoModal.model"
+                :schema="schema"
+                @reset="resetModal"
                 @ok="execute"
-            >
-                <b-button-group v-if="links" tag="b-list-group-item" class="b-0">
-                    <router-link
-                        v-for="(value, key) in links" :key="key"
-                        v-b-tooltip.hover
-                        :title="value.tooltip"
-                        v-if="infoModal.item"
-                        :to="value.link.replace('*', infoModal.itemId)"
-                        class="pointer" tag="b-button"
-                        varant="secondary">
-                        <i class="fas" style="font-size:20px"
-                           v-bind:class="'fa-'+key"></i>
-                    </router-link>
-                </b-button-group>
-                <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
-            </b-modal>
+            ></edit-modal-component>
             <b-modal id="remove" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo eliminar"
                      scrollable @hide="resetModal" @ok="execute">
                 <p>¿Realmente desea eliminar a este {{ infoModal.resource }}?</p>
