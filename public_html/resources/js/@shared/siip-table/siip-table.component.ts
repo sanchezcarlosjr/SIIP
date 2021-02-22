@@ -7,9 +7,17 @@ import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
+import EditModalComponent from './application/edit-modal.component.vue';
+import CreateModalComponent from './application/create-modal.component.vue';
+import RemoveModalComponent from './application/remove-modal.component.vue';
 
 @Component({
     directives: {permission},
+    components: {
+        EditModalComponent,
+        CreateModalComponent,
+        RemoveModalComponent
+    },
     methods: {hasPermissions},
     apollo: {
         items: adapt()
@@ -148,7 +156,7 @@ export default class SiipTableComponent extends Vue {
         }
         this.infoModal.id = 'edit';
         if (this.links) {
-            this.$router.push(`/cuerpos-academicos/${item.id}/lgacs`);
+            this.$router.push(`/cuerpos-academicos/${item.id}/lgac`);
         }
         this.showModal(item, index, button);
     }

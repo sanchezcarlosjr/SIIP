@@ -4,14 +4,12 @@ import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/com
 
 @Component
 export default class LGACPage extends Vue {
-    tableTitle = `LGACS de *`;
     apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
     spanishResourceName = 'LGAC'
     toolbar = new Set(['archive', 'add', 'edit', 'remove']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'description', label: 'Descripción', sortable: true},
-        {key: 'active', label: 'Vigente', sortable: true}
+        {key: 'description', label: 'Descripción', sortable: true}
     ];
     schema = {
         fields: [
@@ -26,25 +24,8 @@ export default class LGACPage extends Vue {
                 inputType: 'text',
                 label: 'Descripción',
                 model: 'description'
-            },
-            {
-                type: "switch2",
-                label: "Vigencia",
-                model: "active",
-                textOn: "Vigente",
-                textOff: "No vigente"
-            },
+            }
         ]
     };
-    defaultCriteria = [
-        {
-            value: 'vigente',
-            default: false
-        },
-        {
-            value: 'no vigente',
-            default: false
-        }
-    ];
 }
 

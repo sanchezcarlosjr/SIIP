@@ -4,7 +4,7 @@
             <b-container class="card-title p-0">
                 <b-row align-h="between">
                     <b-col cols="6" style="padding: 0">
-                        <siip-breadcrumb :title="title" isAPage="true"></siip-breadcrumb>
+                        <siip-breadcrumb isAPage="true"></siip-breadcrumb>
                     </b-col>
                     <b-col cols="5">
                         <b-button-group class="float-right">
@@ -73,16 +73,6 @@
                                 squared
                                 variant="outline-success"
                                 @click="create($event.target)">
-                                +Nuevo
-                            </b-button>
-                            <b-button
-                                v-if="toolbar.has('add-relation')"
-                                v-b-tooltip.hover
-                                :title="'Agregar '+infoModal.resource"
-                                class="b-0"
-                                size="sm"
-                                variant="outline-success"
-                                @click="add($event.target)">
                                 +Nuevo
                             </b-button>
                         </b-button-group>
@@ -162,20 +152,16 @@
                 @option-clicked="optionClicked"
             >
             </context-menu>
-            <b-modal id="create"
-                     :title="infoModal.title"
-                     :ok-disabled="okDisabled"
-                     cancel-title="Cancelar"
-                     ok-title="Añadir"
-                     scrollable
-                     @cancel="resetModal"
-                     @ok="execute">
-                <vue-form-generator
-                    :model="infoModal.model"
-                    :options="formOptions"
-                    :schema="schema"
-                    @validated="onValidated"></vue-form-generator>
-            </b-modal>
+            <create-modal-component
+                :form-options="formOptions"
+                :model="infoModal.model"
+                :ok-disabled="okDisabled"
+                :schema="schema"
+                :title="infoModal.title"
+                @ok="execute"
+                @onValidated="onValidated"
+                @reset="resetModal"
+            ></create-modal-component>
             <b-modal
                 :id="'editCollapse'+infoModal.resource"
                 :hide-footer="!hasPermissions(['admin'])"
@@ -199,41 +185,19 @@
                 </b-nav>
                 <router-view :key="$route.path"></router-view>
             </b-modal>
-            <b-modal
-                id="edit"
+            <edit-modal-component
                 :title="infoModal.title"
-                cancel-title="Cancelar"
-                :hide-footer="!hasPermissions(['admin'])"
-                ok-title="Aceptar cambios"
-                scrollable
-                @cancel="resetModal"
+                :model="infoModal.model"
+                :schema="schema"
+                @reset="resetModal"
                 @ok="execute"
-            >
-                <b-button-group v-if="links" tag="b-list-group-item" class="b-0">
-                    <router-link
-                        v-for="(value, key) in links" :key="key"
-                        v-b-tooltip.hover
-                        :title="value.tooltip"
-                        v-if="infoModal.item"
-                        :to="value.link.replace('*', infoModal.itemId)"
-                        class="pointer" tag="b-button"
-                        varant="secondary">
-                        <i class="fas" style="font-size:20px"
-                           v-bind:class="'fa-'+key"></i>
-                    </router-link>
-                </b-button-group>
-                <vue-form-generator :model="infoModal.model" :schema="schema"></vue-form-generator>
-            </b-modal>
-            <b-modal id="remove" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo eliminar"
-                     scrollable @hide="resetModal" @ok="execute">
-                <p>¿Realmente desea eliminar a este {{ infoModal.resource }}?</p>
-                <p class="text-warning"><small>Esta acción no puede ser revertida.</small></p>
-            </b-modal>
-            <b-modal id="removeRelation" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo removerlo"
-                     scrollable @hide="resetModal" @ok="execute">
-                <p>¿Realmente desea remover a este {{ infoModal.resource }}?</p>
-                <p class="text-warning"><small>Esta acción no puede ser revertida.</small></p>
-            </b-modal>
+            ></edit-modal-component>
+            <remove-modal-component
+                :resource="infoModal.resource"
+                :title="infoModal.title"
+                @ok="execute"
+                @reset="resetModal"
+            ></remove-modal-component>
             <b-modal id="archive" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo archivarlo"
                      scrollable @hide="resetModal" @ok="execute">
                 <p>¿Realmente desea archivar a este {{ infoModal.resource }}?</p>

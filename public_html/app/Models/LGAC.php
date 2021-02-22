@@ -14,7 +14,6 @@ class LGAC extends Model
         'key',
         'name',
         'description',
-        'active',
         'academic_body_id',
     ];
     public function academic_body(): BelongsTo

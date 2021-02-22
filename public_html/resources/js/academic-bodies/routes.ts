@@ -11,28 +11,28 @@ export const AcademicBodyRoutes = {
             component: () => import('./academic-body-management/index.vue'),
             children: [
                 {
-                    path: ':id/lgacs',
-                    name: 'Gestión',
+                    path: ':id/lgac',
+                    name: 'LGAC',
                     component: () => import('./lgac-by-academic-body/index.vue')
                 },
                 {
                     path: ':id/evaluaciones',
-                    name: 'Evaluaciones por cuerpo',
+                    name: 'Evaluaciones',
                     component: () => import('./evaluations-by-academic-body/index.vue')
                 },
                 {
                     path: ':id/miembros',
-                    name: 'Miembros por cuerpo',
+                    name: 'Miembros',
                     component: () => import('./members-by-academic-body/index.vue')
                 },
                 {
                     path: ':id/apoyos',
-                    name: 'Apoyos por cuerpo',
+                    name: 'Apoyos',
                     component: () => import('./helps-by-academic-body/index.vue')
                 },
                 {
                     path: ':id/redes',
-                    name: 'Red',
+                    name: 'Redes',
                     component: () => import('./networks-by-academic-body/index.vue')
                 }
             ]
@@ -58,8 +58,8 @@ export const AcademicBodyRoutes = {
             component: () => import('./members/index.vue')
         },
         {
-            path: 'lgacs',
-            name: 'LGACS',
+            path: 'lgac',
+            name: 'LGAC',
             component: () => import('./lgac/index.vue')
         }
     ]

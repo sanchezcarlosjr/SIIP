@@ -118,13 +118,11 @@ input updateLgacInput {
     id: ID!
     name: String
     description: String
-    active: Boolean
 }
 
 input createLgacInput {
     name: String
     description: String
-    active: Boolean
     academic_body_id: ID
 }
 
