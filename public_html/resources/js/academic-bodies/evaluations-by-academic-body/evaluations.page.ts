@@ -10,8 +10,8 @@ export default class EvaluationsPage extends Vue {
     toolbar = new Set(['add', 'edit']);
     fields = [
         {key: 'grade', label: 'Grado', sortable: true},
-        {key: 'start_date', label: 'Vigente desde', sortable: true},
-        {key: 'finish_date', label: 'Vigencia hasta', sortable: true}
+        {key: 'start_date', label: 'Vigente desde', sortable: true, class: 'vw-5'},
+        {key: 'finish_date', label: 'Vigencia hasta', sortable: true, class: 'vw-5'}
     ];
     schema = {
         fields: [
