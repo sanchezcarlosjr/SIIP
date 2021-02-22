@@ -164,15 +164,14 @@
             ></create-modal-component>
             <b-modal
                 :id="'editCollapse'+infoModal.resource"
-                :hide-footer="!hasPermissions(['admin'])"
+                :hide-footer="true"
                 :title="infoModal.title"
                 cancel-title="Cancelar"
                 ok-title="Aceptar"
                 scrollable
                 size="xl"
                 @hide="hideModal"
-                @cancel="resetModal"
-                @ok="execute">
+            >
                 <b-nav tabs>
                     <b-nav-item
                         v-for="(value, key) in links" :key="key"

@@ -14477,15 +14477,15 @@ table.table .avatar {
 }
 
 .table .thead-light th {
-    color: #6c757d !important;
-    background-color: #FCFCFC !important;
+  color: #6c757d !important;
+  background-color: #FCFCFC !important;
 }
 
 .thead-light tr {
-    border-bottom: 0.1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.04);
 }
 
 .vw-5 {
-    width: 5vw;
+  width: 5vw;
 }
 

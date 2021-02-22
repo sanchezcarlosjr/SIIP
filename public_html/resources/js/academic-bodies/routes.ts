@@ -11,8 +11,13 @@ export const AcademicBodyRoutes = {
             component: () => import('./academic-body-management/index.vue'),
             children: [
                 {
+                    path: ':id/editar',
+                    name: "Editar cuerpo académico",
+                    component: () => import('./academic-body/index.vue')
+                },
+                {
                     path: ':id/lgac',
-                    name: 'LGAC',
+                    name: 'Líneas de Generación y Aplicación de Conocimiento',
                     component: () => import('./lgac-by-academic-body/index.vue')
                 },
                 {

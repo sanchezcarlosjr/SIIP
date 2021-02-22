@@ -33,9 +33,13 @@ export default class AcademicBodyManagementPage extends Vue {
         }
     ];
     links = {
+        'edit': {
+            link: '/cuerpos-academicos/*/editar',
+            tooltip: 'Detalles de cuerpo académico'
+        },
         'project-diagram': {
-            'link': '/cuerpos-academicos/*/lgac',
-            'tooltip': 'LGAC'
+            link: '/cuerpos-academicos/*/lgac',
+            tooltip: 'LGAC'
         },
         'user-tie': {
             link: '/cuerpos-academicos/*/miembros',
