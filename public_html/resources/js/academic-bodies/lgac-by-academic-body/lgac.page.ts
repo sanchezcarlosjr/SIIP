@@ -24,14 +24,7 @@ export default class LGACPage extends Vue {
                 inputType: 'text',
                 label: 'Descripción',
                 model: 'description'
-            },
-            {
-                type: "switch2",
-                label: "Vigencia",
-                model: "active",
-                textOn: "Vigente",
-                textOff: "No vigente"
-            },
+            }
         ]
     };
 }

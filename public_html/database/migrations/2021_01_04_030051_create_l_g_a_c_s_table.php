@@ -17,7 +17,6 @@ class CreateLGACSTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->boolean('active');
             $table->timestamps();
             $table->integer('academic_body_id')->unsigned();
             $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
