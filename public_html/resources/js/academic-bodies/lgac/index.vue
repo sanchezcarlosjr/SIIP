@@ -5,7 +5,6 @@
        :fields="fields"
        communicationType="GraphQL"
        :resource="apiResource"
-       :filter="defaultCriteria"
        >
     </siip-table>
 </template>

@@ -7,14 +7,6 @@ export default class LGACPage extends Vue {
     apiResource = new GraphqlResourceRepository('lgacs');
     spanishResourceName = 'LGAC'
     toolbar = new Set<string>([]);
-    defaultCriteria = [{
-        value: 'vigente',
-        default: false
-    },
-        {
-            value: 'no vigente',
-            default: false
-        }];
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_body.name', label: 'Cuerpo académico', sortable: true},

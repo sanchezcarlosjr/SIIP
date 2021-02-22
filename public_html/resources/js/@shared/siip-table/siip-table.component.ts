@@ -156,7 +156,7 @@ export default class SiipTableComponent extends Vue {
         }
         this.infoModal.id = 'edit';
         if (this.links) {
-            this.$router.push(`/cuerpos-academicos/${item.id}/lgacs`);
+            this.$router.push(`/cuerpos-academicos/${item.id}/lgac`);
         }
         this.showModal(item, index, button);
     }
