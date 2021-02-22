@@ -58,6 +58,11 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
         `
     }
 
+    public setFields(fields: any[]) {
+        this.fields = fields;
+    }
+
+
     public query() {
         return gql`
             query getResourceById($id: ID) {
@@ -70,9 +75,6 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             }`;
     }
 
-    public setFields(fields: any[]) {
-        this.fields = fields;
-    }
 
     update(data: any) {
         return data[this._query][this._sub_query];

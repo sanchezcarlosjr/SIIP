@@ -6,7 +6,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     private fields: any;
 
     constructor(
-        private _query: string,
+        protected _query: string,
         private fragment: { index: string } = {
             index: ''
         },
