@@ -1,7 +1,7 @@
-import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
+import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
 import gql from "graphql-tag";
 
-export class MembersRepository extends GraphqlResourceFinderRepository {
+export class MembersRepository extends GraphqlSubResourceFinderRepository {
     public get create() {
         return gql`
             mutation editResource($data: employeeToAcademicBodyInput) {

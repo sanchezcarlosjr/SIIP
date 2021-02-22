@@ -1,6 +1,7 @@
 <template>
     <div>
-        A
+        <vue-form-generator :model="model" :schema="schema"></vue-form-generator>
+        <b-button variant="primary">Guardar</b-button>
     </div>
 </template>
 

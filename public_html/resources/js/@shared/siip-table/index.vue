@@ -164,7 +164,7 @@
             ></create-modal-component>
             <b-modal
                 :id="'editCollapse'+infoModal.resource"
-                hide-footer="true"
+                :hide-footer="true"
                 :title="infoModal.title"
                 cancel-title="Cancelar"
                 ok-title="Aceptar"

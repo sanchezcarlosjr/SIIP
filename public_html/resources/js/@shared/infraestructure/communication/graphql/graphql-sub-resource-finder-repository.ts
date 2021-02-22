@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import {camelize, toSingular} from "../GraphQL";
 
 
-export class GraphqlResourceFinderRepository implements MutationRepository {
+export class GraphqlSubResourceFinderRepository implements MutationRepository {
     protected fields: string[] | undefined;
 
     constructor(
@@ -20,7 +20,7 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
 
     static createDefaultFinder(query: string, sub_query: string) {
         const resource = toSingular(`${sub_query}`);
-        return new GraphqlResourceFinderRepository(
+        return new GraphqlSubResourceFinderRepository(
             query,
             sub_query,
             camelize(`update ${resource}`),
@@ -63,7 +63,6 @@ export class GraphqlResourceFinderRepository implements MutationRepository {
             query getResourceById($id: ID) {
                 ${this._query}(id: $id) {
                 id
-                name
                 ${this._sub_query} {
                 ${this.fields}
             }

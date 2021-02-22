@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
-import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-finder-repository";
+import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
 
 @Component
 export default class NetworksPage extends Vue {
     tableTitle = `Redes de *`;
-    apiResource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body', 'networks');
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'networks');
     spanishResourceName = 'red'
     toolbar = new Set<String>(['add', 'edit']);
     fields = [
