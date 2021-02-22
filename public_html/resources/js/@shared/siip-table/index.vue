@@ -75,16 +75,6 @@
                                 @click="create($event.target)">
                                 +Nuevo
                             </b-button>
-                            <b-button
-                                v-if="toolbar.has('add-relation')"
-                                v-b-tooltip.hover
-                                :title="'Agregar '+infoModal.resource"
-                                class="b-0"
-                                size="sm"
-                                variant="outline-success"
-                                @click="add($event.target)">
-                                +Nuevo
-                            </b-button>
                         </b-button-group>
                     </b-col>
                 </b-row>
@@ -208,11 +198,6 @@
                 @ok="execute"
                 @reset="resetModal"
             ></remove-modal-component>
-            <b-modal id="removeRelation" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo removerlo"
-                     scrollable @hide="resetModal" @ok="execute">
-                <p>¿Realmente desea remover a este {{ infoModal.resource }}?</p>
-                <p class="text-warning"><small>Esta acción no puede ser revertida.</small></p>
-            </b-modal>
             <b-modal id="archive" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo archivarlo"
                      scrollable @hide="resetModal" @ok="execute">
                 <p>¿Realmente desea archivar a este {{ infoModal.resource }}?</p>
