@@ -9,12 +9,14 @@ import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
+import RemoveModalComponent from './application/remove-modal.component.vue';
 
 @Component({
     directives: {permission},
     components: {
         EditModalComponent,
-        CreateModalComponent
+        CreateModalComponent,
+        RemoveModalComponent
     },
     methods: {hasPermissions},
     apollo: {

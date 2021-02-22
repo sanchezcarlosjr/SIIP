@@ -202,11 +202,12 @@
                 @reset="resetModal"
                 @ok="execute"
             ></edit-modal-component>
-            <b-modal id="remove" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo eliminar"
-                     scrollable @hide="resetModal" @ok="execute">
-                <p>¿Realmente desea eliminar a este {{ infoModal.resource }}?</p>
-                <p class="text-warning"><small>Esta acción no puede ser revertida.</small></p>
-            </b-modal>
+            <remove-modal-component
+                :resource="infoModal.resource"
+                :title="infoModal.title"
+                @ok="execute"
+                @reset="resetModal"
+            ></remove-modal-component>
             <b-modal id="removeRelation" :title="infoModal.title" cancel-title="Cancelar" ok-title="Si, deseo removerlo"
                      scrollable @hide="resetModal" @ok="execute">
                 <p>¿Realmente desea remover a este {{ infoModal.resource }}?</p>
