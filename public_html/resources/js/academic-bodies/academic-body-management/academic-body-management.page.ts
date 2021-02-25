@@ -142,11 +142,10 @@ export default class AcademicBodyManagementPage extends Vue {
                 }),
             },
             {
-                type: 'graphql-select',
+                type: "input",
+                inputType: "text",
                 label: 'Disciplina',
-                model: "discipline_id",
-                query: 'disciplines',
-                textKey: 'name',
+                model: 'discipline',
                 readonly: false,
                 featured: false,
                 required: true,
@@ -154,7 +153,7 @@ export default class AcademicBodyManagementPage extends Vue {
                 placeholder: "",
                 validator: VueFormGenerator.validators.string.locale({
                     fieldIsRequired: ""
-                }),
+                })
             },
             {
                 type: 'graphql-select',
