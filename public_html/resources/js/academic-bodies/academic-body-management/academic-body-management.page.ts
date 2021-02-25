@@ -128,7 +128,7 @@ export default class AcademicBodyManagementPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'Área PRODEP',
+                label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
                 textKey: 'name',
