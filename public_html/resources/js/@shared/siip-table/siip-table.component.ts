@@ -5,11 +5,12 @@ import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
-import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
+import {adapt, adaptTitleModal} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
+import gql from "graphql-tag";
 
 @Component({
     directives: {permission},
@@ -20,7 +21,8 @@ import RemoveModalComponent from './application/remove-modal.component.vue';
     },
     methods: {hasPermissions},
     apollo: {
-        items: adapt()
+        items: adapt(),
+        modalTitle: adaptTitleModal()
     }
 })
 export default class SiipTableComponent extends Vue {
@@ -166,6 +168,7 @@ export default class SiipTableComponent extends Vue {
         if (this.$route.params.id && this.links) {
             this.infoModal.id = 'editCollapse';
             this.showModal({id: this.$route.params.id}, null, null);
+            this.$apollo.queries.modalTitle.start()
         }
     }
 
