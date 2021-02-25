@@ -113,21 +113,6 @@ export default class AcademicBodyManagementPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'Área UABC',
-                readonly: false,
-                featured: false,
-                required: true,
-                disabled: false,
-                placeholder: "",
-                validator: VueFormGenerator.validators.string.locale({
-                    fieldIsRequired: ""
-                }),
-                model: "uabc_areas_id",
-                query: 'uabc_areas',
-                textKey: 'area'
-            },
-            {
-                type: 'graphql-select',
                 label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
