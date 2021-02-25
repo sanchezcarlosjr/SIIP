@@ -18,7 +18,7 @@ class AcademicBody extends Model
         'prodep_area_id',
         'lead_employee_id',
         'uabc_areas_id',
-        'discipline_id',
+        'discipline',
         'des_id',
         'created_at'
     ];

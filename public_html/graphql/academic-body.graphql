@@ -3,7 +3,7 @@ type AcademicBody {
     name: String
     active: Boolean
     uabc_areas_id: Int
-    discipline_id: Int
+    discipline: String
     lead_employee_id: Int
     prodep_area_id: Int
     employees: [Employee]
@@ -28,7 +28,7 @@ input createAcademicBodyInput {
     prodep_area_id: Int,
     lead_employee_id: Int,
     uabc_areas_id: Int,
-    discipline_id: Int,
+    discipline: String,
     des_id: Int
 }
 
@@ -40,7 +40,7 @@ input updateAcademicBodyInput {
     prodep_area_id: Int,
     lead_employee_id: Int,
     uabc_areas_id: Int,
-    discipline_id: Int,
+    discipline: String,
     des_id: Int
 }
 
@@ -124,11 +124,6 @@ input createLgacInput {
     name: String
     description: String
     academic_body_id: ID
-}
-
-type Discipline {
-    id: ID!
-    name: String
 }
 
 type UABCArea {
