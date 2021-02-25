@@ -17,7 +17,6 @@ class AcademicBody extends Model
         'active',
         'prodep_area_id',
         'lead_employee_id',
-        'uabc_areas_id',
         'discipline',
         'des_id',
         'created_at'
@@ -48,10 +47,5 @@ class AcademicBody extends Model
     public function prodep_area()
     {
         return $this->belongsTo(ProdepArea::class);
-    }
-
-    public function uabc_area()
-    {
-        return $this->belongsTo(UABCArea::class, 'uabc_areas_id', 'narea');
     }
 }
