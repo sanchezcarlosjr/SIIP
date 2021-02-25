@@ -19,8 +19,11 @@ export function adapt(repository: ApolloRepository = new ApolloSiipTableReposito
 export function adaptTitleModal() {
     return {
         result ({ data, loading }: any) {
-             // @ts-ignore
-             this.infoModal.title = `${data['academic_body'].prodep_key} ${data['academic_body'].name}`;
+            // @ts-ignore
+            if (this.links) {
+                // @ts-ignore
+                this.infoModal.title = `${data['academic_body'].prodep_key} ${data['academic_body'].name}`;
+            }
         },
         manual: true,
         variables (): any {
