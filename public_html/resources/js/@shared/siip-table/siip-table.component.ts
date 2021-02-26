@@ -108,20 +108,6 @@ export default class SiipTableComponent extends Vue {
         this[event.option.click](event.item.row, event.item.index);
     }
 
-    async loadElements() {
-        return this.http?.index().then(async (response) => {
-            this.items = response.items;
-            if (typeof this.infoVariant === 'function') {
-                const id = await this.infoVariant(this.items);
-                this.items[id]._rowVariant = 'info';
-            }
-            const isAInjectedElement = this.tableTitle ? this.tableTitle.indexOf('*') !== -1 : null;
-            if (isAInjectedElement) {
-                const injectedSymbolByAttribute: RegExp = /\*[a-z_.]+/gi;
-                this.title = this.tableTitle?.replace(injectedSymbolByAttribute, <string>response.resourceName);
-            }
-        });
-    }
 
     execute() {
         // Common code to actions. Example: addElement, editElement, removeElement
