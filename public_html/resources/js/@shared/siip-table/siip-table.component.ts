@@ -1,6 +1,5 @@
 import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
-import {flattenObj} from '../infraestructure/communication/GraphQL';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
@@ -180,11 +179,6 @@ export default class SiipTableComponent extends Vue {
 
     resetModal() {
         this.infoModal.reset();
-    }
-
-
-    toBeatyItem(item: any) {
-        return flattenObj(item, '');
     }
 
     private toggleChart() {
