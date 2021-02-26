@@ -2,10 +2,10 @@
     <siip-table
         :toolbar="toolbar"
         :schema="schema"
-        :tableTitle="tableTitle"
+
         :fields="fields"
         :filter="defaultCriteria"
-        communicationType="GraphQL"
+
         :resource="apiResource"
     ></siip-table>
 </template>

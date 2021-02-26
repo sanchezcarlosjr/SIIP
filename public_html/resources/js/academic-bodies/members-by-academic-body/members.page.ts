@@ -5,7 +5,7 @@ import {MembersRepository} from "./members.repository";
 
 @Component
 export default class MembersPage extends Vue {
-    tableTitle = `Miembros de *`;
+
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
     toolbar = new Set<string>(['removeRelation', 'add']);
@@ -25,8 +25,6 @@ export default class MembersPage extends Vue {
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true},
-        {key: 'correo1', label: 'Correo', sortable: true},
-        {key: 'grado', label: 'Grado', sortable: true}
     ];
     schema = {
         fields: [

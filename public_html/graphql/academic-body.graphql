@@ -2,14 +2,12 @@ type AcademicBody {
     id: ID!
     name: String
     active: Boolean
-    uabc_areas_id: Int
-    discipline_id: Int
+    discipline: String
     lead_employee_id: Int
     prodep_area_id: Int
     employees: [Employee]
     des_id: Int
     helps: [Help]
-    uabc_area: UABCArea
     last_evaluation: Evaluation @field(resolver: "App\\GraphQL\\Queries\\LastEvaluation")
     leader: Employee @field(resolver: "App\\GraphQL\\Queries\\Leader")
     prodep_key: String
@@ -27,8 +25,7 @@ input createAcademicBodyInput {
     active: Boolean,
     prodep_area_id: Int,
     lead_employee_id: Int,
-    uabc_areas_id: Int,
-    discipline_id: Int,
+    discipline: String,
     des_id: Int
 }
 
@@ -39,8 +36,7 @@ input updateAcademicBodyInput {
     active: Boolean,
     prodep_area_id: Int,
     lead_employee_id: Int,
-    uabc_areas_id: Int,
-    discipline_id: Int,
+    discipline: String,
     des_id: Int
 }
 
@@ -124,11 +120,6 @@ input createLgacInput {
     name: String
     description: String
     academic_body_id: ID
-}
-
-type Discipline {
-    id: ID!
-    name: String
 }
 
 type UABCArea {

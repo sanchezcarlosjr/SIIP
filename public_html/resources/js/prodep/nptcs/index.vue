@@ -4,9 +4,9 @@
         :resource="apiResource"
         :spanishResourceName="spanishResourceName"
         :schema="schema"
-        :tableTitle="tableTitle"
+
         :toolbar="toolbar"
-        communicationType="GraphQL"
+
     ></siip-table>
 </template>
 

@@ -61,7 +61,6 @@ export default {
     },
     methods: {
         showMenu(event, item) {
-            event.preventDefault();
             this.item = item;
             const menu = document.getElementById(this.elementId)
             if (!menu) {

@@ -4,7 +4,7 @@
        :schema="schema"
        :spanishResourceName="spanishResourceName"
        :fields="fields"
-       communicationType="GraphQL"
+
        :resource="apiResource"
        >
     </siip-table>

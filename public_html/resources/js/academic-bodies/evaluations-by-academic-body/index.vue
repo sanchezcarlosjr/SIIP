@@ -3,9 +3,7 @@
        :toolbar="toolbar"
        :schema="schema"
        :spanishResourceName="spanishResourceName"
-       :tableTitle="tableTitle"
        :fields="fields"
-       communicationType="GraphQL"
        :resource="apiResource"
        >
     </siip-table>

@@ -23,15 +23,14 @@ class AcademicBodyFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>  $this->faker->word,
+            'name' => $this->faker->word,
             'prodep_key' => $this->faker->city,
             'lead_employee_id' => function (array $attributes) {
                 return Employee::find($attributes['lead_employee_id'])->id;
             },
-            'active' => rand(0,1) == 1,
+            'active' => rand(0, 1) == 1,
             'prodep_area_id' => $this->faker->numberBetween($min = 1, $max = 10),
-            'uabc_areas_id' => $this->faker->numberBetween($min = 1, $max = 5),
-            'discipline_id' => $this->faker->numberBetween($min = 1, $max = 10),
+            'discipline' => $this->faker->word,
             'des_id' => $this->faker->numberBetween($min = 1, $max = 5),
         ];
     }

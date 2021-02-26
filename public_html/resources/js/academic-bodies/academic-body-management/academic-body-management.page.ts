@@ -3,8 +3,13 @@ import Component from "vue-class-component";
 // @ts-ignore
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+import AcademicBodyStatistics from './academic-body-statistics.vue';
 
-@Component
+@Component({
+    components: {
+        AcademicBodyStatistics
+    }
+})
 export default class AcademicBodyManagementPage extends Vue {
     apiResource = new GraphqlResourceRepository('academic_bodies', {
         index: 'active'
@@ -113,22 +118,7 @@ export default class AcademicBodyManagementPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'Área UABC',
-                readonly: false,
-                featured: false,
-                required: true,
-                disabled: false,
-                placeholder: "",
-                validator: VueFormGenerator.validators.string.locale({
-                    fieldIsRequired: ""
-                }),
-                model: "uabc_areas_id",
-                query: 'uabc_areas',
-                textKey: 'area'
-            },
-            {
-                type: 'graphql-select',
-                label: 'Área PRODEP',
+                label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
                 textKey: 'name',
@@ -142,11 +132,10 @@ export default class AcademicBodyManagementPage extends Vue {
                 }),
             },
             {
-                type: 'graphql-select',
+                type: "input",
+                inputType: "text",
                 label: 'Disciplina',
-                model: "discipline_id",
-                query: 'disciplines',
-                textKey: 'name',
+                model: 'discipline',
                 readonly: false,
                 featured: false,
                 required: true,
@@ -154,7 +143,7 @@ export default class AcademicBodyManagementPage extends Vue {
                 placeholder: "",
                 validator: VueFormGenerator.validators.string.locale({
                     fieldIsRequired: ""
-                }),
+                })
             },
             {
                 type: 'graphql-select',
@@ -176,9 +165,7 @@ export default class AcademicBodyManagementPage extends Vue {
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, editable: true},
         {key: 'last_evaluation.grade', label: 'Grado de consolidación', sortable: true, editable: true},
-        {key: 'leader.name', label: 'Líder', sortable: true, editable: true},
         {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true},
-        {key: 'prodep_area.name', label: 'Área PRODEP', sortable: true},
         {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
 }

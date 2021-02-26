@@ -4,7 +4,7 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 
 @Component
 export default class HelpsPage extends Vue {
-    tableTitle = `Apoyos de *`;
+
     apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'helps');
     spanishResourceName = 'apoyo'
     toolbar = new Set(['add', 'edit']);

@@ -10,15 +10,15 @@ import {GraphqlResourceFinderRepository} from "../../@shared/infraestructure/com
 })
 export default class AcademicBodyPage extends AcademicBodyManagementPage {
     resource = GraphqlResourceFinderRepository.createDefaultFinder('academic_body');
+    // @ts-ignore
     fields = [
         {key: 'name', label: '', sortable: true, editable: true},
         {key: 'prodep_key', label: '', sortable: true, editable: true},
         {key: 'active', label: '', sortable: true, editable: true},
         {key: 'lead_employee_id', label: '', sortable: true, editable: true},
-        {key: 'uabc_areas_id', label: '', sortable: true},
         {key: 'prodep_area_id', label: '', sortable: true},
         {key: 'des_id', label: '', sortable: true},
-        {key: 'discipline_id', label: '', sortable: true},
+        {key: 'discipline', label: '', sortable: true},
     ];
     model = {};
 }

@@ -3,7 +3,6 @@
         :toolbar="toolbar"
         :fields="fields"
         :filter="defaultCriteria"
-        communicationType="GraphQL"
         :resource="apiResource"
     ></siip-table>
 </template>

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\{ActivitiesPit};
 use App\Models\AcademicBody;
-use App\Models\Discipline;
 use App\Models\Employee;
 use App\Models\Evaluation;
 use App\Models\Help;
@@ -34,7 +33,6 @@ class DatabaseSeeder extends Seeder
         $this->makeRoles();
         $this->makeUsers();
         ProdepArea::factory(200)->create();
-        Discipline::factory(200)->create();
         Employee::factory(100)->has(AcademicBody::factory()->state(function (array $attributes, Employee $employee) {
             return ['lead_employee_id' => $employee->nempleado];
         }), 'academic_bodies')->create();

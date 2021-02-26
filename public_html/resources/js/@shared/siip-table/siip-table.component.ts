@@ -1,38 +1,36 @@
 import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
-import {flattenObj} from '../infraestructure/communication/GraphQL';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
 import {Http} from "../infraestructure/communication/http";
 import {communicationFactory} from "../infraestructure/communication/factory";
-import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
+import {adapt, adaptTitleModal} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
+import TablePresenter from './application/table-presenter.component.vue';
 
 @Component({
     directives: {permission},
     components: {
         EditModalComponent,
         CreateModalComponent,
-        RemoveModalComponent
+        RemoveModalComponent,
+        TablePresenter
     },
     methods: {hasPermissions},
     apollo: {
-        items: adapt()
+        items: adapt(),
+        modalTitle: adaptTitleModal()
     }
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
-
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
-    @Prop() tableTitle!: string;
-    @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
-    @Prop({default: 'REST'}) communicationType!: string;
     @Prop({
         default() {
             return {
@@ -105,20 +103,6 @@ export default class SiipTableComponent extends Vue {
         this[event.option.click](event.item.row, event.item.index);
     }
 
-    async loadElements() {
-        return this.http?.index().then(async (response) => {
-            this.items = response.items;
-            if (typeof this.infoVariant === 'function') {
-                const id = await this.infoVariant(this.items);
-                this.items[id]._rowVariant = 'info';
-            }
-            const isAInjectedElement = this.tableTitle ? this.tableTitle.indexOf('*') !== -1 : null;
-            if (isAInjectedElement) {
-                const injectedSymbolByAttribute: RegExp = /\*[a-z_.]+/gi;
-                this.title = this.tableTitle?.replace(injectedSymbolByAttribute, <string>response.resourceName);
-            }
-        });
-    }
 
     execute() {
         // Common code to actions. Example: addElement, editElement, removeElement
@@ -157,6 +141,7 @@ export default class SiipTableComponent extends Vue {
         this.infoModal.id = 'edit';
         if (this.links) {
             this.$router.push(`/cuerpos-academicos/${item.id}/editar`);
+            return;
         }
         this.showModal(item, index, button);
     }
@@ -165,6 +150,7 @@ export default class SiipTableComponent extends Vue {
         if (this.$route.params.id && this.links) {
             this.infoModal.id = 'editCollapse';
             this.showModal({id: this.$route.params.id}, null, null);
+            this.$apollo.queries.modalTitle.start()
         }
     }
 
@@ -189,19 +175,6 @@ export default class SiipTableComponent extends Vue {
 
     resetModal() {
         this.infoModal.reset();
-    }
-
-    rowContextMenu(item: any, index: number, event: any) {
-        // @ts-ignore
-        this.$refs.vueSimpleContextMenu1.showMenu(event, {
-            index,
-            row: item
-        });
-    }
-
-
-    toBeatyItem(item: any) {
-        return flattenObj(item, '');
     }
 
     private toggleChart() {

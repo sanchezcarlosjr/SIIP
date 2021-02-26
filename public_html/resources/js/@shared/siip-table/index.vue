@@ -79,18 +79,13 @@
                     </b-col>
                 </b-row>
                 <b-row v-if="isVisibleChart">
-                    <p class="p-0 m-0 ml-3">Mostrando 1 a {{perPage}} de {{rows}} resultados.</p>
-                    <siip-chart></siip-chart>
+                    <slot name="statistics"></slot>
                 </b-row>
             </b-container>
         </div>
         <b-container fluid class="p-0 m-0">
             <div class="b-table-sticky-header">
-                <b-table
-                    id="main-table"
-                    ref="table"
-                    emptyText="Sin elementos"
-                    empty-filtered-text="Sin resultados"
+                <table-presenter
                     :busy="$apollo.loading"
                     :items="items"
                     :fields="tableFields"
@@ -101,29 +96,12 @@
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
                     :sort-direction="sortDirection"
-                    head-variant="light"
-                    hover
-                    responsive="sm"
-                    small
-                    stacked="md"
-                    sticky-header
-                    striped
-                    show-empty
-                    @row-clicked="edit"
-                    @row-contextmenu="rowContextMenu"
+                    :rowContextLinks="links"
+                    :rowContextOptions="options"
+                    @optionClicked="optionClicked"
+                    @rowClicked="edit"
                 >
-                    <template #table-busy>
-                        <b-skeleton-table
-                            :columns="fields.length"
-                            :rows="2"
-                        ></b-skeleton-table>
-                    </template>
-                    <template #cell()="data">
-                        <div class="cell">
-                            {{ data.value }}
-                        </div>
-                    </template>
-                </b-table>
+                </table-presenter>
             </div>
             <b-container class="bv-example-row">
                 <b-row align-h="between">
@@ -144,14 +122,6 @@
                     </b-col>
                 </b-row>
             </b-container>
-            <context-menu
-                :ref="'vueSimpleContextMenu1'"
-                :elementId="'myFirstMenu'"
-                :options="options"
-                :links="links"
-                @option-clicked="optionClicked"
-            >
-            </context-menu>
             <create-modal-component
                 :form-options="formOptions"
                 :model="infoModal.model"

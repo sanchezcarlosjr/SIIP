@@ -11,7 +11,6 @@ import VfgFieldApiSelect from './@shared/application/form-fields/vfg-field-selec
 import VfgFieldGraphQLSelect from './@shared/application/form-fields/vfg-field-select-graphql/index.vue';
 import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
-import SiipChartComponent from './@shared/siip-table/chart/RandomChart.vue';
 import AcademicBodyLgacs from './academic-bodies/lgac-by-academic-body/index.vue';
 import ContextMenu from './@shared/application/context-menu/context-menu.component.vue';
 // @ts-ignore
@@ -36,7 +35,6 @@ Vue.component('field-switch2', VfgFieldSwitch);
 Vue.component('field-api-select', VfgFieldApiSelect);
 Vue.component('field-email', VfgFieldEmail);
 Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
-Vue.component('siip-chart', SiipChartComponent);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('context-menu', ContextMenu);
 Vue.component('siip-academic-body-lgacs', AcademicBodyLgacs);
