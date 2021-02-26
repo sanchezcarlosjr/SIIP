@@ -5,7 +5,6 @@
     :schema="schema"
     :fields="fields"
     :filter="defaultCriteria"
-    communicationType="GraphQL"
     :resource="apiResource"
     >
         <template #statistics>

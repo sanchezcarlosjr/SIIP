@@ -7,7 +7,7 @@
        :tableTitle="tableTitle"
        :fields="fields"
        :filter="defaultCriteria"
-       communicationType="GraphQL"
+
        :resource="apiResource"
        >
     </siip-table>

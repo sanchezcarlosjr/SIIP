@@ -5,7 +5,7 @@
         :tableTitle="tableTitle"
         :spanishResourceName="spanishResourceName"
         :fields="fields"
-        communicationType="GraphQL"
+
         :resource="apiResource"
     ></siip-table>
 </template>

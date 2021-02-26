@@ -2,7 +2,7 @@
     <siip-table
         :toolbar="toolbar"
         :fields="fields"
-        communicationType="GraphQL"
+
         :resource="apiResource"
     ></siip-table>
 </template>

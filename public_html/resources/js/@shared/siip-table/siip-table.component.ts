@@ -34,7 +34,6 @@ export default class SiipTableComponent extends Vue {
     @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
-    @Prop({default: 'REST'}) communicationType!: string;
     @Prop({
         default() {
             return {
