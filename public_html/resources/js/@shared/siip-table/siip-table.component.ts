@@ -10,14 +10,15 @@ import {SiipTableRepository} from "../infraestructure/communication/graphql/siip
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
-import gql from "graphql-tag";
+import TablePresenter from './application/table-presenter.component.vue';
 
 @Component({
     directives: {permission},
     components: {
         EditModalComponent,
         CreateModalComponent,
-        RemoveModalComponent
+        RemoveModalComponent,
+        TablePresenter
     },
     methods: {hasPermissions},
     apollo: {
@@ -193,14 +194,6 @@ export default class SiipTableComponent extends Vue {
 
     resetModal() {
         this.infoModal.reset();
-    }
-
-    rowContextMenu(item: any, index: number, event: any) {
-        // @ts-ignore
-        this.$refs.vueSimpleContextMenu1.showMenu(event, {
-            index,
-            row: item
-        });
     }
 
 
