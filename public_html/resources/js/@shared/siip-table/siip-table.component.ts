@@ -73,10 +73,6 @@ export default class SiipTableComponent extends Vue {
             })
     }
 
-    get rows() {
-        return this.items.length;
-    }
-
     get chartIcon() {
         return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
     }
