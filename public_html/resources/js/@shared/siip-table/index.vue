@@ -79,8 +79,7 @@
                     </b-col>
                 </b-row>
                 <b-row v-if="isVisibleChart">
-                    <p class="p-0 m-0 ml-3">Mostrando 1 a {{perPage}} de {{rows}} resultados.</p>
-                    <siip-chart></siip-chart>
+                    <slot name="statistics"></slot>
                 </b-row>
             </b-container>
         </div>
