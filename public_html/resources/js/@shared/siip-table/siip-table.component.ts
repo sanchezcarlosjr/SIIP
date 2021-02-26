@@ -58,7 +58,7 @@ export default class SiipTableComponent extends Vue {
     infoModal: InfoModal = new InfoModal(this.schema, this.resource);
     isVisibleChart = false;
     options: any[] = [];
-    private originalFilter: string[] = [];
+    originalFilter: string[] = [];
 
     get sortOptions() {
         return this.fields
