@@ -9,19 +9,7 @@
     :resource="apiResource"
     >
         <template #statistics>
-            <b-container>
-                <b-row class="text-center">
-                    <b-col>
-                        <p>Example heading <b-badge>New</b-badge></p>
-                    </b-col>
-                    <b-col>
-                        <p>Example heading <b-badge>New</b-badge></p>
-                    </b-col>
-                    <b-col>
-                        <p>Example heading <b-badge>New</b-badge></p>
-                    </b-col>
-                </b-row>
-            </b-container>
+            <academic-body-statistics></academic-body-statistics>
         </template>
     </siip-table>
 </template>

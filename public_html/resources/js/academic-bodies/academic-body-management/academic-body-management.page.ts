@@ -3,8 +3,13 @@ import Component from "vue-class-component";
 // @ts-ignore
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+import AcademicBodyStatistics from './academic-body-statistics.vue';
 
-@Component
+@Component({
+    components: {
+        AcademicBodyStatistics
+    }
+})
 export default class AcademicBodyManagementPage extends Vue {
     apiResource = new GraphqlResourceRepository('academic_bodies', {
         index: 'active'
