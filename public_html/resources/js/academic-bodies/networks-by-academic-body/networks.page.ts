@@ -10,12 +10,10 @@ export default class NetworksPage extends Vue {
     toolbar = new Set<String>(['add', 'edit']);
     fields = [
         {key: 'name', label: 'Nombre del grupo de investigación', sortable: true},
-        {key: 'class', label: 'Clase', sortable: true},
-        {key: 'type', label: 'Tipo', sortable: true},
+        {key: 'academic_body.leader.name', label: 'Líder', sortable: true},
         {key: 'range', label: 'Alcance', sortable: true},
         {key: 'start_date', label: 'Fecha de inicio', sortable: true},
         {key: 'finish_date', label: 'Fecha de fin', sortable: true},
-        {key: 'academic_body.leader.name', label: 'Líder', sortable: true}
     ];
     defaultCriteria = [
         {
@@ -58,7 +56,7 @@ export default class NetworksPage extends Vue {
                 type: 'select',
                 label: 'Alcance',
                 model: 'range',
-                values: ['Regional', 'Nacional', 'Internacional']
+                values: ['Local', 'Regional', 'Nacional', 'Internacional']
             },
             {
                 type: 'calendar',
