@@ -27,11 +27,9 @@ import TablePresenter from './application/table-presenter.component.vue';
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
-
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
-    @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
     @Prop({
         default() {
