@@ -46,7 +46,6 @@ export default class SiipTableComponent extends Vue {
     }) filter!: { default: boolean; value: string }[];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     tableFields: {}[] = this.fields.filter((field) => field.label);
-    title = 'Cargando...';
     criteria: string[] = [];
     private http: Http<any> | null = communicationFactory(this.communicationType, '', this.fields, this.$route.params.id);
     items: any = [];
