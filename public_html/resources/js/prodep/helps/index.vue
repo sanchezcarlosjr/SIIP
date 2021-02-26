@@ -2,7 +2,7 @@
     <siip-table
         :toolbar="toolbar"
         :schema="schema"
-        :tableTitle="tableTitle"
+
         :spanishResourceName="spanishResourceName"
         :fields="fields"
 

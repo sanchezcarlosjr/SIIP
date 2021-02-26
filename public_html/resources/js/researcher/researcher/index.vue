@@ -4,7 +4,7 @@
         :resource="apiResource"
         :schema="schema"
         :spanishResourceName="spanishResourceName"
-        :tableTitle="tableTitle"
+
         :toolbar="toolbar"
 
     ></siip-table>

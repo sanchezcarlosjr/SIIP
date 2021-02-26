@@ -3,7 +3,7 @@
         :fields="fields"
         :resource="apiResource"
         :schema="schema"
-        :tableTitle="tableTitle"
+
         :toolbar="toolbar"
 
     ></siip-table>

@@ -3,7 +3,7 @@
         :toolbar="toolbar"
         :schema="schema"
         :spanishResourceName="spanishResourceName"
-        :tableTitle="tableTitle"
+
         :fields="fields"
 
         :resource="apiResource"

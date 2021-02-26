@@ -31,7 +31,6 @@ export default class SiipTableComponent extends Vue {
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
-    @Prop() tableTitle!: string;
     @Prop({default: '\n'}) subCollections!: string;
     @Prop() spanishResourceName!: string;
     @Prop({
