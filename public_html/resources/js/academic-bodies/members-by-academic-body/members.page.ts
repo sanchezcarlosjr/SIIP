@@ -5,7 +5,7 @@ import {MembersRepository} from "./members.repository";
 
 @Component
 export default class MembersPage extends Vue {
-    tableTitle = `Miembros de *`;
+
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
     toolbar = new Set<string>(['removeRelation', 'add']);
