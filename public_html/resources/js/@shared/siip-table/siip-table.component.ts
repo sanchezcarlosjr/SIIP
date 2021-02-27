@@ -2,8 +2,6 @@ import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
-import {Http} from "../infraestructure/communication/http";
-import {communicationFactory} from "../infraestructure/communication/factory";
 import {adapt, adaptTitleModal} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
@@ -46,12 +44,8 @@ export default class SiipTableComponent extends Vue {
     }) filter!: { default: boolean; value: string }[];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
     tableFields: {}[] = this.fields.filter((field) => field.label);
-    title = 'Cargando...';
     criteria: string[] = [];
-    private http: Http<any> | null = communicationFactory(this.communicationType, '', this.fields, this.$route.params.id);
     items: any = [];
-    perPage = 10;
-    currentPage = 1;
     sortBy = '';
     sortDesc = false;
     okDisabled = true;
@@ -64,7 +58,7 @@ export default class SiipTableComponent extends Vue {
     infoModal: InfoModal = new InfoModal(this.schema, this.resource);
     isVisibleChart = false;
     options: any[] = [];
-    private originalFilter: string[] = [];
+    originalFilter: string[] = [];
 
     get sortOptions() {
         return this.fields
@@ -72,10 +66,6 @@ export default class SiipTableComponent extends Vue {
             .map(field => {
                 return {text: field.label, value: field.key}
             })
-    }
-
-    get rows() {
-        return this.items.length;
     }
 
     get chartIcon() {
@@ -184,25 +174,6 @@ export default class SiipTableComponent extends Vue {
     private showModal(item: any, index: any, button: any) {
         this.infoModal.setModal(item, index);
         this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
-    }
-
-    private removeElement() {
-        this.items.splice(this.infoModal.rowId, 1);
-        return this.http?.remove(this.infoModal.itemId);
-    }
-
-    private addRelationElement() {
-        return this.http?.update(`add ${this.schema.fields[0].query} to`, {
-            id: this.$route.params.id,
-            ...this.infoModal.model
-        }).then((element) => this.items.push(element));
-    }
-
-    private removeRelationElement() {
-        this.infoModal.addToModel({
-            routeID: this.$route.params.id
-        });
-        return this.editElement();
     }
 
     private createElement() {
