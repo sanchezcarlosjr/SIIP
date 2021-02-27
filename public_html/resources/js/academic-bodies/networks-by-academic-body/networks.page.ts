@@ -9,7 +9,7 @@ export default class NetworksPage extends Vue {
     spanishResourceName = 'red'
     toolbar = new Set<String>(['add', 'edit']);
     fields = [
-        {key: 'name', label: 'Nombre del grupo de investigación', sortable: true},
+        {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_body.leader.name', label: 'Líder', sortable: true},
         {key: 'range', label: 'Alcance', sortable: true},
         {key: 'start_date', label: 'Fecha de inicio', sortable: true},

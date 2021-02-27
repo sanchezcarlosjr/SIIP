@@ -9,7 +9,7 @@ export default class NetworksPage extends Vue {
     toolbar = new Set<String>([]);
     fields = [
         {key: 'academic_body.name', label: 'Nombre', sortable: true},
-        {key: 'name', label: 'Nombre del grupo de investigación', sortable: true},
+        {key: 'name', label: 'Nombre', sortable: true},
         {key: 'class', label: 'Clase', sortable: true},
         {key: 'type', label: 'Tipo', sortable: true},
         {key: 'range', label: 'Alcance', sortable: true},
