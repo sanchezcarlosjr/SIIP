@@ -11,41 +11,6 @@ export const AcademicBodyRoutes = {
             component: () => import('./academic-body-management/index.vue')
         },
         {
-            path: ':id/editar',
-            name: "Editar cuerpo académico",
-            component: () => import('./academic-body/index.vue')
-        },
-        {
-            path: ':id/lgac',
-            name: 'Líneas de Generación y Aplicación de Conocimiento',
-            component: () => import('./lgac-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/evaluaciones',
-            name: 'Evaluaciones',
-            component: () => import('./evaluations-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/miembros',
-            name: 'Miembros',
-            component: () => import('./members-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/apoyos',
-            name: 'Apoyos',
-            component: () => import('./helps-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/redes',
-            name: 'Redes',
-            component: () => import('./networks-by-academic-body/index.vue')
-        },
-        {
-            path: ':id/colaboradores',
-            name: 'Colaboradores',
-            component: () => import('./collaborators-by-academic-body/index.vue')
-        },
-        {
             path: 'redes',
             name: 'Redes',
             component: () => import('./networks/index.vue')
@@ -69,6 +34,52 @@ export const AcademicBodyRoutes = {
             path: 'lgac',
             name: 'LGAC',
             component: () => import('./lgac/index.vue')
-        }
+        },
+        {
+            path: ':id',
+            name: '',
+            component: () => import('./academic-body-viewer.module.vue'),
+            children: [
+                {
+                    path: '',
+                    redirect: 'editar'
+                },
+                {
+                    path: 'editar',
+                    name: "Editar cuerpo académico",
+                    component: () => import('./academic-body/index.vue')
+                },
+                {
+                    path: 'lgac',
+                    name: 'Líneas de Generación y Aplicación de Conocimiento',
+                    component: () => import('./lgac-by-academic-body/index.vue')
+                },
+                {
+                    path: 'evaluaciones',
+                    name: 'Evaluaciones',
+                    component: () => import('./evaluations-by-academic-body/index.vue')
+                },
+                {
+                    path: 'miembros',
+                    name: 'Miembros',
+                    component: () => import('./members-by-academic-body/index.vue')
+                },
+                {
+                    path: 'apoyos',
+                    name: 'Apoyos',
+                    component: () => import('./helps-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/redes',
+                    name: 'Redes',
+                    component: () => import('./networks-by-academic-body/index.vue')
+                },
+                {
+                    path: ':id/colaboradores',
+                    name: 'Colaboradores',
+                    component: () => import('./collaborators-by-academic-body/index.vue')
+                }
+            ]
+        },
     ]
 };
