@@ -5,7 +5,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 @Component
 export default class CollaboratorsPage extends Vue {
     apiResource = new GraphqlResourceRepository('collaborators');
-    spanishResourceName = 'Colaboradores'
+    spanishResourceName = 'Colaboradores';
     toolbar = new Set<string>([]);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
