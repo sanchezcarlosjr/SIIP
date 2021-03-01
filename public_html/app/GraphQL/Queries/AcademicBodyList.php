@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Employee;
+use App\Models\LGAC;
 
 class AcademicBodyList
 {
@@ -12,10 +13,12 @@ class AcademicBodyList
      */
     public function __invoke(Employee $employee, array $args)
     {
-        $lgacs = $employee->academic_bodies_lgacs()->first();
-        if ($lgacs == null) {
-            return "";
-        }
-        return $employee->academic_bodies_lgacs()->first()->academic_body()->get()->name;
+        $academic_bodies = $employee
+            ->academic_bodies_lgacs()
+            ->getResults()
+            ->map(function (LGAC $lgac) {
+                return $lgac->academic_body()->first()->name;
+            });
+        return $academic_bodies->implode(' ');
     }
 }
