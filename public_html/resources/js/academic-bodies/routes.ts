@@ -8,39 +8,37 @@ export const AcademicBodyRoutes = {
         {
             path: '',
             name: 'Gestión',
-            component: () => import('./academic-body-management/index.vue'),
-            children: [
-                {
-                    path: ':id/editar',
-                    name: "Editar cuerpo académico",
-                    component: () => import('./academic-body/index.vue')
-                },
-                {
-                    path: ':id/lgac',
-                    name: 'Líneas de Generación y Aplicación de Conocimiento',
-                    component: () => import('./lgac-by-academic-body/index.vue')
-                },
-                {
-                    path: ':id/evaluaciones',
-                    name: 'Evaluaciones',
-                    component: () => import('./evaluations-by-academic-body/index.vue')
-                },
-                {
-                    path: ':id/miembros',
-                    name: 'Miembros',
-                    component: () => import('./members-by-academic-body/index.vue')
-                },
-                {
-                    path: ':id/apoyos',
-                    name: 'Apoyos',
-                    component: () => import('./helps-by-academic-body/index.vue')
-                },
-                {
-                    path: ':id/redes',
-                    name: 'Redes',
-                    component: () => import('./networks-by-academic-body/index.vue')
-                }
-            ]
+            component: () => import('./academic-body-management/index.vue')
+        },
+        {
+            path: ':id/editar',
+            name: "Editar cuerpo académico",
+            component: () => import('./academic-body/index.vue')
+        },
+        {
+            path: ':id/lgac',
+            name: 'Líneas de Generación y Aplicación de Conocimiento',
+            component: () => import('./lgac-by-academic-body/index.vue')
+        },
+        {
+            path: ':id/evaluaciones',
+            name: 'Evaluaciones',
+            component: () => import('./evaluations-by-academic-body/index.vue')
+        },
+        {
+            path: ':id/miembros',
+            name: 'Miembros',
+            component: () => import('./members-by-academic-body/index.vue')
+        },
+        {
+            path: ':id/apoyos',
+            name: 'Apoyos',
+            component: () => import('./helps-by-academic-body/index.vue')
+        },
+        {
+            path: ':id/redes',
+            name: 'Redes',
+            component: () => import('./networks-by-academic-body/index.vue')
         },
         {
             path: 'redes',
