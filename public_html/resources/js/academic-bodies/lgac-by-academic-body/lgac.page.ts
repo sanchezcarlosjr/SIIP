@@ -6,7 +6,7 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 export default class LGACPage extends Vue {
     apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
     spanishResourceName = 'LGAC'
-    toolbar = new Set(['archive', 'add', 'edit', 'remove']);
+    toolbar = new Set(['add', 'edit', 'remove']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'description', label: 'Descripción', sortable: true}

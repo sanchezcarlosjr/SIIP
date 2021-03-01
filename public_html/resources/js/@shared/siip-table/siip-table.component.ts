@@ -8,6 +8,7 @@ import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
 import TablePresenter from './application/table-presenter.component.vue';
+import SearcherComponent from './application/searcher.component.vue';
 
 @Component({
     directives: {permission},
@@ -15,6 +16,7 @@ import TablePresenter from './application/table-presenter.component.vue';
         EditModalComponent,
         CreateModalComponent,
         RemoveModalComponent,
+        SearcherComponent,
         TablePresenter
     },
     methods: {hasPermissions},
@@ -75,8 +77,6 @@ export default class SiipTableComponent extends Vue {
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
         this.showCollapseModal();
-        this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
-        this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
             if (value === 'add' || value === 'add-relation') {
                 return;
