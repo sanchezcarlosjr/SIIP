@@ -17,7 +17,7 @@ type Employee {
     grado: String
     academic_body: String @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyList")
     academic_unit: AcademicUnit @belongsTo(relation: "academic_unit")
-    academic_bodies: [AcademicBody]
+    academic_bodies_lgacs: [LGAC]
     active: Boolean
 }
 

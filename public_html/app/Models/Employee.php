@@ -13,12 +13,13 @@ class Employee extends Model
     protected $table = 'empleados';
     use HasFactory;
 
-    public function academic_bodies(): BelongsToMany
+    public function academic_bodies_lgacs(): BelongsToMany
     {
         return $this->belongsToMany(
-            AcademicBody::class,
+            LGAC::class,
             'academic_body_member',
-            'employee_id'
+            'employee_id',
+            'academic_bodies_lgacs_id'
         );
     }
 

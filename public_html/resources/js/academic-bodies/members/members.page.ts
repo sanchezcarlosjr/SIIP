@@ -10,7 +10,6 @@ export default class MembersPage extends Vue {
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
-        {key: 'academic_body', label: 'Cuerpos Académicos', sortable: true},
         {key: 'grado', label: 'Grado', sortable: true}
     ];
     defaultCriteria = [{

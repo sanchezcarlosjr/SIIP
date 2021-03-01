@@ -2,7 +2,7 @@ import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
-import {adapt, adaptTitleModal} from "../infraestructure/communication/graphql/graphql-adapter";
+import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
@@ -21,8 +21,7 @@ import SearcherComponent from './application/searcher.component.vue';
     },
     methods: {hasPermissions},
     apollo: {
-        items: adapt(),
-        modalTitle: adaptTitleModal()
+        items: adapt()
     }
 })
 export default class SiipTableComponent extends Vue {

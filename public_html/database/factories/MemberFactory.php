@@ -22,8 +22,8 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            'academic_body_id' => 1,
-            'employee_id' => 1000
+            'academic_bodies_lgacs_id' => $this->faker->numberBetween($min = 1, $max = 10),
+            'employee_id' => 1
         ];
     }
 }

@@ -18,7 +18,7 @@ class CreateAcademicBodiesTable extends Migration
             $table->string('name');
             $table->string('prodep_key')->unique();
             $table->boolean('active');
-            $table->integer('lead_employee_id')->unsigned();
+            $table->integer('lead_employee_id')->unsigned()->nullable();
             $table->integer('prodep_area_id')->unsigned();
             $table->string('discipline');
             $table->integer('des_id')->unsigned();
