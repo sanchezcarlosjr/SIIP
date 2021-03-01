@@ -69,11 +69,6 @@ export const AcademicBodyRoutes = {
             path: 'lgac',
             name: 'LGAC',
             component: () => import('./lgac/index.vue')
-        },
-        {
-            path: 'colaboradores',
-            name: 'Colaboradores',
-            component: () => import('./collaborators/index.vue')
         }
     ]
 };
