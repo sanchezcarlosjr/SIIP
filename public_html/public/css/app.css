@@ -14482,61 +14482,34 @@ table.table .avatar {
 }
 
 .thead-light tr {
-    border-bottom: 0.1px solid rgba(0, 0, 0, 0.04);
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.04);
 }
 
 .vw-5 {
-    width: 5vw;
+  width: 5vw;
 }
 
 .vw-15 {
-    width: 10vw;
+  width: 10vw;
 }
 
 .vw-20 {
-    width: 20vw;
+  width: 20vw;
 }
 
 .b-0 {
-    border: none;
+  border: none;
 }
 
-var map
-
-=
-{
-"./af"
-:
-"./node_modules/moment/locale/af.js"
-,
-"./af.js"
-:
-"./node_modules/moment/locale/af.js"
-,
-"./ar"
-:
-"./node_modules/moment/locale/ar.js"
-,
-"./ar-dz"
-:
-"./node_modules/moment/locale/ar-dz.js"
-,
-"./ar-dz.js"
-:
-"./node_modules/moment/locale/ar-dz.js"
-,
-"./ar-kw"
-:
-"./node_modules/moment/locale/ar-kw.js"
-,
-"./ar-kw.js"
-:
-"./node_modules/moment/locale/ar-kw.js"
-,
-"./ar-ly"
-:
-"./node_modules/moment/locale/ar-ly.js"
-,
+var map = {
+	"./af": "./node_modules/moment/locale/af.js",
+	"./af.js": "./node_modules/moment/locale/af.js",
+	"./ar": "./node_modules/moment/locale/ar.js",
+	"./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "./node_modules/moment/locale/ar-ly.js",
 	"./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
 	"./ar-ma": "./node_modules/moment/locale/ar-ma.js",
 	"./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
