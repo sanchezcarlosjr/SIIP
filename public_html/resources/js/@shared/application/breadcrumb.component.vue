@@ -10,7 +10,7 @@ export default {
         }
     },
     watch: {
-        '$route.matched': (newVal, oldVal) => {
+        '$route.matched': function (newVal, oldVal) {
             this.items = []
             newVal.forEach((route) =>
                 this.items.push({
