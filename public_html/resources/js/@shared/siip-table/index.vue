@@ -80,28 +80,6 @@
             @onValidated="onValidated"
             @reset="resetModal"
         ></create-modal-component>
-        <b-modal
-            :id="'editCollapse'+infoModal.resource"
-            :hide-footer="true"
-            :title="infoModal.title"
-            cancel-title="Cancelar"
-            ok-title="Aceptar"
-            scrollable
-            size="xl"
-            @hide="hideModal"
-        >
-            <b-nav tabs>
-                <b-nav-item
-                    v-for="(value, key) in links" :key="key"
-                    :to="value.link.replace('*', infoModal.itemId)"
-                    active-class="active">
-                    <i class="fas" style="font-size:20px"
-                       v-bind:class="'fa-'+key"></i>
-                    {{ value.tooltip }}
-                </b-nav-item>
-            </b-nav>
-            <router-view :key="$route.path"></router-view>
-        </b-modal>
         <edit-modal-component
             :model="infoModal.model"
             :schema="schema"

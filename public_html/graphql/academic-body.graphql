@@ -110,6 +110,10 @@ type LGAC {
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
 }
 
+input destroyLgacInput {
+    id: ID!
+}
+
 input updateLgacInput {
     id: ID!
     name: String

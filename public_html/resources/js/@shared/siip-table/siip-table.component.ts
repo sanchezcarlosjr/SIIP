@@ -75,7 +75,6 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        this.showCollapseModal();
         this.toolbar.forEach((value) => {
             if (value === 'add' || value === 'add-relation') {
                 return;
@@ -99,10 +98,6 @@ export default class SiipTableComponent extends Vue {
             .then(() => this.showSuccessToast())
             .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
-    }
-
-    private editCollapseElement() {
-        return this.editElement();
     }
 
     search(row: any, criteria: string[]) {
@@ -135,23 +130,6 @@ export default class SiipTableComponent extends Vue {
         this.showModal(item, index, button);
     }
 
-    showCollapseModal() {
-        if (this.$route.params.id && this.links) {
-            this.infoModal.id = 'editCollapse';
-            this.showModal({id: this.$route.params.id}, null, null);
-            this.$apollo.queries.modalTitle.start()
-        }
-    }
-
-    hideModal() {
-        this.$router.push(`/cuerpos-academicos/`);
-    }
-
-    removeRelation(item: any, index: any, button: any) {
-        this.infoModal.id = 'removeRelation';
-        this.showModal(item, index, button);
-    }
-
     remove(item: any, index: any, button: any) {
         this.infoModal.id = 'remove';
         this.showModal(item, index, button);
@@ -176,9 +154,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        this.infoModal.addToModel({
-            routeID: this.$route.params.id
-        });
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
@@ -192,9 +167,15 @@ export default class SiipTableComponent extends Vue {
             )
     }
 
-    private archiveElement() {
-        this.infoModal.model['active'] = false;
-        return this.editElement();
+    private removeElement() {
+        return this.$apollo.mutate({
+            mutation: this.resource.remove,
+            variables: {
+                data: {
+                    id: this.infoModal.model.id
+                }
+            }
+        }).then(() => this.$apollo.queries.items.refetch());
     }
 
     private editElement() {
