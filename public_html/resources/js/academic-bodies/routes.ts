@@ -70,12 +70,12 @@ export const AcademicBodyRoutes = {
                     component: () => import('./helps-by-academic-body/index.vue')
                 },
                 {
-                    path: ':id/redes',
+                    path: 'redes',
                     name: 'Redes',
                     component: () => import('./networks-by-academic-body/index.vue')
                 },
                 {
-                    path: ':id/colaboradores',
+                    path: 'colaboradores',
                     name: 'Colaboradores',
                     component: () => import('./collaborators-by-academic-body/index.vue')
                 }
