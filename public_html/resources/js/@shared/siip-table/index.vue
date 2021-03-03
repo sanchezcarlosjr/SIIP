@@ -31,6 +31,7 @@
                                 v-b-tooltip.hover
                                 :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
                                 size="sm"
+                                v-if="this.$slots.statistics"
                                 variant="link-secondary"
                                 @click="toggleChart">
                                 <font-awesome-icon :icon="chartIcon" class="text-muted"></font-awesome-icon>
