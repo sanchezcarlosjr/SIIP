@@ -4,7 +4,7 @@
             <b-container class="card-title p-0">
                 <b-row align-h="between">
                     <b-col cols="6" style="padding: 0">
-                        <siip-breadcrumb isAPage="true"></siip-breadcrumb>
+                        <siip-title/>
                     </b-col>
                     <b-col cols="5">
                         <b-button-group class="float-right">

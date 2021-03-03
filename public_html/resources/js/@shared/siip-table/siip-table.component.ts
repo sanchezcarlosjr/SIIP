@@ -9,6 +9,7 @@ import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
 import TablePresenter from './application/table-presenter.component.vue';
 import SearcherComponent from './application/searcher.component.vue';
+import SiipTitle from './application/title.component.vue';
 
 @Component({
     directives: {permission},
@@ -17,6 +18,7 @@ import SearcherComponent from './application/searcher.component.vue';
         CreateModalComponent,
         RemoveModalComponent,
         SearcherComponent,
+        SiipTitle,
         TablePresenter
     },
     methods: {hasPermissions},
