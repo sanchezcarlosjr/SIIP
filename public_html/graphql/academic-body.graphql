@@ -12,6 +12,7 @@ type AcademicBody {
     prodep_key: String
     prodep_area: ProdepArea
     evaluations: [Evaluation]
+    employees: [Employee] @field(resolver: "App\\GraphQL\\Queries\\AllEmployeesByAcademicBody")
     lgacs: [LGAC]
     created_at: Date
     networks: [Network]
