@@ -165,7 +165,7 @@ type Mutation {
     addEmployeesToAcademicBody(data: employeeToAcademicBodyInput): AcademicBody
     removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput): AcademicBody
     destroyAcademicBodies(id: ID!): AcademicBody @delete
-    updateAcademicBodies(
+    updateAcademicBody(
         data: updateAcademicBodyInput
         @spread
     ): AcademicBody @update

@@ -20,5 +20,25 @@ export default class AcademicBodyPage extends AcademicBodyManagementPage {
         {key: 'des_id', label: '', sortable: true},
         {key: 'discipline', label: '', sortable: true},
     ];
-    model = {};
+    model = {
+        __typename: undefined
+    };
+
+    save() {
+        delete this.model.__typename;
+        return this.$apollo.mutate({
+            mutation: this.resource.edit,
+            variables: {
+                data: {
+                    ...this.model
+                }
+            }
+        }).then(() =>
+            this.$bvToast.toast(`Su operación fue exitosa`, {
+                title: 'Operación exitosa',
+                variant: 'success',
+                solid: true
+            })
+        );
+    }
 }

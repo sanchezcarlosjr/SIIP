@@ -1,7 +1,7 @@
 <template>
     <div class="p-2">
         <vue-form-generator :model="model" :schema="schema"></vue-form-generator>
-        <b-button class="float-right m-3" variant="primary">Guardar</b-button>
+        <b-button class="float-right m-3" variant="primary" @click="save">Guardar</b-button>
     </div>
 </template>
 
