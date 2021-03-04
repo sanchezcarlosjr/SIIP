@@ -33,7 +33,6 @@ export default {
     data() {
         return {
             items: [],
-            afterId: '',
             lazyItem: {index: 0, query: 0},
         }
     },
@@ -45,11 +44,9 @@ export default {
     },
     methods: {
         loadBreadcrumb(routes) {
-            const changeId = this.$route.params.id === this.afterId;
-            if (routes.length === 0 || changeId) {
+            if (routes.length === 0) {
                 return;
             }
-            this.afterId = this.$route.params.id;
             this.items = [];
             let lazy = false;
             const paths = this.$route.fullPath.split('/').slice(1);
