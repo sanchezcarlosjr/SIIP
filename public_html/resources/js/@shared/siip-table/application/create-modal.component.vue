@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        :id="'create'+title"
+        :id="'create'"
         :ok-disabled="okDisabled"
         :title="title"
         cancel-title="Cancelar"

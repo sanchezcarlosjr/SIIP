@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,12 +14,18 @@ class Employee extends Model
     protected $table = 'empleados';
     use HasFactory;
 
-    public function academic_bodies(): BelongsToMany
+    public function newQuery($excludeDeleted = true): Builder
+    {
+        return parent::newQuery($excludeDeleted)->has('academic_bodies_lgacs', '>', 0);
+    }
+
+    public function academic_bodies_lgacs(): BelongsToMany
     {
         return $this->belongsToMany(
-            AcademicBody::class,
+            LGAC::class,
             'academic_body_member',
-            'employee_id'
+            'employee_id',
+            'academic_bodies_lgacs_id'
         );
     }
 

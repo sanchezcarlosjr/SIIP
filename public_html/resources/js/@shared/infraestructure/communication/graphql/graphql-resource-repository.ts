@@ -13,19 +13,20 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         private editMutate?: string,
         private createMutate?: string,
         private updateInput?: string,
-        private createInput?: string) {
+        private createInput?: string,
+        private removeMutate?: string,
+        private removeInput?: string) {
     }
 
-    static createDefaultRepository(query: string, fragment?: { index: string }) {
-        const resource = toSingular(`${query}`);
-        return new GraphqlResourceRepository(
-            query,
-            fragment,
-            camelize(`update ${resource}`),
-            camelize(`create ${resource}`),
-            camelize(`update ${resource} input`),
-            camelize(`create ${resource} input`)
-        );
+    public get edit() {
+        return gql`
+            mutation editResource($data: ${this.updateInput}!) {
+                ${this.editMutate} (data: $data) {
+                ${this.fragment?.index}
+                ${this.fields}
+            }
+            }
+        `;
     }
 
     public get create() {
@@ -39,15 +40,29 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         `
     }
 
-    public get edit() {
+    public get remove() {
         return gql`
-            mutation editResource($data: ${this.updateInput}!) {
-                ${this.editMutate} (data: $data) {
+            mutation removeResource($data: ${this.removeInput}!) {
+                ${this.removeMutate} (data: $data) {
                 ${this.fragment?.index}
                 ${this.fields}
             }
             }
-        `
+        `;
+    }
+
+    static createDefaultRepository(query: string, fragment?: { index: string }) {
+        const resource = toSingular(`${query}`);
+        return new GraphqlResourceRepository(
+            query,
+            fragment,
+            camelize(`update ${resource}`),
+            camelize(`create ${resource}`),
+            camelize(`update ${resource} input`),
+            camelize(`create ${resource} input`),
+            camelize(`destroy ${resource}`),
+            camelize(`destroy ${resource} input`)
+        );
     }
 
     public setFields(fields: any[]) {
@@ -69,5 +84,6 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     update(data: any) {
         return data[this._query].data;
     }
+
 }
 

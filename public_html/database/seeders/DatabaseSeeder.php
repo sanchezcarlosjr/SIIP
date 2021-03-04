@@ -33,9 +33,8 @@ class DatabaseSeeder extends Seeder
         $this->makeRoles();
         $this->makeUsers();
         ProdepArea::factory(200)->create();
-        Employee::factory(100)->has(AcademicBody::factory()->state(function (array $attributes, Employee $employee) {
-            return ['lead_employee_id' => $employee->nempleado];
-        }), 'academic_bodies')->create();
+        AcademicBody::factory(200)->create();
+        Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();
         Employee::factory(100)->has(Help::factory()->count(3))->create();
         Employee::factory(10)->has(ProdepProfile::factory()->count(3), 'prodep_profiles')->create();
         Employee::factory(5)->has(ProdepHelp::factory()->count(3), 'prodep_helps')->create();

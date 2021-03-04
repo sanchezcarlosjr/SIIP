@@ -8,7 +8,7 @@ export default class MembersPage extends Vue {
 
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
-    toolbar = new Set<string>(['removeRelation', 'add']);
+    toolbar = new Set<string>(['add', 'edit']);
     infoVariant = (items: { employees: { id: string } }[]) => {
         const graphql = new GraphQLBuilder('academic_body', [{key: 'leader.id', sortable: true}]);
         return graphql.find(this.$route.params.id).then((response: any) => {

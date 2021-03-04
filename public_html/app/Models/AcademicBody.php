@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcademicBody extends Model
@@ -32,11 +31,6 @@ class AcademicBody extends Model
     public function helps()
     {
         return $this->hasMany(Help::class);
-    }
-
-    public function employees(): BelongsToMany
-    {
-        return $this->belongsToMany(Employee::class, 'academic_body_member', 'academic_body_id', 'employee_id');
     }
 
     public function evaluations(): HasMany

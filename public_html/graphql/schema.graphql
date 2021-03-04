@@ -43,7 +43,7 @@ type Mutation {
         goal: String
         date: Date
         academic_unit_id: Int): ActivitiesPit @update
-    deleteResearcher(
+    destroyResearcher(
         id: ID!
     ): Researcher @delete
     createResearcher(
@@ -55,7 +55,7 @@ type Mutation {
         valid: Int
         probative: String
         employee_id: Int): Researcher @update
-    deleteProdepNPTC(id: ID!): ProdepNPTC @delete
+    destroyProdepNPTC(id: ID!): ProdepNPTC @delete
     createProdepNPTC(
         amount: String
         type: String
@@ -67,7 +67,7 @@ type Mutation {
         type: String
         date: Date
         employee_id: Int): ProdepNPTC @update
-    deleteSni(
+    destroySni(
         id: ID!
     ): Sni @delete
     createSni(
@@ -93,7 +93,7 @@ type Mutation {
         employee_id: Int
         sni_area_id: Int
     ): Sni @update
-    deleteProdepProfile(id: ID!): ProdepProfile @delete
+    destroyProdepProfile(id: ID!): ProdepProfile @delete
     createProdepProfile(
         data: createProdepProfileInput
         @spread
@@ -105,7 +105,7 @@ type Mutation {
         employee_id: Int
         prodep_area_id: Int
     ): ProdepProfile @update
-    deleteProdepHelp(
+    destroyProdepHelp(
         id: ID!
     ): ProdepHelp @delete
     createProdepHelp(
@@ -121,6 +121,10 @@ type Mutation {
         date: Date
         employee_id: Int
     ): ProdepHelp @update
+    destroyLgac(
+        data: destroyLgacInput!
+        @spread
+    ):LGAC @delete
     updateLgac(
         data: updateLgacInput
         @spread
@@ -149,7 +153,7 @@ type Mutation {
         data: updateHelpInput
         @spread
     ): Help @update
-    removeEvaluation(id:ID!): Evaluation @delete
+    destroyEvaluation(id:ID!): Evaluation @delete
     createEvaluation(
         data: createEvaluationInput
         @spread
@@ -160,8 +164,8 @@ type Mutation {
     ): Evaluation @update
     addEmployeesToAcademicBody(data: employeeToAcademicBodyInput): AcademicBody
     removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput): AcademicBody
-    removeAcademicBodies(id: ID): AcademicBody
-    updateAcademicBodies(
+    destroyAcademicBodies(id: ID!): AcademicBody @delete
+    updateAcademicBody(
         data: updateAcademicBodyInput
         @spread
     ): AcademicBody @update

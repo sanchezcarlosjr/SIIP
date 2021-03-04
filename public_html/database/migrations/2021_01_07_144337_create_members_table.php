@@ -15,10 +15,10 @@ class CreateMembersTable extends Migration
     {
         Schema::create('academic_body_member', function (Blueprint $table) {
             $table->id();
-            $table->integer('academic_body_id')->unsigned();
+            $table->integer('academic_bodies_lgacs_id')->unsigned();
             $table->integer('employee_id')->unsigned();
             $table->timestamps();
-            $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
+            $table->foreign('academic_bodies_lgacs_id')->references('id')->on('academic_bodies_lgacs')->onDelete('cascade');
             $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }

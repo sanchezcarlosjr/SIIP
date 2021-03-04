@@ -2,12 +2,14 @@ import Vue from "vue";
 import {Component, Prop} from 'vue-property-decorator';
 import {InfoModal} from './info-modal';
 import {hasPermissions, permission} from "../../store/auth/permission";
-import {adapt, adaptTitleModal} from "../infraestructure/communication/graphql/graphql-adapter";
+import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
 import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
 import EditModalComponent from './application/edit-modal.component.vue';
 import CreateModalComponent from './application/create-modal.component.vue';
 import RemoveModalComponent from './application/remove-modal.component.vue';
 import TablePresenter from './application/table-presenter.component.vue';
+import SearcherComponent from './application/searcher.component.vue';
+import SiipTitle from './application/title.component.vue';
 
 @Component({
     directives: {permission},
@@ -15,12 +17,13 @@ import TablePresenter from './application/table-presenter.component.vue';
         EditModalComponent,
         CreateModalComponent,
         RemoveModalComponent,
+        SearcherComponent,
+        SiipTitle,
         TablePresenter
     },
     methods: {hasPermissions},
     apollo: {
-        items: adapt(),
-        modalTitle: adaptTitleModal()
+        items: adapt()
     }
 })
 export default class SiipTableComponent extends Vue {
@@ -74,9 +77,6 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        this.showCollapseModal();
-        this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
-        this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
         this.toolbar.forEach((value) => {
             if (value === 'add' || value === 'add-relation') {
                 return;
@@ -100,10 +100,6 @@ export default class SiipTableComponent extends Vue {
             .then(() => this.showSuccessToast())
             .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
-    }
-
-    private editCollapseElement() {
-        return this.editElement();
     }
 
     search(row: any, criteria: string[]) {
@@ -130,26 +126,9 @@ export default class SiipTableComponent extends Vue {
         }
         this.infoModal.id = 'edit';
         if (this.links) {
-            this.$router.push(`/cuerpos-academicos/${item.id}/editar`);
+            this.$router.push(Object.values(this.links)[0].link.replace('*', item.id));
             return;
         }
-        this.showModal(item, index, button);
-    }
-
-    showCollapseModal() {
-        if (this.$route.params.id && this.links) {
-            this.infoModal.id = 'editCollapse';
-            this.showModal({id: this.$route.params.id}, null, null);
-            this.$apollo.queries.modalTitle.start()
-        }
-    }
-
-    hideModal() {
-        this.$router.push(`/cuerpos-academicos/`);
-    }
-
-    removeRelation(item: any, index: any, button: any) {
-        this.infoModal.id = 'removeRelation';
         this.showModal(item, index, button);
     }
 
@@ -177,9 +156,6 @@ export default class SiipTableComponent extends Vue {
     }
 
     private createElement() {
-        this.infoModal.addToModel({
-            routeID: this.$route.params.id
-        });
         return this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
@@ -193,9 +169,15 @@ export default class SiipTableComponent extends Vue {
             )
     }
 
-    private archiveElement() {
-        this.infoModal.model['active'] = false;
-        return this.editElement();
+    private removeElement() {
+        return this.$apollo.mutate({
+            mutation: this.resource.remove,
+            variables: {
+                data: {
+                    id: this.infoModal.model.id
+                }
+            }
+        }).then(() => this.$apollo.queries.items.refetch());
     }
 
     private editElement() {

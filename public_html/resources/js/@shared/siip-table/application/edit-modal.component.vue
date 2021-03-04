@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        :id="'edit'+title"
+        :id="'edit'"
         :title="title"
         cancel-title="Cancelar"
         ok-title="Aceptar cambios"

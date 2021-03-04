@@ -8,6 +8,7 @@ export interface ApolloRepository {
 export interface MutationRepository extends ApolloRepository {
     create: DocumentNode;
     edit: DocumentNode;
+    remove: DocumentNode;
 }
 
 export interface SiipTableRepository extends MutationRepository {

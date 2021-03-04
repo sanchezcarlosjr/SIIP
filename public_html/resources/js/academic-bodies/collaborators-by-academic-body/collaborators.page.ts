@@ -3,10 +3,10 @@ import Component from "vue-class-component"
 import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
 
 @Component
-export default class LGACPage extends Vue {
-    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
-    spanishResourceName = 'LGAC'
-    toolbar = new Set(['add', 'edit', 'remove']);
+export default class CollaboratorsPage extends Vue {
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators');
+    spanishResourceName = 'Colaboradores'
+    toolbar = new Set(['archive', 'add', 'edit', 'remove']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'description', label: 'Descripción', sortable: true}
@@ -16,7 +16,7 @@ export default class LGACPage extends Vue {
             {
                 type: 'input',
                 inputType: 'text',
-                label: 'Nombre del LGAC',
+                label: 'Nombre del Colaborador',
                 model: 'name'
             },
             {
@@ -28,4 +28,3 @@ export default class LGACPage extends Vue {
         ]
     };
 }
-

@@ -5,7 +5,6 @@ type AcademicBody {
     discipline: String
     lead_employee_id: Int
     prodep_area_id: Int
-    employees: [Employee]
     des_id: Int
     helps: [Help]
     last_evaluation: Evaluation @field(resolver: "App\\GraphQL\\Queries\\LastEvaluation")
@@ -13,6 +12,7 @@ type AcademicBody {
     prodep_key: String
     prodep_area: ProdepArea
     evaluations: [Evaluation]
+    employees: [Employee] @field(resolver: "App\\GraphQL\\Queries\\AllEmployeesByAcademicBody")
     lgacs: [LGAC]
     created_at: Date
     networks: [Network]
@@ -106,8 +106,12 @@ type LGAC {
     id: ID!
     name: String!
     description: String!
-    active: String!
+    employees: [Employee]
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
+}
+
+input destroyLgacInput {
+    id: ID!
 }
 
 input updateLgacInput {

@@ -1,6 +1,6 @@
 <template>
     <b-modal
-        :id="'remove'+title"
+        :id="'remove'"
         :title="title"
         cancel-title="Cancelar"
         ok-title="Si, deseo eliminar"
