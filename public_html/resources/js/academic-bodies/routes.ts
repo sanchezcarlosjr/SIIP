@@ -38,6 +38,9 @@ export const AcademicBodyRoutes = {
         {
             path: ':id',
             name: '',
+            props: {
+                queryName: 'ABC',
+            },
             component: () => import('./academic-body-viewer.module.vue'),
             children: [
                 {
