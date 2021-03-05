@@ -73,8 +73,12 @@ export default {
                 this.menuHeight = menu.offsetHeight
                 menu.removeAttribute("style")
             }
-            menu.style.left = event.layerX + "px";
-            menu.style.top = event.layerY + this.menuHeight + "px";
+            let extra = 0;
+            if (this.menuHeight < 40) {
+                extra = 70;
+            }
+            menu.style.left = event.layerX + 1 + "px";
+            menu.style.top = event.layerY + this.menuHeight + extra + "px";
             menu.classList.add('vue-simple-context-menu--active')
         },
         hideContextMenu() {

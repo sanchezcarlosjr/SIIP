@@ -6,7 +6,6 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 
 @Component
 export default class MembersPage extends Vue {
-
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
     toolbar = new Set<string>(['add', 'remove']);
