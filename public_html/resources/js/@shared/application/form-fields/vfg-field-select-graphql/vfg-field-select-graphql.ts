@@ -14,15 +14,12 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
     [x: string]: any;
 
     options: { text: string, value: string }[] = [];
-    optionsFinder = GraphqlResourceRepository.createDefaultRepository(this.schema.query);
+    optionsFinder = typeof this.schema.query === 'string' ? GraphqlResourceRepository.createDefaultRepository(this.schema.query) : this.schema.query;
     isTouched: any = null;
     feedback = '';
 
     get idState() {
         return this.isTouched;
-    }
-
-    mounted() {
     }
 
     handleBlur() {
