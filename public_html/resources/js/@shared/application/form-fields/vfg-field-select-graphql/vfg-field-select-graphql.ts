@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {Mixins, Component} from 'vue-property-decorator';
+import {Component, Mixins} from 'vue-property-decorator';
 
 const VueFormGenerator = require('vue-form-generator');
 
@@ -27,31 +27,6 @@ const VueFormGenerator = require('vue-form-generator');
                         }
                     });
             }
-        },
-        value: {
-             skip: true,
-             manual: true,
-             result ({ data, loading }) {
-                 if (!loading) {
-                     this.value = data.academic_body[this.schema.model];
-                     this.showFeedback(String(this.value));
-                 }
-             },
-             query() {
-                const query =  this.schema.model;
-                return gql`
-                    query getResourceById($id: ID) {
-                        academic_body(id: $id) {
-                             ${query}
-                        }
-                    }
-                `
-            },
-            variables() {
-                return {
-                    id: this.model.id
-                }
-            }
         }
     }
 })
@@ -67,9 +42,6 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
     }
 
     mounted() {
-        if (this.model.id) {
-            this.$apollo.queries.value.start();
-        }
     }
 
     handleBlur() {
