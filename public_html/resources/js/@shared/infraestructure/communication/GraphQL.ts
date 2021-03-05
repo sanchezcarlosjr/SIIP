@@ -47,7 +47,7 @@ export function toGraphQL(request: { key: string }) {
 }
 
 export function toSingular(t: string) {
-    return t.replace(/ies/, 'y').replace(/s/, '').replace(/_/g, ' ');
+    return t.replace(/ies/, 'y').replace(/s /, '').replace(/_/g, ' ');
 }
 
 export function camelize(str: string, replaceValue = '') {

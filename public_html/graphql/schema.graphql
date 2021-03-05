@@ -27,6 +27,7 @@ type Query {
 }
 
 type Mutation {
+    updateUsers(data: updateUsersInput! @spread): User @update
     deleteActivitiesPit(id: ID!): ActivitiesPit @delete
     createActivitiesPit(
         kind_of_applicant: String
