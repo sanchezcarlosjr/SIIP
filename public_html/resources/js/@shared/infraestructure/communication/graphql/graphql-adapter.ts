@@ -1,11 +1,12 @@
 import {ApolloSiipTableRepository} from "./graphql";
-import {ApolloRepository} from "./siipTableRepository";
+import {ApolloDefaultRepository} from "./ApolloDefaultRepository";
 
-export function adapt(repository: ApolloRepository = new ApolloSiipTableRepository()) {
+export function adapt(repository: ApolloDefaultRepository = new ApolloSiipTableRepository()) {
     return {
-        query: repository.query,
-        update: repository.update,
-        variables (): any {
+        // @ts-ignore
+        query: repository.query(),
+        update: repository.update(),
+        variables(): any {
             return {
                 // @ts-ignore
                 id: this.$route.params.id

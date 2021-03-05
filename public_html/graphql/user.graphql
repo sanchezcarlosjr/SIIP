@@ -5,3 +5,12 @@ type User {
     unit: String
     campus: String
 }
+
+input updateUsersInput {
+    id: ID!
+    name: String!
+    email: String
+    campus: String
+    unit: String
+    role_id: ID
+}

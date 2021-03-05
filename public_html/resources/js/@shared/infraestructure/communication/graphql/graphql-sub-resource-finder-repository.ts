@@ -55,7 +55,7 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
     }
 
     static createDefaultFinder(query: string, sub_query: string) {
-        const resource = toSingular(`${sub_query}`);
+        const resource = toSingular(`${sub_query} `);
         return new GraphqlSubResourceFinderRepository(
             query,
             sub_query,
@@ -69,7 +69,7 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
         );
     }
 
-    public setFields(fields: any[]) {
+    public setFields(fields: string[]) {
         this.fields = fields;
     }
 

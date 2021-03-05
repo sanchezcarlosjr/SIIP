@@ -2,10 +2,10 @@ import Vue from "vue"
 import Component from "vue-class-component"
 import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
 import {MembersRepository} from "./members.repository";
+import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
 
 @Component
 export default class MembersPage extends Vue {
-
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
     toolbar = new Set<string>(['add', 'remove']);
@@ -34,6 +34,13 @@ export default class MembersPage extends Vue {
                 model: "employees_id",
                 query: 'employees',
                 textKey: 'nombre'
+            },
+            {
+                type: 'graphql-select',
+                label: 'LGAC',
+                model: 'lgac_id',
+                query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs'),
+                textKey: 'name'
             }
         ]
     };
