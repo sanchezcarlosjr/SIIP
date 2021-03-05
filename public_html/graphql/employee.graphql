@@ -23,5 +23,6 @@ type Employee {
 
 input employeeToAcademicBodyInput {
     academic_body_id: ID
+    lgac_id: ID
     employees_id: ID
 }
