@@ -20,7 +20,7 @@
 <body>
 <div id="app" class="content">
     <entry-component>
-        Cargando... Si ves este mensaje problablemente hay problemas en la red.
+        Cargando...
     </entry-component>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
