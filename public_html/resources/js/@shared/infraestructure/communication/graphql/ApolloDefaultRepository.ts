@@ -1,13 +1,11 @@
-import {ApolloRepository} from "./siipTableRepository";
 import {DocumentNode} from "graphql";
 
-export abstract class ApolloDefaultRepository implements ApolloRepository {
+export abstract class ApolloDefaultRepository {
     protected constructor(protected resourceName: string) {
     }
 
-    query(): DocumentNode {
+    query(): () => DocumentNode {
         const I = this;
-        // @ts-ignore
         return function () {
             // @ts-ignore
             this[I.resourceName].setFields(I.map(this));
@@ -18,7 +16,7 @@ export abstract class ApolloDefaultRepository implements ApolloRepository {
 
     abstract map(component: any): string[];
 
-    update(): any {
+    update(): (data: any) => DocumentNode {
         const I = this;
         return function (data: any) {
             // @ts-ignore
