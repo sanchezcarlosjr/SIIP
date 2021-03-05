@@ -160,8 +160,9 @@ export default class SiipTableComponent extends Vue {
             mutation: this.resource.create,
             variables: {
                 data: {
-                    ...this.infoModal.model
-                }
+                    ...this.infoModal.model,
+                    academic_body_id: this.$route.params.id
+                },
             }
         })
             .then(() =>

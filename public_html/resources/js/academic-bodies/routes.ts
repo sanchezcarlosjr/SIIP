@@ -49,7 +49,7 @@ export const AcademicBodyRoutes = {
                 },
                 {
                     path: 'editar',
-                    name: "Editar cuerpo académico",
+                    name: "Detalles de cuerpo académico",
                     component: () => import('./academic-body/index.vue')
                 },
                 {

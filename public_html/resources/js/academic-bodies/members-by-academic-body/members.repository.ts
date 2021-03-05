@@ -12,9 +12,9 @@ export class MembersRepository extends GraphqlSubResourceFinderRepository {
         `
     }
 
-    public get edit() {
+    public get remove() {
         return gql`
-            mutation editResource($data: employeeToAcademicBodyInput) {
+            mutation removeResource($data: employeeToAcademicBodyInput) {
                 removeEmployeesToAcademicBody (data: $data) {
                     id
                 }
