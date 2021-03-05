@@ -79,6 +79,7 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
                 ${this._query}(id: $id) {
                 id
                 ${this._sub_query} {
+                id
                 ${this.fields}
             }
             }
