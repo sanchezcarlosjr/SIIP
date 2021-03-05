@@ -26,7 +26,7 @@
             </b-input-group>
             <b-form-checkbox-group
                 v-model="criteria"
-                :options="filters"
+                :options="originalFilter"
             ></b-form-checkbox-group>
         </b-dropdown-form>
     </b-dropdown>
@@ -42,11 +42,9 @@ export default {
             originalFilter: []
         }
     },
-    methods: {
-        mounted() {
-            this.criteria.push(...this.filter.filter((f) => f.default).map((f) => f.value));
-            this.originalFilter.push(...this.filter.filter((f) => f.default || !f.default).map((f) => f.value));
-        }
+    mounted() {
+        this.criteria.push(...this.filters.filter((f) => f.default).map((f) => f.value));
+        this.originalFilter.push(...this.filters.filter((f) => f.default || !f.default).map((f) => f.value));
     }
 }
 </script>
