@@ -1,39 +1,20 @@
-import gql from 'graphql-tag';
 import {Component, Mixins} from 'vue-property-decorator';
+import {adapt} from "../../../infraestructure/communication/graphql/graphql-adapter";
+import {OptionsApolloRepository} from "./OptionsApolloRepository";
+import {GraphqlResourceRepository} from "../../../infraestructure/communication/graphql/graphql-resource-repository";
 
 const VueFormGenerator = require('vue-form-generator');
 
 @Component({
     apollo: {
-        options: {
-            query() {
-                return gql`
-                    query {
-                        ${this.schema.query} {
-                            data {
-                                id
-                                ${this.schema.textKey}
-                            }
-                        }
-                    }
-                `
-            },
-            update(data) {
-                return data[this.schema.query].data.map(
-                    (result: any) => {
-                        return {
-                            value: result.id,
-                            text: result[this.schema.textKey]
-                        }
-                    });
-            }
-        }
+        options: adapt(new OptionsApolloRepository())
     }
 })
 export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstractField) {
     [x: string]: any;
 
     options: { text: string, value: string }[] = [];
+    optionsFinder = GraphqlResourceRepository.createDefaultRepository(this.schema.query);
     isTouched: any = null;
     feedback = '';
 

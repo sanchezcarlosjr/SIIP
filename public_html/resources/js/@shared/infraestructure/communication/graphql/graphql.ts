@@ -6,7 +6,7 @@ export class ApolloSiipTableRepository extends ApolloDefaultRepository {
         super("resource");
     }
 
-    map(component: any) {
+    mapFieldsToQuery(component: any) {
         // @ts-ignore
         return component.fields.filter((field) => field.sortable).map((field) => toGraphQL(field));
     }

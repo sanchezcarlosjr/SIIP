@@ -8,19 +8,23 @@ export abstract class ApolloDefaultRepository {
         const I = this;
         return function () {
             // @ts-ignore
-            this[I.resourceName].setFields(I.map(this));
+            this[I.resourceName].setFields(I.mapFieldsToQuery(this));
             // @ts-ignore
             return this[I.resourceName].query();
         };
     }
 
-    abstract map(component: any): string[];
+    abstract mapFieldsToQuery(component: any): string[];
 
     update(): (data: any) => DocumentNode {
         const I = this;
         return function (data: any) {
             // @ts-ignore
-            return this[I.resourceName].update(data);
+            return I.mapDataToUpdate(this[I.resourceName].update(data), this);
         }
+    }
+
+    mapDataToUpdate(data: any, component: any) {
+        return data;
     }
 }
