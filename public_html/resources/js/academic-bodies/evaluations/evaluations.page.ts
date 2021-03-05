@@ -7,7 +7,7 @@ export default class EvaluationsPage extends Vue {
     apiResource = new GraphqlResourceRepository('academic_bodies', {
         index: 'active name'
     });
-    toolbar = new Set<String>([]);
+    toolbar = new Set<String>(['edit']);
     fields = [
         {key: 'name', label: 'Cuerpo académico', sortable: true},
         {key: 'last_evaluation.grade', label: 'Grado de consolidación', sortable: true},

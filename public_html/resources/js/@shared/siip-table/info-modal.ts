@@ -132,6 +132,18 @@ export class InfoModal implements Modal {
         this.schema.fields.forEach((field) => field.module = this.module);
     }
 
+    adaptMapToRemove(resource: any, route: any) {
+        if (!resource.map) {
+            return {
+                id: this.model.id
+            };
+        }
+        return {
+            academic_body_id: route.params.id,
+            ...resource.map(this.item, route)
+        };
+    }
+
     private ifItemThenMatchSchema(item: any) {
         if (!item) {
             return;
