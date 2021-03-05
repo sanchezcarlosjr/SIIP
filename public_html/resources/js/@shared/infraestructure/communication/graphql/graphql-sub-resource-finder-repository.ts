@@ -69,7 +69,7 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
         );
     }
 
-    public setFields(fields: any[]) {
+    public setFields(fields: string[]) {
         this.fields = fields;
     }
 
