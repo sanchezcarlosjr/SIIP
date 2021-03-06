@@ -175,7 +175,7 @@ export default class SiipTableComponent extends Vue {
             mutation: this.resource.remove,
             variables: {
                 data: {
-                    id: this.infoModal.model.id
+                    ...this.infoModal.adaptMapToRemove(this.resource, this.$route),
                 }
             }
         }).then(() => this.$apollo.queries.items.refetch());

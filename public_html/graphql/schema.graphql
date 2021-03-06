@@ -164,7 +164,7 @@ type Mutation {
         @spread
     ): Evaluation @update
     addEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
-    removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput): AcademicBody
+    removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
     destroyAcademicBodies(id: ID!): AcademicBody @delete
     updateAcademicBody(
         data: updateAcademicBodyInput
