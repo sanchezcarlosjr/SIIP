@@ -56,6 +56,10 @@ export default class NetworksPage extends Vue {
                 label: 'Fecha de fin',
                 model: 'finish_date'
             },
+            {
+                type: 'upload',
+                label: 'Formalizacion'
+            }
         ]
     };
 }
