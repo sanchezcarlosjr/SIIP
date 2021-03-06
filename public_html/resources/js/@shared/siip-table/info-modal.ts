@@ -138,9 +138,11 @@ export class InfoModal implements Modal {
                 id: this.model.id
             };
         }
+        if (!this.item) {
+        }
         return {
             academic_body_id: route.params.id,
-            ...resource.map(this.item, route)
+            ...resource.map(this.item)
         };
     }
 

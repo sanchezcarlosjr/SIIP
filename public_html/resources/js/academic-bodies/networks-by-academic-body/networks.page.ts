@@ -37,20 +37,8 @@ export default class NetworksPage extends Vue {
             {
                 type: 'input',
                 inputType: 'text',
-                label: 'Nombre del grupo de investigación',
+                label: 'Nombre',
                 model: 'name'
-            },
-            {
-                type: 'select',
-                label: 'Clase',
-                model: 'class',
-                values: ['CA', 'Red', 'Institución']
-            },
-            {
-                type: 'select',
-                label: 'Tipo',
-                model: 'type',
-                values: ['Interno', 'Externo']
             },
             {
                 type: 'select',
