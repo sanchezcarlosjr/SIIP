@@ -28,9 +28,12 @@ export default class ProdepPage extends Vue {
                 model: 'start_date'
             },
             {
-                type: 'calendar',
-                label: 'Fecha fin',
-                model: 'finish_date'
+                type: 'input',
+                inputType: 'number',
+                label: 'Años de vigencia',
+                min: 3,
+                max: 6,
+                model: 'years_to_finish'
             },
             {
                 type: 'graphql-select',
@@ -41,7 +44,7 @@ export default class ProdepPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'PRODEP AREAS',
+                label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
                 textKey: 'name'

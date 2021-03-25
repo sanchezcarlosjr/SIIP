@@ -9,9 +9,9 @@ type ProdepProfile {
     prodep_area: ProdepArea
 }
 
-input createProdepProfileInput {
+input createProdepProfilesInput {
     start_date: Date
-    finish_date: Date
+    years_to_finish: Int
     employee_id: Int
     prodep_area_id: Int
 }
