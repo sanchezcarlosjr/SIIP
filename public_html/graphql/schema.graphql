@@ -109,11 +109,9 @@ type Mutation {
     destroyProdepHelp(
         id: ID!
     ): ProdepHelp @delete
-    createProdepHelp(
-        amount: Float
-        type: String
-        date: Date
-        employee_id: Int
+    createProdepHelps(
+        data: createProdepHelpsInput
+        @spread
     ): ProdepHelp @create
     updateProdepHelp(
         id: ID!
