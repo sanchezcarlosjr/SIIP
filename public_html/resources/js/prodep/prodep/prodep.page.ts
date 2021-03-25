@@ -4,8 +4,6 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class ProdepPage extends Vue {
-    tableTitle = 'Gestión de perfiles PRODEP';
-    private date = new Date();
     apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_profiles');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [

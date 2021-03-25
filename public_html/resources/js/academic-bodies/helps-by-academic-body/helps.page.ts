@@ -39,6 +39,8 @@ export default class HelpsPage extends Vue {
                 type: 'input',
                 inputType: 'number',
                 label: 'Monto',
+                min: 5,
+                max: 7,
                 model: 'amount'
             },
             {
