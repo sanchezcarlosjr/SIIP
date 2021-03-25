@@ -49,13 +49,11 @@ export default class ProdepPage extends Vue {
         ]
     };
     fields = [
-        { key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true },
-        { key: 'employee.name', label: 'Líder', sortable: true },
-        { key: 'employee.grado', label: 'Grado', sortable: true },
-        { key: 'employee.age', label: 'Edad', sortable: true },
-        { key: 'employee.sexo', label: 'Género', sortable: true },
-        { key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true },
-        { key: 'start_date', label: 'Fecha de inicio', sortable: true },
-        { key: 'finish_date', label: 'Fecha fin', sortable: true },
+        {key: 'employee.name', label: 'Nombre', sortable: true},
+        {key: 'employee.id', label: 'No. Empleado', sortable: true},
+        {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+        {key: 'start_date', label: 'Fecha inicio', sortable: true},
+        {key: 'finish_date', label: 'Fecha fin', sortable: true},
+        {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
     ];
 }
