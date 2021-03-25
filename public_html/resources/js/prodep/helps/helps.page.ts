@@ -4,7 +4,6 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class HelpsPage extends Vue {
-    tableTitle = "Beneficios PRODEP";
     apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_helps');
     spanishResourceName = 'beneficio';
     toolbar = new Set(["add"]);
@@ -46,10 +45,10 @@ export default class HelpsPage extends Vue {
         ]
     };
     fields = [
-        {key: 'prodepHelp.'},
-        {key: "type", label: "Tipo", sortable: true},
-        {key: "date", label: "Fecha", sortable: true},
         {key: "employee.name", label: "Beneficiario", sortable: true},
-        {key: "amount", label: "Cantidad", sortable: true}
+        {key: "type", label: "Tipo", sortable: true},
+        {key: "amount", label: "Cantidad", sortable: true},
+        {key: "date", label: "Fecha", sortable: true},
+        {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
     ];
 }

@@ -11,8 +11,8 @@ export const ProdepRoutes = {
             component: () => import('./prodep/index.vue')
         },
         {
-            name: 'Beneficios',
-            path: 'beneficios',
+            name: 'Apoyos',
+            path: 'apoyos',
             component: () => import('./helps/index.vue')
         }
         ,
