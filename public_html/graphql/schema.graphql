@@ -11,6 +11,7 @@ type Query {
     snis: [Sni] @paginate(defaultCount: 10)
     prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 200)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
+    academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find

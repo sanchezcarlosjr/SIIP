@@ -19,6 +19,20 @@ type AcademicBody {
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
 }
 
+type AcademicBodyByGrade {
+    inTraining: [Int]
+    inConsolidation: [Int]
+    consolidated: [Int]
+}
+
+type AcademicBodyStatistics {
+    total: Int
+    professorsWithSNIOrProdep: Int
+    professorsInAcademicBody: Int
+    ptcsAreNotAcademicBody: Int
+    academicBodyByGrade: AcademicBodyByGrade
+}
+
 input createAcademicBodyInput {
     name: String,
     prodep_key: String,

@@ -24,7 +24,8 @@
         </b-row>
         <b-row class="text-center">
             <b-col>
-                <bar-chart :chart-data="academicBodyByLevel.data" :options="academicBodyByLevel.options"></bar-chart>
+                <bar-chart v-if="!$apollo.loading" :chart-data="academicBodyByLevel.data"
+                           :options="academicBodyByLevel.options"></bar-chart>
             </b-col>
         </b-row>
     </b-container>
