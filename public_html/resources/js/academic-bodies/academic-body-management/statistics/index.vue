@@ -3,22 +3,22 @@
         <b-row class="text-center">
             <b-col>
                 <p>Cuerpos Académicos
-                    <b-badge>5</b-badge>
+                    <b-badge>{{ academicBodyStatistics.total }}</b-badge>
                 </p>
             </b-col>
             <b-col>
                 <p>Profesores con SNI o PRODEP
-                    <b-badge>4</b-badge>
+                    <b-badge>{{ academicBodyStatistics.professorsWithSNIOrProdep }}</b-badge>
                 </p>
             </b-col>
             <b-col>
                 <p>Profesores en CA
-                    <b-badge>2</b-badge>
+                    <b-badge>{{ academicBodyStatistics.professorsInAcademicBody }}</b-badge>
                 </p>
             </b-col>
             <b-col>
                 <p>PTC que no están en CA
-                    <b-badge>3</b-badge>
+                    <b-badge>{{ academicBodyStatistics.ptcsAreNotAcademicBody }}</b-badge>
                 </p>
             </b-col>
         </b-row>
