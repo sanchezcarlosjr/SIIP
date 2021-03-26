@@ -45,7 +45,7 @@ export default class HelpsPage extends Vue {
                 type: 'graphql-select',
                 label: 'Empleado beneficiado',
                 model: "benefited_employee_id",
-                query: 'employees',
+                query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'employees'),
                 textKey: 'name'
             },
         ]
