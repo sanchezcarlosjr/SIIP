@@ -18,7 +18,7 @@ class AcademicBodyStatistics
      */
     public function __invoke($_, array $args)
     {
-        $members = Member::count();
+        $members = Member::distinct()->get(['employee_id'])->count();
         return array(
             'total' => AcademicBody::count(),
             'professorsWithSNIOrProdep' => ProdepProfile::active()->count() + Sni::active()->count(),

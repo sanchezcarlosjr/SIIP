@@ -93,7 +93,6 @@ export default class SiipTableComponent extends Vue {
         this[event.option.click](event.item.row, event.item.index);
     }
 
-
     execute() {
         // Common code to actions. Example: addElement, editElement, removeElement
         this[`${this.infoModal.id}Element`]()
@@ -122,6 +121,9 @@ export default class SiipTableComponent extends Vue {
 
     edit(item: any, index: any, button: any) {
         if (this.schema.fields.length === 0 || !this.toolbar.has('edit')) {
+            return;
+        }
+        if (this.toolbar.has('details')) {
             return;
         }
         this.infoModal.id = 'edit';
