@@ -2,13 +2,15 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\AcademicBody;
+
 class LastEvaluation
 {
     /**
-     * @param  \App\Models\AcademicBody  $academicBody
-     * @param  array<string, mixed>  $args
+     * @param AcademicBody $academicBody
+     * @param array<string, mixed> $args
      */
-    public function __invoke($academicBody, array $args)
+    public function __invoke($academicBody, array $args = array())
     {
         return $academicBody->evaluations->sortBy('finish_date')->get(0);
     }
