@@ -42,4 +42,5 @@ class AcademicBody extends Model
     {
         return $this->belongsTo(ProdepArea::class);
     }
+
 }

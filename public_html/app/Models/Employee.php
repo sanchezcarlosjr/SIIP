@@ -63,4 +63,9 @@ class Employee extends Model
     {
         return $this->hasMany(Researcher::class, 'employee_id');
     }
+
+    public function scopePtcs($query)
+    {
+        return $query->where('estatus', '==', '1')->whereBetween('c_categoria', [501, 509])->orWhereBetween('c_categoria', [104, 112]);
+    }
 }

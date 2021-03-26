@@ -8,14 +8,6 @@ use Tests\TestCase;
 
 class AllEmployeesByAcademicBodyTest extends TestCase
 {
-    public function testShouldReturnEmptyArray()
-    {
-        $query = new AllEmployeesByAcademicBody;
-        $academicBody = AcademicBody::find(50);
-        $employees = $query($academicBody, []);
-        $this->assertTrue(count($employees) == 0);
-    }
-
     public function testNotShouldReturnArray()
     {
         $query = new AllEmployeesByAcademicBody;

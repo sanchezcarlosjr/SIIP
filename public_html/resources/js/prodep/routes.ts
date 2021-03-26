@@ -6,13 +6,13 @@ export const ProdepRoutes = {
     component: () => import('./prodep.module.vue'),
     children: [
         {
-            name: 'Gestión',
+            name: 'Gestión de perfiles PRODEP',
             path: '',
             component: () => import('./prodep/index.vue')
         },
         {
-            name: 'Beneficios',
-            path: 'beneficios',
+            name: 'Apoyos',
+            path: 'apoyos',
             component: () => import('./helps/index.vue')
         }
         ,

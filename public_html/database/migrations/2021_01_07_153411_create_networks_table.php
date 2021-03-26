@@ -16,8 +16,8 @@ class CreateNetworksTable extends Migration
         Schema::create('academic_bodies_networks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
-            $table->string('class');
+            $table->string('type')->nullable();
+            $table->string('class')->nullable();
             $table->string('range');
             $table->date('start_date');
             $table->date('finish_date');

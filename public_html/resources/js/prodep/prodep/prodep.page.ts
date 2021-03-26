@@ -4,8 +4,6 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class ProdepPage extends Vue {
-    tableTitle = 'Gestión de perfiles PRODEP';
-    private date = new Date();
     apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_profiles');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
@@ -30,9 +28,12 @@ export default class ProdepPage extends Vue {
                 model: 'start_date'
             },
             {
-                type: 'calendar',
-                label: 'Fecha fin',
-                model: 'finish_date'
+                type: 'input',
+                inputType: 'number',
+                label: 'Años de vigencia',
+                min: 3,
+                max: 6,
+                model: 'years_to_finish'
             },
             {
                 type: 'graphql-select',
@@ -43,7 +44,7 @@ export default class ProdepPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'PRODEP AREAS',
+                label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
                 textKey: 'name'
@@ -51,13 +52,11 @@ export default class ProdepPage extends Vue {
         ]
     };
     fields = [
-        { key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true },
-        { key: 'employee.name', label: 'Líder', sortable: true },
-        { key: 'employee.grado', label: 'Grado', sortable: true },
-        { key: 'employee.age', label: 'Edad', sortable: true },
-        { key: 'employee.sexo', label: 'Género', sortable: true },
-        { key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true },
-        { key: 'start_date', label: 'Fecha de inicio', sortable: true },
-        { key: 'finish_date', label: 'Fecha fin', sortable: true },
+        {key: 'employee.name', label: 'Nombre', sortable: true},
+        {key: 'employee.id', label: 'No. Empleado', sortable: true},
+        {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+        {key: 'start_date', label: 'Fecha inicio', sortable: true},
+        {key: 'finish_date', label: 'Fecha fin', sortable: true},
+        {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
     ];
 }

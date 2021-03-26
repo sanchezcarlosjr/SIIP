@@ -20,8 +20,8 @@ export default class EvaluationsPage extends Vue {
                 label: 'Grado',
                 model: 'grade',
                 values: [
-                    'Formación',
-                    'Consolidación',
+                    'En formación',
+                    'En consolidación',
                     'Consolidado',
                 ]
             },
@@ -35,6 +35,8 @@ export default class EvaluationsPage extends Vue {
                 type: 'input',
                 inputType: 'number',
                 label: 'Años de vigencia',
+                min: 5,
+                max: 7,
                 model: 'years_to_finish'
             },
         ]

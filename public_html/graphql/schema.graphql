@@ -9,8 +9,9 @@ type Query {
     researchers: [Researcher] @paginate(defaultCount: 10)
     prodep_nptcs: [ProdepNPTC] @paginate(defaultCount: 10)
     snis: [Sni] @paginate(defaultCount: 10)
-    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 10)
+    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 200)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
+    academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
     users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -95,10 +96,10 @@ type Mutation {
         sni_area_id: Int
     ): Sni @update
     destroyProdepProfile(id: ID!): ProdepProfile @delete
-    createProdepProfile(
-        data: createProdepProfileInput
+    createProdepProfiles(
+        data: createProdepProfilesInput
         @spread
-    ): ProdepProfile @create
+    ): ProdepProfile
     updateProdepProfile(
         id: ID!
         start_date: Date
@@ -109,11 +110,9 @@ type Mutation {
     destroyProdepHelp(
         id: ID!
     ): ProdepHelp @delete
-    createProdepHelp(
-        amount: Float
-        type: String
-        date: Date
-        employee_id: Int
+    createProdepHelps(
+        data: createProdepHelpsInput
+        @spread
     ): ProdepHelp @create
     updateProdepHelp(
         id: ID!

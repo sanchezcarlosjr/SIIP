@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Sni extends Model
 {
     use HasFactory;
+    use ActiveEmployee;
 
     protected $fillable = ["start_date", "finish_date", "discipline", "field", "request", "level", "specialty", "employee_id", "sni_area_id"];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 
     public function sni_area()
     {
@@ -20,4 +26,6 @@ class Sni extends Model
     {
         return $this->belongsTo(Employee::class, "employee_id");
     }
+
+
 }

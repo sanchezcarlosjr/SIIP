@@ -26,10 +26,12 @@ class EmployeeFactory extends Factory
             'nombre' => $this->faker->userName,
             'apaterno' => $this->faker->lastName,
             'amaterno' => $this->faker->lastName,
-            'sexo' => $this->faker->randomElement($array = array ('M', 'F', 'NA')),
-            'grado' => $this->faker->randomElement($array = array ('A','B','C', 'D')),
-            'nunidad' => $this->faker->randomElement($array = array (114, 122, 123, 175)),
-            'f_nacimiento' => $this->faker->date
+            'sexo' => $this->faker->randomElement($array = array('M', 'F', 'NA')),
+            'grado' => $this->faker->randomElement($array = array('A', 'B', 'C', 'D')),
+            'nunidad' => $this->faker->randomElement($array = array(114, 122, 123, 175)),
+            'c_categoria' => $this->faker->numberBetween($min = 100, $max = 120),
+            'f_nacimiento' => $this->faker->date,
+            'estatus' => $this->faker->randomElement($array = array('1', '0'))
         ];
     }
 }

@@ -8,4 +8,4 @@
 </template>
 
 <script src="./evaluations.page.ts" lang="ts"></script>
-<style src="./evaluations.page.scss" scoped lang="scss"></style>
+<style lang="scss" scoped src="./evaluations.page.scss"></style
