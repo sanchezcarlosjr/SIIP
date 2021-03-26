@@ -16,7 +16,7 @@ class Employee extends Model
 
     public function newQuery($excludeDeleted = true): Builder
     {
-        return parent::newQuery($excludeDeleted)->has('academic_bodies_lgacs', '>', 0);
+        return parent::newQuery($excludeDeleted);
     }
 
     public function academic_bodies_lgacs(): BelongsToMany
