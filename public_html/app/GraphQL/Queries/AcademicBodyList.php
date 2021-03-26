@@ -19,6 +19,6 @@ class AcademicBodyList
             ->map(function (LGAC $lgac) {
                 return $lgac->academic_body()->first()->name;
             });
-        return $academic_bodies->implode(' ');
+        return $academic_bodies->implode('\n');
     }
 }

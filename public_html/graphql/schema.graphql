@@ -24,7 +24,7 @@ type Query {
     uabc_areas: [UABCArea] @paginate(defaultCount: 200)
     des: [DES] @paginate(defaultCount: 200)
     lgacs: [LGAC] @paginate(defaultCount: 200)
-    employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember")): [Employee] @paginate(defaultCount: 2000)
+    employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember")): [Employee] @paginate(defaultCount: 100)
 }
 
 type Mutation {

@@ -21,7 +21,7 @@ import gql from "graphql-tag";
                     this.setAcademicBodyByLevel(this.academicBodyStatistics);
                 }
             },
-            pollInterval: 60000,
+            pollInterval: 8000,
             manual: true,
             query: gql`query {
                 academic_body_statistics{
