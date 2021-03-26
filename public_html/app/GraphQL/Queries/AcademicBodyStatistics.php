@@ -5,7 +5,10 @@ namespace App\GraphQL\Queries;
 
 
 use App\Models\AcademicBody;
+use App\Models\Employee;
 use App\Models\Member;
+use App\Models\ProdepProfile;
+use App\Models\Sni;
 
 class AcademicBodyStatistics
 {
@@ -15,14 +18,16 @@ class AcademicBodyStatistics
      */
     public function __invoke($_, array $args)
     {
+        $members = Member::count();
         return array(
             'total' => AcademicBody::count(),
-            'professorsWithSNIOrProdep' => 2,
-            'professorsInAcademicBody' => Member::count(),
-            'ptcsAreNotAcademicBody' => 1,
+            'professorsWithSNIOrProdep' => ProdepProfile::active()->count() + Sni::active()->count(),
+            'professorsInAcademicBody' => $members,
+            'ptcsAreNotAcademicBody' => abs(Employee::ptcs()->count() - $members),
             'academicBodyByGrade' => $this->countAcademicBodyByGrade()
         );
     }
+
 
     private function countAcademicBodyByGrade(): array
     {

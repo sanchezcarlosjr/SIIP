@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class ProdepProfile extends Model
 {
     use HasFactory;
+    use ActiveEmployee;
 
     protected $fillable = ["start_date", "finish_date", "employee_id", "prodep_area_id"];
 
@@ -21,4 +22,5 @@ class ProdepProfile extends Model
     {
         return $this->belongsTo(Employee::class, "employee_id");
     }
+
 }
