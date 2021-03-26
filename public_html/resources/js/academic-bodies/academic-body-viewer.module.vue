@@ -31,6 +31,10 @@ export default {
                     link: '/cuerpos-academicos/*/miembros',
                     tooltip: 'Miembros'
                 },
+                'address-book': {
+                    link: '/cuerpos-academicos/*/colaboradores',
+                    tooltip: 'Colaboradores'
+                },
                 'file-alt': {
                     link: '/cuerpos-academicos/*/evaluaciones',
                     tooltip: 'Evaluaciones'
