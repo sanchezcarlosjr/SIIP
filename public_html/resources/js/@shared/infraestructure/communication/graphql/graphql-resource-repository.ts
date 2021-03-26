@@ -82,7 +82,8 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     update(data: any) {
-        return data[this._query].data;
+        const query = this._query.split('(')[0];
+        return data[query].data;
     }
 
 }

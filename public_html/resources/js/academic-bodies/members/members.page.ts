@@ -4,7 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class MembersPage extends Vue {
-    apiResource = new GraphqlResourceRepository('employees');
+    apiResource = new GraphqlResourceRepository('employees(members:true)');
     spanishResourceName = 'miembro'
     toolbar = new Set<String>([]);
     fields = [
