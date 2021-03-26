@@ -20,8 +20,8 @@ export default class EvaluationsPage extends Vue {
                 label: 'Grado',
                 model: 'grade',
                 values: [
-                    'Formación',
-                    'Consolidación',
+                    'En formación',
+                    'En consolidación',
                     'Consolidado',
                 ]
             },

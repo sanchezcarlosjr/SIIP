@@ -27,8 +27,8 @@ class AcademicBodyStatistics
     private function countAcademicBodyByGrade(): array
     {
         $gradesDatabase = array(
-            'Consolidación' => [0],
-            'Formación' => [0],
+            'En consolidación' => [0],
+            'En formación' => [0],
             'Consolidado' => [0]
         );
         $lastEvaluation = new LastEvaluation;
@@ -39,8 +39,8 @@ class AcademicBodyStatistics
             }
         }
         return array(
-            'inTraining' => [$gradesDatabase['Formación'][0], 0],
-            'inConsolidation' => [$gradesDatabase['Consolidación'][0], 0],
+            'inTraining' => [$gradesDatabase['En formación'][0], 0],
+            'inConsolidation' => [$gradesDatabase['En consolidación'][0], 0],
             'consolidated' => [$gradesDatabase['Consolidado'][0], 0]
         );
     }
