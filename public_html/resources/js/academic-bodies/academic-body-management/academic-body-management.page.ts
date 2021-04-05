@@ -102,22 +102,6 @@ export default class AcademicBodyManagementPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'Líder de cuerpo académico',
-                model: "lead_employee_id",
-                query: 'employees',
-                textKey: 'name',
-                hint: 'Número o nombre de empleado',
-                readonly: false,
-                featured: false,
-                required: true,
-                disabled: false,
-                placeholder: "",
-                validator: VueFormGenerator.validators.string.locale({
-                    fieldIsRequired: ""
-                }),
-            },
-            {
-                type: 'graphql-select',
                 label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
@@ -168,5 +152,10 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true, class: 'vw-5'},
         {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
+
+    createdElement(element: any) {
+        const academic_body = element['createAcademicBodies'];
+        this.$router.push(`/cuerpos-academicos/${academic_body.id}/lgac?createResource`);
+    }
 }
 

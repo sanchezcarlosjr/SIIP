@@ -77,6 +77,11 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
+        // @ts-ignore
+        let params = (new URL(document.location)).searchParams;
+        if (params.has('createResource')) {
+            this.create(null);
+        }
         this.toolbar.forEach((value) => {
             if (value === 'add' || value === 'add-relation') {
                 return;
@@ -167,6 +172,7 @@ export default class SiipTableComponent extends Vue {
                 },
             }
         })
+            .then((element) => this.$emit('created-element', element['data']))
             .then(() =>
                 this.$apollo.queries.items.refetch()
             )
