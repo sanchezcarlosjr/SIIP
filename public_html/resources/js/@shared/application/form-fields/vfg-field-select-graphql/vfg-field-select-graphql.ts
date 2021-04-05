@@ -16,19 +16,17 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
     options: { text: string, value: string }[] = [];
     optionsFinder = typeof this.schema.query === 'string' ? GraphqlResourceRepository.createDefaultRepository(this.schema.query) : this.schema.query;
     isTouched: any = null;
-    feedback = '';
+    text = '';
 
     get idState() {
         return this.isTouched;
     }
 
     handleBlur() {
-        this.isTouched = true;
-    }
-
-    showFeedback(id: string) {
+        const element = document.getElementById(this.schema.model.concat('select') + this.text)
         // @ts-ignore
-        this.feedback = this.options.find((ob) => ob.value === id)?.text;
+        this.value = element.getAttribute('data-value');
+        this.isTouched = true;
     }
 
 }
