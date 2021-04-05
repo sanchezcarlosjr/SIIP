@@ -212,5 +212,10 @@ export default class SiipTableComponent extends Vue {
         })
     }
 
-}
+    public filterItems(v: any) {
+      this.$apollo.queries.items.refetch({
+        filter: v
+      });
+    }
 
+}
