@@ -28,6 +28,7 @@ import SiipTitle from './application/title.component.vue';
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
+
     @Prop() infoVariant!: (response: any) => Promise<number>;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
@@ -171,11 +172,13 @@ export default class SiipTableComponent extends Vue {
                     academic_body_id: this.$route.params.id
                 },
             }
-        })
+        }).then(async (element) => {
+                await this.$apollo.queries.items.refetch();
+                return element;
+            }
+        )
             .then((element) => this.$emit('created-element', element['data']))
-            .then(() =>
-                this.$apollo.queries.items.refetch()
-            )
+
     }
 
     private removeElement() {

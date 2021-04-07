@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AcademicBody extends Model
 {
     use HasFactory;
+
     protected $table = 'academic_bodies';
     protected $fillable = [
         'name',
@@ -20,14 +22,22 @@ class AcademicBody extends Model
         'des_id',
         'created_at'
     ];
+
+    public function newQuery($excludeDeleted = true): Builder
+    {
+        return parent::newQuery($excludeDeleted)->orderByDesc('created_at');
+    }
+
     public function lgacs()
     {
         return $this->hasMany(LGAC::class);
     }
+
     public function networks()
     {
         return $this->hasMany(Network::class);
     }
+
     public function helps()
     {
         return $this->hasMany(Help::class);
