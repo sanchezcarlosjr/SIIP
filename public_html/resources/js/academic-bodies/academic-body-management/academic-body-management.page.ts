@@ -11,9 +11,7 @@ import AcademicBodyStatistics from './statistics/index.vue';
     }
 })
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies', {
-        index: 'active'
-    }, 'updateAcademicBodies', 'createAcademicBodies', 'updateAcademicBodyInput', 'createAcademicBodyInput');
+    apiResource = GraphqlResourceRepository.createDefaultRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC})', {index: 'active'});
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
         {
@@ -154,7 +152,7 @@ export default class AcademicBodyManagementPage extends Vue {
     ];
 
     createdElement(element: any) {
-        const academic_body = element['createAcademicBodies'];
+        const academic_body = element['createAcademicBody'];
         this.$router.push(`/cuerpos-academicos/${academic_body.id}/lgac?createResource`);
     }
 }
