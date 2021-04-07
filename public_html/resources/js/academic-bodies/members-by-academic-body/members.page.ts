@@ -33,7 +33,7 @@ export default class MembersPage extends Vue {
                 label: 'Empleado',
                 model: "employees_id",
                 query: 'employees',
-                textKey: 'nombre'
+                textKey: 'name'
             },
             {
                 type: 'graphql-select',
