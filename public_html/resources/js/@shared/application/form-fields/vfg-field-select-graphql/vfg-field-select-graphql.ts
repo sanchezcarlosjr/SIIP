@@ -7,7 +7,7 @@ const VueFormGenerator = require('vue-form-generator');
 
 @Component({
     apollo: {
-        options: adapt(new OptionsApolloRepository())
+        options: adapt(new OptionsApolloRepository()),
     }
 })
 export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstractField) {
