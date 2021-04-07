@@ -33,6 +33,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         return gql`
             mutation createNewResource($data: ${this.createInput}!) {
                 ${this.createMutate} (data: $data) {
+                id
                 ${this.fragment?.index}
                 ${this.fields}
             }
@@ -52,7 +53,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     static createDefaultRepository(query: string, fragment?: { index: string }) {
-        const resource = toSingular(`${query}`);
+        const resource = toSingular(`${query}`).split('(')[0];
         return new GraphqlResourceRepository(
             query,
             fragment,

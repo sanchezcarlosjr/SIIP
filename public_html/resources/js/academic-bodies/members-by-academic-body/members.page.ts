@@ -3,6 +3,7 @@ import Component from "vue-class-component"
 import {GraphQLBuilder} from "../../@shared/infraestructure/communication/GraphQL";
 import {MembersRepository} from "./members.repository";
 import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
+import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
 
 @Component
 export default class MembersPage extends Vue {
@@ -32,7 +33,7 @@ export default class MembersPage extends Vue {
                 type: 'graphql-select',
                 label: 'Empleado',
                 model: "employees_id",
-                query: 'employees',
+                query: new GraphqlResourceRepository('employees'),
                 textKey: 'name'
             },
             {
