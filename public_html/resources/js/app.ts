@@ -17,6 +17,7 @@ import ContextMenu from './@shared/application/context-menu/context-menu.compone
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import apolloProvider from "./settings/apollo";
 import router from './routes';
+import VfgFieldGraphQLSelectID from './@shared/application/form-fields/vfg-field-select-graphql-id/index.vue';
 // @ts-ignore
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 
@@ -35,6 +36,7 @@ Vue.component('field-switch2', VfgFieldSwitch);
 Vue.component('field-api-select', VfgFieldApiSelect);
 Vue.component('field-email', VfgFieldEmail);
 Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
+Vue.component('field-graphql-select-id', VfgFieldGraphQLSelectID)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('context-menu', ContextMenu);
 Vue.component('siip-academic-body-lgacs', AcademicBodyLgacs);

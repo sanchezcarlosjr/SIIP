@@ -95,6 +95,9 @@ export class InfoModal implements Modal {
     }
 
     setModal(item: any, index: any) {
+        if (!this.strategies[this._id]) {
+            return;
+        }
         const strategy = this.strategies[this._id]().title;
         this.title = `${strategy} ${this.resource}`;
         this.rowId = index;
@@ -117,6 +120,9 @@ export class InfoModal implements Modal {
     }
 
     getActions(value: string) {
+        if (!this.strategies[this._id]) {
+            return '';
+        }
         const strategy = this.strategies[value]();
         return {
             click: value,

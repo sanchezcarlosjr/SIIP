@@ -30,10 +30,10 @@ export default class MembersPage extends Vue {
     schema = {
         fields: [
             {
-                type: 'graphql-select',
+                type: 'graphql-select-id',
                 label: 'Empleado',
                 model: "employees_id",
-                query: new GraphqlResourceRepository('employees'),
+                query: new GraphqlResourceRepository(`employees(free: ${this.$route.params.id})`),
                 textKey: 'name'
             },
             {
