@@ -11,7 +11,7 @@ import AcademicBodyStatistics from './statistics/index.vue';
     }
 })
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies', {
+    apiResource = new GraphqlResourceRepository('academic_bodies(filter: $filter)', {
         index: 'active'
     }, 'updateAcademicBodies', 'createAcademicBodies', 'updateAcademicBodyInput', 'createAcademicBodyInput');
     toolbar = new Set(['add', 'edit']);
@@ -21,7 +21,7 @@ export default class AcademicBodyManagementPage extends Vue {
             default: false
         },
         {
-            value: 'Sin vigencia',
+            value: 'No vigente',
             default: false
         },
         {
@@ -35,6 +35,18 @@ export default class AcademicBodyManagementPage extends Vue {
         {
             value: 'Tijuana',
             default: false
+        },
+        {
+          value: "En formación",
+          default: false
+        },
+        {
+          value: "En consolidación",
+          default: false
+        },
+        {
+          value: "Consolidado",
+          default: false
         }
     ];
     links = {
@@ -169,4 +181,3 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
 }
-
