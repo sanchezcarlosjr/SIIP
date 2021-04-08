@@ -43,7 +43,7 @@ class AcademicBodyFilter
       $ab = $ab->filter(function($item) {
         if (isset($item->leader)) {
           if (isset($item->leader->academic_unit)) {
-            return $item->leader->academic_unit->unidad == "Mexicali";
+            return $item->leader->academic_unit->campus == "MEXICALI";
           }
         }
       })->values();
@@ -52,7 +52,7 @@ class AcademicBodyFilter
       $ab = $ab->filter(function($item) {
         if (isset($item->leader)) {
           if (isset($item->leader->academic_unit)) {
-            return $item->leader->academic_unit->unidad == "Ensenada";
+            return $item->leader->academic_unit->campus == "ENSENADA";
           }
         }
       })->values();
@@ -61,7 +61,7 @@ class AcademicBodyFilter
       $ab = $ab->filter(function($item) {
         if (isset($item->leader)) {
           if (isset($item->leader->academic_unit)) {
-            return $item->leader->academic_unit->unidad == "Tijuana";
+            return $item->leader->academic_unit->campus == "TIJUANA";
           }
         }
       })->values();
