@@ -25,8 +25,25 @@ type Query {
     des: [DES] @paginate(defaultCount: 200)
     desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
     lgacs: [LGAC] @paginate(defaultCount: 200)
-    employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember"), free: Int @builder(method: "App\\GraphQL\\Queries\\FreeEmployee")): [Employee] @paginate(defaultCount: 100)
-    academic_bodies (filter: [String], orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 200, builder: "App\\GraphQL\\Queries\\AcademicBodyFilter")
+    employee(nempleado: ID @eq): Employee @find
+    academic_bodies (
+      filter: [String],
+      orderBy: _ @orderBy(columns: ["created_at"])
+    ): [AcademicBody] @paginate(
+      defaultCount: 200,
+      builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
+    )
+    employees(
+      members: Boolean  @builder(
+        method: "App\\GraphQL\\Queries\\Employee@is_lgac_member"
+      ),
+      free: Int @builder(
+        method: "App\\GraphQL\\Queries\\FreeEmployee"
+      ),
+      name_like: String @builder(
+        method: "App\\GraphQL\\Queries\\Employee@name_like"
+      )
+    ): [Employee] @paginate(defaultCount: 100)
 }
 
 type Mutation {

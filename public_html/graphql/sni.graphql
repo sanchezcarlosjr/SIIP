@@ -11,7 +11,7 @@ type Sni {
     sni_area_id: Int
     sni_area: SNIArea
     id: ID
-    active: Boolean
+    is_active: Boolean
 }
 
 type SNIArea {

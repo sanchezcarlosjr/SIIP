@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 
 class ProdepProfile extends Model
@@ -12,6 +13,13 @@ class ProdepProfile extends Model
     use ActiveEmployee;
 
     protected $fillable = ["start_date", "finish_date", "employee_id", "prodep_area_id"];
+    protected $appends = [
+      "is_active"
+    ];
+
+    public function getIsActiveAttribute() {
+      return Carbon::today()->lessThan($this->finish_date);
+    }
 
     public function prodep_area()
     {
