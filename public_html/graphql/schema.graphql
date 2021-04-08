@@ -25,6 +25,7 @@ type Query {
     des: [DES] @paginate(defaultCount: 200)
     lgacs: [LGAC] @paginate(defaultCount: 200)
     employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember")): [Employee] @paginate(defaultCount: 100)
+    academic_bodies_filter (filter: [String], orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyFilter")
 }
 
 type Mutation {

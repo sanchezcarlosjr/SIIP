@@ -43,4 +43,7 @@ class AcademicBody extends Model
         return $this->belongsTo(ProdepArea::class);
     }
 
+    public function leader() {
+      return $this->hasOne(Employee::class, "nempleado", "lead_employee_id");
+    }
 }
