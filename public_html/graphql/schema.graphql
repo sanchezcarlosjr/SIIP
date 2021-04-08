@@ -16,7 +16,6 @@ type Query {
     networks: [Network] @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
     help(id: ID @eq): Help @find
-    academic_bodies (orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 200)
     evaluations: [Evaluation!]! @paginate(defaultCount: 100)
     helps: [Help] @paginate(defaultCount: 200)
     academic_body(id: ID @eq): AcademicBody @find
@@ -27,6 +26,7 @@ type Query {
     desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
     lgacs: [LGAC] @paginate(defaultCount: 200)
     employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember"), free: Int @builder(method: "App\\GraphQL\\Queries\\FreeEmployee")): [Employee] @paginate(defaultCount: 100)
+    academic_bodies (filter: [String], orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 200, builder: "App\\GraphQL\\Queries\\AcademicBodyFilter")
 }
 
 type Mutation {

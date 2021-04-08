@@ -8,7 +8,7 @@ type AcademicBody {
     des_id: Int
     helps: [Help]
     last_evaluation: Evaluation @field(resolver: "App\\GraphQL\\Queries\\LastEvaluation")
-    leader: Employee @field(resolver: "App\\GraphQL\\Queries\\Leader")
+    leader: Employee
     prodep_key: String
     prodep_area: ProdepArea
     evaluations: [Evaluation]
@@ -17,6 +17,7 @@ type AcademicBody {
     created_at: Date
     networks: [Network]
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
+    grade: String
 }
 
 type AcademicBodyByGrade {
@@ -177,4 +178,3 @@ type ProdepArea {
     id: ID!
     name: String
 }
-

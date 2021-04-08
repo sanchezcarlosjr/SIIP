@@ -10,6 +10,7 @@
                         <b-button-group class="float-right">
                             <searcher-component
                                 :filters="filter"
+                                @update="filterItems"
                             ></searcher-component>
                             <b-dropdown
                                 v-b-tooltip.hover
