@@ -41,7 +41,7 @@ export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstr
 
     mounted() {
         if (this.value) {
-            this.$apollo.queries.text.refetch();
+            this.$apollo.queries.text.start();
         }
     }
 
