@@ -10,11 +10,10 @@
             trim
             @blur="handleBlur"
         ></b-form-input>
-        <b-form-invalid-feedback :id="schema.model.concat('feedback')">
-            Ingresa un recurso correcto.
-        </b-form-invalid-feedback>
         <datalist :id="schema.model.concat('select')">
-            <option v-for="option in options" :id="schema.model.concat('select')+option.text" :data-value="option.value"
+            <option v-for="option in options"
+                    :id="schema.model.concat('select')+option.text"
+                    :data-value="option.value"
                     :value="option.text"></option>
         </datalist>
     </div>

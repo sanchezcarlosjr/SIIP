@@ -9,7 +9,7 @@ export class OptionsApolloRepository extends ApolloDefaultRepository {
         return [component.schema.textKey];
     }
 
-    mapDataToUpdate(data: any, component: any) {
+    mapDataToUpdate(data: any[], component: any) {
         return data.map(
             (result: any) => {
                 return {

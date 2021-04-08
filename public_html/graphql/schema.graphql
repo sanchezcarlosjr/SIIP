@@ -20,9 +20,11 @@ type Query {
     evaluations: [Evaluation!]! @paginate(defaultCount: 100)
     helps: [Help] @paginate(defaultCount: 200)
     academic_body(id: ID @eq): AcademicBody @find
+    prodep_area(id: ID @eq): ProdepArea @find
     prodep_areas: [ProdepArea]  @paginate(defaultCount: 200)
     uabc_areas: [UABCArea] @paginate(defaultCount: 200)
     des: [DES] @paginate(defaultCount: 200)
+    desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
     lgacs: [LGAC] @paginate(defaultCount: 200)
     employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember"), free: Int @builder(method: "App\\GraphQL\\Queries\\FreeEmployee")): [Employee] @paginate(defaultCount: 100)
 }
