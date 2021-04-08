@@ -13,7 +13,7 @@ class AcademicBodyFilter
     $filters = $args["filter"];
     $custom = array_diff($filters, [
       "Vigente",
-      "Sin Vigencia",
+      "No vigente",
       "Mexicali",
       "Ensenada",
       "Tijuana",
