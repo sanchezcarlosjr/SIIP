@@ -21,6 +21,7 @@ class AcademicBody extends Model
         'des_id',
         'created_at'
     ];
+    protected $appends = ["grade"];
 
     public function lgacs()
     {
@@ -47,4 +48,12 @@ class AcademicBody extends Model
         return $this->belongsTo(ProdepArea::class);
     }
 
+    public function leader() {
+      return $this->hasOne(Employee::class, "nempleado", "lead_employee_id");
+    }
+
+    public function getGradeAttribute() {
+      $eval = $this->evaluations->sortBy('finish_date')->get(0);
+      return isset($eval->grade)?$eval->grade:null;
+    }
 }

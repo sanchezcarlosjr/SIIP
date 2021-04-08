@@ -71,7 +71,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     public query() {
-        return gql`query {
+        return gql`query($filter: [String] = []) {
             ${this._query} {
             data {
                 id
@@ -88,4 +88,3 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
 }
-
