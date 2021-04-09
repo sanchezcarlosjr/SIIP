@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
 class Employee extends Model
 {
     public $timestamps = false;
     protected $primaryKey = 'nempleado';
     protected $table = 'empleados';
+    protected $appends = [
+      "academic_body",
+      "full_name",
+      "age",
+      "is_ptc",
+      "has_active_prodep_profile",
+      "has_active_sni"
+    ];
     use HasFactory;
 
     public function newQuery($excludeDeleted = true): Builder
@@ -27,6 +36,32 @@ class Employee extends Model
             'employee_id',
             'academic_bodies_lgacs_id'
         );
+    }
+
+    public function getHasActiveProdepProfileAttribute() {
+      return $this->prodep_profiles->contains("is_active", true);;
+    }
+
+    public function getHasActiveSniAttribute() {
+      return $this->snis->contains("is_active", true);;
+    }
+
+    public function getAcademicBodyAttribute() {
+      $lgac = $this->academic_bodies_lgacs->get(0);
+      return isset($lgac->academic_body)?$lgac->academic_body:null;
+    }
+
+    public function getFullNameAttribute() {
+      return "{$this->nombre} {$this->apaterno} {$this->amaterno}";
+    }
+
+    public function getAgeAttribute() {
+      return Carbon::today()->diffInYears(Carbon::parse($this->f_nacimiento));
+    }
+
+    public function getIsPTCAttribute() {
+      $cat = $this->c_categoria;
+      return (($cat >= 501 && $cat <= 509) || ($cat >= 104 && $cat <= 112)) && $this->estatus == 1;
     }
 
     public function academic_unit()

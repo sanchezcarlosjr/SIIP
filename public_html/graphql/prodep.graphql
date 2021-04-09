@@ -1,6 +1,6 @@
 type ProdepProfile {
     id: ID!
-    active: Boolean
+    is_active: Boolean
     start_date: Date
     finish_date: Date
     employee_id: Int

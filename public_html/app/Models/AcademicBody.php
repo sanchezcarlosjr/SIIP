@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class AcademicBody extends Model
 {
@@ -21,7 +22,11 @@ class AcademicBody extends Model
         'des_id',
         'created_at'
     ];
-    protected $appends = ["grade"];
+    protected $appends = [
+      "grade",
+      "employees",
+      "last_evaluation"
+    ];
 
     public function lgacs()
     {
@@ -55,5 +60,18 @@ class AcademicBody extends Model
     public function getGradeAttribute() {
       $eval = $this->evaluations->sortBy('finish_date')->get(0);
       return isset($eval->grade)?$eval->grade:null;
+    }
+
+    public function getEmployeesAttribute() {
+      $lgacs = $this->lgacs;
+      $employees = new Collection();
+      foreach ($lgacs as $lgac) {
+        $employees = $employees->merge($lgac->employees);
+      }
+      return $employees;
+    }
+
+    public function getLastEvaluationAttribute() {
+      return $this->evaluations->sortBy('finish_date')->get(0);
     }
 }

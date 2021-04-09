@@ -7,18 +7,23 @@ type AcademicUnit {
 type Employee {
     id: ID! @rename(attribute: "nempleado")
     lead_employee_id: ID! @rename(attribute: "nempleado")
-    name: String @field(resolver: "App\\GraphQL\\Queries\\CustomEmployeeName")
+    name: String @rename(attribute: "full_name")
     sexo: String
-    age: Int @field(resolver: "App\\GraphQL\\Queries\\EmployeeAge")
+    age: Int
     nombre: String
     apaterno: String
     correo1: String
     amaterno: String
     grado: String
-    academic_body: String @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyList")
+    academic_body: AcademicBody
     academic_unit: AcademicUnit @belongsTo(relation: "academic_unit")
     academic_bodies_lgacs: [LGAC]
     active: Boolean
+    is_ptc: Boolean
+    has_active_prodep_profile: Boolean
+    has_active_sni: Boolean
+    prodep_profiles: [ProdepProfile]
+    snis: [Sni]
 }
 
 input employeeToAcademicBodyInput {
