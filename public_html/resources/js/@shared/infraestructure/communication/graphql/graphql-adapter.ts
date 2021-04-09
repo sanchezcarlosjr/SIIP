@@ -6,6 +6,7 @@ export function adapt(repository: ApolloDefaultRepository = new ApolloSiipTableR
         // @ts-ignore
         query: repository.query(),
         update: repository.update(),
+        prefetch: false,
         variables(): any {
             return {
                 // @ts-ignore
