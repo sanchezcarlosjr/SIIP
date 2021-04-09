@@ -1,9 +1,3 @@
-"A date string with format `Y-m-d`, e.g. `2011-05-23`."
-scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-
-"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
-
 type Query {
     activities_pits: [ActivitiesPit] @paginate(defaultCount: 10)
     researchers: [Researcher] @paginate(defaultCount: 10)
@@ -26,7 +20,7 @@ type Query {
     desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
     lgacs: [LGAC] @paginate(defaultCount: 200)
     employees(members: Boolean  @builder(method: "App\\GraphQL\\Queries\\ActiveMember"), free: Int @builder(method: "App\\GraphQL\\Queries\\FreeEmployee")): [Employee] @paginate(defaultCount: 100)
-    academic_bodies (filter: [String], orderBy: _ @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 200, builder: "App\\GraphQL\\Queries\\AcademicBodyFilter")
+    academic_bodies (filter: [String], orderBy: String @orderBy(columns: ["created_at"])): [AcademicBody] @paginate(defaultCount: 200, builder: "App\\GraphQL\\Queries\\AcademicBodyFilter")
 }
 
 type Mutation {
@@ -182,6 +176,7 @@ type Mutation {
 #import employee.graphql
 #import prodep.graphql
 #import sni.graphql
-#import  prodep.graphql
-#import  sni.graphql
-#import  activities-pit.graphql
+#import prodep.graphql
+#import sni.graphql
+#import activities-pit.graphql
+#import scalar.graphql
