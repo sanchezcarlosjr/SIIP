@@ -5,6 +5,7 @@ extend type Mutation {
 
 input employeeToAcademicBodyInput {
     academic_body_id: ID
+    is_leader: Boolean
     lgac_id: ID
     employees_id: ID
 }

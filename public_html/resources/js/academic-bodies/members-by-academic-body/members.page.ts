@@ -42,7 +42,14 @@ export default class MembersPage extends Vue {
                 model: 'lgac_id',
                 query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs'),
                 textKey: 'name'
-            }
+            },
+            {
+                type: "switch2",
+                label: "Liderazgo",
+                model: "is_leader",
+                textOn: "Es el líder del cuerpo académico",
+                textOff: "No es el líder del cuerpo académico"
+            },
         ]
     };
     defaultCriteria = [

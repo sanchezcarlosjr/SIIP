@@ -27,6 +27,11 @@ class AddEmployeesToAcademicBody
             'academic_bodies_lgacs_id' => $args['lgac_id'],
             'employee_id' => $args['employees_id'],
         ]);
-        return AcademicBody::find($args['academic_body_id']);
+        $academicBody = AcademicBody::find($args['academic_body_id']);
+        if ($args['is_leader']) {
+            $academicBody->lead_employee_id = $args['is_leader'] ? $args['employees_id'] : null;
+            $academicBody->save();
+        }
+        return $academicBody;
     }
 }
