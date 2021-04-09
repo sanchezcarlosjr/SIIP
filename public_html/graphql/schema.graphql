@@ -28,7 +28,7 @@ type Query {
     employee(nempleado: ID @eq): Employee @find
     academic_bodies (
       filter: [String],
-      orderBy: _ @orderBy(columns: ["created_at"])
+        orderBy: String @orderBy(columns: ["created_at"])
     ): [AcademicBody] @paginate(
       defaultCount: 200,
       builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
