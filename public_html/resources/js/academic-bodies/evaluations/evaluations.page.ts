@@ -17,6 +17,18 @@ export default class EvaluationsPage extends Vue {
     ];
     defaultCriteria = [
         {
+            value: "En formación",
+            default: true
+        },
+        {
+            value: "En consolidación",
+            default: false
+        },
+        {
+            value: "Consolidado",
+            default: false
+        },
+        {
             value: 'Mexicali',
             default: false
         },
