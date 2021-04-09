@@ -1,0 +1,46 @@
+extend type Query {
+    prodep_nptcs: [ProdepNPTC] @paginate(defaultCount: 10)
+    prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 200)
+    prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
+}
+
+extend type Mutation {
+    destroyProdepProfile(id: ID!): ProdepProfile @delete
+    createProdepProfiles(
+        data: createProdepProfilesInput
+        @spread
+    ): ProdepProfile
+    updateProdepProfile(
+        id: ID!
+        start_date: Date
+        finish_date: Date
+        employee_id: Int
+        prodep_area_id: Int
+    ): ProdepProfile @update
+    destroyProdepHelp(
+        id: ID!
+    ): ProdepHelp @delete
+    createProdepHelps(
+        data: createProdepHelpsInput
+        @spread
+    ): ProdepHelp @create
+    updateProdepHelp(
+        id: ID!
+        amount: Float
+        type: String
+        date: Date
+        employee_id: Int
+    ): ProdepHelp @update
+    destroyProdepNPTC(id: ID!): ProdepNPTC @delete
+    createProdepNPTC(
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @create
+    updateProdepNPTC(
+        id:ID!
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @update
+}

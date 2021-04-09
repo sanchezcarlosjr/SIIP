@@ -1,0 +1,14 @@
+extend type Query {
+    employee(nempleado: ID @eq): Employee @find
+    employees(
+        members: Boolean  @builder(
+            method: "App\\GraphQL\\Queries\\Employee@is_lgac_member"
+        ),
+        free: Int @builder(
+            method: "App\\GraphQL\\Queries\\FreeEmployee"
+        ),
+        name_like: String @builder(
+            method: "App\\GraphQL\\Queries\\Employee@name_like"
+        )
+    ): [Employee] @paginate(defaultCount: 100)
+}

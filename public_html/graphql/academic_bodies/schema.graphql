@@ -1,0 +1,76 @@
+extend type Query {
+    academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
+    networks: [Network] @paginate(defaultCount: 10)
+    help(id: ID @eq): Help @find
+    evaluations: [Evaluation!]! @paginate(defaultCount: 100)
+    helps: [Help] @paginate(defaultCount: 200)
+    academic_body(id: ID @eq): AcademicBody @find
+    prodep_area(id: ID @eq): ProdepArea @find
+    prodep_areas: [ProdepArea]  @paginate(defaultCount: 200)
+    uabc_areas: [UABCArea] @paginate(defaultCount: 200)
+    des: [DES] @paginate(defaultCount: 200)
+    desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
+    lgacs: [LGAC] @paginate(defaultCount: 200)
+    academic_bodies (
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [AcademicBody] @paginate(
+        defaultCount: 200,
+        builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
+    )
+}
+
+extend type Mutation {
+    destroyLgac(
+        data: destroyLgacInput!
+        @spread
+    ):LGAC @delete
+    updateLgac(
+        data: updateLgacInput
+        @spread
+    ): LGAC @update
+    createLgac(
+        data: createLgacInput
+        @spread
+    ): LGAC @create
+    destroyNetwork(name:String): Network
+    createNetwork(
+        data: createNetworkInput
+        @spread
+    ): Network @create
+    updateNetwork(
+        data: updateNetworkInput
+        @spread
+    ): Network @update
+    destroyHelp(
+        id: ID!
+    ): Help
+    createHelp(
+        data: createHelpInput
+        @spread
+    ): Help @create
+    updateHelp(
+        data: updateHelpInput
+        @spread
+    ): Help @update
+    destroyEvaluation(id:ID!): Evaluation @delete
+    createEvaluation(
+        data: createEvaluationInput
+        @spread
+    ): Evaluation
+    updateEvaluation(
+        data: updateEvaluationInput
+        @spread
+    ): Evaluation @update
+    addEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
+    removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
+    destroyAcademicBody(id: ID!): AcademicBody @delete
+    updateAcademicBody(
+        data: updateAcademicBodyInput
+        @spread
+    ): AcademicBody @update
+    createAcademicBody(
+        data: createAcademicBodyInput
+        @spread
+    ): AcademicBody @create
+}
