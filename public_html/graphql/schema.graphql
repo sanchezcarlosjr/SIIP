@@ -6,9 +6,7 @@ type Query {
     prodep_profiles (finish_date: Date @where(operator: ">=")): [ProdepProfile] @paginate(defaultCount: 200)
     prodep_helps: [ProdepHelp] @paginate(defaultCount: 100)
     academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
-    users: [User] @paginate(defaultCount: 10)
     networks: [Network] @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
     help(id: ID @eq): Help @find
     evaluations: [Evaluation!]! @paginate(defaultCount: 100)
     helps: [Help] @paginate(defaultCount: 200)
@@ -41,7 +39,6 @@ type Query {
 }
 
 type Mutation {
-    updateUsers(data: updateUsersInput! @spread): User @update
     deleteActivitiesPit(id: ID!): ActivitiesPit @delete
     createActivitiesPit(
         kind_of_applicant: String
@@ -189,7 +186,7 @@ type Mutation {
 }
 
 #import academic-body.graphql
-#import user.graphql
+#import users/*.graphql
 #import employee.graphql
 #import prodep.graphql
 #import sni.graphql
