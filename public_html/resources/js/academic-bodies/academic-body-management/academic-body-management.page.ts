@@ -16,7 +16,7 @@ export default class AcademicBodyManagementPage extends Vue {
     defaultCriteria = [
         {
             value: 'Vigente',
-            default: false
+            default: true
         },
         {
             value: 'No vigente',

@@ -45,10 +45,10 @@ export default {
     mounted() {
         this.criteria.push(...this.filters.filter((f) => f.default).map((f) => f.value));
         this.originalFilter.push(...this.filters.filter((f) => f.default || !f.default).map((f) => f.value));
-
-        this.$watch('criteria', ()=>{
-          this.$emit("update", this.criteria);
-        }, {deep:true})
+        this.$emit("update", this.criteria);
+        this.$watch('criteria', () => {
+            this.$emit("update", this.criteria);
+        }, {deep: true})
     }
 }
 </script>

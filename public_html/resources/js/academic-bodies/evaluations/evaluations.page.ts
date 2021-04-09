@@ -15,9 +15,10 @@ export default class EvaluationsPage extends Vue {
         {key: 'leader.academic_unit.name', label: 'Unidad académica', sortable: true},
         {key: 'leader.academic_unit.campus', label: 'Campus', sortable: true},
     ];
-    defaultCriteria = [{
-        value: 'Mexicali',
-        default: false
+    defaultCriteria = [
+        {
+            value: 'Mexicali',
+            default: false
         },
         {
             value: 'Ensenada',
@@ -27,5 +28,5 @@ export default class EvaluationsPage extends Vue {
             value: 'Tijuana',
             default: false
         }
-        ];
+    ];
 }
