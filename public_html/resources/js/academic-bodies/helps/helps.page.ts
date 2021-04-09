@@ -4,7 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class HelpsPage extends Vue {
-    apiResource = new GraphqlResourceRepository('helps');
+    apiResource = new GraphqlResourceRepository('helps(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)');
     toolbar = new Set<String>([]);
     fields = [
         {key: 'type', label: 'Tipo', sortable: true},

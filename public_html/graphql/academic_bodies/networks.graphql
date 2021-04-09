@@ -1,5 +1,8 @@
 extend type Query {
-    networks: [Network] @paginate(defaultCount: 10)
+    networks(
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [Network] @paginate(defaultCount: 100)
 }
 
 extend type Mutation {

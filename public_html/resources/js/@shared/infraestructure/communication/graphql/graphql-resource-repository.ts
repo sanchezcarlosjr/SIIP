@@ -71,7 +71,9 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     public query() {
-        return gql`query($filter: [String] = []) {
+        const needsFilter = this._query.match('filter:');
+        const params = needsFilter ? "($filter: [String] = [])" : "";
+        return gql`query ${params} {
             ${this._query} {
             data {
                 id

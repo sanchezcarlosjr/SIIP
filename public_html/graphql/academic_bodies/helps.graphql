@@ -1,6 +1,9 @@
 extend type Query {
     help(id: ID @eq): Help @find
-    helps: [Help] @paginate(defaultCount: 200)
+    helps(
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [Help] @paginate(defaultCount: 200)
 }
 
 extend type Mutation {

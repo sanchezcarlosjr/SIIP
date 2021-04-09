@@ -4,7 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class EvaluationsPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies', {
+    apiResource = new GraphqlResourceRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)', {
         index: 'active name'
     });
     toolbar = new Set<String>(['edit']);
