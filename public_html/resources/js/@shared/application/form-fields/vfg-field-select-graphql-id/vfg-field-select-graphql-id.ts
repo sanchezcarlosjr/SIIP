@@ -13,7 +13,7 @@ const VueFormGenerator = require('vue-form-generator');
 export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abstractField) {
     [x: string]: any;
 
-    options: { text: string, value: string }[] = [];
+    options: { text: string; value: string; }[] = [];
     optionsFinder = typeof this.schema.query === 'string' ? GraphqlResourceRepository.createDefaultRepository(this.schema.query) : this.schema.query;
     isTouched: any = null;
     feedback = '';
@@ -27,6 +27,9 @@ export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abs
     }
 
     search(id: string) {
+        if (!id) {
+            return;
+        }
         this.$apollo.queries.options.refetch({
             filter: id
         });

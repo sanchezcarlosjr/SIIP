@@ -4,11 +4,11 @@
             :id="schema.model"
             v-model="value"
             :list="schema.model.concat('select')"
+            autocomplete="off"
             :readonly="schema.readonly"
             :required="schema.required"
             :state="idState"
-            debounce="500"
-            trim
+            debounce="1000"
             @blur="handleBlur"
             @change="search"
         ></b-form-input>
