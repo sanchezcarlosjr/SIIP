@@ -6,15 +6,22 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Employee
 {
-  public function name_like(Builder $builder, String $name): Builder {
-      return $builder->where(function($query) use ($name) {
-        $query->where("nombre", "ILIKE", "%".$name."%")
-          ->orWhere("amaterno", "ILIKE", "%".$name."%")
-          ->orWhere("apaterno", "ILIKE", "%".$name."%");
-      });
-  }
+    public function filter(Builder $builder, array $filter): Builder
+    {
+        if (count($filter) == 0) {
+            return $builder;
+        }
+        $nameOrId = $filter[0];
+        return $builder->where(function ($query) use ($nameOrId) {
+            $query->where("nombre", "ILIKE", "%" . $nameOrId . "%")
+                ->orWhere("amaterno", "ILIKE", "%" . $nameOrId . "%")
+                ->orWhere("apaterno", "ILIKE", "%" . $nameOrId . "%")
+                ->orWhere("nempleado", "ILIKE", "%" . $nameOrId . "%");
+        });
+    }
 
-  public function is_lgac_member(Builder $builder, bool $m): Builder {
-    return $builder->has('academic_bodies_lgacs', ($m?'>':'<='), 0);
-  }
+    public function is_lgac_member(Builder $builder, bool $m): Builder
+    {
+        return $builder->has('academic_bodies_lgacs', ($m ? '>' : '<='), 0);
+    }
 }

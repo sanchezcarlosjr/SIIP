@@ -10,7 +10,7 @@
             debounce="500"
             trim
             @blur="handleBlur"
-            @change="showFeedback"
+            @change="search"
         ></b-form-input>
         <b-form-invalid-feedback :id="schema.model.concat('feedback')">
             Ingresa un recurso correcto.

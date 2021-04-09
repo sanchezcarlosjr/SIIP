@@ -7,8 +7,8 @@ extend type Query {
         free: Int @builder(
             method: "App\\GraphQL\\Queries\\FreeEmployee"
         ),
-        name_like: String @builder(
-            method: "App\\GraphQL\\Queries\\Employee@name_like"
+        filter: [String] @builder(
+            method: "App\\GraphQL\\Queries\\Employee@filter"
         )
     ): [Employee] @paginate(defaultCount: 100)
 }

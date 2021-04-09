@@ -33,7 +33,7 @@ export default class MembersPage extends Vue {
                 type: 'graphql-select-id',
                 label: 'Empleado',
                 model: "employees_id",
-                query: new GraphqlResourceRepository(`employees(free: ${this.$route.params.id})`),
+                query: new GraphqlResourceRepository(`employees(free: ${this.$route.params.id}, filter: $filter)`),
                 textKey: 'name'
             },
             {
