@@ -1,0 +1,15 @@
+extend type Mutation {
+    addEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
+    removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
+}
+
+input employeeToAcademicBodyInput {
+    academic_body_id: ID
+    lgac_id: ID
+    employees_id: ID
+}
+
+input removeEmployeeToAcademicBodyInput {
+    academic_body_id: ID
+    employees_id: ID
+}

@@ -1,3 +1,49 @@
+extend type Query {
+    researchers: [Researcher] @paginate(defaultCount: 10)
+    snis: [Sni] @paginate(defaultCount: 10)
+}
+
+extend type Mutation {
+    destroyResearcher(
+        id: ID!
+    ): Researcher @delete
+    createResearcher(
+        valid: Int
+        probative: String
+        employee_id: Int): Researcher @create
+    updateResearcher(
+        Id:ID!
+        valid: Int
+        probative: String
+        employee_id: Int): Researcher @update
+    destroySni(
+        id: ID!
+    ): Sni @delete
+    createSni(
+        start_date: Date
+        finish_date: Date
+        discipline: String
+        field: String
+        request: String
+        level: String
+        specialty: String
+        employee_id: Int
+        sni_area_id: Int
+    ): Sni @create
+    updateSni(
+        id: ID!
+        start_date: Date
+        finish_date: Date
+        discipline: String
+        field: String
+        request: String
+        level: String
+        specialty: String
+        employee_id: Int
+        sni_area_id: Int
+    ): Sni @update
+}
+
 type Sni {
     start_date: Date
     finish_date: Date

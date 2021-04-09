@@ -1,0 +1,42 @@
+extend type Query {
+    lgacs: [LGAC] @paginate(defaultCount: 200)
+}
+
+extend type Mutation {
+    destroyLgac(
+        data: destroyLgacInput!
+        @spread
+    ):LGAC @delete
+    updateLgac(
+        data: updateLgacInput
+        @spread
+    ): LGAC @update
+    createLgac(
+        data: createLgacInput
+        @spread
+    ): LGAC @create
+}
+
+type LGAC {
+    id: ID!
+    name: String!
+    description: String!
+    employees: [Employee]
+    academic_body: AcademicBody! @belongsTo(relation: "academic_body")
+}
+
+input destroyLgacInput {
+    id: ID!
+}
+
+input updateLgacInput {
+    id: ID!
+    name: String
+    description: String
+}
+
+input createLgacInput {
+    name: String
+    description: String
+    academic_body_id: ID
+}

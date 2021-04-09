@@ -1,8 +1,0 @@
-extend type Query {
-    user(id: ID @eq): User @find
-    users: [User] @paginate(defaultCount: 10)
-}
-
-extend type Mutation {
-    updateUsers(data: updateUsersInput! @spread): User @update
-}
