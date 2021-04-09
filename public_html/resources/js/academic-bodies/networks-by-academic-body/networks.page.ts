@@ -58,7 +58,7 @@ export default class NetworksPage extends Vue {
             },
             {
                 type: 'upload',
-                label: 'Formalizacion'
+                label: 'Formalización'
             }
         ]
     };
