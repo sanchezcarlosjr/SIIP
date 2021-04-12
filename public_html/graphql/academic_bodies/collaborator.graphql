@@ -1,0 +1,33 @@
+extend type Query {
+    collaborators: [Collaborator] @paginate(defaultCount: 200)
+}
+
+extend type Mutation {
+    destroyCollaborator(id: ID!): Collaborator @delete
+    updateCollaborator(
+        data: updateCollaboratorInput
+        @spread
+    ): Collaborator @update
+    createCollaborator(
+        data: createCollaboratorInput
+        @spread
+    ): Collaborator @create
+}
+
+type Collaborator {
+    id: ID
+    employee: Employee
+    academic_body_id: String
+    employee_id: String
+}
+
+input updateCollaboratorInput {
+    id: ID
+    academic_body_id: ID
+    employee_id: ID
+}
+
+input createCollaboratorInput {
+    academic_body_id: ID
+    employee_id: ID
+}

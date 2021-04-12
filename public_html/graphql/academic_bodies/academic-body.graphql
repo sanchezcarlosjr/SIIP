@@ -29,6 +29,7 @@ type AcademicBody {
     discipline: String
     lead_employee_id: Int
     prodep_area_id: Int
+    collaborators: [Employee]
     des_id: Int
     helps: [Help]
     last_evaluation: Evaluation

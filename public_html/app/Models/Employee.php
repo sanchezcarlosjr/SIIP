@@ -38,15 +38,28 @@ class Employee extends Model
         );
     }
 
-    public function getHasActiveProdepProfileAttribute() {
-      return $this->prodep_profiles->contains("is_active", true);;
+    public function collaborator_academic_bodies(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            AcademicBody::class,
+            'collaborators',
+            'employee_id',
+            'academic_body_id'
+        );
     }
 
-    public function getHasActiveSniAttribute() {
-      return $this->snis->contains("is_active", true);;
+    public function getHasActiveProdepProfileAttribute()
+    {
+        return $this->prodep_profiles->contains("is_active", true);
     }
 
-    public function getAcademicBodyAttribute() {
+    public function getHasActiveSniAttribute()
+    {
+        return $this->snis->contains("is_active", true);
+    }
+
+    public function getAcademicBodyAttribute()
+    {
       $lgac = $this->academic_bodies_lgacs->get(0);
       return isset($lgac->academic_body)?$lgac->academic_body:null;
     }

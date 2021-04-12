@@ -27,6 +27,7 @@ type Employee {
     academic_body: AcademicBody
     academic_unit: AcademicUnit @belongsTo(relation: "academic_unit")
     academic_bodies_lgacs: [LGAC]
+    collaborator_academic_bodies: [AcademicBody]
     active: Boolean
     is_ptc: Boolean
     has_active_prodep_profile: Boolean
