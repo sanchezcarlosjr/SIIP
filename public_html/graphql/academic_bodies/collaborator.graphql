@@ -4,14 +4,10 @@ extend type Query {
 
 extend type Mutation {
     destroyCollaborator(id: ID!): Collaborator @delete
-    updateCollaborator(
-        data: updateCollaboratorInput
-        @spread
-    ): Collaborator @update
     createCollaborator(
         data: createCollaboratorInput
         @spread
-    ): Collaborator @create
+    ): Collaborator
 }
 
 type Collaborator {
@@ -21,13 +17,7 @@ type Collaborator {
     employee_id: String
 }
 
-input updateCollaboratorInput {
-    id: ID
-    academic_body_id: ID
-    employee_id: ID
-}
-
 input createCollaboratorInput {
     academic_body_id: ID
-    employee_id: ID
+    employees_id: ID
 }
