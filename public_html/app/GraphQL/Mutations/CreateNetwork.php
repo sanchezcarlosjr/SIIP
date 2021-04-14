@@ -11,6 +11,7 @@ class CreateNetwork
      */
     public function __invoke($_, array $args)
     {
+        dd($args);
         return Network::create($args);
     }
 }

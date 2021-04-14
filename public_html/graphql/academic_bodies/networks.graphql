@@ -10,7 +10,7 @@ extend type Mutation {
     createNetwork(
         data: createNetworkInput
         @spread
-    ): Network @create
+    ): Network
     updateNetwork(
         data: updateNetworkInput
         @spread
@@ -37,6 +37,7 @@ input createNetworkInput {
     start_date: Date
     range: String
     finish_date: Date
+    formation: Upload
     academic_body_id: Int
 }
 

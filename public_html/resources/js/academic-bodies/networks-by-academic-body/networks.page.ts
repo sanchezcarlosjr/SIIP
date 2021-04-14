@@ -57,8 +57,10 @@ export default class NetworksPage extends Vue {
                 model: 'finish_date'
             },
             {
-                type: 'upload',
-                label: 'Formalización'
+                type: "input",
+                inputType: "file",
+                label: 'Formalización',
+                model: 'formation'
             }
         ]
     };
