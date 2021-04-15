@@ -78,6 +78,7 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
+        this.hasUpload = this.schema.fields.filter((field: any) => field.type === 'upload2').length > 0;
         // @ts-ignore
         let params = (new URL(document.location)).searchParams;
         if (params.has('createResource')) {
@@ -171,6 +172,9 @@ export default class SiipTableComponent extends Vue {
                     ...this.infoModal.model,
                     academic_body_id: this.$route.params.id
                 },
+            },
+            context: {
+                hasUpload: this.hasUpload
             }
         }).then(async (element) => {
                 await this.$apollo.queries.items.refetch();

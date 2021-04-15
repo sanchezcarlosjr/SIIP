@@ -9,6 +9,7 @@ import VfgFieldCalendar from './@shared/application/form-fields/vfg-field-calend
 import VfgFieldEmail from './@shared/application/form-fields/vfg-field-email/index.vue';
 import VfgFieldApiSelect from './@shared/application/form-fields/vfg-field-select-api/index.vue';
 import VfgFieldGraphQLSelect from './@shared/application/form-fields/vfg-field-select-graphql/index.vue';
+import VfgFieldUpload from './@shared/application/form-fields/vfg-field-upload/index.vue';
 import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/index.vue';
 import EntryComponent from './entry.component.vue';
 import AcademicBodyLgacs from './academic-bodies/lgac-by-academic-body/index.vue';
