@@ -1,0 +1,55 @@
+extend type Query {
+    network(id: ID @eq): Network @find
+    networks(
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [Network] @paginate(defaultCount: 100)
+}
+
+extend type Mutation {
+    destroyNetwork(name:String): Network
+    createNetwork(
+        data: createNetworkInput
+        @spread
+    ): Network
+    updateNetwork(
+        data: updateNetworkInput
+        @spread
+    ): Network @update
+}
+
+type Network {
+    id: ID!
+    active: Boolean
+    name: String
+    type: String
+    class: String
+    start_date: Date
+    range: String
+    formation_url: String
+    finish_date: Date
+    academic_body_id: Int
+    academic_body: AcademicBody @belongsTo(relation: "academic_body")
+}
+
+input createNetworkInput {
+    name: String
+    type: String
+    class: String
+    start_date: Date
+    range: String
+    finish_date: Date
+    formation: [Upload]
+    academic_body_id: Int
+}
+
+input updateNetworkInput {
+    id: ID!
+    name: String
+    type: String
+    class: String
+    start_date: Date
+    range: String
+    finish_date: Date
+    academic_body_id: Int
+}

@@ -1,0 +1,9 @@
+extend type Query {
+    prodep_area(id: ID @eq): ProdepArea @find
+    prodep_areas: [ProdepArea]  @paginate(defaultCount: 200)
+}
+
+type ProdepArea {
+    id: ID!
+    name: String
+}

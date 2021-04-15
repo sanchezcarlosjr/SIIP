@@ -1,0 +1,40 @@
+extend type Query {
+    evaluation(id: ID @eq): Evaluation @find
+    evaluations: [Evaluation!]! @paginate(defaultCount: 100)
+}
+
+extend type Mutation {
+    destroyEvaluation(id:ID!): Evaluation @delete
+    createEvaluation(
+        data: createEvaluationInput
+        @spread
+    ): Evaluation
+    updateEvaluation(
+        data: updateEvaluationInput
+        @spread
+    ): Evaluation
+}
+
+type Evaluation {
+    id: ID
+    active: Boolean
+    grade: String
+    finish_date: Date
+    years_to_finish: Int
+    start_date: Date
+    academic_body: AcademicBody! @belongsTo(relation: "academic_bodies")
+}
+
+input createEvaluationInput {
+    grade: String
+    years_to_finish: Int
+    start_date: Date
+    academic_body_id: ID
+}
+
+input updateEvaluationInput {
+    id:ID!
+    grade: String
+    years_to_finish: Int
+    start_date: Date
+}

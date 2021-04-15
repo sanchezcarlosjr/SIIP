@@ -1,11 +1,12 @@
 <template>
     <siip-table
-    :toolbar="toolbar"
-    :links="links"
-    :schema="schema"
-    :fields="fields"
-    :filter="defaultCriteria"
-    :resource="apiResource"
+        :fields="fields"
+        :filter="defaultCriteria"
+        :links="links"
+        :resource="apiResource"
+        :schema="schema"
+        :toolbar="toolbar"
+        @created-element="createdElement"
     >
         <template #statistics>
             <academic-body-statistics></academic-body-statistics>
@@ -13,6 +14,6 @@
     </siip-table>
 </template>
 
-<script src="./academic-body-management.page.ts" lang="ts"></script>
-<style src="./academic-body-management.page.scss" scoped lang="scss"></style>
+<script lang="ts" src="./academic-body-management.page.ts"></script>
+<style lang="scss" scoped src="./academic-body-management.page.scss"></style>
 

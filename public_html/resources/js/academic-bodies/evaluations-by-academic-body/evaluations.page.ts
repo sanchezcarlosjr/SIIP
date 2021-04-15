@@ -4,14 +4,43 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 
 @Component
 export default class EvaluationsPage extends Vue {
-
-    apiResource = new GraphqlSubResourceFinderRepository('academic_body', 'evaluations', 'updateEvaluation', 'createEvaluation', 'updateEvaluationInput', 'createEvaluationInput', {index: ''});
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'evaluations');
     spanishResourceName = 'Evaluación'
     toolbar = new Set(['add', 'edit']);
     fields = [
         {key: 'grade', label: 'Grado', sortable: true},
         {key: 'start_date', label: 'Vigente desde', sortable: true, class: 'vw-5'},
         {key: 'finish_date', label: 'Vigencia hasta', sortable: true, class: 'vw-5'}
+    ];
+    defaultCriteria = [
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      },
+      {
+        type: "or",
+        criteria: [
+          {
+            value: "En formación"
+          },
+          {
+            value: "En consolidación"
+          },
+          {
+            value: "Consolidado"
+          }
+        ]
+      }
     ];
     schema = {
         fields: [
@@ -42,4 +71,3 @@ export default class EvaluationsPage extends Vue {
         ]
     };
 }
-

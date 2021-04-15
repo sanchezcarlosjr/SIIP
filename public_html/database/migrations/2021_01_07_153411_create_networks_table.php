@@ -19,6 +19,7 @@ class CreateNetworksTable extends Migration
             $table->string('type')->nullable();
             $table->string('class')->nullable();
             $table->string('range');
+            $table->string('formation_url')->nullable();
             $table->date('start_date');
             $table->date('finish_date');
             $table->timestamps();

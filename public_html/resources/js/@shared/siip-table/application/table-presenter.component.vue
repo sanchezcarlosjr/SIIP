@@ -11,6 +11,7 @@
                 :filter-function="search"
                 :items="items"
                 :per-page="perPage"
+                :tbody-tr-class="rowClass"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
                 :sort-direction="sortDirection"
@@ -18,7 +19,7 @@
                 emptyText="Sin elementos"
                 head-variant="light"
                 hover
-                responsive="sm"
+                responsive
                 show-empty
                 small
                 stacked="md"
@@ -73,6 +74,7 @@ export default {
         'busy',
         'items',
         'fields',
+        'rowClass',
         'criteria',
         'search',
         'sortBy',

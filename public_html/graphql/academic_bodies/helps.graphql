@@ -1,0 +1,50 @@
+extend type Query {
+    help(id: ID @eq): Help @find
+    helps(
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [Help] @paginate(defaultCount: 200)
+}
+
+extend type Mutation {
+    destroyHelp(
+        id: ID!
+    ): Help
+    createHelp(
+        data: createHelpInput
+        @spread
+    ): Help @create
+    updateHelp(
+        data: updateHelpInput
+        @spread
+    ): Help @update
+}
+
+
+type Help {
+    id: ID!
+    active: Boolean
+    type: String
+    date: Date
+    amount: Float
+    benefited_employee_id: Int
+    benefited_employee: Employee @belongsTo(relation: "benefited_employee")
+    academic_body: AcademicBody @belongsTo(relation: "academic_body")
+}
+
+input createHelpInput {
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}
+
+input updateHelpInput {
+    id: ID!
+    academic_body_id: ID
+    amount: Float
+    benefited_employee_id: ID
+    date: Date
+    type: String
+}

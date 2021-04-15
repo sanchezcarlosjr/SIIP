@@ -3,21 +3,18 @@
         <b-form-input
             :readonly="schema.readonly"
             :id="schema.model"
-            v-model="value"
             :list="schema.model.concat('select')"
-            :required="schema.required"
+            v-model="text"
+            debounce="200"
             :state="idState"
-            debounce="500"
             trim
-            @change="showFeedback"
             @blur="handleBlur"
         ></b-form-input>
-        <b-form-invalid-feedback :id="schema.model.concat('feedback')">
-            Ingresa un recurso correcto.
-        </b-form-invalid-feedback>
-        <b-form-text :id="schema.model.concat('text')">{{feedback}}</b-form-text>
         <datalist :id="schema.model.concat('select')">
-            <option v-for="option in options" :value="option.value">{{ option.text }}</option>
+            <option v-for="option in options"
+                    :id="schema.model.concat('select')+option.text"
+                    :data-value="option.value"
+                    :value="option.text"></option>
         </datalist>
     </div>
 </template>

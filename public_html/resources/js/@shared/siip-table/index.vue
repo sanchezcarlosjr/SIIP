@@ -63,6 +63,7 @@
             :filter="criteria"
             :filter-function="search"
             :items="items"
+            :rowClass="rowClass"
             :rowContextLinks="links"
             :rowContextOptions="options"
             :sort-by.sync="sortBy"
@@ -74,19 +75,19 @@
         </table-presenter>
         <create-modal-component
             :form-options="formOptions"
-            :model="infoModal.model"
-            :ok-disabled="okDisabled"
             :schema="schema"
             :title="infoModal.title"
-            @ok="execute"
-            @onValidated="onValidated"
+            @ok="createElement"
             @reset="resetModal"
         ></create-modal-component>
         <edit-modal-component
-            :model="infoModal.model"
             :schema="schema"
+            :itemId="infoModal.itemId"
+            :resource="resource"
             :title="infoModal.title"
-            @ok="execute"
+            :details="toolbar.has('details')"
+            @ok="editElement"
+            :size="editModalSize"
             @reset="resetModal"
         ></edit-modal-component>
         <remove-modal-component

@@ -4,7 +4,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class EvaluationsPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies', {
+    apiResource = new GraphqlResourceRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)', {
         index: 'active name'
     });
     toolbar = new Set<String>(['edit']);
@@ -15,17 +15,34 @@ export default class EvaluationsPage extends Vue {
         {key: 'leader.academic_unit.name', label: 'Unidad académica', sortable: true},
         {key: 'leader.academic_unit.campus', label: 'Campus', sortable: true},
     ];
-    defaultCriteria = [{
-        value: 'Mexicali',
-        default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        }
-        ];
+    defaultCriteria = [
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      },
+      {
+        type: "or",
+        criteria: [
+          {
+            value: "En formación"
+          },
+          {
+            value: "En consolidación"
+          },
+          {
+            value: "Consolidado"
+          }
+        ]
+      }
+    ];
 }

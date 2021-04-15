@@ -28,7 +28,8 @@ import SiipTitle from './application/title.component.vue';
 })
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
-    @Prop() infoVariant!: (response: any) => Promise<number>;
+
+    @Prop() rowClass: ((response: any) => string) | undefined;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
     @Prop() spanishResourceName!: string;
@@ -77,6 +78,12 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
+        this.hasUpload = this.schema.fields.filter((field: any) => field.type === 'upload2').length > 0;
+        // @ts-ignore
+        let params = (new URL(document.location)).searchParams;
+        if (params.has('createResource')) {
+            this.create(null);
+        }
         this.toolbar.forEach((value) => {
             if (value === 'add' || value === 'add-relation') {
                 return;
@@ -93,9 +100,9 @@ export default class SiipTableComponent extends Vue {
         this[event.option.click](event.item.row, event.item.index);
     }
 
-    execute() {
+    execute(model: any) {
         // Common code to actions. Example: addElement, editElement, removeElement
-        this[`${this.infoModal.id}Element`]()
+        this[`${this.infoModal.id}Element`](model)
             .then(() => this.showSuccessToast())
             .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
@@ -120,10 +127,11 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
-        if (this.schema.fields.length === 0 || !this.toolbar.has('edit')) {
+        if (this.schema.fields.length === 0) {
             return;
         }
-        if (this.toolbar.has('details')) {
+        if (this.toolbar.has('own-edit')) {
+            this.$emit('edit', item.id);
             return;
         }
         this.infoModal.id = 'edit';
@@ -148,6 +156,66 @@ export default class SiipTableComponent extends Vue {
         this.infoModal.reset();
     }
 
+    editElement(model: any) {
+        return this.$apollo.mutate({
+            mutation: this.resource.edit,
+            variables: {
+                data: {
+                    ...model
+                }
+            }
+        }).then(() =>
+            this.$apollo.queries.items.refetch()
+        )
+            .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
+            .catch(() => this.showDangerToast());
+    }
+
+    public filterItems(v: any) {
+        this.$apollo.queries.items.refetch({
+            filter: v
+        });
+    }
+
+    get editModalSize() {
+        if (this.toolbar.has('edit-xl')) {
+            return 'xl';
+        }
+        if (this.toolbar.has('edit-lg')) {
+            return 'lg';
+        }
+        if (this.toolbar.has('edit-sm')) {
+            return 'sm';
+        }
+        return '';
+    }
+
+    createElement(model: any) {
+        this.$apollo.mutate({
+            mutation: this.resource.create,
+            variables: {
+                data: {
+                    ...model,
+                    academic_body_id: this.$route.params.id
+                },
+            },
+            context: {
+                hasUpload: this.hasUpload
+            }
+        }).then(async (element) => {
+                await this.$apollo.queries.items.refetch();
+                return element;
+            }
+        )
+            .then((element) => {
+                this.$emit('created-element', element['data']);
+            })
+            .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
+            .catch(() => this.showDangerToast());
+    }
+
     private toggleChart() {
         this.isVisibleChart = !this.isVisibleChart;
     }
@@ -155,21 +223,6 @@ export default class SiipTableComponent extends Vue {
     private showModal(item: any, index: any, button: any) {
         this.infoModal.setModal(item, index);
         this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
-    }
-
-    private createElement() {
-        return this.$apollo.mutate({
-            mutation: this.resource.create,
-            variables: {
-                data: {
-                    ...this.infoModal.model,
-                    academic_body_id: this.$route.params.id
-                },
-            }
-        })
-            .then(() =>
-                this.$apollo.queries.items.refetch()
-            )
     }
 
     private removeElement() {
@@ -181,19 +234,6 @@ export default class SiipTableComponent extends Vue {
                 }
             }
         }).then(() => this.$apollo.queries.items.refetch());
-    }
-
-    private editElement() {
-        return this.$apollo.mutate({
-            mutation: this.resource.edit,
-            variables: {
-                data: {
-                    ...this.infoModal.model
-                }
-            }
-        }).then(() =>
-            this.$apollo.queries.items.refetch()
-        );
     }
 
     private showSuccessToast() {
@@ -210,12 +250,6 @@ export default class SiipTableComponent extends Vue {
             variant: 'danger',
             solid: true
         })
-    }
-
-    public filterItems(v: any) {
-      this.$apollo.queries.items.refetch({
-        filter: v
-      });
     }
 
 }

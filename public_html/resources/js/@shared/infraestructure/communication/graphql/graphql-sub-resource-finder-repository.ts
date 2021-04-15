@@ -17,7 +17,8 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             index: ''
         },
         protected removeMutate?: string,
-        protected removeInput?: string) {
+        protected removeInput?: string,
+        protected resource?: string) {
     }
 
     public get edit() {
@@ -65,7 +66,8 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             camelize(`create ${resource} input`),
             undefined,
             camelize(`destroy ${resource}`),
-            camelize(`destroy ${resource} input`)
+            camelize(`destroy ${resource} input`),
+            resource
         );
     }
 
@@ -86,6 +88,21 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             }`;
     }
 
+    public find(id: string, fields: string[]) {
+        return gql`
+            query findResourceById {
+                ${this.resource}(id: ${id}) {
+                id
+                ${fields}
+            }
+            }
+        `;
+    }
+
+    public updateByFind(data: any) {
+        // @ts-ignore
+        return data[this.resource];
+    }
 
     update(data: any) {
         return data[this._query][this._sub_query];

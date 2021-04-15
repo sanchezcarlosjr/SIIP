@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +16,11 @@ class Evaluation extends Model
     public function academic_bodies(): BelongsTo
     {
         return $this->belongsTo(AcademicBody::class, 'academic_body_id');
+    }
+
+    public function getYearsToFinishAttribute()
+    {
+        return Carbon::parse($this->finish_date)->diffInYears(Carbon::parse($this->start_date));
     }
 
 }

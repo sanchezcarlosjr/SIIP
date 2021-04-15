@@ -1,0 +1,9 @@
+extend type Query {
+    des: [DES] @paginate(defaultCount: 200)
+    desSearcher(id: ID @where(operator: "=", key: "cdes")): DES @find
+}
+
+type DES {
+    id: ID! @rename(attribute: "cdes")
+    des: String
+}

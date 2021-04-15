@@ -1,0 +1,80 @@
+extend type Query {
+    academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
+    academic_body(id: ID @eq): AcademicBody @find
+    academic_bodies (
+        filter: [String],
+        orderBy: String @orderBy(columns: ["created_at"])
+    ): [AcademicBody] @paginate(
+        defaultCount: 200,
+        builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
+    )
+}
+
+extend type Mutation {
+    destroyAcademicBody(id: ID!): AcademicBody @delete
+    updateAcademicBody(
+        data: updateAcademicBodyInput
+        @spread
+    ): AcademicBody @update
+    createAcademicBody(
+        data: createAcademicBodyInput
+        @spread
+    ): AcademicBody @create
+}
+
+type AcademicBody {
+    id: ID!
+    name: String
+    active: Boolean
+    discipline: String
+    lead_employee_id: Int
+    prodep_area_id: Int
+    collaborators: [Employee]
+    des_id: Int
+    helps: [Help]
+    last_evaluation: Evaluation
+    leader: Employee
+    prodep_key: String
+    prodep_area: ProdepArea
+    evaluations: [Evaluation]
+    employees: [Employee]
+    lgacs: [LGAC]
+    created_at: Date
+    networks: [Network]
+    grade: String
+}
+
+type AcademicBodyByGrade {
+    inTraining: [Int]
+    inConsolidation: [Int]
+    consolidated: [Int]
+}
+
+type AcademicBodyStatistics {
+    total: Int
+    professorsWithSNIOrProdep: Int
+    professorsInAcademicBody: Int
+    ptcsAreNotAcademicBody: Int
+    academicBodyByGrade: AcademicBodyByGrade
+}
+
+input createAcademicBodyInput {
+    name: String,
+    prodep_key: String,
+    active: Boolean,
+    prodep_area_id: Int,
+    lead_employee_id: Int,
+    discipline: String,
+    des_id: Int
+}
+
+input updateAcademicBodyInput {
+    id: String,
+    name: String,
+    prodep_key: String,
+    active: Boolean,
+    prodep_area_id: Int,
+    lead_employee_id: Int,
+    discipline: String,
+    des_id: Int
+}

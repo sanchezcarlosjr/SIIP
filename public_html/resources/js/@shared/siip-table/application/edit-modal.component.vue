@@ -3,25 +3,33 @@
         :id="'edit'"
         :title="title"
         cancel-title="Cancelar"
-        ok-title="Aceptar cambios"
+        :size="size"
+        ok-title="Guardar cambios"
         scrollable
+        :hide-footer="details"
         @cancel="reset"
         @ok="ok"
     >
-        <vue-form-generator :model="model" :schema="schema"></vue-form-generator>
+        <edit-component ref="form" :itemId="itemId" :resource="resource" :schema="schema"></edit-component>
     </b-modal>
 </template>
 
 <script>
+import EditComponent from './edit.component.vue';
+
 export default {
+    components: {
+        EditComponent
+    },
     name: "edit-modal",
-    props: ["model", "schema", "title"],
+    props: ["size", "schema", "title", 'resource', 'itemId', 'details'],
     methods: {
         reset() {
             this.$emit('reset');
         },
         ok() {
-            this.$emit('ok');
+            delete this.$refs.form.model.__typename;
+            this.$emit('ok', this.$refs.form.model);
         }
     }
 }

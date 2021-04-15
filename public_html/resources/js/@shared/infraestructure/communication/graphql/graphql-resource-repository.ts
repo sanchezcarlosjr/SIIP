@@ -33,6 +33,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         return gql`
             mutation createNewResource($data: ${this.createInput}!) {
                 ${this.createMutate} (data: $data) {
+                id
                 ${this.fragment?.index}
                 ${this.fields}
             }
@@ -52,7 +53,7 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     static createDefaultRepository(query: string, fragment?: { index: string }) {
-        const resource = toSingular(`${query}`);
+        const resource = toSingular(`${query}`).split('(')[0];
         return new GraphqlResourceRepository(
             query,
             fragment,
@@ -70,7 +71,9 @@ export class GraphqlResourceRepository implements SiipTableRepository {
     }
 
     public query() {
-        return gql`query($filter: [String] = []) {
+        const needsFilter = this._query.match('filter:');
+        const params = needsFilter ? "($filter: [String] = [])" : "";
+        return gql`query ${params} {
             ${this._query} {
             data {
                 id
@@ -79,6 +82,21 @@ export class GraphqlResourceRepository implements SiipTableRepository {
             }
         }
         }`;
+    }
+
+    public find(id: string, fields: string[]) {
+        return gql`
+            query findResourceById {
+                ${this.query}(id: ${id}) {
+                ${fields}
+            }
+            }
+        `;
+    }
+
+    public updateByFind(data: any) {
+        const query = this._query.split('(')[0];
+        return data[query].data;
     }
 
     update(data: any) {

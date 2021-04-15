@@ -11,43 +11,49 @@ import AcademicBodyStatistics from './statistics/index.vue';
     }
 })
 export default class AcademicBodyManagementPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies(filter: $filter)', {
-        index: 'active'
-    }, 'updateAcademicBodies', 'createAcademicBodies', 'updateAcademicBodyInput', 'createAcademicBodyInput');
+    apiResource = GraphqlResourceRepository.createDefaultRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)', {index: 'active'});
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
-        {
+      {
+        type: "xor",
+        criteria: [
+          {
             value: 'Vigente',
-            default: false
-        },
-        {
-            value: 'No vigente',
-            default: false
-        },
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        },
-        {
-          value: "En formación",
-          default: false
-        },
-        {
-          value: "En consolidación",
-          default: false
-        },
-        {
-          value: "Consolidado",
-          default: false
-        }
+            default: true
+          },
+          {
+            value: 'No vigente'
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      },
+      {
+        type: "or",
+        criteria: [
+          {
+            value: "En formación"
+          },
+          {
+            value: "En consolidación"
+          },
+          {
+            value: "Consolidado"
+          }
+        ]
+      }
     ];
     links = {
         'edit': {
@@ -114,25 +120,10 @@ export default class AcademicBodyManagementPage extends Vue {
             },
             {
                 type: 'graphql-select',
-                label: 'Líder de cuerpo académico',
-                model: "lead_employee_id",
-                query: 'employees',
-                textKey: 'name',
-                hint: 'Número o nombre de empleado',
-                readonly: false,
-                featured: false,
-                required: true,
-                disabled: false,
-                placeholder: "",
-                validator: VueFormGenerator.validators.string.locale({
-                    fieldIsRequired: ""
-                }),
-            },
-            {
-                type: 'graphql-select',
                 label: 'Área del conocimiento',
                 model: "prodep_area_id",
                 query: 'prodep_areas',
+                find: 'prodep_area',
                 textKey: 'name',
                 readonly: false,
                 featured: false,
@@ -162,6 +153,7 @@ export default class AcademicBodyManagementPage extends Vue {
                 label: 'DES',
                 model: "des_id",
                 query: 'des',
+                find: 'desSearcher',
                 textKey: 'des',
                 readonly: false,
                 featured: false,
@@ -180,4 +172,9 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true, class: 'vw-5'},
         {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
     ];
+
+    createdElement(element: any) {
+        const academic_body = element['createAcademicBody'];
+        this.$router.push(`/cuerpos-academicos/${academic_body.id}/lgac?createResource`);
+    }
 }

@@ -3,9 +3,7 @@
         :toolbar="toolbar"
         :schema="schema"
         :spanishResourceName="spanishResourceName"
-
         :fields="fields"
-
         :resource="apiResource"
     ></siip-table>
 </template>

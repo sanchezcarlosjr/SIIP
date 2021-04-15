@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class AcademicBody extends Model
 {
     use HasFactory;
+
     protected $table = 'academic_bodies';
     protected $fillable = [
         'name',
@@ -20,16 +23,22 @@ class AcademicBody extends Model
         'des_id',
         'created_at'
     ];
-    protected $appends = ["grade"];
+    protected $appends = [
+      "grade",
+      "employees",
+      "last_evaluation"
+    ];
 
     public function lgacs()
     {
         return $this->hasMany(LGAC::class);
     }
+
     public function networks()
     {
         return $this->hasMany(Network::class);
     }
+
     public function helps()
     {
         return $this->hasMany(Help::class);
@@ -45,12 +54,33 @@ class AcademicBody extends Model
         return $this->belongsTo(ProdepArea::class);
     }
 
-    public function leader() {
-      return $this->hasOne(Employee::class, "nempleado", "lead_employee_id");
+    public function leader()
+    {
+        return $this->hasOne(Employee::class, "nempleado", "lead_employee_id");
     }
 
-    public function getGradeAttribute() {
-      $eval = $this->evaluations->sortBy('finish_date')->get(0);
-      return isset($eval->grade)?$eval->grade:null;
+    public function collaborators(): BelongsToMany
+    {
+        return $this->belongsToMany(Employee::class, 'collaborators', 'academic_body_id', 'employee_id');
+    }
+
+    public function getGradeAttribute()
+    {
+        $eval = $this->evaluations->sortBy('finish_date')->get(0);
+        return isset($eval->grade) ? $eval->grade : null;
+    }
+
+    public function getEmployeesAttribute()
+    {
+        $lgacs = $this->lgacs;
+        $employees = new Collection();
+        foreach ($lgacs as $lgac) {
+        $employees = $employees->merge($lgac->employees);
+      }
+      return $employees;
+    }
+
+    public function getLastEvaluationAttribute() {
+      return $this->evaluations->sortBy('finish_date')->get(0);
     }
 }
