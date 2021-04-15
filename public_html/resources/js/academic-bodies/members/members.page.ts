@@ -18,24 +18,31 @@ export default class MembersPage extends Vue {
     rowClass = (employee: { is_leader: boolean }) => {
         return employee?.is_leader ? 'text-success' : 'text-muted';
     };
-    defaultCriteria = [{
-        value: 'Próximos a jubilarse',
-        default: false
-    },
-        {
+    defaultCriteria = [
+      {
+        type: "or",
+        criteria: [
+          {
+            value: 'Próximos a jubilarse'
+          },
+          {
             value: 'Líderes',
-            default: false
-        },
-        {
-            value: 'Mexicali',
-        default: false
-    },
-    {
-        value: 'Ensenada',
-        default: false
-    },
-    {
-        value: 'Tijuana',
-        default: false
-    }];
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      }
+    ];
 }

@@ -16,29 +16,33 @@ export default class EvaluationsPage extends Vue {
         {key: 'leader.academic_unit.campus', label: 'Campus', sortable: true},
     ];
     defaultCriteria = [
-        {
-            value: "En formación",
-            default: true
-        },
-        {
-            value: "En consolidación",
-            default: false
-        },
-        {
-            value: "Consolidado",
-            default: false
-        },
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        }
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      },
+      {
+        type: "or",
+        criteria: [
+          {
+            value: "En formación"
+          },
+          {
+            value: "En consolidación"
+          },
+          {
+            value: "Consolidado"
+          }
+        ]
+      }
     ];
 }
