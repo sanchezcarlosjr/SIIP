@@ -59,11 +59,12 @@ export default class NetworksPage extends Vue {
                 type: "link",
                 label: "Formalización",
                 model: "formation_url",
-                visible: (model: any) => !!model.value
+                visible: (model: any) => !!model?.formation_url
             },
             {
                 type: "upload2",
                 label: 'Nueva formalización',
+                ignoreResponseField: true,
                 model: 'formation'
             }
         ],

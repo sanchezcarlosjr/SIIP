@@ -24,7 +24,7 @@ export class ApolloEditorRepository extends ApolloDefaultRepository {
 
     mapFieldsToQuery(component: any) {
         const schema = component.schema;
-        const fields: { model: string }[] = schema.fieldsToFind || schema.fields;
-        return fields.map((field) => field.model);
+        const fields: { model: string, ignoreResponseField?: boolean }[] = schema.fieldsToFind || schema.fields;
+        return fields.map((field) => field.ignoreResponseField ? "" : field.model);
     }
 }
