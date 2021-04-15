@@ -19,6 +19,9 @@ export default {
                 fields: this.schema.fieldsToFind || this.schema.fields || []
             },
         }
+    },
+    mounted() {
+        this.$apollo.queries.model.refetch();
     }
 }
 </script>
