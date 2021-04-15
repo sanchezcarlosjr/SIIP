@@ -14,38 +14,46 @@ export default class AcademicBodyManagementPage extends Vue {
     apiResource = GraphqlResourceRepository.createDefaultRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)', {index: 'active'});
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
-        {
+      {
+        type: "xor",
+        criteria: [
+          {
             value: 'Vigente',
             default: true
-        },
-        {
-            value: 'No vigente',
-            default: false
-        },
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        },
-        {
-          value: "En formación",
-          default: false
-        },
-        {
-          value: "En consolidación",
-          default: false
-        },
-        {
-          value: "Consolidado",
-          default: false
-        }
+          },
+          {
+            value: 'No vigente'
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      },
+      {
+        type: "or",
+        criteria: [
+          {
+            value: "En formación"
+          },
+          {
+            value: "En consolidación"
+          },
+          {
+            value: "Consolidado"
+          }
+        ]
+      }
     ];
     links = {
         'edit': {

@@ -24,10 +24,13 @@
                     tag-variant="primary"
                 ></b-form-tags>
             </b-input-group>
-            <b-form-checkbox-group
-                v-model="criteria"
-                :options="originalFilter"
-            ></b-form-checkbox-group>
+            <template v-for="category in categories">
+              <b-form-checkbox-group v-model="criteria">
+                <template v-for="option in category.criteria">
+                  <b-form-checkbox v-bind:value="option.value" @change="scan(category, option.value)">{{ option.value }}</b-form-checkbox>
+                </template>
+              </b-form-checkbox-group>
+            </template>
         </b-dropdown-form>
     </b-dropdown>
 </template>
@@ -39,16 +42,35 @@ export default {
     data() {
         return {
             criteria: [],
-            originalFilter: []
+            categories: []
         }
     },
     mounted() {
-        this.criteria.push(...this.filters.filter((f) => f.default).map((f) => f.value));
-        this.originalFilter.push(...this.filters.filter((f) => f.default || !f.default).map((f) => f.value));
-        this.$emit("update", this.criteria);
-        this.$watch('criteria', () => {
-            this.$emit("update", this.criteria);
-        }, {deep: true})
+      this.filters.forEach((category) => {
+        this.categories.push(category);
+        category.criteria.forEach((option) => {
+          if (option.default === true) {
+            this.criteria.push(option.value);
+          }
+        });
+      });
+      this.$emit("update", this.criteria);
+      this.$watch('criteria', () => {
+          this.$emit("update", this.criteria);
+      }, {deep: true})
+    },
+    methods: {
+      scan(category, value) {
+        if (category.type === "xor") {
+          let contains = this.criteria.includes(value);
+          this.criteria = this.criteria.filter((v) => {
+            return !category.criteria.some(x => x.value === v);
+          });
+          if(contains) {
+            this.criteria.push(value);
+          }
+        }
+      }
     }
 }
 </script>
