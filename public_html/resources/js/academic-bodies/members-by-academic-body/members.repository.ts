@@ -23,7 +23,6 @@ export class MembersRepository extends GraphqlSubResourceFinderRepository {
     }
 
     public find(id: string, fields: string[]) {
-        console.log(id);
         return gql`
             query findResourceById {
                 employee(nempleado: ${id}) {

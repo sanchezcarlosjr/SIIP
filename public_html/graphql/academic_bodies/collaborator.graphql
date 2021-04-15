@@ -1,4 +1,5 @@
 extend type Query {
+    collaborator(id: ID @where(operator: "=", key: "nempleado")): Employee @find
     collaborators: [Collaborator] @paginate(defaultCount: 200)
 }
 
