@@ -10,8 +10,8 @@ export default class CollaboratorsPage extends Vue {
     toolbar = new Set(['archive', 'add', 'details']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true, class: 'vw-15'},
-        {key: 'academic_unit.campus', label: 'Campus', sortable: true, class: 'vw-2'},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true, class: 'w-25'},
+        {key: 'academic_unit.campus', label: 'Campus', sortable: true}
     ];
     schema = {
         fieldsToFind: [
