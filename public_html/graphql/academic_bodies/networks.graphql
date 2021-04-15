@@ -37,7 +37,7 @@ input createNetworkInput {
     start_date: Date
     range: String
     finish_date: Date
-    formation: Upload
+    formation: [Upload]
     academic_body_id: Int
 }
 

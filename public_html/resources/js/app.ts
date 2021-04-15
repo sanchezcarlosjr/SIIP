@@ -36,6 +36,7 @@ Vue.component('field-calendar', VfgFieldCalendar);
 Vue.component('field-switch2', VfgFieldSwitch);
 Vue.component('field-api-select', VfgFieldApiSelect);
 Vue.component('field-email', VfgFieldEmail);
+Vue.component('field-upload2', VfgFieldUpload);
 Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
 Vue.component('field-graphql-select-id', VfgFieldGraphQLSelectID)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
