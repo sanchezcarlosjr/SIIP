@@ -134,9 +134,6 @@ export default class SiipTableComponent extends Vue {
             this.$emit('edit', item.id);
             return;
         }
-        if (this.toolbar.has('details')) {
-            return;
-        }
         this.infoModal.id = 'edit';
         if (this.links) {
             this.$router.push(Object.values(this.links)[0].link.replace('*', item.id));

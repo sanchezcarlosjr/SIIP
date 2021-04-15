@@ -4,8 +4,9 @@
         :title="title"
         cancel-title="Cancelar"
         :size="size"
-        ok-title="Aceptar cambios"
+        ok-title="Guardar cambios"
         scrollable
+        :hide-footer="details"
         @cancel="reset"
         @ok="ok"
     >
@@ -21,7 +22,7 @@ export default {
         EditComponent
     },
     name: "edit-modal",
-    props: ["size", "schema", "title", 'resource', 'itemId'],
+    props: ["size", "schema", "title", 'resource', 'itemId', 'details'],
     methods: {
         reset() {
             this.$emit('reset');

@@ -36,7 +36,7 @@ export class InfoModal implements Modal {
         edit: () => {
             return {
                 icon: 'edit',
-                title: hasPermissions(['admin']) ? 'Editar' : 'Detalles'
+                title: 'Detalles de'
             }
         },
         create: () => {

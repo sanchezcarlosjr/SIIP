@@ -14,6 +14,13 @@ export default class CollaboratorsPage extends Vue {
         {key: 'academic_unit.campus', label: 'Campus', sortable: true},
     ];
     schema = {
+        fieldsToFind: [
+            {
+                type: 'label',
+                label: 'Nombre',
+                model: 'name'
+            }
+        ],
         fields: [
             {
                 type: 'graphql-select-id',

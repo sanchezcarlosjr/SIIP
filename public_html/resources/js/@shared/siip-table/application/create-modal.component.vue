@@ -31,10 +31,12 @@ export default {
             this.$emit('onValidated', event);
         },
         reset() {
+            this.model = {};
             this.$emit('reset');
         },
         ok() {
             this.$emit('ok', this.model);
+            this.model = {};
         }
     }
 }

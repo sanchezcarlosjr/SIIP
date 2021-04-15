@@ -22,9 +22,26 @@ export class MembersRepository extends GraphqlSubResourceFinderRepository {
         `
     }
 
+    public find(id: string, fields: string[]) {
+        return gql`
+            query findResourceById {
+                employee(nempleado: ${id}) {
+                id
+                ${fields}
+            }
+            }
+        `;
+    }
+
+    public updateByFind(data: any) {
+        // @ts-ignore
+        return data['employee'];
+    }
+
+    // TODO: Remove this when info modal doesn't need it.
     map(item: any) {
         return {
-            'employees_id': item.id
+            'id': item.id
         }
     }
 }
