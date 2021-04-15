@@ -25,6 +25,7 @@ type Network {
     class: String
     start_date: Date
     range: String
+    formation_url: String
     finish_date: Date
     academic_body_id: Int
     academic_body: AcademicBody @belongsTo(relation: "academic_body")

@@ -17,6 +17,7 @@ class Network extends Model
         'academic_body_id',
         'range',
         'start_date',
+        'formation_url',
         'finish_date'
     ];
     public function academic_body(): BelongsTo

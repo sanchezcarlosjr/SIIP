@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/archivo/{name}', function ($name = null) {
+    return response()->file(".././storage/app/${name}");
+});
+
 Route::get('/{any}', function () {
     return view('home');
-})->where('any', '.*');;
+})->where('any', '.*');
