@@ -9,7 +9,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 export default class MembersPage extends Vue {
     apiResource = new MembersRepository('academic_body', 'employees');
     spanishResourceName = 'miembro'
-    toolbar = new Set<string>(['add', 'remove', 'edit']);
+    toolbar = new Set<string>(['add', 'remove', 'details']);
     infoVariant = (items: { employees: { id: string } }[]) => {
         const graphql = new GraphQLBuilder('academic_body', [{key: 'leader.id', sortable: true}]);
         return graphql.find(this.$route.params.id).then((response: any) => {

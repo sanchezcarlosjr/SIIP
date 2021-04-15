@@ -84,6 +84,7 @@
             :itemId="infoModal.itemId"
             :resource="resource"
             :title="infoModal.title"
+            :details="toolbar.has('details')"
             @ok="editElement"
             :size="editModalSize"
             @reset="resetModal"

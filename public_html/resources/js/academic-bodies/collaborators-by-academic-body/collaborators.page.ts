@@ -7,7 +7,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 export default class CollaboratorsPage extends Vue {
     apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators');
     spanishResourceName = 'Colaboradores'
-    toolbar = new Set(['archive', 'add', 'edit']);
+    toolbar = new Set(['archive', 'add', 'details']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, class: 'vw-20'},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
