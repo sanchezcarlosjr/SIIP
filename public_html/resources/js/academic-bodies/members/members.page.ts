@@ -13,24 +13,31 @@ export default class MembersPage extends Vue {
         {key: 'academic_body.name', label: 'Cuerpos Académicos', sortable: true},
         {key: 'grado', label: 'Grado', sortable: true}
     ];
-    defaultCriteria = [{
-        value: 'Próximos a jubilarse',
-        default: false
-    },
-    {
-        value: 'Líderes',
-        default: false
-    },
-    {
-        value: 'Mexicali',
-        default: false
-    },
-    {
-        value: 'Ensenada',
-        default: false
-    },
-    {
-        value: 'Tijuana',
-        default: false
-    }];
+    defaultCriteria = [
+      {
+        type: "or",
+        criteria: [
+          {
+            value: 'Próximos a jubilarse'
+          },
+          {
+            value: 'Líderes',
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      }
+    ];
 }

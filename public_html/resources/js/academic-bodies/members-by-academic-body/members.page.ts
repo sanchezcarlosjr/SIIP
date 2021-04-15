@@ -60,24 +60,30 @@ export default class MembersPage extends Vue {
         ]
     };
     defaultCriteria = [
-        {
-            value: 'Próximos a jubilarse',
-            default: false
-        },
-        {
+      {
+        type: "or",
+        criteria: [
+          {
+            value: 'Próximos a jubilarse'
+          },
+          {
             value: 'Líderes',
-            default: false
-        },
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        }];
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      }
+    ];
 }

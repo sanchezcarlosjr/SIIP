@@ -15,22 +15,29 @@ export default class NetworksPage extends Vue {
         {key: 'finish_date', label: 'Fecha de fin', sortable: true},
     ];
     defaultCriteria = [
-        {
+      {
+        type: "or",
+        criteria: [
+          {
             value: 'Líderes',
-            default: false
-        },
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        }];
+          }
+        ]
+      },
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      }
+    ];
     schema = {
         fieldsToFind: [
             {
