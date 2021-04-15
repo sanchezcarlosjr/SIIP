@@ -20,7 +20,12 @@
 <script>
 export default {
     name: "create-modal",
-    props: ["okDisabled", "title", "model", "formOptions", "schema"],
+    props: ["okDisabled", "title", "formOptions", "schema"],
+    data() {
+        return {
+            model: {}
+        };
+    },
     methods: {
         onValidated(event) {
             this.$emit('onValidated', event);
@@ -29,7 +34,7 @@ export default {
             this.$emit('reset');
         },
         ok() {
-            this.$emit('ok');
+            this.$emit('ok', this.model);
         }
     }
 }

@@ -100,9 +100,9 @@ export default class SiipTableComponent extends Vue {
         this[event.option.click](event.item.row, event.item.index);
     }
 
-    execute() {
+    execute(model: any) {
         // Common code to actions. Example: addElement, editElement, removeElement
-        this[`${this.infoModal.id}Element`]()
+        this[`${this.infoModal.id}Element`](model)
             .then(() => this.showSuccessToast())
             .then(() => this.resetModal())
             .catch(() => this.showDangerToast());
@@ -127,7 +127,11 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
-        if (this.schema.fields.length === 0 || !this.toolbar.has('edit')) {
+        if (this.schema.fields.length === 0) {
+            return;
+        }
+        if (this.toolbar.has('own-edit')) {
+            this.$emit('edit', item.id);
             return;
         }
         if (this.toolbar.has('details')) {
@@ -155,21 +159,34 @@ export default class SiipTableComponent extends Vue {
         this.infoModal.reset();
     }
 
-    private toggleChart() {
-        this.isVisibleChart = !this.isVisibleChart;
-    }
-
-    private showModal(item: any, index: any, button: any) {
-        this.infoModal.setModal(item, index);
-        this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
-    }
-
-    private createElement() {
+    editElement(model: any) {
         return this.$apollo.mutate({
+            mutation: this.resource.edit,
+            variables: {
+                data: {
+                    ...model
+                }
+            }
+        }).then(() =>
+            this.$apollo.queries.items.refetch()
+        )
+            .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
+            .catch(() => this.showDangerToast());
+    }
+
+    public filterItems(v: any) {
+        this.$apollo.queries.items.refetch({
+            filter: v
+        });
+    }
+
+    createElement(model: any) {
+        this.$apollo.mutate({
             mutation: this.resource.create,
             variables: {
                 data: {
-                    ...this.infoModal.model,
+                    ...model,
                     academic_body_id: this.$route.params.id
                 },
             },
@@ -181,8 +198,21 @@ export default class SiipTableComponent extends Vue {
                 return element;
             }
         )
-            .then((element) => this.$emit('created-element', element['data']))
+            .then((element) => {
+                this.$emit('created-element', element['data']);
+            })
+            .then(() => this.showSuccessToast())
+            .then(() => this.resetModal())
+            .catch(() => this.showDangerToast());
+    }
 
+    private toggleChart() {
+        this.isVisibleChart = !this.isVisibleChart;
+    }
+
+    private showModal(item: any, index: any, button: any) {
+        this.infoModal.setModal(item, index);
+        this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
     }
 
     private removeElement() {
@@ -194,19 +224,6 @@ export default class SiipTableComponent extends Vue {
                 }
             }
         }).then(() => this.$apollo.queries.items.refetch());
-    }
-
-    private editElement() {
-        return this.$apollo.mutate({
-            mutation: this.resource.edit,
-            variables: {
-                data: {
-                    ...this.infoModal.model
-                }
-            }
-        }).then(() =>
-            this.$apollo.queries.items.refetch()
-        );
     }
 
     private showSuccessToast() {
@@ -223,12 +240,6 @@ export default class SiipTableComponent extends Vue {
             variant: 'danger',
             solid: true
         })
-    }
-
-    public filterItems(v: any) {
-      this.$apollo.queries.items.refetch({
-        filter: v
-      });
     }
 
 }

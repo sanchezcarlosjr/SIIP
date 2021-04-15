@@ -4,7 +4,6 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 
 @Component
 export default class NetworksPage extends Vue {
-
     apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'networks');
     spanishResourceName = 'red'
     toolbar = new Set<String>(['add', 'edit']);
@@ -33,6 +32,20 @@ export default class NetworksPage extends Vue {
             default: false
         }];
     schema = {
+        fieldsToFind: [
+            {
+                type: 'input',
+                inputType: 'text',
+                label: 'Nombre',
+                model: 'name'
+            },
+            {
+                type: 'select',
+                label: 'Alcance',
+                model: 'range',
+                values: ['Local', 'Regional', 'Nacional', 'Internacional']
+            },
+        ],
         fields: [
             {
                 type: 'input',

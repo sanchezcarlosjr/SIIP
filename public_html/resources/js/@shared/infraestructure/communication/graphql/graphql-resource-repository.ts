@@ -84,6 +84,21 @@ export class GraphqlResourceRepository implements SiipTableRepository {
         }`;
     }
 
+    public find(id: string, fields: string[]) {
+        return gql`
+            query findResourceById {
+                ${this.query}(id: ${id}) {
+                ${fields}
+            }
+            }
+        `;
+    }
+
+    public updateByFind(data: any) {
+        const query = this._query.split('(')[0];
+        return data[query].data;
+    }
+
     update(data: any) {
         const query = this._query.split('(')[0];
         return data[query].data;

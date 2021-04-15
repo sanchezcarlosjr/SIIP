@@ -74,19 +74,17 @@
         </table-presenter>
         <create-modal-component
             :form-options="formOptions"
-            :model="infoModal.model"
-            :ok-disabled="okDisabled"
             :schema="schema"
             :title="infoModal.title"
-            @ok="execute"
-            @onValidated="onValidated"
+            @ok="createElement"
             @reset="resetModal"
         ></create-modal-component>
         <edit-modal-component
-            :model="infoModal.model"
             :schema="schema"
+            :itemId="infoModal.itemId"
+            :resource="resource"
             :title="infoModal.title"
-            @ok="execute"
+            @ok="editElement"
             @reset="resetModal"
         ></edit-modal-component>
         <remove-modal-component
