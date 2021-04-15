@@ -1,5 +1,5 @@
 <template>
-    <vue-form-generator :model="model" :schema="schema"></vue-form-generator>
+    <vue-form-generator :model="model" :schema="schema2"></vue-form-generator>
 </template>
 
 <script>
@@ -15,6 +15,9 @@ export default {
     data() {
         return {
             model: null,
+            schema2: {
+                fields: this.schema.fieldsToFind || this.schema.fields || []
+            },
         }
     }
 }

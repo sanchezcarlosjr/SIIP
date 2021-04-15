@@ -85,6 +85,7 @@
             :resource="resource"
             :title="infoModal.title"
             @ok="editElement"
+            :size="editModalSize"
             @reset="resetModal"
         ></edit-modal-component>
         <remove-modal-component

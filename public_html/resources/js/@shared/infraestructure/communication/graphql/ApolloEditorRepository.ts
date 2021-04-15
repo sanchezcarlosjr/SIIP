@@ -10,7 +10,7 @@ export class ApolloEditorRepository extends ApolloDefaultRepository {
         const I = this;
         return function () {
             // @ts-ignore
-            return this[I.resourceName].find(this.itemId, I.mapFieldsToQuery(this));
+            return this[I.resourceName].find(this.itemId || 0, I.mapFieldsToQuery(this));
         };
     }
 

@@ -181,6 +181,19 @@ export default class SiipTableComponent extends Vue {
         });
     }
 
+    get editModalSize() {
+        if (this.toolbar.has('edit-xl')) {
+            return 'xl';
+        }
+        if (this.toolbar.has('edit-lg')) {
+            return 'lg';
+        }
+        if (this.toolbar.has('edit-sm')) {
+            return 'sm';
+        }
+        return '';
+    }
+
     createElement(model: any) {
         this.$apollo.mutate({
             mutation: this.resource.create,
