@@ -4,7 +4,7 @@
         :title="title"
         cancel-title="Cancelar"
         :size="size"
-        ok-title="Aceptar cambios"
+        ok-title="Guardar cambios"
         scrollable
         @cancel="reset"
         @ok="ok"
