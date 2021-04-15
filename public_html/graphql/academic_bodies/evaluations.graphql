@@ -1,4 +1,5 @@
 extend type Query {
+    evaluation(id: ID @eq): Evaluation @find
     evaluations: [Evaluation!]! @paginate(defaultCount: 100)
 }
 
@@ -11,7 +12,7 @@ extend type Mutation {
     updateEvaluation(
         data: updateEvaluationInput
         @spread
-    ): Evaluation @update
+    ): Evaluation
 }
 
 type Evaluation {
@@ -19,6 +20,7 @@ type Evaluation {
     active: Boolean
     grade: String
     finish_date: Date
+    years_to_finish: Int
     start_date: Date
     academic_body: AcademicBody! @belongsTo(relation: "academic_bodies")
 }
@@ -33,6 +35,6 @@ input createEvaluationInput {
 input updateEvaluationInput {
     id:ID!
     grade: String
-    finish_date: Date
+    years_to_finish: Int
     start_date: Date
 }

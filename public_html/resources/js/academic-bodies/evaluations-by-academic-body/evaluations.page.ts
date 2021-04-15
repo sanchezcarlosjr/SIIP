@@ -4,8 +4,7 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 
 @Component
 export default class EvaluationsPage extends Vue {
-
-    apiResource = new GraphqlSubResourceFinderRepository('academic_body', 'evaluations', 'updateEvaluation', 'createEvaluation', 'updateEvaluationInput', 'createEvaluationInput', {index: ''});
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'evaluations');
     spanishResourceName = 'Evaluación'
     toolbar = new Set(['add', 'edit']);
     fields = [
