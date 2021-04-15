@@ -54,6 +54,17 @@ export default class NetworksPage extends Vue {
                 type: 'calendar',
                 label: 'Fecha de fin',
                 model: 'finish_date'
+            },
+            {
+                type: "link",
+                label: "Formalización",
+                model: "formation_url",
+                visible: (model: any) => !!model.value
+            },
+            {
+                type: "upload2",
+                label: 'Nueva formalización',
+                model: 'formation'
             }
         ],
         fields: [

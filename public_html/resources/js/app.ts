@@ -11,6 +11,7 @@ import VfgFieldApiSelect from './@shared/application/form-fields/vfg-field-selec
 import VfgFieldGraphQLSelect from './@shared/application/form-fields/vfg-field-select-graphql/index.vue';
 import VfgFieldUpload from './@shared/application/form-fields/vfg-field-upload/index.vue';
 import VfgFieldSwitch from './@shared/application/form-fields/vfg-field-switch/index.vue';
+import VfgFieldLink from './@shared/application/form-fields/vfg-field-link/vfg-field-link.vue';
 import EntryComponent from './entry.component.vue';
 import AcademicBodyLgacs from './academic-bodies/lgac-by-academic-body/index.vue';
 import ContextMenu from './@shared/application/context-menu/context-menu.component.vue';
@@ -38,6 +39,7 @@ Vue.component('field-api-select', VfgFieldApiSelect);
 Vue.component('field-email', VfgFieldEmail);
 Vue.component('field-upload2', VfgFieldUpload);
 Vue.component('field-graphql-select', VfgFieldGraphQLSelect);
+Vue.component('field-link', VfgFieldLink);
 Vue.component('field-graphql-select-id', VfgFieldGraphQLSelectID)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('context-menu', ContextMenu);
