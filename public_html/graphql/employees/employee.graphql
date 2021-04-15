@@ -29,6 +29,7 @@ type Employee {
     academic_bodies_lgacs: [LGAC]
     collaborator_academic_bodies: [AcademicBody]
     active: Boolean
+    is_leader: Boolean
     is_ptc: Boolean
     has_active_prodep_profile: Boolean
     has_active_sni: Boolean

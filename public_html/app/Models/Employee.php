@@ -14,12 +14,12 @@ class Employee extends Model
     protected $primaryKey = 'nempleado';
     protected $table = 'empleados';
     protected $appends = [
-      "academic_body",
-      "full_name",
-      "age",
-      "is_ptc",
-      "has_active_prodep_profile",
-      "has_active_sni"
+        "academic_body",
+        "full_name",
+        "age",
+        "is_ptc",
+        "has_active_prodep_profile",
+        "has_active_sni"
     ];
     use HasFactory;
 
@@ -60,21 +60,24 @@ class Employee extends Model
 
     public function getAcademicBodyAttribute()
     {
-      $lgac = $this->academic_bodies_lgacs->get(0);
-      return isset($lgac->academic_body)?$lgac->academic_body:null;
+        $lgac = $this->academic_bodies_lgacs->get(0);
+        return isset($lgac->academic_body) ? $lgac->academic_body : null;
     }
 
-    public function getFullNameAttribute() {
-      return "{$this->nombre} {$this->apaterno} {$this->amaterno}";
+    public function getFullNameAttribute()
+    {
+        return "{$this->nombre} {$this->apaterno} {$this->amaterno}";
     }
 
-    public function getAgeAttribute() {
-      return Carbon::today()->diffInYears(Carbon::parse($this->f_nacimiento));
+    public function getAgeAttribute()
+    {
+        return Carbon::today()->diffInYears(Carbon::parse($this->f_nacimiento));
     }
 
-    public function getIsPTCAttribute() {
-      $cat = $this->c_categoria;
-      return (($cat >= 501 && $cat <= 509) || ($cat >= 104 && $cat <= 112)) && $this->estatus == 1;
+    public function getIsPTCAttribute()
+    {
+        $cat = $this->c_categoria;
+        return (($cat >= 501 && $cat <= 509) || ($cat >= 104 && $cat <= 112)) && $this->estatus == 1;
     }
 
     public function academic_unit()
@@ -116,4 +119,14 @@ class Employee extends Model
     {
         return $query->where('estatus', '==', '1')->whereBetween('c_categoria', [501, 509])->orWhereBetween('c_categoria', [104, 112]);
     }
+
+    public function getIsLeaderAttribute()
+    {
+        $academic_body = $this->getAcademicBodyAttribute();
+        if ($academic_body == null || $academic_body->leader == null) {
+            return false;
+        }
+        return $academic_body->leader->nempleado == $this->nempleado;
+    }
+
 }
