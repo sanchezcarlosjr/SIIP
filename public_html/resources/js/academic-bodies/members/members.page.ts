@@ -6,23 +6,28 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 export default class MembersPage extends Vue {
     apiResource = new GraphqlResourceRepository('employees(members:true)');
     spanishResourceName = 'miembro'
-    toolbar = new Set<String>([]);
     fields = [
+        {key: 'is_leader', sortable: true},
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_body.name', label: 'Cuerpos Académicos', sortable: true},
         {key: 'grado', label: 'Grado', sortable: true}
     ];
+    toolbar = new Set<String>([]);
+
+    rowClass = (employee: { is_leader: boolean }) => {
+        return employee?.is_leader ? 'text-success' : 'text-muted';
+    };
     defaultCriteria = [{
         value: 'Próximos a jubilarse',
         default: false
     },
-    {
-        value: 'Líderes',
-        default: false
-    },
-    {
-        value: 'Mexicali',
+        {
+            value: 'Líderes',
+            default: false
+        },
+        {
+            value: 'Mexicali',
         default: false
     },
     {

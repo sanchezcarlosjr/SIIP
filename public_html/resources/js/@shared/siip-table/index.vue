@@ -63,6 +63,7 @@
             :filter="criteria"
             :filter-function="search"
             :items="items"
+            :rowClass="rowClass"
             :rowContextLinks="links"
             :rowContextOptions="options"
             :sort-by.sync="sortBy"

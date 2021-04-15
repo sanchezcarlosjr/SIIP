@@ -29,7 +29,7 @@ import SiipTitle from './application/title.component.vue';
 export default class SiipTableComponent extends Vue {
     [x: string]: any;
 
-    @Prop() infoVariant!: (response: any) => Promise<number>;
+    @Prop() rowClass: ((response: any) => string) | undefined;
     @Prop() resource!: SiipTableRepository;
     @Prop() fields!: any[];
     @Prop() spanishResourceName!: string;
