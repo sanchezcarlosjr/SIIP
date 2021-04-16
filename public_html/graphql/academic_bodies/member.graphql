@@ -1,6 +1,6 @@
 extend type Mutation {
     addEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
-    removeEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
+    removeEmployeesToAcademicBody(data: removeEmployeeToAcademicBodyInput @spread): Employee
 }
 
 input employeeToAcademicBodyInput {
@@ -12,5 +12,5 @@ input employeeToAcademicBodyInput {
 
 input removeEmployeeToAcademicBodyInput {
     academic_body_id: ID
-    employees_id: ID
+    id: ID
 }

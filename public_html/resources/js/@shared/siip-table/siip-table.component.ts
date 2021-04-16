@@ -85,7 +85,7 @@ export default class SiipTableComponent extends Vue {
             this.create(null);
         }
         this.toolbar.forEach((value) => {
-            if (value === 'add' || value === 'add-relation') {
+            if (value === 'add') {
                 return;
             }
             this.options.push(this.infoModal.getActions(value));
@@ -124,6 +124,10 @@ export default class SiipTableComponent extends Vue {
     create(button: any) {
         this.infoModal.id = 'create';
         this.showModal(null, null, button);
+    }
+
+    details(item: any, index: any, button: any) {
+        this.edit(item, index, button);
     }
 
     edit(item: any, index: any, button: any) {

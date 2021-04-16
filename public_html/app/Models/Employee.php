@@ -129,4 +129,9 @@ class Employee extends Model
         return $academic_body->leader->nempleado == $this->nempleado;
     }
 
+    public function getIsResearcherAttribute(): bool
+    {
+        return $this->researchers->where('valid', '>', Carbon::now())->count() > 0;
+    }
+
 }

@@ -75,7 +75,7 @@ export default {
             }
             let extra = 0;
             if (this.menuHeight < 40) {
-                extra = 70;
+                extra = 80;
             }
             menu.style.left = event.layerX + 1 + "px";
             menu.style.top = event.layerY + this.menuHeight + extra + "px";

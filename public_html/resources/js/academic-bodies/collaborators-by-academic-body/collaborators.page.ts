@@ -5,12 +5,23 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class CollaboratorsPage extends Vue {
-    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators');
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators', (item: any, route: any) => {
+        if (!route) {
+            return {
+                academic_body_id: "",
+                'id': item.id
+            };
+        }
+        return {
+            academic_body_id: route.params.id,
+            'id': item.id
+        };
+    });
     spanishResourceName = 'Colaboradores'
-    toolbar = new Set(['archive', 'add', 'details']);
+    toolbar = new Set(['remove', 'add', 'details']);
     fields = [
-        {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true, class: 'w-25'},
+        {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true}
     ];
     schema = {
@@ -19,6 +30,55 @@ export default class CollaboratorsPage extends Vue {
                 type: 'label',
                 label: 'Nombre',
                 model: 'name'
+            },
+            {
+                type: 'label',
+                label: 'Correo electrónico',
+                model: 'correo1'
+            },
+            {
+                type: 'label',
+                label: 'Edad',
+                model: 'age'
+            },
+            {
+                type: 'label',
+                label: 'Unidad Académica',
+                model: 'academic_unit.name'
+            },
+            {
+                type: 'label',
+                label: 'Sexo',
+                model: 'sexo'
+            },
+            {
+                type: 'label',
+                label: 'Grado',
+                model: 'grado'
+            },
+            {
+                type: 'label',
+                label: '¿Es PTC?',
+                model: 'is_ptc',
+                get: (employee: { is_ptc: boolean }) => (employee && employee.is_ptc) ? "Sí" : "No"
+            },
+            {
+                type: "label",
+                label: "¿Es un perfil PRODEP activo?",
+                model: "has_active_prodep_profile",
+                get: (employee: { has_active_prodep_profile: boolean }) => (employee && employee.has_active_prodep_profile) ? "Sí" : "No"
+            },
+            {
+                type: 'label',
+                label: '¿Es un SNI activo?',
+                model: 'has_active_sni',
+                get: (employee: { has_active_sni: boolean }) => (employee && employee.has_active_sni) ? "Sí" : "No"
+            },
+            {
+                type: 'label',
+                label: '¿Es un profesor-investigador?',
+                model: 'is_researcher',
+                get: (employee: { is_researcher: boolean }) => (employee && employee.is_researcher) ? "Sí" : "No"
             }
         ],
         fields: [

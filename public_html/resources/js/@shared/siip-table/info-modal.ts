@@ -33,6 +33,12 @@ export class InfoModal implements Modal {
                 title: 'Eliminar'
             }
         },
+        details: () => {
+            return {
+                icon: 'info-circle',
+                title: 'Detalles de'
+            }
+        },
         edit: () => {
             return {
                 icon: 'edit',
@@ -120,16 +126,13 @@ export class InfoModal implements Modal {
     }
 
     getActions(value: string) {
-        if (!this.strategies[this._id]) {
-            return '';
-        }
         const strategy = this.strategies[value]();
         return {
             click: value,
             name: `
            <a>
                   <i class="fas fa-${strategy.icon}"></i>
-                   ${strategy.title} ${this.resource}
+                   ${strategy.title}  ${this.resource}
            </a>`
         };
     }
@@ -144,11 +147,8 @@ export class InfoModal implements Modal {
                 id: this.model.id
             };
         }
-        if (!this.item) {
-        }
         return {
-            academic_body_id: route.params.id,
-            ...resource.map(this.item)
+            ...resource.map(this.item, route)
         };
     }
 
