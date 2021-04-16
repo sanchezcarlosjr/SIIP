@@ -14,7 +14,7 @@ export class MembersRepository extends GraphqlSubResourceFinderRepository {
 
     public get remove() {
         return gql`
-            mutation removeResource($data: employeeToAcademicBodyInput) {
+            mutation removeResource($data: removeEmployeeToAcademicBodyInput) {
                 removeEmployeesToAcademicBody (data: $data) {
                     id
                 }
@@ -39,9 +39,16 @@ export class MembersRepository extends GraphqlSubResourceFinderRepository {
     }
 
     // TODO: Remove this when info modal doesn't need it.
-    map(item: any) {
-        return {
-            'id': item.id
+    public map = (item: any, route: any) => {
+        if (!route) {
+            return {
+                academic_body_id: "",
+                'id': item.id
+            };
         }
-    }
+        return {
+            academic_body_id: route.params.id,
+            'id': item.id
+        };
+    };
 }

@@ -4,7 +4,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    destroyCollaborator(id: ID!): Collaborator @delete
+    destroyCollaborator(data: destroyCollaboratorInput @spread): Collaborator
     createCollaborator(
         data: createCollaboratorInput
         @spread
@@ -21,4 +21,9 @@ type Collaborator {
 input createCollaboratorInput {
     academic_body_id: ID
     employees_id: ID
+}
+
+input destroyCollaboratorInput {
+    id: ID
+    academic_body_id: ID
 }

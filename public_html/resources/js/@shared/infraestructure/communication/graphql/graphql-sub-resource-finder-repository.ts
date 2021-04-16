@@ -18,7 +18,8 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
         },
         protected removeMutate?: string,
         protected removeInput?: string,
-        protected resource?: string) {
+        protected resource?: string,
+        public map?: (item: any, route: any) => any) {
     }
 
     public get edit() {
@@ -55,7 +56,7 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
         `;
     }
 
-    static createDefaultFinder(query: string, sub_query: string) {
+    static createDefaultFinder(query: string, sub_query: string, map?: (item: any, route: any) => any) {
         const resource = toSingular(`${sub_query} `);
         return new GraphqlSubResourceFinderRepository(
             query,
@@ -67,7 +68,8 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             undefined,
             camelize(`destroy ${resource}`),
             camelize(`destroy ${resource} input`),
-            resource
+            resource,
+            map
         );
     }
 

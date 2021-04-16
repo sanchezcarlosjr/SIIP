@@ -5,9 +5,20 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 
 @Component
 export default class CollaboratorsPage extends Vue {
-    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators');
+    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'collaborators', (item: any, route: any) => {
+        if (!route) {
+            return {
+                academic_body_id: "",
+                'id': item.id
+            };
+        }
+        return {
+            academic_body_id: route.params.id,
+            'id': item.id
+        };
+    });
     spanishResourceName = 'Colaboradores'
-    toolbar = new Set(['archive', 'add', 'details']);
+    toolbar = new Set(['remove', 'add', 'details']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
