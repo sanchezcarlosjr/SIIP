@@ -200,7 +200,7 @@ export default class SiipTableComponent extends Vue {
           return Object.keys(item).some((key:any)=>{
             let found = false;
             v.forEach((query:any) => {
-              let regex = new RegExp(".*" + query + ".*");
+              let regex = new RegExp(".*" + query + ".*", "i");
               let test = regex.test(item[key]);
               if (test) {
                 found = true;
