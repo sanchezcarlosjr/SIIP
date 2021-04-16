@@ -9,8 +9,8 @@ export default class CollaboratorsPage extends Vue {
     spanishResourceName = 'Colaboradores'
     toolbar = new Set(['archive', 'add', 'details']);
     fields = [
-        {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true, class: 'w-25'},
+        {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
+        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true}
     ];
     schema = {
