@@ -176,9 +176,39 @@ export default class SiipTableComponent extends Vue {
             .catch(() => this.showDangerToast());
     }
 
-    public filterItems(v: any) {
-        this.$apollo.queries.items.refetch({
+    public async filterItems(v: any) {
+        await this.$apollo.queries.items.refetch({
             filter: v
+        });
+        let ignore: any = [];
+        this.filter.forEach((filter:any) => {
+          filter.criteria.forEach((criteria:any) => {
+            ignore.push(criteria.value);
+          });
+        });
+        v = v.filter((item:any) => {
+          return ignore.indexOf(item) < 0;
+        });
+
+        if (v.length === 0) {
+          return;
+        }
+
+        //lmao kill me
+        //@ts-ignore
+        this.$apollo.data.items = this.$apollo.data.items.filter((item:any)=>{
+          return Object.keys(item).some((key:any)=>{
+            let found = false;
+            v.forEach((query:any) => {
+              let regex = new RegExp(".*" + query + ".*", "i");
+              let test = regex.test(item[key]);
+              if (test) {
+                found = true;
+                return;
+              }
+            });
+            return found;
+          });
         });
     }
 

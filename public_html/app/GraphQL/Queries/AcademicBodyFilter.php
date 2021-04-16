@@ -21,10 +21,12 @@ class AcademicBodyFilter
       "En consolidación",
       "Consolidado"
     ]);
+
     $customQueries = [];
+    /*
     foreach ($custom as $value) {
       $customQueries[] = ["name", "like", "%".$value."%"];
-    }
+    }*/
 
     $ab = AcademicBody::orWhere($customQueries)->get();
 
