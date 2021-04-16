@@ -17,7 +17,7 @@ extend type Mutation {
     updateHelp(
         data: updateHelpInput
         @spread
-    ): Help @update
+    ): Help
 }
 
 
@@ -49,6 +49,10 @@ input updateHelpInput {
     academic_body_id: ID
     amount: Float
     benefited_employee_id: ID
+    release_url: String
+    report_url: String
+    release: [Upload]
+    report: [Upload]
     date: Date
     type: String
 }

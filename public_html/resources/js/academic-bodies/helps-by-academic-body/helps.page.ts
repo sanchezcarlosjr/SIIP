@@ -63,13 +63,13 @@ export default class HelpsPage extends Vue {
                 type: "upload2",
                 label: 'Nueva liberación',
                 ignoreResponseField: true,
-                model: 'release_url'
+                model: 'release'
             },
             {
                 type: "upload2",
                 label: 'Nuevo reporte',
                 ignoreResponseField: true,
-                model: 'report_url'
+                model: 'report'
             }
         ],
         fields: [
