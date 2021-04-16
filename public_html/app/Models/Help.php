@@ -13,6 +13,8 @@ class Help extends Model
         'amount',
         'type',
         'date',
+        'release_url',
+        'report_url',
         'academic_body_id',
         'benefited_employee_id'
     ];
