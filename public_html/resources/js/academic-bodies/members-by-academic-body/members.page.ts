@@ -15,9 +15,8 @@ export default class MembersPage extends Vue {
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true},
     ];
-
     rowClass = (employee: { is_leader: boolean }) => {
-        return employee?.is_leader ? 'text-success' : 'text-muted';
+        return employee?.is_leader ? 'text-success' : '';
     };
     schema = {
         fieldsToFind: [
