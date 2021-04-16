@@ -22,6 +22,10 @@ export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abs
         return this.isTouched;
     }
 
+    updated() {
+        this.feedback = this.options.find((ob) => ob.value == this.value)?.text || "";
+    }
+
     handleBlur() {
         this.isTouched = true;
     }
