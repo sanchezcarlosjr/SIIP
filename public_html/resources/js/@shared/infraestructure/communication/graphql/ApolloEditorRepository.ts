@@ -1,5 +1,6 @@
 import {ApolloDefaultRepository} from "./ApolloDefaultRepository";
 import {DocumentNode} from "graphql";
+import {toGraphQL} from "../GraphQL";
 
 export class ApolloEditorRepository extends ApolloDefaultRepository {
     constructor() {
@@ -25,6 +26,6 @@ export class ApolloEditorRepository extends ApolloDefaultRepository {
     mapFieldsToQuery(component: any) {
         const schema = component.schema;
         const fields: { model: string, ignoreResponseField?: boolean }[] = schema.fieldsToFind || schema.fields;
-        return fields.map((field) => field.ignoreResponseField ? "" : field.model);
+        return fields.map((field) => field.ignoreResponseField ? "" : toGraphQL({key: field.model}));
     }
 }

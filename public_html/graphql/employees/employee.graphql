@@ -31,6 +31,7 @@ type Employee {
     active: Boolean
     is_leader: Boolean
     is_ptc: Boolean
+    is_researcher: Boolean
     has_active_prodep_profile: Boolean
     has_active_sni: Boolean
     prodep_profiles: [ProdepProfile]
