@@ -11,7 +11,7 @@ export default class MembersPage extends Vue {
     toolbar = new Set<string>(['add', 'remove', 'details']);
     fields = [
         {key: 'is_leader', sortable: true},
-        {key: 'name', label: 'Nombre', sortable: true, class: 'vw-20'},
+        {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true},
     ];
