@@ -194,14 +194,20 @@ export default class SiipTableComponent extends Vue {
           return;
         }
 
-        //lmao kill me
         //@ts-ignore
         this.$apollo.data.items = this.$apollo.data.items.filter((item:any)=>{
-          return Object.keys(item).some((key:any)=>{
+          return this.fields.some((field: any)=>{
+            let val = field.key.split(".").reduce((o:any, i:any)=>{
+              if (o === null) {
+                return null;
+              } else {
+                return o[i];
+              }
+            }, item);
             let found = false;
             v.forEach((query:any) => {
               let regex = new RegExp(".*" + query + ".*", "i");
-              let test = regex.test(item[key]);
+              let test = regex.test(val);
               if (test) {
                 found = true;
                 return;
