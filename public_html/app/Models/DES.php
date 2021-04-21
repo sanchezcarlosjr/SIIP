@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DES extends Model
 {
     protected $primaryKey = 'cdes';
+    public $timestamps = false;
     protected $table = 'des';
     use HasFactory;
 }

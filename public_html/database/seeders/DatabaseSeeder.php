@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{ActivitiesPit};
+use App\Models\{AcademicUnit, ActivitiesPit, DES};
 use App\Models\AcademicBody;
 use App\Models\Employee;
 use App\Models\Evaluation;
@@ -32,6 +32,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->makeRoles();
         $this->makeUsers();
+        // DES::factory(10)->create();
+        // AcademicUnit::factory(100)->create();
         ProdepArea::factory(200)->create();
         AcademicBody::factory(200)->create();
         Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();

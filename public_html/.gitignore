@@ -5,7 +5,6 @@
 /public/css/app.css
 /public/storage
 /storage/*.key
-/database/legacy/*
 /vendor
 .env
 .env.backup
