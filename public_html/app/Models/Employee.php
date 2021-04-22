@@ -71,7 +71,7 @@ class Employee extends Model
 
     public function getAgeAttribute()
     {
-        return Carbon::today()->diffInYears(Carbon::parse($this->f_nacimiento));
+        return Carbon::today()->diffInYears(Carbon::createFromFormat("d/m/Y", $this->f_nacimiento));
     }
 
     public function getIsPTCAttribute()
