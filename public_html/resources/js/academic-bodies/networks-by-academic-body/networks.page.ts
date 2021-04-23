@@ -117,11 +117,10 @@ export default class NetworksPage extends Vue {
                             model: 'name'
                         },
                         {
-                            type: 'input',
-                            id: "type2",
-                            inputType: 'text',
-                            label: 'Tipo',
-                            model: 'type'
+                            type: 'select',
+                            label: 'Alcance',
+                            model: 'range',
+                            values: ['Institución', 'Grupo', 'Cuerpos Académicos']
                         },
                         {
                             type: "switch2",
