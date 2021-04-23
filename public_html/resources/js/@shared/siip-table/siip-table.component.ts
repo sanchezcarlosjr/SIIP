@@ -10,6 +10,7 @@ import RemoveModalComponent from './application/remove-modal.component.vue';
 import TablePresenter from './application/table-presenter.component.vue';
 import SearcherComponent from './application/searcher.component.vue';
 import SiipTitle from './application/title.component.vue';
+import PrintOptions from "./application/print-options.component.vue";
 
 @Component({
     directives: {permission},
@@ -19,7 +20,8 @@ import SiipTitle from './application/title.component.vue';
         RemoveModalComponent,
         SearcherComponent,
         SiipTitle,
-        TablePresenter
+        TablePresenter,
+        PrintOptions
     },
     methods: {hasPermissions},
     apollo: {
@@ -47,7 +49,10 @@ export default class SiipTableComponent extends Vue {
         }
     }) filter!: { default: boolean; value: string }[];
     @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
-    tableFields: {}[] = this.fields.filter((field) => field.label);
+    /** Filter by field.visible */
+    tableFields: {}[] = this.fields.filter((field) => {
+      return (field.label !== undefined && (field.visible??true))
+    });
     criteria: string[] = [];
     items: any = [];
     sortBy = '';

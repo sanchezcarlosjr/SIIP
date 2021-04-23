@@ -12,22 +12,10 @@
                                 :filters="filter"
                                 @update="filterItems"
                             ></searcher-component>
-                            <b-dropdown
-                                v-b-tooltip.hover
-                                no-caret
-                                size="sm"
-                                title="Otras acciones"
-                                toggle-class="text-decoration-none"
-                                variant="secondary-link"
-                            >
-                                <template #button-content>
-                                    <font-awesome-icon class="text-muted b-0" icon="ellipsis-h"/>
-                                </template>
-                                <b-dropdown-item>
-                                    <pdf-button></pdf-button>
-                                    <csv-button></csv-button>
-                                </b-dropdown-item>
-                            </b-dropdown>
+                            <print-options
+                              :fields="fields"
+                              :items="items"
+                            />
                             <b-button
                                 v-b-tooltip.hover
                                 :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
