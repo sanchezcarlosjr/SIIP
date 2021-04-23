@@ -85,7 +85,7 @@ export default class MembersPage extends Vue {
                 textKey: 'name'
             },
             {
-                type: 'graphql-select',
+                type: 'tags',
                 label: 'LGAC',
                 model: 'lgac_id',
                 query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs'),
