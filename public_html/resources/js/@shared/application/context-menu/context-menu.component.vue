@@ -116,6 +116,7 @@ export default {
 
 .vue-simple-context-menu {
     top: 0;
+    z-index: 2;
     left: 0;
     margin: 0;
     padding: 0;
