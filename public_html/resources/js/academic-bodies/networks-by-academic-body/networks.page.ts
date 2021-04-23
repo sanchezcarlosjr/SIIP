@@ -6,7 +6,7 @@ import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/
 export default class NetworksPage extends Vue {
     apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'networks');
     spanishResourceName = 'red'
-    toolbar = new Set<String>(['add', 'edit-xl']);
+    toolbar = new Set<String>(['add', 'edit', 'remove']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
         {key: 'academic_body.leader.name', label: 'Líder', sortable: true},

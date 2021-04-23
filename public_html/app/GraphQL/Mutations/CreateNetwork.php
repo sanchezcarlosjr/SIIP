@@ -13,7 +13,7 @@ class CreateNetwork
      */
     public function __invoke($_, array $args)
     {
-        if ($args['formation'][0]) {
+        if (isset($args['formation']) && $args['formation'][0]) {
             /** @var UploadedFile $file */
             $file = $args['formation'][0];
             $args['formation_url'] = $file->storePublicly('public');

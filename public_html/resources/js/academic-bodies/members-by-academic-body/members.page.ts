@@ -14,10 +14,10 @@ export default class MembersPage extends Vue {
         {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
         {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'academic_unit.campus', label: 'Campus', sortable: true},
+        {key: 'academic_bodies_lgacs.name', sortable: true, column: 'academic_bodies_lgacs'}
     ];
-
     rowClass = (employee: { is_leader: boolean }) => {
-        return employee?.is_leader ? 'text-success' : 'text-muted';
+        return employee?.is_leader ? 'font-weight-bold' : '';
     };
     schema = {
         fieldsToFind: [
@@ -85,7 +85,7 @@ export default class MembersPage extends Vue {
                 textKey: 'name'
             },
             {
-                type: 'graphql-select',
+                type: 'tags',
                 label: 'LGAC',
                 model: 'lgac_id',
                 query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs'),

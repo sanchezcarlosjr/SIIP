@@ -24,9 +24,9 @@ class AcademicBody extends Model
         'created_at'
     ];
     protected $appends = [
-      "grade",
-      "employees",
-      "last_evaluation"
+        "grade",
+        "employees",
+        "last_evaluation"
     ];
 
     public function lgacs()
@@ -75,12 +75,13 @@ class AcademicBody extends Model
         $lgacs = $this->lgacs;
         $employees = new Collection();
         foreach ($lgacs as $lgac) {
-        $employees = $employees->merge($lgac->employees);
-      }
-      return $employees;
+            $employees = $employees->merge($lgac->employees);
+        }
+        return $employees->unique('nempleado');
     }
 
-    public function getLastEvaluationAttribute() {
-      return $this->evaluations->sortBy('finish_date')->get(0);
+    public function getLastEvaluationAttribute()
+    {
+        return $this->evaluations->sortBy('finish_date')->get(0);
     }
 }

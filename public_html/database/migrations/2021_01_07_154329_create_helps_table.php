@@ -17,6 +17,8 @@ class CreateHelpsTable extends Migration
             $table->id();
             $table->float('amount');
             $table->string('type');
+            $table->string('report_url')->nullable();
+            $table->string('release_url')->nullable();
             $table->date('date');
             $table->timestamps();
             $table->integer('academic_body_id')->unsigned();

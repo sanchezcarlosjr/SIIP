@@ -16,7 +16,7 @@ export default class MembersPage extends Vue {
     toolbar = new Set<String>([]);
 
     rowClass = (employee: { is_leader: boolean }) => {
-        return employee?.is_leader ? 'text-success' : 'text-muted';
+        return employee?.is_leader ? 'font-weight-bold' : '';
     };
     defaultCriteria = [
       {

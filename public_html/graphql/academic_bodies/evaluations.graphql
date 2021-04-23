@@ -4,7 +4,9 @@ extend type Query {
 }
 
 extend type Mutation {
-    destroyEvaluation(id:ID!): Evaluation @delete
+    destroyEvaluation(
+        data: destroyEvaluationInput! @spread
+    ): Evaluation @delete
     createEvaluation(
         data: createEvaluationInput
         @spread
@@ -37,4 +39,8 @@ input updateEvaluationInput {
     grade: String
     years_to_finish: Int
     start_date: Date
+}
+
+input destroyEvaluationInput {
+    id: ID!
 }

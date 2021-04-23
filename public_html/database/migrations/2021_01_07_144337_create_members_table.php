@@ -18,6 +18,7 @@ class CreateMembersTable extends Migration
             $table->integer('academic_bodies_lgacs_id')->unsigned();
             $table->integer('employee_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('academic_bodies_lgacs_id')->references('id')->on('academic_bodies_lgacs')->onDelete('cascade');
             $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
         });

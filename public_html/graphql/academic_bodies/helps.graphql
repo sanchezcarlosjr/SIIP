@@ -8,16 +8,17 @@ extend type Query {
 
 extend type Mutation {
     destroyHelp(
-        id: ID!
-    ): Help
+        data: destroyHelpInput!
+        @spread
+    ): Help @delete
     createHelp(
         data: createHelpInput
         @spread
-    ): Help @create
+    ): Help
     updateHelp(
         data: updateHelpInput
         @spread
-    ): Help @update
+    ): Help
 }
 
 
@@ -27,6 +28,8 @@ type Help {
     type: String
     date: Date
     amount: Float
+    report_url: String
+    release_url: String
     benefited_employee_id: Int
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
@@ -37,6 +40,8 @@ input createHelpInput {
     amount: Float
     benefited_employee_id: ID
     date: Date
+    release: [Upload]
+    report: [Upload]
     type: String
 }
 
@@ -45,6 +50,14 @@ input updateHelpInput {
     academic_body_id: ID
     amount: Float
     benefited_employee_id: ID
+    release_url: String
+    report_url: String
+    release: [Upload]
+    report: [Upload]
     date: Date
     type: String
+}
+
+input destroyHelpInput {
+    id: ID!
 }

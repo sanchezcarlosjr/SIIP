@@ -34,6 +34,14 @@
                         :rows="3"
                     ></b-skeleton-table>
                 </template>
+                <template #cell()="data">
+                    <div v-if="typeof data.value === 'boolean'">
+                        <i class="fas fa-check" style="font-size: 12px"></i>
+                    </div>
+                    <div v-else>
+                        {{data.value}}
+                    </div>
+                </template>
             </b-table>
             <context-menu
                 :ref="'contextMenu'"
