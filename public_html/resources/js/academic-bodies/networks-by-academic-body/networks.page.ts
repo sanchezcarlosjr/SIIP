@@ -116,6 +116,20 @@ export default class NetworksPage extends Vue {
                             label: 'Nombre',
                             model: 'name'
                         },
+                        {
+                            type: 'input',
+                            id: "type2",
+                            inputType: 'text',
+                            label: 'Tipo',
+                            model: 'type'
+                        },
+                        {
+                            type: "switch2",
+                            label: "Liderazgo",
+                            model: "is_leader",
+                            textOn: "Es el líder de la red",
+                            textOff: "No es el líder de la red"
+                        }
                     ]
                 }
             }

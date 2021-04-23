@@ -29,10 +29,17 @@ type Network {
     formation_url: String
     finish_date: Date
     academic_body_id: Int
+    collaborators: [CollaboratorNetwork]
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }
 
-input CollaboratorNetwork {
+type CollaboratorNetwork {
+    name: String
+    type: String
+    is_leader: Boolean
+}
+
+input Collaborator {
     name: String
     type: String
     is_leader: Boolean
@@ -46,7 +53,7 @@ input createNetworkInput {
     range: String
     finish_date: Date
     formation: [Upload]
-    collaborators: [CollaboratorNetwork]
+    collaborators: [Collaborator]
     academic_body_id: Int
 }
 

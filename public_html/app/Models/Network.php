@@ -28,4 +28,8 @@ class Network extends Model
     {
         return $this->hasOne(Collaborator::class, "id", "network_lead_id");
     }
+    public function collaborators()
+    {
+        return $this->hasMany(CollaboratorNetwork::class);
+    }
 }
