@@ -170,7 +170,9 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: 'name', label: 'Nombre', sortable: true, editable: true, class: 'vw-20'},
         {key: 'last_evaluation.grade', label: 'Grado de consolidación', sortable: true, editable: true, class: 'vw-5'},
         {key: 'prodep_key', label: 'Clave PRODEP', sortable: true, editable: true, class: 'vw-5'},
-        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false}
+        {key: `leader.academic_unit.name`, label: 'Unidad Académica', sortable: true, editable: false},
+        {key: 'discipline', label: 'Disciplina', sortable: true, editable: false, visible: false},
+        {key: 'prodep_area.name', label: 'Area PRODEP', sortable: true, editable: false, visible: false}
     ];
 
     createdElement(element: any) {
