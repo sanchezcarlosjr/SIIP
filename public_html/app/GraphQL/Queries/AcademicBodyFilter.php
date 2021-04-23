@@ -68,26 +68,22 @@ class AcademicBodyFilter
         }
       })->values();
     }
-    if (in_array("En formación", $filters)) {
-      $ab = $ab->filter(function($item) {
+
+    $evals = array(
+      "En formación",
+      "En consolidación",
+      "Consolidado"
+    );
+
+    if (count(array_intersect($evals, $filters)) > 0) {
+      $ab = $ab->filter(function($item) use ($evals, $filters) {
         if (isset($item->grade)) {
-          return $item->grade == "En formación";
+          return in_array(
+            $item->grade,
+            array_intersect($evals, $filters)
+          );
         }
-      })->values();
-    }
-    if (in_array("En consolidación", $filters)) {
-      $ab = $ab->filter(function($item) {
-        if (isset($item->grade)) {
-          return $item->grade == "En consolidación";
-        }
-      })->values();
-    }
-    if (in_array("Consolidado", $filters)) {
-      $ab = $ab->filter(function($item) {
-        if (isset($item->grade)) {
-          return $item->grade == "Consolidado";
-        }
-      })->values();
+      });
     }
 
     return ($ab->isEmpty())?AcademicBody::query()->whereNull('id'):$ab->toQuery();
