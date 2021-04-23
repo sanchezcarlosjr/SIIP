@@ -32,6 +32,12 @@ type Network {
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }
 
+input CollaboratorNetwork {
+    name: String
+    type: String
+    is_leader: Boolean
+}
+
 input createNetworkInput {
     name: String
     type: String
@@ -40,6 +46,7 @@ input createNetworkInput {
     range: String
     finish_date: Date
     formation: [Upload]
+    collaborators: [CollaboratorNetwork]
     academic_body_id: Int
 }
 

@@ -24,4 +24,8 @@ class Network extends Model
     {
         return $this->belongsTo(AcademicBody::class, 'academic_body_id');
     }
+    public function leader()
+    {
+        return $this->hasOne(Collaborator::class, "id", "network_lead_id");
+    }
 }

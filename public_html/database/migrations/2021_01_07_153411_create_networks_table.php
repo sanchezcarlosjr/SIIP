@@ -22,6 +22,7 @@ class CreateNetworksTable extends Migration
             $table->string('formation_url')->nullable();
             $table->date('start_date');
             $table->date('finish_date');
+            $table->integer('network_lead_id')->unsigned()->nullable();
             $table->timestamps();
             $table->integer('academic_body_id')->unsigned();
             $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
@@ -35,6 +36,10 @@ class CreateNetworksTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
+        Schema::dropColumns('academic_bodies_networks', ['network_lead_id']);
+        Schema::dropColumns('collaborator_networks', ['academic_bodies_network_id']);
         Schema::dropIfExists('academic_bodies_networks');
+        Schema::dropIfExists('collaborator_networks');
     }
 }

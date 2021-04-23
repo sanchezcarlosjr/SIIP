@@ -21,6 +21,7 @@ import apolloProvider from "./settings/apollo";
 import router from './routes';
 import VfgFieldGraphQLSelectID from './@shared/application/form-fields/vfg-field-select-graphql-id/index.vue';
 import VfgFieldTags from './@shared/application/form-fields/vfg-field-tags/index.vue';
+import VfgFieldArray from './@shared/application/form-fields/vfg-field-array/index.vue';
 // @ts-ignore
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 
@@ -46,6 +47,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('context-menu', ContextMenu);
 Vue.component('siip-academic-body-lgacs', AcademicBodyLgacs);
 Vue.component('field-tags', VfgFieldTags);
+Vue.component('field-array', VfgFieldArray);
 
 const app = new Vue({
     el: '#app',

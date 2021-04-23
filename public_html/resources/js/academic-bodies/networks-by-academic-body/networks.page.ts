@@ -102,6 +102,22 @@ export default class NetworksPage extends Vue {
                 type: "upload2",
                 label: 'Formalización',
                 model: 'formation'
+            },
+            {
+                type: "array",
+                label: "Colaboradores",
+                model: "collaborators",
+                schema: {
+                    fields: [
+                        {
+                            type: 'input',
+                            id: "name2",
+                            inputType: 'text',
+                            label: 'Nombre',
+                            model: 'name'
+                        },
+                    ]
+                }
             }
         ]
     };
