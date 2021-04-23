@@ -8,8 +8,9 @@ extend type Query {
 
 extend type Mutation {
     destroyHelp(
-        id: ID!
-    ): Help
+        data: destroyHelpInput!
+        @spread
+    ): Help @delete
     createHelp(
         data: createHelpInput
         @spread
@@ -55,4 +56,8 @@ input updateHelpInput {
     report: [Upload]
     date: Date
     type: String
+}
+
+input destroyHelpInput {
+    id: ID!
 }
