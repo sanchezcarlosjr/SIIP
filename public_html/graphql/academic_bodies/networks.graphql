@@ -29,6 +29,7 @@ type Network {
     formation_url: String
     finish_date: Date
     academic_body_id: Int
+    leader: CollaboratorNetwork
     collaborators: [CollaboratorNetwork]
     academic_body: AcademicBody @belongsTo(relation: "academic_body")
 }

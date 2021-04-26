@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CollaboratorNetwork extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type', "academic_bodies_network_id"];
     public function network(): BelongsTo
     {
         return $this->belongsTo(Network::class, 'academic_bodies_network_id');

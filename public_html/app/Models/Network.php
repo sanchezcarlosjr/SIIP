@@ -18,7 +18,8 @@ class Network extends Model
         'range',
         'start_date',
         'formation_url',
-        'finish_date'
+        'finish_date',
+        'network_lead_id'
     ];
     public function academic_body(): BelongsTo
     {
@@ -26,10 +27,10 @@ class Network extends Model
     }
     public function leader()
     {
-        return $this->hasOne(Collaborator::class, "id", "network_lead_id");
+        return $this->hasOne(CollaboratorNetwork::class, "id", "network_lead_id");
     }
     public function collaborators()
     {
-        return $this->hasMany(CollaboratorNetwork::class);
+        return $this->hasMany(CollaboratorNetwork::class, "academic_bodies_network_id");
     }
 }

@@ -118,9 +118,9 @@ export default class NetworksPage extends Vue {
                         },
                         {
                             type: 'select',
-                            label: 'Alcance',
-                            model: 'range',
-                            values: ['Institución', 'Grupo', 'Cuerpos Académicos']
+                            label: 'Tipo',
+                            model: 'type',
+                            values: ['Institución', 'Grupo', 'Cuerpo Académico']
                         },
                         {
                             type: "switch2",
