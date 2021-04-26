@@ -1,6 +1,7 @@
 <?php
 
 namespace App\GraphQL\Mutations;
+use App\Models\CollaboratorNetwork;
 use App\Models\Network;
 
 class DestroyNetwork
@@ -11,6 +12,15 @@ class DestroyNetwork
      */
     public function __invoke($_, array $args)
     {
-        return Network::destroy($args['id']);
+        $network = Network::find($args["id"]);
+        $network->network_lead_id = null;
+        $network->save();
+        $network->collaborators->each(function ($key, $value) use ($network) {
+            if (isset($key["id"])) {
+                CollaboratorNetwork::destroy($key->id);
+            }
+        });
+        Network::destroy($args["id"]);
+        return $network;
     }
 }

@@ -14,4 +14,9 @@ class CollaboratorNetwork extends Model
     {
         return $this->belongsTo(Network::class, 'academic_bodies_network_id');
     }
+    public function getIsLeaderAttribute()
+    {
+        $network = $this->network();
+        return $network->get()[0]->leader->id == $this->id;
+    }
 }

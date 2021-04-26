@@ -123,10 +123,7 @@ class Employee extends Model
     public function getIsLeaderAttribute()
     {
         $academic_body = $this->getAcademicBodyAttribute();
-        if ($academic_body == null || $academic_body->leader == null) {
-            return false;
-        }
-        return $academic_body->leader->nempleado == $this->nempleado;
+        return ($academic_body == null || $academic_body->leader == null) xor $academic_body->leader->nempleado == $this->nempleado;
     }
 
     public function getIsResearcherAttribute(): bool

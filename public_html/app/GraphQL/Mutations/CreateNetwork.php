@@ -44,6 +44,9 @@ class CreateNetwork
             return;
         }
         foreach ($args["collaborators"] as $collaborator) {
+            if (!isset($collaborator["name"])) {
+                return;
+            }
             $collaborator["academic_bodies_network_id"] = $network->id;
             $is_leader = isset($collaborator["is_leader"]) && $collaborator['is_leader'];
             unset($collaborator['is_leader']);

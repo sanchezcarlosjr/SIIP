@@ -9,7 +9,7 @@ export default class NetworksPage extends Vue {
     toolbar = new Set<String>(['add', 'edit', 'remove']);
     fields = [
         {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'academic_body.leader.name', label: 'Líder', sortable: true},
+        {key: 'leader.name', label: 'Líder', sortable: true},
         {key: 'range', label: 'Alcance', sortable: true},
         {key: 'start_date', label: 'Fecha de inicio', sortable: true},
         {key: 'finish_date', label: 'Fecha de fin', sortable: true},

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-button v-if="value[0].id" @click="load">Cargar</b-button>
+        <b-button v-if="value && value[0].id" @click="load">Cargar</b-button>
         <div  v-for="(field, index) in fields" :key="index">
             <button v-if="fields.length > 1"  @click="remove(index)" type="button" aria-label="Close" class="close">×</button>
             <vue-form-generator :schema="schema.schema" :model="field"></vue-form-generator>

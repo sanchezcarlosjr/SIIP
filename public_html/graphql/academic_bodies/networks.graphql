@@ -7,7 +7,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    destroyNetwork(data: destroyNetworkInput! @spread): Network @delete
+    destroyNetwork(data: destroyNetworkInput! @spread): Network
     createNetwork(
         data: createNetworkInput
         @spread
@@ -38,13 +38,16 @@ type CollaboratorNetwork {
     id: ID
     name: String
     type: String
+    network: Network
     is_leader: Boolean
 }
 
 input Collaborator {
+    id: ID
     name: String
     type: String
     is_leader: Boolean
+    __typename: String
 }
 
 input createNetworkInput {
@@ -67,6 +70,7 @@ input updateNetworkInput {
     start_date: Date
     range: String
     formation: [Upload]
+    collaborators: [Collaborator]
     formation_url: String
     finish_date: Date
     academic_body_id: Int

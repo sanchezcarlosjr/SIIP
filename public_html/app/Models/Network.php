@@ -12,6 +12,7 @@ class Network extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        "id",
         'type',
         'class',
         'academic_body_id',
