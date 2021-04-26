@@ -95,6 +95,11 @@ export class GraphqlSubResourceFinderRepository implements MutationRepository {
             query findResourceById {
                 ${this.resource}(id: ${id}) {
                 id
+                collaborators {
+                    id
+                    name
+                    type
+                }
                 ${fields}
             }
             }

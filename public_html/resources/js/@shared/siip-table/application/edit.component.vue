@@ -14,7 +14,7 @@ export default {
     name: "edit",
     data() {
         return {
-            model: null,
+            model: {},
             schema2: {
                 fields: this.schema.fieldsToFind || this.schema.fields || []
             },

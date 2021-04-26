@@ -10,6 +10,10 @@ export default class VfgFieldArray extends Mixins(VueFormGenerator.abstractField
         // @ts-ignore
         this.value = this.fields;
     }
+    load() {
+        // @ts-ignore
+        this.fields = this.value;
+    }
     createField() {
         this.fields.push({});
     }

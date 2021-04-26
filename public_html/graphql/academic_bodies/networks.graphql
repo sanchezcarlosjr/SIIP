@@ -35,6 +35,7 @@ type Network {
 }
 
 type CollaboratorNetwork {
+    id: ID
     name: String
     type: String
     is_leader: Boolean
