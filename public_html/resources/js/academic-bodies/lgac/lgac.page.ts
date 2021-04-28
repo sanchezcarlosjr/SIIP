@@ -8,10 +8,9 @@ export default class LGACPage extends Vue {
     spanishResourceName = 'LGAC'
     toolbar = new Set<string>([]);
     fields = [
-        {key: 'name', label: 'Nombre', sortable: true},
+        {key: 'name', label: 'LGAC', sortable: true},
         {key: 'academic_body.name', label: 'Cuerpo académico', sortable: true},
         {key: 'academic_body.prodep_area.name', label: 'Área del conocimiento', sortable: true},
         {key: `academic_body.leader.academic_unit.name`, label: 'Unidad Académica', sortable: true}
     ];
 }
-
