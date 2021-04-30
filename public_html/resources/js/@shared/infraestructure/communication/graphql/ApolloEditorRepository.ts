@@ -25,10 +25,10 @@ export class ApolloEditorRepository extends ApolloDefaultRepository {
 
     mapFieldsToQuery(component: any) {
         const schema = component.schema;
-        const fields: {type: string, model: string, ignoreResponseField?: boolean }[] = schema.fieldsToFind || schema.fields;
+        const fields: {type: string, fragment: string, model: string, ignoreResponseField?: boolean }[] = schema.fieldsToFind || schema.fields;
         return fields.map((field) => {
             if (field.type == "array") {
-                return "";
+                return field?.fragment;
             }
             return field.ignoreResponseField ? "" : toGraphQL({key: field.model});
         });
