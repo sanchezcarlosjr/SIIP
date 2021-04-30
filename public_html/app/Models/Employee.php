@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Exceptions\Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -71,7 +72,11 @@ class Employee extends Model
 
     public function getAgeAttribute()
     {
-        return Carbon::today()->diffInYears(Carbon::createFromFormat("d/m/Y", $this->f_nacimiento));
+        try {
+            return Carbon::today()->diffInYears(Carbon::createFromFormat("d/m/Y", $this->f_nacimiento));
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     public function getIsPTCAttribute()
@@ -123,7 +128,7 @@ class Employee extends Model
     public function getIsLeaderAttribute()
     {
         $academic_body = $this->getAcademicBodyAttribute();
-        return ($academic_body == null || $academic_body->leader == null) xor $academic_body->leader->nempleado == $this->nempleado;
+        return ($academic_body == null || $academic_body->leader == null)  ? false : $academic_body->leader->nempleado == $this->nempleado;
     }
 
     public function getIsResearcherAttribute(): bool
