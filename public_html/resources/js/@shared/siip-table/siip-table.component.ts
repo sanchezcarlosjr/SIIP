@@ -57,10 +57,9 @@ export default class SiipTableComponent extends Vue {
     items: any = [];
     sortBy = '';
     sortDesc = false;
-    okDisabled = true;
     formOptions = {
         validateAsync: true,
-        validateAfterLoad: true,
+        validateAfterLoad: false,
         validateAfterChanged: true
     };
     sortDirection = 'asc';
@@ -95,10 +94,6 @@ export default class SiipTableComponent extends Vue {
             }
             this.options.push(this.infoModal.getActions(value));
         });
-    }
-
-    onValidated(isValid: boolean) {
-        this.okDisabled = !isValid;
     }
 
     optionClicked(event: { option: any, item: any }) {

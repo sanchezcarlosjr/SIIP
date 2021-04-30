@@ -7,15 +7,8 @@
             autocomplete="off"
             :readonly="schema.readonly"
             :required="schema.required"
-            :state="idState"
-            debounce="1000"
-            @blur="handleBlur"
-            @change="search"
+            debounce="500"
         ></b-form-input>
-        <b-form-invalid-feedback :id="schema.model.concat('feedback')">
-            Ingresa un recurso correcto.
-        </b-form-invalid-feedback>
-        <b-form-text :id="schema.model.concat('text')">{{ feedback }}</b-form-text>
         <datalist :id="schema.model.concat('select')">
             <option v-for="option in options" :value="option.value">{{ option.text }}</option>
         </datalist>

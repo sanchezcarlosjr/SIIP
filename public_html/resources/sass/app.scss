@@ -8,6 +8,29 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue';
 
+.hint {
+  @extend .small, .form-text, .text-muted;
+}
+
+.error {
+  .form-control {
+    @extend .is-invalid;
+  }
+  &> .errors.help-block {
+    display: block;
+  }
+}
+
+/*.valid {
+  .form-control {
+    @extend .is-valid;
+  }
+}*/
+
+.errors.help-block {
+  @extend .invalid-feedback;
+}
+
 .pointer {
     cursor: pointer;
 }
