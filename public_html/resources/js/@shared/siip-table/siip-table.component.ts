@@ -83,7 +83,7 @@ export default class SiipTableComponent extends Vue {
 
     async mounted() {
         this.infoModal.build(this.spanishResourceName);
-        this.hasUpload = this.schema.fields.filter((field: any) => field.type === 'upload2').length > 0;
+        this.hasUpload = this.schema?.fields?.filter((field: any) => field.type === 'upload2').length > 0;
         // @ts-ignore
         let params = (new URL(document.location)).searchParams;
         if (params.has('createResource')) {
@@ -136,7 +136,7 @@ export default class SiipTableComponent extends Vue {
     }
 
     edit(item: any, index: any, button: any) {
-        if (this.schema.fields.length === 0) {
+        if (this.schema?.fields?.length === 0) {
             return;
         }
         if (this.toolbar.has('own-edit')) {

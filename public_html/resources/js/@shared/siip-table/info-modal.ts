@@ -118,11 +118,6 @@ export class InfoModal implements Modal {
     }
 
     loadModel() {
-        this.schema.fields.forEach((field: any) => {
-            field.readonly = !hasPermissions(['admin']);
-            this.model[field.model] = '';
-            this._model[field.model] = '';
-        });
     }
 
     getActions(value: string) {
@@ -138,7 +133,6 @@ export class InfoModal implements Modal {
     }
 
     loadSchema() {
-        this.schema.fields.forEach((field) => field.module = this.module);
     }
 
     adaptMapToRemove(resource: any, route: any) {

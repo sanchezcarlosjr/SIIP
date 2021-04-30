@@ -79,6 +79,13 @@ export default class NetworksPage extends Vue {
                 label: "Colaboradores",
                 model: "collaborators",
                 ignoreResponseField: true,
+                fragment: `
+                    collaborators {
+                        id
+                        name
+                        type
+                    }
+                `,
                 schema: {
                     fields: [
                         {
