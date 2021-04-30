@@ -1,5 +1,5 @@
 extend type Query {
-    employee(nempleado: ID @eq): Employee @find
+    employee(id: ID @where(operator: "=", key: "nempleado")): Employee @find
     employees(
         members: Boolean  @builder(
             method: "App\\GraphQL\\Queries\\Employee@is_lgac_member"

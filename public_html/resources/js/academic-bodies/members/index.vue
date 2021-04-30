@@ -3,6 +3,7 @@
         :toolbar="toolbar"
         :spanishResourceName="spanishResourceName"
         :fields="fields"
+        :schema="schema"
         :filter="defaultCriteria"
         :rowClass="rowClass"
         :resource="apiResource"
