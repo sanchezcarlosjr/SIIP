@@ -12,6 +12,19 @@ import SearcherComponent from './application/searcher.component.vue';
 import SiipTitle from './application/title.component.vue';
 import PrintOptions from "./application/print-options.component.vue";
 
+import {default as GQL, key2field} from "../../@shared/infraestructure/communication/graphql/test";
+
+let fields = [
+    {key: 'employee.name', label: 'Nombre', sortable: true},
+    {key: 'employee.id', label: 'No. Empleado', sortable: true},
+    {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+    {key: 'start_date', label: 'Fecha inicio', sortable: true},
+    {key: 'finish_date', label: 'Fecha fin', sortable: true},
+    {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
+];
+
+let repository = new GQL("prodep_profiles");
+
 @Component({
     directives: {permission},
     components: {
@@ -26,6 +39,20 @@ import PrintOptions from "./application/print-options.component.vue";
     methods: {hasPermissions},
     apollo: {
         items: adapt()
+        /*items: {
+            query: repository.query({
+              fields: key2field(fields),
+              paginated: true
+            }),
+            update: data => data.prodep_profiles.data,
+            prefetch: false,
+            variables(): any {
+                return {
+                    // @ts-ignore
+                    id: this.$route.params.id
+                }
+            }
+        }*/
     }
 })
 export default class SiipTableComponent extends Vue {
