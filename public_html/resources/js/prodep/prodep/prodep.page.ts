@@ -1,24 +1,52 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+//@ts-ignore
+import VueFormGenerator from 'vue-form-generator';
+
+import {default as GQL, key2field} from "../../@shared/infraestructure/communication/graphql/test";
+
+(window as any).GQL = GQL;
+(window as any).key2field = key2field;
+
+let fields = [
+    {key: 'employee.name', label: 'Nombre', sortable: true},
+    {key: 'employee.id', label: 'No. Empleado', sortable: true},
+    {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+    {key: 'start_date', label: 'Fecha inicio', sortable: true},
+    {key: 'finish_date', label: 'Fecha fin', sortable: true},
+    {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
+];
+
+/*
+let repository = new GQL("prodep_profiles");
+
+console.log(
+  repository.query({
+    fields: key2field(fields),
+    paginated: true
+  })
+);*/
 
 @Component
 export default class ProdepPage extends Vue {
     apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_profiles');
     toolbar = new Set(['add', 'edit']);
     defaultCriteria = [
-        {
-            value: 'Mexicali',
-            default: false
-        },
-        {
-            value: 'Ensenada',
-            default: false
-        },
-        {
-            value: 'Tijuana',
-            default: false
-        }
+      {
+        type: "xor",
+        criteria: [
+          {
+              value: 'Mexicali'
+          },
+          {
+              value: 'Ensenada'
+          },
+          {
+              value: 'Tijuana'
+          }
+        ]
+      }
     ];
     schema = {
         fields: [
@@ -51,12 +79,5 @@ export default class ProdepPage extends Vue {
             }
         ]
     };
-    fields = [
-        {key: 'employee.name', label: 'Nombre', sortable: true},
-        {key: 'employee.id', label: 'No. Empleado', sortable: true},
-        {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
-        {key: 'start_date', label: 'Fecha inicio', sortable: true},
-        {key: 'finish_date', label: 'Fecha fin', sortable: true},
-        {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
-    ];
+    fields = fields
 }
