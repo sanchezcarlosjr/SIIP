@@ -42,7 +42,7 @@ type CollaboratorNetwork {
     is_leader: Boolean
 }
 
-input Collaborator {
+input CollaboratorNetworkInput {
     id: ID
     name: String
     type: String
@@ -58,7 +58,7 @@ input createNetworkInput {
     range: String
     finish_date: Date
     formation: [Upload]
-    collaborators: [Collaborator]
+    collaborators: [CollaboratorNetworkInput]
     academic_body_id: Int
 }
 
