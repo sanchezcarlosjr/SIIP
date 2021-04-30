@@ -5,8 +5,8 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 @Component
 export default class NetworksPage extends Vue {
     apiResource = new GraphqlResourceRepository('networks(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)');
+    toolbar = new Set<String>(['details']);
     spanishResourceName = 'red'
-    toolbar = new Set<String>([]);
     fields = [
         {key: 'academic_body.name', label: 'Cuerpo Académico', sortable: true},
         {key: 'name', label: 'Nombre', sortable: true},
@@ -14,8 +14,18 @@ export default class NetworksPage extends Vue {
         {key: 'type', label: 'Tipo', sortable: true},
         {key: 'range', label: 'Alcance', sortable: true},
         {key: 'finish_date', label: 'Fecha de fin', sortable: true},
-        {key: 'academic_body.leader.name', label: 'Líder', sortable: true}
+        {key: 'leader.name', label: 'Líder', sortable: true}
     ];
+    schema = {
+        fieldsToFind: [
+            {
+                type: 'label',
+                label: 'Colaboradores',
+                model: 'collaborators {id}',
+                key: "colaborators"
+            }
+        ]
+    };
     defaultCriteria = [
       {
         type: "or",
