@@ -4,10 +4,11 @@ set -e
 
 cli_help_deploy() {
   echo "
-Command: populate
-Warning: This command removes all data
-Usage:
-  populate"
+	Command: populate
+	Warning. This command removes all data
+	Usage:
+  		populate
+	"
   exit 1
 }
 
