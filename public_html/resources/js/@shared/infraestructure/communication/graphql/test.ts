@@ -1,13 +1,29 @@
 import gql from 'graphql-tag';
 import {DocumentNode} from "graphql";
 
-interface QueryParams {
+function snake_case2PascalCase(str: string): string {
+  return str.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join("");
+}
+
+export interface QueryParams {
+  vars?: {
+    name: string,
+    type: string
+  }[],
   args?: {
     name: string,
     value: string
   }[],
   fields?: string[],
-  paginated?: boolean
+  paginated?: boolean,
+  singular?: boolean,
+  opname?: string,
+  optype?: string
+}
+
+interface ResourceName {
+  plural: string,
+  singular: string
 }
 
 export function key2field (fields: any) {
@@ -15,39 +31,156 @@ export function key2field (fields: any) {
 }
 
 export default class GraphQLResourceRepository {
-  private root: string;
+  private root: ResourceName;
+  private fields: string[];
 
-  public constructor(root: string) {
+  public constructor(root: ResourceName, fields: string[]) {
     this.root = root;
+    this.fields = fields;
   }
 
-  public query({
+  public get resource() {
+    return this.root
+  }
+
+  public all({
+    paginated = true,
+    singular = false
+  }: QueryParams) {
+    arguments[0].paginated = paginated;
+    arguments[0].singular = singular;
+    arguments[0].opname = "all";
+    return this._query(arguments[0]);
+  }
+
+  public get({
+    paginated = false,
+    singular = true
+  }: QueryParams) {
+    arguments[0].paginated = paginated;
+    arguments[0].singular = singular;
+    arguments[0].opname = "get";
+    return this._query(arguments[0]);
+  }
+
+  public create({
+    paginated = false,
+    singular = true,
+    args = [
+      {
+        name: "data",
+        value: "$data"
+      }
+    ],
+    vars = []
+  }: QueryParams) {
+    vars.push({
+      name: "$data",
+      type: snake_case2PascalCase(`create_${this.root.singular}_input`)
+    });
+    arguments[0].paginated = paginated;
+    arguments[0].singular = singular;
+    arguments[0].opname = "create";
+    arguments[0].args = args;
+    arguments[0].vars = vars;
+    return this._mutate(arguments[0]);
+  }
+
+  public update({
+    paginated = false,
+    singular = true,
+    args = [
+      {
+        name: "data",
+        value: "$data"
+      }
+    ],
+    vars = []
+  }: QueryParams) {
+    vars.push({
+      name: "$data",
+      type: snake_case2PascalCase(`update_${this.root.singular}_input`)
+    });
+    arguments[0].paginated = paginated;
+    arguments[0].singular = singular;
+    arguments[0].opname = "update";
+    arguments[0].args = args;
+    arguments[0].vars = vars;
+    return this._mutate(arguments[0]);
+  }
+
+  public destroy({
+    paginated = false,
+    singular = true,
+    args = [
+      {
+        name: "id",
+        value: "$id"
+      }
+    ],
+    vars = []
+  }: QueryParams) {
+    vars.push({
+      name: "$id",
+      type: "Int"
+    });
+    arguments[0].paginated = paginated;
+    arguments[0].singular = singular;
+    arguments[0].opname = "destroy";
+    arguments[0].args = args;
+    arguments[0].vars = vars;
+    return this._mutate(arguments[0]);
+  }
+
+  private _operation({
+    vars = [],
     args = [],
     fields = ["id"],
-    paginated = false
-  }:QueryParams) {
-    let arr: string[] = [];
-    args.forEach(arg => {
-      arr.push(`${arg.name}:${arg.value}`);
-    });
-    return gql`query {
-      ${this.root}${arr.length > 0?"(":""}${arr.join(", ")}${arr.length > 0?")":""} {
+    paginated = false,
+    singular = true,
+    optype = "",
+    opname = "none"
+  }:QueryParams): DocumentNode {
+    let _args = args.map(a => `${a.name}:${a.value}`);
+    let _vars = vars.map(v => `${v.name}:${v.type}`);
+    return gql`${optype} ${opname}_${singular?this.root.singular:this.root.plural}${_vars.length > 0?"(":""}${_vars.join(", ")}${_args.length > 0?")":""} {
+      ${optype==="mutation"?`${opname}_`:""}${singular?this.root.singular:this.root.plural}${_args.length > 0?"(":""}${_args.join(", ")}${_args.length > 0?")":""} {
         ${paginated?"data {":""}
-          ${GraphQLResourceRepository._parseFields(fields)}
+          ${this._parseFields(fields)}
         ${paginated?"}":""}
       }
     }`;
   }
 
-  private static _parseFields(fields: string[]): string {
+  private _query({
+    args = [],
+    fields = ["id"],
+    paginated = false,
+    singular = true
+  }:QueryParams) {
+    arguments[0].optype = "query";
+    return this._operation(arguments[0]);
+  }
+
+  private _mutate({
+    args = [],
+    fields = ["id"],
+    paginated = false,
+    singular = true
+  }:QueryParams) {
+    arguments[0].optype = "mutation";
+    return this._operation(arguments[0]);
+  }
+
+  private _parseFields(fields: string[]): string {
     let arr: string[] = [];
     fields.forEach(field => {
-      arr.push(GraphQLResourceRepository._parseField(field));
+      arr.push(this._parseField(field));
     });
     return arr.join(",");
   }
 
-  private static _parseField(field: string): string {
+  private _parseField(field: string): string {
     let split = field.split(".");
     if (split.length === 1) {
       return split[0];
@@ -55,7 +188,7 @@ export default class GraphQLResourceRepository {
     let resource = split.shift();
     let subresource = split.join(".");
     return `${resource} {
-      ${GraphQLResourceRepository._parseField(subresource)}
+      ${this._parseField(subresource)}
     }`;
   }
 }
