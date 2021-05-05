@@ -25,9 +25,9 @@
                 ></b-form-tags>
             </b-input-group>
             <template v-for="category in categories">
-              <b-form-checkbox-group v-model="criteria">
+              <b-form-checkbox-group v-model="checkboxes">
                 <template v-for="option in category.criteria">
-                  <b-form-checkbox v-bind:value="option.value" @change="scan(category, option.value)">{{ option.value }}</b-form-checkbox>
+                  <b-form-checkbox v-bind:value="option.value" @change="sync(category, option.value)">{{ option.value }}</b-form-checkbox>
                 </template>
               </b-form-checkbox-group>
             </template>
@@ -42,7 +42,8 @@ export default {
     data() {
         return {
             criteria: [],
-            categories: []
+            categories: [],
+            checkboxes: []
         }
     },
     mounted() {
@@ -51,25 +52,51 @@ export default {
         category.criteria.forEach((option) => {
           if (option.default === true) {
             this.criteria.push(option.value);
+            this.checkboxes.push(option.value);
           }
         });
       });
-      this.$emit("update", this.criteria);
+      this.$emit("update", this.pack());
       this.$watch('criteria', () => {
-          this.$emit("update", this.criteria);
-      }, {deep: true})
+        this.$emit("update", this.pack());
+      }, {deep: true});
     },
     methods: {
-      scan(category, value) {
-        if (category.type === "xor") {
-          let contains = this.criteria.includes(value);
-          this.criteria = this.criteria.filter((v) => {
-            return !category.criteria.some(x => x.value === v);
-          });
-          if(contains) {
-            this.criteria.push(value);
+      clean() {
+        /** Remove leftover checks */
+        this.checkboxes = this.checkboxes.filter(v => this.criteria.includes(v));
+      },
+      pack() {
+        this.clean();
+        let criteria = [];
+
+        /** Get Difference */
+        let difference = this.criteria.filter(c => !this.checkboxes.includes(c));
+        this.criteria.forEach((item) => {
+          if (!difference.includes(item)) {
+            criteria.push({
+              name: this.categories.find(category => category.criteria.some(option => option.value === item)).model,
+              value: `${item}`
+            });
           }
+        });
+
+        return {
+          criteria: criteria,
+          terms: difference
+        };
+      },
+      sync(category, value) {
+        /** Remove from Criteria */
+        this.criteria = this.criteria.filter(c => !(this.checkboxes.includes(c) || c === value));
+        if (category.type === "xor") {
+          /** Remove overlap on Checkboxes */
+          this.checkboxes = this.checkboxes.filter((v) => {
+            return (!category.criteria.some(x => x.value === v) || v === value);
+          });
         }
+        /** Merge */
+        this.criteria = [...this.criteria, ...this.checkboxes];
       }
     }
 }
