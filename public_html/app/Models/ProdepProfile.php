@@ -53,7 +53,7 @@ class ProdepProfile extends Model
       return $query->orderBy("start_date", "DESC");
     }
 
-    public function scopeAcademicUnit($query, $name) {
+    public function scopeCampus($query, $name) {
       return $query
         ->joinSub(function($query) use ($name) {
           $query
@@ -68,12 +68,66 @@ class ProdepProfile extends Model
                 ->join("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
                 })
-                ->where("unidad", "=", $name);
+                ->where("campus", "ILIKE", $name);
               }, "inner_terms");
         }, "academic_unit", function($join) {
           $join->on("prodep_profiles.id", "=", "academic_unit.id");
         })
         ->select("prodep_profiles.*");
+    }
+
+    public function scopeCloseToRetirement($query) {
+      return $query
+        ->joinSub(function($query){
+          $query
+            ->select("*")
+            ->fromSub(function($query){
+              $query
+                ->select("prodep_profiles.*", "empleados.f_nacimiento as fecha_nacimiento")
+                ->from("prodep_profiles")
+                ->join("empleados", function($join) {
+                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                })
+                ->whereRaw("TO_DATE(f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'");
+            }, "inner_terms");
+        }, "retirement", function($join) {
+          $join->on("prodep_profiles.id", "=", "retirement.id");
+        })
+        ->select("prodep_profiles.*");
+    }
+
+    public function scopeGender($query, $gender) {
+      if ($gender == "Hombre") {
+        $gender = "Masculino";
+      } else if ($gender == "Mujer"){
+        $gender = "Femenino";
+      }
+
+      return $query
+        ->joinSub(function($query) use ($gender) {
+          $query
+            ->select("*")
+            ->fromSub(function($query) use ($gender) {
+              $query
+                ->select("prodep_profiles.*", "empleados.sexo as sexo")
+                ->from("prodep_profiles")
+                ->join("empleados", function($join) {
+                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                })
+                ->where("sexo", "ILIKE", $gender);
+            }, "inner_terms");
+        }, "gender", function($join) {
+          $join->on("prodep_profiles.id", "=", "gender.id");
+        })
+        ->select("prodep_profiles.*");
+    }
+
+    public function scopeValidity($query, $value) {
+      if ($value == "Vigente") {
+        return $query->whereRaw("NOW() < prodep_profiles.finish_date");
+      } else if ($value == "No Vigente") {
+        return $query->whereRaw("NOW() >= prodep_profiles.finish_date");
+      }
     }
 
     public function scopeTerms($query, $terms) {
@@ -83,9 +137,8 @@ class ProdepProfile extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
       }
-
 
       return $query
         ->joinSub(function($query) use ($where) {
