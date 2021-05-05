@@ -7,30 +7,30 @@
         variant="secondary-link"
     >
         <template #button-content>
-            <b-button class="text-muted b-0" size="sm" variant="outline-light">
-                <i class="fas fa-search"></i>
-                Buscar
-            </b-button>
+          <b-button class="text-muted b-0" size="sm" variant="outline-light">
+            <i class="fas fa-search"/>
+              Buscar
+          </b-button>
         </template>
         <b-dropdown-form style="width: 500px">
-            <b-input-group>
-                <b-form-tags
-                    v-model="criteria"
-                    addButtonText="Añadir"
-                    input-id="tags-pills"
-                    placeholder="Añadir filtro"
-                    remove-on-delete
-                    tag-pills
-                    tag-variant="primary"
-                ></b-form-tags>
-            </b-input-group>
-            <template v-for="category in categories">
-              <b-form-checkbox-group v-model="checkboxes">
-                <template v-for="option in category.criteria">
-                  <b-form-checkbox v-bind:value="option.value" @change="sync(category, option.value)">{{ option.value }}</b-form-checkbox>
-                </template>
-              </b-form-checkbox-group>
-            </template>
+          <b-input-group>
+            <b-form-tags
+              v-model="terms"
+              addButtonText="Añadir"
+              input-id="tags-pills"
+              placeholder="Añadir filtro"
+              remove-on-delete
+              tag-pills
+              tag-variant="primary"
+            />
+          </b-input-group>
+          <template v-for="category in categories">
+            <b-form-checkbox-group v-model="criteria">
+              <template v-for="option in category.criteria">
+                <b-form-checkbox v-bind:value="option.value" @change="validate(category, option.value)">{{ option.value }}</b-form-checkbox>
+              </template>
+            </b-form-checkbox-group>
+          </template>
         </b-dropdown-form>
     </b-dropdown>
 </template>
@@ -41,9 +41,9 @@ export default {
     props: ['filters'],
     data() {
         return {
-            criteria: [],
+            terms: [],
             categories: [],
-            checkboxes: []
+            criteria: []
         }
     },
     mounted() {
@@ -52,51 +52,57 @@ export default {
         category.criteria.forEach((option) => {
           if (option.default === true) {
             this.criteria.push(option.value);
-            this.checkboxes.push(option.value);
           }
         });
       });
       this.$emit("update", this.pack());
-      this.$watch('criteria', () => {
+      this.$watch('terms', () => {
         this.$emit("update", this.pack());
       }, {deep: true});
     },
     methods: {
-      clean() {
-        /** Remove leftover checks */
-        this.checkboxes = this.checkboxes.filter(v => this.criteria.includes(v));
-      },
       pack() {
-        this.clean();
-        let criteria = [];
-
-        /** Get Difference */
-        let difference = this.criteria.filter(c => !this.checkboxes.includes(c));
-        this.criteria.forEach((item) => {
-          if (!difference.includes(item)) {
-            criteria.push({
-              name: this.categories.find(category => category.criteria.some(option => option.value === item)).model,
-              value: `${item}`
-            });
-          }
-        });
-
         return {
-          criteria: criteria,
-          terms: difference
+          criteria: this.categories.reduce((arr, category) => {
+            if (category.type === "or") {
+              let items = category.criteria.reduce((abb, option) => {
+                if (this.criteria.includes(option.value)) {
+                  abb.push(option.value);
+                }
+                return abb;
+              }, []);
+              if (items.length > 0) {
+                arr.push({
+                  name: category.model,
+                  value: items
+                });
+              }
+            }
+            if (category.type === "xor") {
+              let item = category.criteria.find(option => this.criteria.includes(option.value));
+              if (item !== undefined) {
+                arr.push({
+                  name: category.model,
+                  value: item.value
+                });
+              }
+            }
+            return arr;
+          }, []),
+          terms: {
+            name: "terms",
+            value: this.terms
+          }
         };
       },
-      sync(category, value) {
-        /** Remove from Criteria */
-        this.criteria = this.criteria.filter(c => !(this.checkboxes.includes(c) || c === value));
+      validate(category, value) {
         if (category.type === "xor") {
           /** Remove overlap on Checkboxes */
-          this.checkboxes = this.checkboxes.filter((v) => {
+          this.criteria = this.criteria.filter((v) => {
             return (!category.criteria.some(x => x.value === v) || v === value);
           });
         }
-        /** Merge */
-        this.criteria = [...this.criteria, ...this.checkboxes];
+        this.$emit("update", this.pack());
       }
     }
 }
