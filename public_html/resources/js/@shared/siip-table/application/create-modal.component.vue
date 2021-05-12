@@ -1,7 +1,7 @@
 <template>
     <b-modal
         :id="'create'"
-        :ok-disabled="okDisabled"
+        :ok-disabled="!validated"
         :title="title"
         cancel-title="Cancelar"
         ok-title="Añadir"
@@ -12,8 +12,9 @@
             :model="model"
             :options="formOptions"
             :schema="schema"
-            @validated="onValidated">
-        </vue-form-generator>
+            @validated="onValidated"
+            ref="form"
+        />
     </b-modal>
 </template>
 
@@ -23,20 +24,30 @@ export default {
     props: ["okDisabled", "title", "formOptions", "schema"],
     data() {
         return {
-            model: {}
+            model: {},
+            validated: false
         };
     },
     methods: {
         onValidated(event) {
-            this.$emit('onValidated', event);
+          this.validated = event;
+          this.$emit('onValidated', event);
         },
         reset() {
             this.model = {};
+            this.validated = false;
             this.$emit('reset');
         },
-        ok() {
+        async ok(e) {
+          e.preventDefault();
+          await this.$refs.form.validate();
+          if (this.validated) {
+            this.$nextTick(() => {
+              this.$bvModal.hide('create')
+            })
             this.$emit('ok', this.model);
-            this.model = {};
+            this.reset();
+          }
         }
     }
 }
