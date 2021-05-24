@@ -139,6 +139,6 @@ export default class AcademicBodyManagementPage extends Vue {
 
   createdElement(item: any) {
     /** Todo: Abstract Item @ apollo form */
-    this.$router.push(`/cuerpos-academicos/${item.data["upsert_academic_body"].id}/lgac?createResource`);
+    this.$router.push(`/cuerpos-academicos/${item.data["upsert_academic_body"].id}/lgac?create`);
   };
 }
