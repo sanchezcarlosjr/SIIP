@@ -25,7 +25,7 @@ class EvaluationFactory extends Factory
         return [
             'start_date' => $this->faker->date,
             'finish_date' => $this->faker->date,
-            'grade' => $this->faker->randomElement($array = array(0, 1, 2)),
+            'grade' => $this->faker->numberBetween(0, 2),
             'academic_body_id' => $this->faker->numberBetween($min = 1, $max = 100)
         ];
     }
