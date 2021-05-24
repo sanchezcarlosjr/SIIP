@@ -11,4 +11,8 @@ class DES extends Model
     public $timestamps = false;
     protected $table = 'des';
     use HasFactory;
+
+    public function scopeNameLike($query, $value) {
+      return $query->where("des", "ILIKE", "%".$value."%");
+    }
 }

@@ -1,48 +1,60 @@
-import Vue from "vue";
-import Component from "vue-class-component";
-import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+import { Component, Vue } from 'vue-property-decorator';
+import { validity, campus, grade } from "../../@shared/search-criteria/search-criteria.ts";
+import { academic_bodies } from "../../@shared/repositories/academic_bodies/repository.ts";
 
 @Component
 export default class EvaluationsPage extends Vue {
-    apiResource = new GraphqlResourceRepository('academic_bodies(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)', {
-        index: 'active name'
-    });
-    toolbar = new Set<String>(['edit']);
-    fields = [
-        {key: 'name', label: 'Cuerpo académico', sortable: true},
-        {key: 'last_evaluation.grade', label: 'Grado de consolidación', sortable: true},
-        {key: 'last_evaluation.finish_date', label: 'Vigente hasta', sortable: true},
-        {key: 'leader.academic_unit.name', label: 'Unidad académica', sortable: true},
-        {key: 'leader.academic_unit.campus', label: 'Campus', sortable: true},
-    ];
-    defaultCriteria = [
-      {
-        type: "xor",
-        criteria: [
-          {
-              value: 'Mexicali'
-          },
-          {
-              value: 'Ensenada'
-          },
-          {
-              value: 'Tijuana'
-          }
-        ]
-      },
-      {
-        type: "or",
-        criteria: [
-          {
-            value: "En formación"
-          },
-          {
-            value: "En consolidación"
-          },
-          {
-            value: "Consolidado"
-          }
-        ]
-      }
-    ];
+  resource = academic_bodies;
+  criteria = [validity, campus, grade];
+  formSchemas = {
+    detail: {
+      legend: "Cuerpo Académico",
+      fields: [
+        {
+            type: 'label',
+            label: 'Nombre de Cuerpo Académico',
+            model: 'name'
+        },
+        {
+            type: 'label',
+            label: 'Clave Prodep',
+            model: 'prodep_key'
+        },
+        {
+            type: 'label',
+            label: 'Vigente',
+            model: 'active',
+            get: (academic_body: { active: boolean }) => academic_body? (academic_body.active? "Sí" : "No") : ""
+        },
+        {
+            type: 'label',
+            label: 'Área del conocimiento',
+            model: 'prodep_area.name'
+        },
+        {
+            type: 'label',
+            label: 'Disciplina',
+            model: 'discipline'
+        },
+        {
+            type: 'label',
+            label: 'DES',
+            model: 'des.name'
+        },
+        {
+            type: 'label',
+            label: 'Grado',
+            model: 'grade'
+        }
+        /** etc */
+      ]
+    }
+  };
+  fields = [
+    {key: 'name', label: 'Cuerpo académico', sortable: true},
+    {key: 'last_evaluation.grade_name', label: 'Grado de consolidación', sortable: true},
+    {key: 'last_evaluation.finish_date', label: 'Vigente hasta', sortable: true},
+    {key: 'leader.academic_unit.name', label: 'Unidad académica', sortable: true},
+    {key: 'leader.academic_unit.campus', label: 'Campus', sortable: true},
+  ];
 }

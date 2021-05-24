@@ -1,0 +1,39 @@
+extend type Query {
+    prodep_nptc(
+      id: ID @eq
+    ): ProdepNPTC @find
+    prodep_nptcs(
+      terms: [String] @scope(name: "terms")
+    ): [ProdepNPTC] @paginate(defaultCount: 10)
+
+    apoyos: [Apoyo] @paginate(
+      builder: "App\\GraphQL\\Queries\\Apoyos"
+    )
+}
+
+extend type Mutation {
+    destroyProdepNPTC(id: ID!): ProdepNPTC @delete
+    createProdepNPTC(
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @create
+    updateProdepNPTC(
+        id:ID!
+        amount: String
+        type: String
+        date: Date
+        employee_id: Int): ProdepNPTC @update
+}
+
+
+
+type ProdepNPTC {
+    amount: String
+    type: String
+    date: Date
+    employee_id: Int
+    employee: Employee
+    id: ID
+    active: Boolean
+}

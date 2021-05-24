@@ -1,14 +1,10 @@
 <template>
-    <siip-table
-        :toolbar="toolbar"
-        :schema="schema"
-        :spanishResourceName="spanishResourceName"
-        :fields="fields"
-        :filter="defaultCriteria"
-        :resource="apiResource"
-       >
-    </siip-table>
+  <siip-table
+    :resource="resource"
+    :fields="fields"
+    :filter="criteria"
+    :formSchemas="formSchemas"
+  />
 </template>
 
-<script src="./evaluations.page.ts" lang="ts"></script>
-<style src="./evaluations.page.scss" scoped lang="scss"></style>
+<script src="./evaluations.page.ts" lang="ts" />

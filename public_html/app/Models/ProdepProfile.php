@@ -41,7 +41,7 @@ class ProdepProfile extends Model
       if(isset($this->finish_date)) {
         return Carbon::parse($this->finish_date)->diffInYears(Carbon::parse($this->start_date));
       } else {
-        return -1;
+        return null;
       }
     }
 
@@ -70,8 +70,8 @@ class ProdepProfile extends Model
                 })
                 ->where("campus", "ILIKE", $name);
               }, "inner_terms");
-        }, "academic_unit", function($join) {
-          $join->on("prodep_profiles.id", "=", "academic_unit.id");
+        }, "campus", function($join) {
+          $join->on("prodep_profiles.id", "=", "campus.id");
         })
         ->select("prodep_profiles.*");
     }
@@ -130,6 +130,10 @@ class ProdepProfile extends Model
       }
     }
 
+    public function scopeName($query, $value) {
+      return $query->where("prodep_profiles.name", "ILIKE", "%".$value."%");
+    }
+
     public function scopeTerms($query, $terms) {
       if (empty($terms)) {
         return $query;
@@ -137,7 +141,7 @@ class ProdepProfile extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query

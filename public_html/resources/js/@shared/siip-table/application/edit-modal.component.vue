@@ -6,31 +6,18 @@
         :size="size"
         ok-title="Guardar cambios"
         scrollable
-        :hide-footer="details"
+        :hide-footer="isDetailsForm"
         @cancel="reset"
         @ok="ok"
+        :static="true"
     >
-        <edit-component ref="form" :itemId="itemId" :resource="resource" :schema="schema"></edit-component>
+      <apollo-form
+        ref="form"
+        :schema="schema"
+        :resource="resource"
+        v-on="$listeners"
+      />
     </b-modal>
 </template>
 
-<script>
-import EditComponent from './edit.component.vue';
-
-export default {
-    components: {
-        EditComponent
-    },
-    name: "edit-modal",
-    props: ["size", "schema", "title", 'resource', 'itemId', 'details'],
-    methods: {
-        reset() {
-            this.$emit('reset');
-        },
-        ok() {
-            delete this.$refs.form.model.__typename;
-            this.$emit('ok', this.$refs.form.model);
-        }
-    }
-}
-</script>
+<script src="./edit-modal.component.ts" lang="ts"></script>

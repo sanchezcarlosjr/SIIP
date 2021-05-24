@@ -1,13 +1,10 @@
 <template>
-    <siip-table
-       :toolbar="toolbar"
-       :spanishResourceName="spanishResourceName"
-       :fields="fields"
-
-       :resource="apiResource"
-       >
-    </siip-table>
+  <siip-table
+    :resource="resource"
+    :fields="fields"
+    :filter="criteria"
+    :formSchemas="formSchemas"
+  />
 </template>
 
 <script src="./lgac.page.ts" lang="ts"></script>
-<style src="./lgac.page.scss" scoped lang="scss"></style>

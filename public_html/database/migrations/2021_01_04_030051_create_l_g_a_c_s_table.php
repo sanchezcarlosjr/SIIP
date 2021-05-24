@@ -16,7 +16,7 @@ class CreateLGACSTable extends Migration
         Schema::create('academic_bodies_lgacs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->integer('academic_body_id')->unsigned();
             $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');

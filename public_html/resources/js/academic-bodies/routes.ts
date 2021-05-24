@@ -36,7 +36,7 @@ export const AcademicBodyRoutes = {
             component: () => import('./lgac/index.vue')
         },
         {
-            path: ':id',
+            path: ':academic_body_id',
             name: '',
             props: {
                 queryName: 'TODO',

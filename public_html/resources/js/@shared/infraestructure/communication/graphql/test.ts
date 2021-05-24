@@ -32,11 +32,9 @@ export function key2field (fields: any) {
 
 export default class GraphQLResourceRepository {
   private root: ResourceName;
-  private fields: string[];
 
-  public constructor(root: ResourceName, fields: string[]) {
+  public constructor(root: ResourceName) {
     this.root = root;
-    this.fields = fields;
   }
 
   public get resource() {
@@ -46,21 +44,47 @@ export default class GraphQLResourceRepository {
   public all({
     paginated = true,
     singular = false
-  }: QueryParams) {
-    arguments[0].paginated = paginated;
-    arguments[0].singular = singular;
-    arguments[0].opname = "all";
-    return this._query(arguments[0]);
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "all";
+    return this._query(o);
   }
 
   public get({
     paginated = false,
     singular = true
-  }: QueryParams) {
-    arguments[0].paginated = paginated;
-    arguments[0].singular = singular;
-    arguments[0].opname = "get";
-    return this._query(arguments[0]);
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "get";
+    return this._query(o);
+  }
+
+  public upsert({
+    paginated = false,
+    singular = true,
+    args = [
+      {
+        name: "data",
+        value: "$data"
+      }
+    ],
+    vars = []
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    vars.push({
+      name: "$data",
+      type: snake_case2PascalCase(`upsert_${this.root.singular}_input`)
+    });
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "upsert";
+    o.args = args;
+    o.vars = vars;
+    return this._mutate(o);
   }
 
   public create({
@@ -73,17 +97,18 @@ export default class GraphQLResourceRepository {
       }
     ],
     vars = []
-  }: QueryParams) {
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
     vars.push({
       name: "$data",
       type: snake_case2PascalCase(`create_${this.root.singular}_input`)
     });
-    arguments[0].paginated = paginated;
-    arguments[0].singular = singular;
-    arguments[0].opname = "create";
-    arguments[0].args = args;
-    arguments[0].vars = vars;
-    return this._mutate(arguments[0]);
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "create";
+    o.args = args;
+    o.vars = vars;
+    return this._mutate(o);
   }
 
   public update({
@@ -96,17 +121,18 @@ export default class GraphQLResourceRepository {
       }
     ],
     vars = []
-  }: QueryParams) {
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
     vars.push({
       name: "$data",
       type: snake_case2PascalCase(`update_${this.root.singular}_input`)
     });
-    arguments[0].paginated = paginated;
-    arguments[0].singular = singular;
-    arguments[0].opname = "update";
-    arguments[0].args = args;
-    arguments[0].vars = vars;
-    return this._mutate(arguments[0]);
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "update";
+    o.args = args;
+    o.vars = vars;
+    return this._mutate(o);
   }
 
   public destroy({
@@ -119,17 +145,18 @@ export default class GraphQLResourceRepository {
       }
     ],
     vars = []
-  }: QueryParams) {
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
     vars.push({
       name: "$id",
       type: "Int"
     });
-    arguments[0].paginated = paginated;
-    arguments[0].singular = singular;
-    arguments[0].opname = "destroy";
-    arguments[0].args = args;
-    arguments[0].vars = vars;
-    return this._mutate(arguments[0]);
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "destroy";
+    o.args = args;
+    o.vars = vars;
+    return this._mutate(o);
   }
 
   private _operation({
@@ -141,9 +168,9 @@ export default class GraphQLResourceRepository {
     optype = "",
     opname = "none"
   }:QueryParams): DocumentNode {
-    let _args = args.map(a => `${a.name}:${a.value}`);
+    let _args = args.map(a => `${a.name}:${a.value[0] === "$"?a.value:JSON.stringify(a.value)}`);
     let _vars = vars.map(v => `${v.name}:${v.type}`);
-    return gql`${optype} ${opname}_${singular?this.root.singular:this.root.plural}${_vars.length > 0?"(":""}${_vars.join(", ")}${_args.length > 0?")":""} {
+    return gql`${optype} ${opname}_${singular?this.root.singular:this.root.plural}${_vars.length > 0?"(":""}${_vars.join(", ")}${_vars.length > 0?")":""} {
       ${optype==="mutation"?`${opname}_`:""}${singular?this.root.singular:this.root.plural}${_args.length > 0?"(":""}${_args.join(", ")}${_args.length > 0?")":""} {
         ${paginated?"data {":""}
           ${this._parseFields(fields)}
@@ -157,9 +184,10 @@ export default class GraphQLResourceRepository {
     fields = ["id"],
     paginated = false,
     singular = true
-  }:QueryParams) {
-    arguments[0].optype = "query";
-    return this._operation(arguments[0]);
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    o.optype = "query";
+    return this._operation(o);
   }
 
   private _mutate({
@@ -167,9 +195,10 @@ export default class GraphQLResourceRepository {
     fields = ["id"],
     paginated = false,
     singular = true
-  }:QueryParams) {
-    arguments[0].optype = "mutation";
-    return this._operation(arguments[0]);
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    o.optype = "mutation";
+    return this._operation(o);
   }
 
   private _parseFields(fields: string[]): string {
@@ -187,8 +216,11 @@ export default class GraphQLResourceRepository {
     }
     let resource = split.shift();
     let subresource = split.join(".");
+    /** Apollo throws a hissy fit if subresouces don't have ID's */
     return `${resource} {
+      id
       ${this._parseField(subresource)}
     }`;
+    /** TODO: Check if there's paginated sub-resources */
   }
 }

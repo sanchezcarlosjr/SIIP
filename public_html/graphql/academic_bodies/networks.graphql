@@ -47,7 +47,6 @@ input CollaboratorNetworkInput {
     name: String
     type: String
     is_leader: Boolean
-    __typename: String
 }
 
 input createNetworkInput {
@@ -70,7 +69,7 @@ input updateNetworkInput {
     start_date: Date
     range: String
     formation: [Upload]
-    collaborators: [Collaborator]
+    #collaborators: [Collaborator]
     formation_url: String
     finish_date: Date
     academic_body_id: Int

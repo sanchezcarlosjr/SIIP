@@ -15,8 +15,8 @@ class CreateProdepHelpsTable extends Migration
     {
         Schema::create('prodep_helps', function (Blueprint $table) {
             $table->id();
-            $table->float('amount');
-            $table->string('type');
+            $table->decimal('amount');
+            $table->tinyInteger('type');
             $table->date('date');
             $table->timestamps();
             $table->integer('employee_id')->unsigned();

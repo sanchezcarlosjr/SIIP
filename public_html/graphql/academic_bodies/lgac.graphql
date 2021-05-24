@@ -1,6 +1,9 @@
 extend type Query {
     lgac(id: ID @eq): LGAC @find
-    lgacs: [LGAC] @paginate(defaultCount: 200)
+    lgacs(
+      academic_body_id: ID @scope(name: "academicBody")
+      terms: [String] @scope(name: "terms")
+    ): [LGAC] @paginate(defaultCount: 200)
 }
 
 extend type Mutation {
@@ -16,6 +19,10 @@ extend type Mutation {
         data: createLgacInput
         @spread
     ): LGAC @create
+    upsert_lgac(
+      data: UpsertLgacInput
+      @spread
+    ): LGAC @upsert
 }
 
 type LGAC {
@@ -24,6 +31,7 @@ type LGAC {
     description: String!
     employees: [Employee]
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
+    academic_body_id: Int
 }
 
 input destroyLgacInput {
@@ -37,7 +45,12 @@ input updateLgacInput {
 }
 
 input createLgacInput {
-    name: String
-    description: String
     academic_body_id: ID
+}
+
+input UpsertLgacInput {
+  id: ID,
+  name: String
+  description: String
+  academic_body_id: ID
 }

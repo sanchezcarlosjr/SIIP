@@ -1,20 +1,19 @@
 extend type Query {
-    employee(id: ID @where(operator: "=", key: "nempleado")): Employee @find
+    employee(id: ID! @where(operator: "=", key: "nempleado")): Employee @find
     employees(
-        members: Boolean  @builder(
-            method: "App\\GraphQL\\Queries\\Employee@is_lgac_member"
-        ),
-        free: Int @builder(
-            method: "App\\GraphQL\\Queries\\FreeEmployee"
-        ),
+        free: Boolean @scope(name: "free")
+        candidates_for: ID @scope(name: "candidatesFor")
         filter: [String] @builder(
             method: "App\\GraphQL\\Queries\\Employee@filter"
         )
+        name: String @scope(name: "name")
+        id: String @scope(name: "id")
+        name_or_id: String @scope(name: "nameOrId")
     ): [Employee] @paginate(defaultCount: 100)
 }
 
 type Employee {
-    id: ID! @rename(attribute: "nempleado")
+    id: ID @rename(attribute: "nempleado")
     lead_employee_id: ID! @rename(attribute: "nempleado")
     name: String @rename(attribute: "full_name")
     sexo: String
@@ -35,7 +34,16 @@ type Employee {
     has_active_prodep_profile: Boolean
     has_active_sni: Boolean
     prodep_profiles: [ProdepProfile]
-    snis: [Sni]
+    snis: [Sni],
+    benefits: [Apoyo]
+}
+
+interface Apoyo {
+  id: ID!
+  beneficiary: Employee
+  amount: Float
+  type: String
+  date: Date
 }
 
 type AcademicUnit {

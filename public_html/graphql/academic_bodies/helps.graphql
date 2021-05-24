@@ -22,7 +22,7 @@ extend type Mutation {
 }
 
 
-type Help {
+type Help implements Apoyo {
     id: ID!
     active: Boolean
     type: String
@@ -32,7 +32,8 @@ type Help {
     release_url: String
     benefited_employee_id: Int
     benefited_employee: Employee @belongsTo(relation: "benefited_employee")
-    academic_body: AcademicBody @belongsTo(relation: "academic_body")
+    academic_body: AcademicBody @belongsTo(relation: "academic_body"),
+    beneficiary: Employee
 }
 
 input createHelpInput {

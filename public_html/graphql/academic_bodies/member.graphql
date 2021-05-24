@@ -1,16 +1,63 @@
-extend type Mutation {
-    addEmployeesToAcademicBody(data: employeeToAcademicBodyInput @spread): AcademicBody
-    removeEmployeesToAcademicBody(data: removeEmployeeToAcademicBodyInput @spread): Employee
+extend type Query {
+  member(id: ID @where(operator: "=", key: "nempleado")): Employee @find(scopes:["members"])
+  members(
+    ##trashed: Trashed @trashed
+    academic_body_id: ID @scope(name: "academicBodyMembers")
+    close_to_retirement: String @scope(name: "closeToRetirement")
+    campus: String @scope(name: "campus")
+    leaders: String @scope(name: "leaders")
+    terms: [String] @scope(name: "terms")
+  ): [Employee] @paginate(defaultCount: 200, scopes:["members"])
+  #todo: Paginate
 }
 
-input employeeToAcademicBodyInput {
-    academic_body_id: ID
-    is_leader: Boolean
-    lgac_id: [ID]
-    employees_id: ID
+extend type Mutation {
+    removeEmployeesToAcademicBody(data: removeEmployeeToAcademicBodyInput @spread): Employee
+
+  create_member(
+    data: CreateMemberInput @spread
+  ): Employee @field(resolver: "Member@create")
+  update_member(
+    data: UpdateMemberInput @spread
+  ): Employee @field(resolver: "Member@update")
+  upsert_member(
+    data: UpsertMemberInput @spread
+  ): Employee @field(resolver: "Member@upsert")
+  ##destroy_member: Employee
+}
+
+input CreateMemberInput {
+  academic_body_id: ID!,
+  employee_id: ID!,
+  lgac_ids: [ID]!
+  is_leader: Boolean
+}
+
+input UpdateMemberInput {
+  academic_body_id: ID!,
+  employee_id: ID!,
+  lgac_ids: [ID]!
+  is_leader: Boolean
+}
+
+input UpsertMemberInput {
+  academic_body_id: ID!,
+  employee_id: ID!,
+  lgac_ids: [ID]!
+  is_leader: Boolean
 }
 
 input removeEmployeeToAcademicBodyInput {
     academic_body_id: ID
     id: ID
+}
+
+type Member {
+  id: ID!
+  academic_body: AcademicBody
+  academic_body_id: Int
+  lgac: LGAC
+  lgac_id: Int @rename(attribute:"academic_bodies_lgacs_id")
+  employee: Employee
+  employee_id: Int
 }

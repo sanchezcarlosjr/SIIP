@@ -16,7 +16,7 @@ class CreateEvaluationsTable extends Migration
         Schema::create('academic_bodies_evaluations', function (Blueprint $table) {
             $table->id();
             $table->date('start_date');
-            $table->date('finish_date');
+            $table->date('finish_date')->nullable();
             $table->string('grade');
             $table->timestamps();
             $table->integer('academic_body_id')->unsigned();

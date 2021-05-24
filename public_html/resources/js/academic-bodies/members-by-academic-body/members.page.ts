@@ -1,130 +1,147 @@
-import Vue from "vue"
-import Component from "vue-class-component"
-import {MembersRepository} from "./members.repository";
-import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
-import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+import { Component, Vue } from 'vue-property-decorator';
+import VueFormGenerator from 'vue-form-generator';
+import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id"
+import { members } from "../../@shared/repositories/academic_bodies/members/repository.ts";
+import { employees } from "../../@shared/repositories/employees/repository.ts";
+import { lgac } from "../../@shared/repositories/academic_bodies/lgac/repository.ts";
+import { campus, gender, close_to_retirement } from "../../@shared/search-criteria/search-criteria.ts";
+
+let fields = [
+    {key: 'is_leader', sortable: true},
+    {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
+    {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
+    {key: 'academic_unit.campus', label: 'Campus', sortable: true},
+    {key: 'academic_bodies_lgacs.name', sortable: true, column: 'academic_bodies_lgacs'}
+];
 
 @Component
 export default class MembersPage extends Vue {
-    apiResource = new MembersRepository('academic_body', 'employees');
-    spanishResourceName = 'miembro'
-    toolbar = new Set<string>(['add', 'remove', 'details']);
-    fields = [
-        {key: 'is_leader', sortable: true},
-        {key: 'name', label: 'Nombre', sortable: true, class: 'w-40'},
-        {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
-        {key: 'academic_unit.campus', label: 'Campus', sortable: true},
-        {key: 'academic_bodies_lgacs.name', sortable: true, column: 'academic_bodies_lgacs'}
-    ];
-    rowClass = (employee: { is_leader: boolean }) => {
-        return employee?.is_leader ? 'font-weight-bold' : '';
-    };
-    schema = {
-        fieldsToFind: [
-            {
-                type: 'label',
-                label: 'Nombre',
-                model: 'name'
-            },
-            {
-                type: 'label',
-                label: 'Correo electrónico',
-                model: 'correo1'
-            },
-            {
-                type: 'label',
-                label: 'Edad',
-                model: 'age'
-            },
-            {
-                type: 'label',
-                label: 'Unidad Académica',
-                model: 'academic_unit.name'
-            },
-            {
-                type: 'label',
-                label: 'Sexo',
-                model: 'sexo'
-            },
-            {
-                type: 'label',
-                label: 'Grado',
-                model: 'grado'
-            },
-            {
-                type: 'label',
-                label: '¿Es PTC?',
-                model: 'is_ptc',
-                get: (employee: { is_ptc: boolean }) => (employee && employee.is_ptc) ? "Sí" : "No"
-            },
-            {
-                type: "label",
-                label: "¿Es un perfil PRODEP activo?",
-                model: "has_active_prodep_profile",
-                get: (employee: { has_active_prodep_profile: boolean }) => (employee && employee.has_active_prodep_profile) ? "Sí" : "No"
-            },
-            {
-                type: 'label',
-                label: '¿Es un SNI activo?',
-                model: 'has_active_sni',
-                get: (employee: { has_active_sni: boolean }) => (employee && employee.has_active_sni) ? "Sí" : "No"
-            },
-            {
-                type: 'label',
-                label: '¿Es un profesor-investigador?',
-                model: 'is_researcher',
-                get: (employee: { is_researcher: boolean }) => (employee && employee.is_researcher) ? "Sí" : "No"
-            }
-        ],
-        fields: [
-            {
-                type: 'graphql-select-id',
-                label: 'Empleado',
-                model: "employees_id",
-                query: new GraphqlResourceRepository(`employees(free: ${this.$route.params.id}, filter: $filter)`),
-                textKey: 'name'
-            },
-            {
-                type: 'tags',
-                label: 'LGAC',
-                model: 'lgac_id',
-                query: GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs'),
-                textKey: 'name'
-            },
-            {
-                type: "switch2",
-                label: "Liderazgo",
-                model: "is_leader",
-                textOn: "Es el líder del cuerpo académico",
-                textOff: "No es el líder del cuerpo académico"
-            },
-        ]
-    };
-    defaultCriteria = [
-      {
-        type: "or",
-        criteria: [
-          {
-            value: 'Próximos a jubilarse'
+  resource = members;
+  fields = fields;
+  rowClass = (employee: { is_leader: boolean }) => {
+      return employee?.is_leader ? 'font-weight-bold' : '';
+  };
+  criteria = [
+    close_to_retirement,
+    campus
+  ];
+  formSchemas = {
+    create: {
+      legend: "Miembro",
+      fields: [
+        {
+          type: 'graphql-select-id',
+          label: 'Nombre del empleado*',
+          model: "employee.name",
+          query: {
+            resource: employees,
+            target: "name",
+            ref: "employee_id",
+            scopes: [
+              {
+                name: "name_or_id"
+              },
+              {
+                name: "candidates_for",
+                value: Number(this.$route.params.academic_body_id)
+              }
+            ]
           },
-          {
-            value: 'Líderes',
+          required: true,
+          hint: "Número de Empleado: ",
+          validator: GraphQLSelectIdValidator({
+            selectValid: "Seleccione un empleado válido"
+          })
+        },
+        {
+          type: 'tags',
+          label: 'LGAC',
+          model: 'lgac_ids',
+          query: {
+            resource: lgac,
+            target: "name",
+            scopes: [
+              {
+                name: "academic_body_id",
+                value: Number(this.$route.params.academic_body_id)
+              }
+            ]
           }
-        ]
-      },
-      {
-        type: "xor",
-        criteria: [
+        },
+        {
+          type: "switch2",
+          label: "Liderazgo",
+          model: "is_leader",
+          textOn: "Es el líder del cuerpo académico",
+          textOff: "No es el líder del cuerpo académico"
+        }
+      ]
+    },
+    detail: {
+      legend: "Empleado",
+      fields: [
           {
-              value: 'Mexicali'
+              type: 'label',
+              label: 'Nombre',
+              model: 'name'
           },
           {
-              value: 'Ensenada'
+              type: 'label',
+              label: 'Correo electrónico',
+              model: 'correo1'
           },
           {
-              value: 'Tijuana'
+              type: 'label',
+              label: 'Edad',
+              model: 'age'
+          },
+          {
+              type: 'label',
+              label: 'Unidad Académica',
+              model: 'academic_unit.name'
+          },
+          {
+              type: 'label',
+              label: 'Sexo',
+              model: 'sexo'
+          },
+          {
+              type: 'label',
+              label: 'Grado',
+              model: 'grado'
+          },
+          {
+              type: 'label',
+              label: '¿Es PTC?',
+              model: 'is_ptc',
+              get: (employee: { is_ptc: boolean }) => (employee && employee.is_ptc) ? "Sí" : "No"
+          },
+          {
+              type: "label",
+              label: "¿Es un perfil PRODEP activo?",
+              model: "has_active_prodep_profile",
+              get: (employee: { has_active_prodep_profile: boolean }) => (employee && employee.has_active_prodep_profile) ? "Sí" : "No"
+          },
+          {
+              type: 'label',
+              label: '¿Es un SNI activo?',
+              model: 'has_active_sni',
+              get: (employee: { has_active_sni: boolean }) => (employee && employee.has_active_sni) ? "Sí" : "No"
+          },
+          {
+              type: 'label',
+              label: '¿Es un profesor-investigador?',
+              model: 'is_researcher',
+              get: (employee: { is_researcher: boolean }) => (employee && employee.is_researcher) ? "Sí" : "No"
           }
-        ]
-      }
-    ];
+      ]
+    }
+  }
+
+
+    // apiResource = new MembersRepository('academic_body', 'employees');
+    // spanishResourceName = 'miembro'
+    // toolbar = new Set<string>(['add', 'remove', 'details']);
+
+
 }

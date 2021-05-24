@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 class Employee extends Model
 {
     public $timestamps = false;
@@ -36,7 +38,7 @@ class Employee extends Model
             'academic_body_member',
             'employee_id',
             'academic_bodies_lgacs_id'
-        );
+        )->whereNull('academic_body_member.deleted_at')->withTimestamps();
     }
 
     public function collaborator_academic_bodies(): BelongsToMany
@@ -125,6 +127,26 @@ class Employee extends Model
         return $query->where('estatus', '==', '1')->whereBetween('c_categoria', [501, 509])->orWhereBetween('c_categoria', [104, 112]);
     }
 
+    public function scopeNameOrId($query, $value) {
+      return $query->id($value)->orWhere->name($value);
+    }
+
+    public function scopeId($query, $id) {
+      if (empty($id)) {
+        return $query;
+      }
+
+      return $query->where("nempleado", "ILIKE", "%".$id."%");
+    }
+
+    public function scopeName($query, $name) {
+      if (empty($name)) {
+        return $query;
+      }
+
+      return $query->whereRaw("CONCAT_WS(' ', nombre, apaterno, amaterno) ILIKE ?", "%".$name."%");
+    }
+
     public function getIsLeaderAttribute()
     {
         $academic_body = $this->getAcademicBodyAttribute();
@@ -136,4 +158,120 @@ class Employee extends Model
         return $this->researchers->where('valid', '>', Carbon::now())->count() > 0;
     }
 
+    /*public function getBenefitsAttribute() {
+      $prodep = $this->prodep_helps;
+      $helps = $this->helps;
+      return ($prodep->merge($helps))->sortBy("date");
+    }*/
+
+    public function scopeCandidatesFor($query, $academic_body_id) {
+      return $query
+        ->whereHas('academic_bodies_lgacs', function ($query) use ($academic_body_id) {
+          $query->where('academic_body_id', '=', $academic_body_id);
+        }, '=', 1)
+        ->orHas('academic_bodies_lgacs', '=', '0');
+    }
+
+    public function scopeCollaborators($query) {
+      return $query->has("collaborator_academic_bodies", ">", 0);
+    }
+
+    public function scopeMembers($query) {
+      return $query->has("academic_bodies_lgacs", ">", 0);
+    }
+
+    public function scopeFree($query, $free) {
+      return $query->has('academic_bodies_lgacs', ($free ? '=' : '>'), 0);
+    }
+
+    public function scopeLeaders($query) {
+      return $query
+        ->joinSub(function($query) {
+          $query
+            ->select("empleados.*")
+            ->from("empleados")
+            ->join("academic_bodies", "empleados.nempleado", "=", "academic_bodies.lead_employee_id");
+        }, "ab_members", function($join) {
+          $join->on("empleados.nempleado", "=", "ab_members.nempleado");
+        })
+        ->select("empleados.*");
+    }
+
+    public function scopeAcademicBodyMembers($query, $id) {
+      return $query
+        ->joinSub(function($query) use ($id) {
+          $query
+            ->select("empleados.*")
+            ->from("empleados")
+            ->leftJoin("academic_body_member", "empleados.nempleado", "=", "academic_body_member.employee_id")
+            ->leftJoin("academic_bodies_lgacs", "academic_body_member.academic_bodies_lgacs_id", "=", "academic_bodies_lgacs.id")
+            ->leftJoin("academic_bodies", "academic_bodies_lgacs.academic_body_id", "=", "academic_bodies.id")
+            ->where("academic_bodies.id", "=", $id)
+            ->groupBy("nempleado");
+        }, "ab_members", function($join) {
+          $join->on("empleados.nempleado", "=", "ab_members.nempleado");
+        })
+        ->select("empleados.*");
+    }
+
+    public function scopeAcademicBodyCollaborators($query, $id) {
+      return $query->whereHas("collaborator_academic_bodies", function($query) use ($id) {
+        $query->where("academic_body_id", "=", $id);
+      });
+    }
+
+    public function scopeCloseToRetirement($query) {
+      return $query->whereRaw("TO_DATE(empleados.f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'");
+    }
+
+    public function scopeCampus($query, $campus) {
+      return $query
+        ->joinSub(function($query) use ($campus) {
+          $query
+            ->select("empleados.*")
+            ->from("empleados")
+            ->join("unidades", "empleados.nunidad", "=", "unidades.nunidad")
+            ->where("campus", "ILIKE", $campus);
+        }, "campus", function($join) {
+          $join->on("empleados.nempleado", "=", "campus.nempleado");
+        })
+        ->select("empleados.*");
+    }
+
+    public function scopeTerms($query, $terms) {
+      if (empty($terms)) {
+        return $query;
+      }
+
+      $where = [];
+      for ($i = 0; $i < count($terms); $i++) {
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, nempleado, unidad, campus, academic_body)"), "ILIKE", "%".$terms[$i]."%");
+      }
+
+      return $query
+        ->joinSub(function($query) use ($where) {
+          $query
+            ->select("*")
+            ->fromSub(function($query) {
+              $query
+                ->select(
+                  DB::raw("DISTINCT ON (empleados.nempleado) empleados.*"),
+                  "unidades.unidad",
+                  "unidades.campus",
+                  "academic_bodies.name as academic_body"
+                  )
+                ->from("empleados")
+                ->leftJoin("unidades","empleados.nunidad","=","unidades.nunidad")
+                ->leftJoin("academic_body_member", "empleados.nempleado", "=", "academic_body_member.employee_id")
+                ->leftJoin("academic_bodies_lgacs", "academic_body_member.academic_bodies_lgacs_id", "=", "academic_bodies_lgacs.id")
+                ->leftJoin("academic_bodies", "academic_bodies_lgacs.academic_body_id", "=", "academic_bodies.id");
+            }, "inner_terms")
+            ->where(function ($query) use ($where) {
+              $query->where($where);
+            });
+        }, "terms", function ($join) {
+          $join->on("empleados.nempleado", "=", "terms.nempleado");
+        })
+        ->select("empleados.*");
+    }
 }

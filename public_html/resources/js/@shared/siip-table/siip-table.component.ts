@@ -1,322 +1,271 @@
-import Vue from "vue";
-import {Component, Prop} from 'vue-property-decorator';
-import {InfoModal} from './info-modal';
+import {Component, Prop, Ref, Vue} from 'vue-property-decorator';
 import {hasPermissions, permission} from "../../store/auth/permission";
-import {adapt} from "../infraestructure/communication/graphql/graphql-adapter";
-import {SiipTableRepository} from "../infraestructure/communication/graphql/siipTableRepository";
-import EditModalComponent from './application/edit-modal.component.vue';
-import CreateModalComponent from './application/create-modal.component.vue';
-import RemoveModalComponent from './application/remove-modal.component.vue';
 import TablePresenter from './application/table-presenter.component.vue';
 import SearcherComponent from './application/searcher.component.vue';
 import SiipTitle from './application/title.component.vue';
 import PrintOptions from "./application/print-options.component.vue";
-
-import {default as GQL, key2field} from "../../@shared/infraestructure/communication/graphql/test";
-
-let fields = [
-    {key: 'employee.name', label: 'Nombre', sortable: true},
-    {key: 'employee.id', label: 'No. Empleado', sortable: true},
-    {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
-    {key: 'start_date', label: 'Fecha inicio', sortable: true},
-    {key: 'finish_date', label: 'Fecha fin', sortable: true},
-    {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
-];
-
-let repository = new GQL("prodep_profiles");
+import GraphQLResourceRepository from "../../@shared/infraestructure/communication/graphql/test";
+import FormModal from "../../@shared/application/form-modal/form-modal.component.vue";
 
 @Component({
     directives: {permission},
     components: {
-        EditModalComponent,
-        CreateModalComponent,
-        RemoveModalComponent,
         SearcherComponent,
         SiipTitle,
         TablePresenter,
-        PrintOptions
+        PrintOptions,
+        FormModal
     },
-    methods: {hasPermissions},
-    apollo: {
-        items: adapt()
-        /*items: {
-            query: repository.query({
-              fields: key2field(fields),
-              paginated: true
-            }),
-            update: data => data.prodep_profiles.data,
-            prefetch: false,
-            variables(): any {
-                return {
-                    // @ts-ignore
-                    id: this.$route.params.id
-                }
-            }
-        }*/
-    }
+    methods: {hasPermissions}
 })
 export default class SiipTableComponent extends Vue {
-    [x: string]: any;
+  @Prop() resource!: GraphQLResourceRepository;
+  @Prop({default: ()=>[]}) filter!: any[]; //ToDo Type
 
-    @Prop() rowClass: ((response: any) => string) | undefined;
-    @Prop() resource!: SiipTableRepository;
-    @Prop() fields!: any[];
-    @Prop() spanishResourceName!: string;
-    @Prop({
-        default() {
-            return {
-                fields: []
-            }
-        }
-    }) schema!: any;
-    @Prop() links!: Object;
-    @Prop({
-        default() {
-            return []
-        }
-    }) filter!: { default: boolean; value: string }[];
-    @Prop({default: () => new Set(['add', 'remove', 'edit'])}) toolbar!: Set<string>;
-    /** Filter by field.visible */
-    tableFields: {}[] = this.fields.filter((field) => {
-      return (field.label !== undefined && (field.visible??true))
+  private _selectedFilters: any[] = []; //ToDo Type
+  private _routeArgs: any[] = [];
+
+  @Prop() fields!: any[]; // Table Fields
+  _fields: string[] = []; // Query Fields
+  @Prop() formSchemas!: any; //ToDo Type
+
+  /** Literally form options */
+  formOptions = {
+      validateAsync: true,
+      validateAfterLoad: false,
+      validateAfterChanged: true
+  };
+
+  //@ts-ignore
+  @Ref(FormModal.Type.Create) createForm!: Vue & {
+    fetch: (id: number)=>void;
+  }
+  //@ts-ignore
+  @Ref(FormModal.Type.Read) readForm!: Vue & {
+    fetch: (id: number)=>void;
+  }
+  //@ts-ignore
+  @Ref(FormModal.Type.Update) updateForm!: Vue & {
+    fetch: (id: number)=>void;
+  }
+  /** Workaround */
+  private FormModal = FormModal;
+
+  /** Filter by field.visible & label */
+  tableFields: {}[] = this.fields.filter((field) => {
+    return (field.label !== undefined && (field.visible??true))
+  });
+
+  /** Used in Members */
+  @Prop() rowClass: ((response: any) => string) | undefined;
+
+  /** Used in Academic Bodies */
+  @Prop() links!: Object;
+
+  /** Bound to Apollo */
+  items: any = [];
+  /** Diff */
+
+  /** Table Presenter Stuff */
+  /** TODO: Check */
+  criteria: string[] = [];
+  sortBy = '';
+  sortDesc = false;
+  sortDirection = 'asc';
+  options: any[] = [];
+
+  /** Charts */
+  isVisibleChart = false;
+
+  //[x: string]: any; //bruh
+
+  /** Methods */
+  beforeMount() {
+    /** Initialize Filters */
+    this._selectedFilters = [];
+
+    /** Get Route Params to filter by scope */
+    this._routeArgs = Object.keys(this.$route.params).map((key: string) =>{
+      return {
+        name: key,
+        value: this.$route.params[key]
+      }
     });
-    criteria: string[] = [];
-    items: any = [];
-    sortBy = '';
-    sortDesc = false;
-    formOptions = {
-        validateAsync: true,
-        validateAfterLoad: false,
-        validateAfterChanged: true
-    };
-    sortDirection = 'asc';
-    infoModal: InfoModal = new InfoModal(this.schema, this.resource);
-    isVisibleChart = false;
-    options: any[] = [];
-    originalFilter: string[] = [];
 
-    get sortOptions() {
-        return this.fields
-            .filter(field => field.sortable)
-            .map(field => {
-                return {text: field.label, value: field.key}
-            })
+    /** Get keys from fields */
+    this._fields = this.fields.map((field: any) => field.key);
+
+    /** Add ID */
+    this._fields.push("id");
+
+    /** Initialize Items Query */
+    this.$apollo.addSmartQuery("items", {
+      query: this._updateItemsQuery,
+      update: data => data[this.resource.resource.plural].data
+    });
+
+    /** Pause Query, wait for search component */
+    this.$apollo.queries.items.skip = true;
+  }
+
+  mounted() {
+    /** Search component should be mounted by now */
+    /** filterItems() should run once to update default query filters */
+
+    /** Unpause Query */
+    this.$apollo.queries.items.skip = false;
+
+    this.runQueryParams();
+
+    /** Push options for context menu */
+    this.options = this.generateOptions();
+  }
+
+  /** Redirect Query Params */
+  private runQueryParams() {
+    if (Object.keys(this.$route.query).includes("create")) {
+      //@ts-ignore
+      this.showModal(FormModal.Type.Create);
     }
+  }
 
-    get chartIcon() {
-        return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
+  /** Charts */
+  get chartIcon() {
+      return this.isVisibleChart ? ['fas', 'chevron-up'] : ['fas', 'chevron-down'];
+  }
+
+  private toggleChart() {
+      this.isVisibleChart = !this.isVisibleChart;
+  }
+
+  /** Apollo Queries */
+  private _updateItemsQuery() {
+    return this.resource.all({
+      fields: this._fields,
+      args: this._selectedFilters.concat(this._routeArgs),
+      vars: []
+    });
+  }
+
+  /** Search */
+  public filterItems(filters: {criteria:any[], terms:any[]}) {
+    let args = [filters.terms];
+    filters.criteria.map(criteria => args.push(criteria));
+
+    /** Update Filters in Repository */
+    this._selectedFilters = args;
+
+    /** Refresh Query */
+    this.$apollo.queries.items.refresh();
+    /**
+     * Apparently Apollo calls the query twice:
+     * https://github.com/vuejs/vue-apollo/discussions/492
+     * This is intended behaviour for cache or something idk
+     */
+  }
+
+  /** Table */
+  onRowClick(item: any, index: number, button: any) {
+    if (this.formSchemas.hasOwnProperty("edit")) {
+      //@ts-ignore
+      this._showAndFetch(FormModal.Type.Update, item.id);
+    } else if (this.formSchemas.hasOwnProperty("detail")) {
+      //@ts-ignore
+      this._showAndFetch(FormModal.Type.Read, item.id);
+    } else {
+      //@ts-ignore
+      this.$router.push(this.links.edit.link.replace("*", item.id));
     }
+  }
 
-    async mounted() {
-        this.infoModal.build(this.spanishResourceName);
-        this.hasUpload = this.schema?.fields?.filter((field: any) => field.type === 'upload2').length > 0;
-        // @ts-ignore
-        let params = (new URL(document.location)).searchParams;
-        if (params.has('createResource')) {
-            this.create(null);
-        }
-        this.toolbar.forEach((value) => {
-            if (value === 'add') {
-                return;
-            }
-            this.options.push(this.infoModal.getActions(value));
-        });
+  /** Todo: */
+  search(row: any, criteria: string[]) {
+    const values: string[] = Object.values(row);
+    const valueString = values.toString();
+    return criteria.filter(value => {
+      return valueString.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    }).length > 0;
+  }
+
+  /** Listeners */
+  onMutateSuccess(item: any, type: string) {
+    if (type === "create") {
+      this.$emit("created-element", item);
     }
+    /** Refresh Table */
+    this.$apollo.queries.items.refetch();
+  }
 
-    optionClicked(event: { option: any, item: any }) {
-        this[event.option.click](event.item.row, event.item.index);
-    }
+  /** Modals */
+  /** Used for Create */
+  showModal(type: string) {
+    this.$root.$emit('bv::show::modal', type);
+  }
 
-    execute(model: any) {
-        // Common code to actions. Example: addElement, editElement, removeElement
-        this[`${this.infoModal.id}Element`](model)
-            .then(() => this.showSuccessToast())
-            .then(() => this.resetModal())
-            .catch(() => this.showDangerToast());
-    }
+  /** Used for Edit & Details */
+  private _showAndFetch(type: string, itemId: string) {
+    this.showModal(type);
+    //@ts-ignore
+    this.$refs[type].fetch(itemId);
+  }
 
-    search(row: any, criteria: string[]) {
-        const values: string[] = Object.values(row);
-        const valueString = values.toString();
-        return criteria.filter(value => {
-            return valueString.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-        }).length > 0;
-    }
+  /** WIP */
+  updateCache(item: any) {
+    /** Not done yet lol */
+    return;
+    //@ts-ignore
+    let query = this.$apollo.queries.items.options.query;
+    let cache = this.$apollo.getClient().cache;
 
-    add(button: any) {
-        this.create(button);
-        this.infoModal.id = 'addRelation';
-    }
+    const data = cache.readQuery({ query: query });
+    //@ts-ignore
+    data.items.push(item);
+    cache.writeQuery({ query: query, data })
+  }
 
-    create(button: any) {
-        this.infoModal.id = 'create';
-        this.showModal(null, null, button);
-    }
+  /** Options Generator */
+  /** Where to Generate? */
+  private generateOptions() {
+    let options = [];
 
-    details(item: any, index: any, button: any) {
-        this.edit(item, index, button);
-    }
-
-    edit(item: any, index: any, button: any) {
-        if (this.schema?.fields?.length === 0) {
-            return;
-        }
-        if (this.toolbar.has('own-edit')) {
-            this.$emit('edit', item.id);
-            return;
-        }
-        this.infoModal.id = 'edit';
-        if (this.links) {
-            this.$router.push(Object.values(this.links)[0].link.replace('*', item.id));
-            return;
-        }
-        this.showModal(item, index, button);
-    }
-
-    remove(item: any, index: any, button: any) {
-        this.infoModal.id = 'remove';
-        this.showModal(item, index, button);
-    }
-
-    archive(item: any, index: any, button: any) {
-        this.infoModal.id = 'archive';
-        this.showModal(item, index, button);
-    }
-
-    resetModal() {
-        this.infoModal.reset();
-    }
-
-    editElement(model: any) {
-        return this.$apollo.mutate({
-            mutation: this.resource.edit,
-            variables: {
-                data: {
-                    ...model
-                }
-            }
-        }).then(() =>
-            this.$apollo.queries.items.refetch()
-        )
-            .then(() => this.showSuccessToast())
-            .then(() => this.resetModal())
-            .catch(() => this.showDangerToast());
-    }
-
-    public async filterItems(v: any) {
-        await this.$apollo.queries.items.refetch({
-            filter: v
-        });
-        let ignore: any = [];
-        this.filter.forEach((filter:any) => {
-          filter.criteria.forEach((criteria:any) => {
-            ignore.push(criteria.value);
-          });
-        });
-        v = v.filter((item:any) => {
-          return ignore.indexOf(item) < 0;
-        });
-
-        if (v.length === 0) {
-          return;
-        }
-
+    /** TODO: Use Enum */
+    /** Foreach? */
+    if (this.formSchemas.hasOwnProperty("detail")) {
+      // options.push({
+      //   click: "detail",
+      //   name: this.generateOptionsText("info-circle", `Detalles de ${this.formSchemas.detail.legend}`)
+      // })
+      options.push({
         //@ts-ignore
-        this.$apollo.data.items = this.$apollo.data.items.filter((item:any)=>{
-          return this.fields.some((field: any)=>{
-            let val = field.key.split(".").reduce((o:any, i:any)=>{
-              if (o === null) {
-                return null;
-              } else {
-                return o[i];
-              }
-            }, item);
-            let found = false;
-            v.forEach((query:any) => {
-              let regex = new RegExp(".*" + query + ".*", "i");
-              let test = regex.test(val);
-              if (test) {
-                found = true;
-                return;
-              }
-            });
-            return found;
-          });
-        });
+        click: FormModal.Type.Read,
+        //@ts-ignore
+        name: this.generateOptionsText("info-circle", this.readForm.title)
+      });
+      /** Use FormModal.title? */
+    }
+    if (this.formSchemas.hasOwnProperty("edit")) {
+    }
+    if (this.formSchemas.hasOwnProperty("archive")) {
+    }
+    if (this.formSchemas.hasOwnProperty("delete")) {
     }
 
-    get editModalSize() {
-        if (this.toolbar.has('edit-xl')) {
-            return 'xl';
-        }
-        if (this.toolbar.has('edit-lg')) {
-            return 'lg';
-        }
-        if (this.toolbar.has('edit-sm')) {
-            return 'sm';
-        }
-        return '';
-    }
 
-    createElement(model: any) {
-        this.$apollo.mutate({
-            mutation: this.resource.create,
-            variables: {
-                data: {
-                    ...model,
-                    academic_body_id: this.$route.params.id
-                },
-            },
-            context: {
-                hasUpload: this.hasUpload
-            }
-        }).then(async (element) => {
-                await this.$apollo.queries.items.refetch();
-                return element;
-            }
-        )
-            .then((element) => {
-                this.$emit('created-element', element['data']);
-            })
-            .then(() => this.showSuccessToast())
-            .then(() => this.resetModal())
-            .catch(() => this.showDangerToast());
-    }
 
-    private toggleChart() {
-        this.isVisibleChart = !this.isVisibleChart;
-    }
+    return options;
+  }
 
-    private showModal(item: any, index: any, button: any) {
-        this.infoModal.setModal(item, index);
-        this.$root.$emit('bv::show::modal', `${this.infoModal.id}`, button);
-    }
+  private generateOptionsText(icon: string, text: string) {
+    /** TODO: Think harder lmao */
+    return `<a>
+                  <i class="fas fa-${icon}"></i>
+                   ${text}
+           </a>`;
+  }
 
-    private removeElement() {
-        return this.$apollo.mutate({
-            mutation: this.resource.remove,
-            variables: {
-                data: {
-                    ...this.infoModal.adaptMapToRemove(this.resource, this.$route),
-                }
-            }
-        }).then(() => this.$apollo.queries.items.refetch());
-    }
-
-    private showSuccessToast() {
-        this.$bvToast.toast(`Su operación fue exitosa`, {
-            title: 'Operación exitosa',
-            variant: 'success',
-            solid: true
-        })
-    }
-
-    private showDangerToast() {
-        this.$bvToast.toast(`Compruebe los datos.`, {
-            title: 'Problemas en la operación',
-            variant: 'danger',
-            solid: true
-        })
-    }
-
+  /** Context Menu Option Handler */
+  optionClicked(event: any) {
+    /** TODO: push into router as ?parameter=id */
+    console.log(event);
+  }
 }

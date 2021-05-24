@@ -1,83 +1,103 @@
-import Vue from "vue";
-import Component from "vue-class-component";
-import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
-//@ts-ignore
+import { Component, Prop, Ref, Vue } from 'vue-property-decorator';
 import VueFormGenerator from 'vue-form-generator';
-
-import {default as GQL, key2field} from "../../@shared/infraestructure/communication/graphql/test";
-
-(window as any).GQL = GQL;
-(window as any).key2field = key2field;
+import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id"
+import { prodep_profiles, prodep_areas } from "../../@shared/repositories/prodep/repository.ts";
+import { employees } from "../../@shared/repositories/employees/repository.ts";
+import { validity, campus, gender, close_to_retirement } from "../../@shared/search-criteria/search-criteria.ts";
 
 let fields = [
-    {key: 'employee.name', label: 'Nombre', sortable: true},
-    {key: 'employee.id', label: 'No. Empleado', sortable: true},
-    {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
-    {key: 'start_date', label: 'Fecha inicio', sortable: true},
-    {key: 'finish_date', label: 'Fecha fin', sortable: true},
-    {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true},
+  {key: 'employee.name', label: 'Nombre', sortable: true, class: "vw-20"},
+  {key: 'employee.id', label: 'No. Empleado', sortable: true},
+  {key: `employee.academic_unit.name`, label: 'Unidad Académica', sortable: true},
+  {key: 'start_date', label: 'Fecha inicio', sortable: true},
+  {key: 'finish_date', label: 'Fecha fin', sortable: true},
+  {key: 'prodep_area.name', label: 'Área de conocimiento', sortable: true, class: "vw-20"},
 ];
 
-/*
-let repository = new GQL("prodep_profiles");
-
-console.log(
-  repository.query({
-    fields: key2field(fields),
-    paginated: true
-  })
-);*/
+let schema = {
+  legend: "Perfil PRODEP",
+  fields: [
+    {
+      type: 'calendar',
+      label: 'Fecha de inicio*',
+      model: 'start_date',
+      required: true,
+      validator: VueFormGenerator.validators.date.locale({
+        fieldIsRequired: "Este campo es obligatorio"
+      })
+    },
+    {
+      type: 'input',
+      inputType: 'number',
+      label: 'Años de vigencia*',
+      min: 3,
+      max: 6,
+      required: true,
+      model: 'years_to_finish',
+      validator: VueFormGenerator.validators.number.locale({
+        numberTooSmall: "Años de vigencia no puede ser menor a 3 años",
+        numberTooBig: "Años de vigencia no puede ser mayora a 6 años",
+        fieldIsRequired: "Este campo es obligatorio"
+      })
+    },
+    {
+      type: 'graphql-select-id',
+      label: 'Nombre del empleado beneficiado*',
+      model: "employee.name",
+      query: {
+        resource: employees,
+        target: "name",
+        ref: "employee_id",
+        scopes: [
+          {
+            name: "name_or_id"
+          }
+        ]
+      },
+      required: true,
+      hint: "Número de Empleado: ",
+      validator: GraphQLSelectIdValidator({
+        selectValid: "Seleccione un empleado válido"
+      })
+    },
+    {
+      type: 'graphql-select-id',
+      label: 'Área de conocimiento*',
+      model: "prodep_area.name",
+      query: {
+        resource: prodep_areas,
+        target: "name",
+        ref: "prodep_area_id",
+        scopes: [{
+          name: "name_like"
+        }]
+      },
+      required: true,
+      validator: GraphQLSelectIdValidator({
+        selectValid: "Seleccione un área válida"
+      })
+    }
+  ]
+};
 
 @Component
 export default class ProdepPage extends Vue {
-    apiResource = GraphqlResourceRepository.createDefaultRepository('prodep_profiles');
-    toolbar = new Set(['add', 'edit']);
-    defaultCriteria = [
-      {
-        type: "xor",
-        criteria: [
-          {
-              value: 'Mexicali'
-          },
-          {
-              value: 'Ensenada'
-          },
-          {
-              value: 'Tijuana'
-          }
-        ]
-      }
+    resource = prodep_profiles;
+    criteria = [
+      validity,
+      campus,
+      gender,
+      close_to_retirement
     ];
-    schema = {
-        fields: [
-            {
-                type: 'calendar',
-                label: 'Fecha de inicio',
-                model: 'start_date'
-            },
-            {
-                type: 'input',
-                inputType: 'number',
-                label: 'Años de vigencia',
-                min: 3,
-                max: 6,
-                model: 'years_to_finish'
-            },
-            {
-                type: 'graphql-select',
-                label: 'Empleado',
-                model: "employee_id",
-                query: 'employees',
-                textKey: 'name'
-            },
-            {
-                type: 'graphql-select',
-                label: 'Área del conocimiento',
-                model: "prodep_area_id",
-                query: 'prodep_areas',
-                textKey: 'name'
-            }
-        ]
+    fields = fields;
+    formSchemas = {
+      create: schema,
+      edit: schema,
+      /**detail: {
+        legend: schema.legend,
+        fields: schema.fields.map((field: any)=>Object.assign({}, field, {
+          type: "label"
+        }))
+      }*/
     };
-    fields = fields
 }

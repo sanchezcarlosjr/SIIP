@@ -13,6 +13,7 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
+      /** TODO: Singular to Plural */
         Schema::create('academic_body_member', function (Blueprint $table) {
             $table->id();
             $table->integer('academic_bodies_lgacs_id')->unsigned();

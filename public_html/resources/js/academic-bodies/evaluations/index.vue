@@ -1,11 +1,10 @@
 <template>
-    <siip-table
-        :toolbar="toolbar"
-        :fields="fields"
-        :filter="defaultCriteria"
-        :resource="apiResource"
-    ></siip-table>
+  <siip-table
+    :resource="resource"
+    :fields="fields"
+    :filter="criteria"
+    :formSchemas="formSchemas"
+  />
 </template>
 
-<script src="./evaluations.page.ts" lang="ts"></script>
-<style lang="scss" scoped src="./evaluations.page.scss"></style
+<script src="./evaluations.page.ts" lang="ts" />

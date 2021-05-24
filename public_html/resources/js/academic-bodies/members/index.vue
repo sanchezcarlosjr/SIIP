@@ -1,15 +1,12 @@
 <template>
-    <siip-table
-        :toolbar="toolbar"
-        :spanishResourceName="spanishResourceName"
-        :fields="fields"
-        :schema="schema"
-        :filter="defaultCriteria"
-        :rowClass="rowClass"
-        :resource="apiResource"
-       >
-    </siip-table>
+  <siip-table
+    :resource="resource"
+    :fields="fields"
+    :filter="criteria"
+    :formSchemas="formSchemas"
+    :rowClass="rowClass"
+  />
+  </siip-table>
 </template>
 
 <script src="./members.page.ts" lang="ts"></script>
-<style src="./members.page.scss" scoped lang="scss"></style>

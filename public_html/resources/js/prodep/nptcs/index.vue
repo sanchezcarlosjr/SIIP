@@ -1,12 +1,12 @@
 <template>
     <siip-table
-        :fields="fields"
-        :resource="apiResource"
-        :spanishResourceName="spanishResourceName"
-        :schema="schema"
-
-        :toolbar="toolbar"
-
+      :testResource="testResource"
+      :fields="fields"
+      :filter="defaultCriteria"
+      :resource="apiResource"
+      :schema="schema"
+      :toolbar="toolbar"
+      :formSchemas="formSchemas"
     ></siip-table>
 </template>
 

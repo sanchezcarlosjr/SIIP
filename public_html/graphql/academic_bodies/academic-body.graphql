@@ -2,11 +2,14 @@ extend type Query {
     academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
     academic_body(id: ID @eq): AcademicBody @find
     academic_bodies (
-        filter: [String],
-        orderBy: String @orderBy(columns: ["created_at"])
+      terms: [String] @scope(name: "terms")
+      validity: String @scope(name: "validity")
+      campus: String @scope(name: "campus")
+      grade: [String] @scope(name: "grade")
+      orderBy: String @orderBy(columns: ["created_at"])
     ): [AcademicBody] @paginate(
         defaultCount: 200,
-        builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
+        #builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
     )
 }
 
@@ -20,6 +23,9 @@ extend type Mutation {
         data: createAcademicBodyInput
         @spread
     ): AcademicBody @create
+    upsert_academic_body(
+      data: UpsertAcademicBodyInput @spread
+    ): AcademicBody @upsert
 }
 
 type AcademicBody {
@@ -30,6 +36,7 @@ type AcademicBody {
     lead_employee_id: Int
     prodep_area_id: Int
     collaborators: [Employee]
+    des: DES
     des_id: Int
     helps: [Help]
     last_evaluation: Evaluation
@@ -69,6 +76,17 @@ input createAcademicBodyInput {
 }
 
 input updateAcademicBodyInput {
+    id: String,
+    name: String,
+    prodep_key: String,
+    active: Boolean,
+    prodep_area_id: Int,
+    lead_employee_id: Int,
+    discipline: String,
+    des_id: Int
+}
+
+input UpsertAcademicBodyInput {
     id: String,
     name: String,
     prodep_key: String,

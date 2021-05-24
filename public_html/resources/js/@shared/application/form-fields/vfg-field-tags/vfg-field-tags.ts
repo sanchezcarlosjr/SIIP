@@ -1,37 +1,44 @@
 import {Component, Mixins} from 'vue-property-decorator';
-import {adapt} from "../../../infraestructure/communication/graphql/graphql-adapter";
-import {OptionsApolloRepository} from "./OptionsApolloRepository";
-import {GraphqlResourceRepository} from "../../../infraestructure/communication/graphql/graphql-resource-repository";
-import gql from "graphql-tag";
+import VueFormGenerator from "vue-form-generator";
 
-const VueFormGenerator = require('vue-form-generator');
-
-@Component({
-    apollo: {
-        options: adapt(new OptionsApolloRepository())
-    }
-})
+@Component
 export default class VfgFieldGraphQLSelect extends Mixins(VueFormGenerator.abstractField) {
-    [x: string]: any;
+  private target!: string;
+  private options: { text: string, value: string }[] = [];
 
-    options: { text: string, value: string }[] = [];
-    optionsFinder = typeof this.schema.query === 'string' ? GraphqlResourceRepository.createDefaultRepository(this.schema.query) : this.schema.query;
-    search = "";
+  public schema: any;
+  public value: [] = [];
 
-    mounted() {
-        this.value = [];
-    }
+  beforeMount() {
+    /** Target field to display */
+    this.target = this.schema.query.target??this.schema.model.split(".").pop()??"id";
+    /** Instantiate Query */
+    this.$apollo.addSmartQuery("options", {
+      query: this.schema.query.resource.all({
+        fields: [
+          "id",
+          this.target
+        ],
+        args: this.schema.query.scopes.map((scope: any) => {
+          /** Unspecified values are empty Strings */
+          scope.value = scope.value??"";
+          return scope;
+        })
+      }),
+      update: (data) => {
+        return data[this.schema.query.resource.resource.plural].data.map((field: any) => {
+          return {
+            value: field.id,
+            text: field[this.target]
+          };
+        });
+      },
+      fetchPolicy: "no-cache"
+    });
+  }
 
-    get idState() {
-        return this.isTouched;
-    }
-
-    handleBlur() {
-        this.search = "";
-    }
-
-    addTag2() {
-        this.search  = "";
-    }
+  mounted() {
+      this.value = [];
+  }
 
 }

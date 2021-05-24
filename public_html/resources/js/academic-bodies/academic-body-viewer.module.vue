@@ -3,7 +3,7 @@
         <b-nav tabs>
             <b-nav-item
                 v-for="(value, key) in links" :key="key"
-                :to="value.link.replace('*', $route.params.id)"
+                :to="value.link.replace('*', $route.params.academic_body_id)"
                 active-class="active">
                 <i class="fas" style="font-size:20px"
                    v-bind:class="'fa-'+key"></i>

@@ -1,31 +1,40 @@
-import Vue from "vue"
-import Component from "vue-class-component"
-import {GraphqlSubResourceFinderRepository} from "../../@shared/infraestructure/communication/graphql/graphql-sub-resource-finder-repository";
+import { Component, Vue } from 'vue-property-decorator';
+import VueFormGenerator from 'vue-form-generator';
+import { lgac } from "../../@shared/repositories/academic_bodies/lgac/repository.ts";
+
+let schema = {
+  legend: "LGAC",
+  fields: [
+    {
+      type: 'input',
+      inputType: 'text',
+      label: 'Nombre de la LGAC*',
+      model: 'name',
+      required: true,
+      validator: VueFormGenerator.validators.string.locale({
+        fieldIsRequired: "Este campo es obligatorio"
+      })
+    },
+    {
+      type: 'input',
+      inputType: 'text',
+      label: 'Descripción',
+      model: 'description'
+    }
+  ]
+};
 
 @Component
 export default class LGACPage extends Vue {
-    apiResource = GraphqlSubResourceFinderRepository.createDefaultFinder('academic_body', 'lgacs');
-    spanishResourceName = 'LGAC'
-    toolbar = new Set(['add', 'edit', 'remove']);
-    fields = [
-        {key: 'name', label: 'Nombre', sortable: true},
-        {key: 'description', label: 'Descripción', sortable: true}
-    ];
-    schema = {
-        fields: [
-            {
-                type: 'input',
-                inputType: 'text',
-                label: 'Nombre del LGAC',
-                model: 'name'
-            },
-            {
-                type: 'input',
-                inputType: 'text',
-                label: 'Descripción',
-                model: 'description'
-            }
-        ]
-    };
+  resource = lgac;
+  criteria = [];
+  fields = [
+    {key: 'name', label: 'Nombre', sortable: true},
+    {key: 'description', label: 'Descripción', sortable: true}
+  ];
+  schema = schema;
+  formSchemas = {
+    create: schema,
+    edit: schema
+  }
 }
-

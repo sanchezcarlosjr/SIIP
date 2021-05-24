@@ -1,16 +1,26 @@
-import Vue from "vue"
-import Component from "vue-class-component"
-import {GraphqlResourceRepository} from "../../@shared/infraestructure/communication/graphql/graphql-resource-repository";
+import { Component, Vue } from 'vue-property-decorator';
+import { lgac } from "../../@shared/repositories/academic_bodies/lgac/repository.ts";
 
 @Component
 export default class LGACPage extends Vue {
-    apiResource = new GraphqlResourceRepository('lgacs');
-    spanishResourceName = 'LGAC'
-    toolbar = new Set<string>([]);
-    fields = [
-        {key: 'name', label: 'LGAC', sortable: true},
-        {key: 'academic_body.name', label: 'Cuerpo académico', sortable: true},
-        {key: 'academic_body.prodep_area.name', label: 'Área del conocimiento', sortable: true},
-        {key: `academic_body.leader.academic_unit.name`, label: 'Unidad Académica', sortable: true}
-    ];
+  resource = lgac;
+  criteria = [];
+  fields = [
+    {key: 'name', label: 'LGAC', sortable: true},
+    {key: 'academic_body.name', label: 'Cuerpo académico', sortable: true},
+    {key: 'academic_body.prodep_area.name', label: 'Área del conocimiento', sortable: true},
+    {key: `academic_body.leader.academic_unit.name`, label: 'Unidad Académica', sortable: true}
+  ];
+  formSchemas = {
+    detail: {
+      legend: "LGAC",
+      fields: [
+        {
+          type: 'label',
+          label: 'Nombre',
+          model: 'name'
+        }
+      ]
+    }
+  };
 }

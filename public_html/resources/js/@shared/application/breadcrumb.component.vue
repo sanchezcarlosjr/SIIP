@@ -25,7 +25,7 @@ export default {
             },
             variables() {
                 return {
-                    id: this.$route.params.id || 0
+                    id: this.$route.params.academic_body_id || 0
                 }
             }
         }
