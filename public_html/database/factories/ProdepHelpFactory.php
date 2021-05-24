@@ -23,16 +23,7 @@ class ProdepHelpFactory extends Factory
     {
         return [
             'amount' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
-            'type' => $this->faker->randomElement($array = array(
-                'Apoyo inicial',
-                'Apoyo complementario',
-                'Apoyo 6 años',
-                'Estancias cortas',
-                'Apoyo publicación',
-                'Convocatoria redes',
-                'Convocatoria fortalecimiento',
-                'Beca postdoctorado'
-            )),
+            'type' => $this->faker->randomElement($array = array(0,1,2,3,4)),
             'date' => $this->faker->date
         ];
     }
