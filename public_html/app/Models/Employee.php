@@ -136,7 +136,7 @@ class Employee extends Model
         return $query;
       }
 
-      return $query->where("nempleado", "ILIKE", "%".$id."%");
+      return $query->where("empleados.nempleado", "ILIKE", "%".$id."%");
     }
 
     public function scopeName($query, $name) {
@@ -144,7 +144,16 @@ class Employee extends Model
         return $query;
       }
 
-      return $query->whereRaw("CONCAT_WS(' ', nombre, apaterno, amaterno) ILIKE ?", "%".$name."%");
+      return $query
+        ->joinSub(function($query) use ($name) {
+          $query
+            ->select("*")
+            ->from("empleados")
+            ->whereRaw("CONCAT_WS(' ', nombre, apaterno, amaterno) ILIKE ?", "%".$name."%");
+        }, "name", function ($join) {
+          $join->on("empleados.nempleado", "=", "name.nempleado");
+        })
+        ->select("empleados.*");
     }
 
     public function getIsLeaderAttribute()
