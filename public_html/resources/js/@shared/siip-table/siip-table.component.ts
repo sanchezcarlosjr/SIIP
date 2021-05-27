@@ -123,9 +123,18 @@ export default class SiipTableComponent extends Vue {
 
   /** Redirect Query Params */
   private runQueryParams() {
-    if (Object.keys(this.$route.query).includes("create")) {
+    let queries = Object.keys(this.$route.query);
+    switch(true) {
       //@ts-ignore
-      this.showModal(FormModal.Type.Create);
+      case queries.includes("create"): this.showModal(FormModal.Type.Create); return;
+      //@ts-ignore
+      case queries.includes("detail"): this._showAndFetch(FormModal.Type.Read, this.$route.query[FormModal.Type.Read]); return;
+      //@ts-ignore
+      case queries.includes("edit"): this._showAndFetch(FormModal.Type.Update, this.$route.query[FormModal.Type.Update]); return;
+      //@ts-ignore
+      case queries.includes("delete"): this._showAndFetch(FormModal.Type.Delete, this.$route.query[FormModal.Type.Delete]); return;
+      //@ts-ignore
+      case queries.includes("archive"): this._showAndFetch(FormModal.Type.Archive, this.$route.query[FormModal.Type.Archive]); return;
     }
   }
 
@@ -226,32 +235,56 @@ export default class SiipTableComponent extends Vue {
   /** Options Generator */
   /** Where to Generate? */
   private generateOptions() {
-    let options = [];
+    let options: {click: string, name: string}[] = [];
 
-    /** TODO: Use Enum */
-    /** Foreach? */
-    if (this.formSchemas.hasOwnProperty("detail")) {
-      // options.push({
-      //   click: "detail",
-      //   name: this.generateOptionsText("info-circle", `Detalles de ${this.formSchemas.detail.legend}`)
-      // })
-      options.push({
-        //@ts-ignore
-        click: FormModal.Type.Read,
-        //@ts-ignore
-        name: this.generateOptionsText("info-circle", this.readForm.title)
-      });
-      /** Use FormModal.title? */
-    }
-    if (this.formSchemas.hasOwnProperty("edit")) {
-    }
-    if (this.formSchemas.hasOwnProperty("archive")) {
-    }
-    if (this.formSchemas.hasOwnProperty("delete")) {
-    }
-
-
-
+    Object.keys(this.formSchemas).forEach(form => {
+      /** Doesn't make sense lol */
+      // //@ts-ignore
+      // if (form === FormModal.Type.Create) {
+      //   options.push({
+      //     //@ts-ignore
+      //     click: FormModal.Type.Create,
+      //     //@ts-ignore
+      //     name: this.generateOptionsText("plus-square", this.$refs[FormModal.Type.Create].title)
+      //   });
+      // }
+      //@ts-ignore
+      if (form === FormModal.Type.Read) {
+        options.push({
+          //@ts-ignore
+          click: FormModal.Type.Read,
+          //@ts-ignore
+          name: this.generateOptionsText("info-circle", this.$refs[FormModal.Type.Read].title)
+        });
+      }
+      //@ts-ignore
+      if (form === FormModal.Type.Update) {
+        options.push({
+          //@ts-ignore
+          click: FormModal.Type.Update,
+          //@ts-ignore
+          name: this.generateOptionsText("edit", this.$refs[FormModal.Type.Update].title)
+        });
+      }
+      //@ts-ignore
+      if (form === FormModal.Type.Delete) {
+        options.push({
+          //@ts-ignore
+          click: FormModal.Type.Delete,
+          //@ts-ignore
+          name: this.generateOptionsText("trash", this.$refs[FormModal.Type.Delete].title)
+        });
+      }
+      //@ts-ignore
+      if (form === FormModal.Type.Archive) {
+        options.push({
+          //@ts-ignore
+          click: FormModal.Type.Archive,
+          //@ts-ignore
+          name: this.generateOptionsText("archive", this.$refs[FormModal.Type.Archive].title)
+        });
+      }
+    });
     return options;
   }
 
@@ -265,7 +298,14 @@ export default class SiipTableComponent extends Vue {
 
   /** Context Menu Option Handler */
   optionClicked(event: any) {
-    /** TODO: push into router as ?parameter=id */
-    console.log(event);
+    let target = event.option.click;
+    let id = event.item.row.id;
+
+    this.$router.replace(`?${target}=${id}`).catch(error => {
+      if (error.name != "NavigationDuplicated") {
+        throw error;
+      }
+    });;
+    this.runQueryParams();
   }
 }
