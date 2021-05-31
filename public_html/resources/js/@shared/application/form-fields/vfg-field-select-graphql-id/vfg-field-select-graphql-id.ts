@@ -76,7 +76,7 @@ export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abs
     //this.$apollo.queries.options.skip = true;
 
     this.$watch("value", (value: string)=> {
-      this.displayValue = value??"";
+      this.displayValue = value??this.selectedOption?.text??"";
     });
 
     this.$watch("displayValue", (input: string) => {
@@ -188,7 +188,7 @@ export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abs
     /** Add reference to model */
     this.model[this.reference] = this.selectedOption.value;
 
-    let name = this.schema.query.resource.resource.singular;
+    let name = this.schema.model.split(".").shift();
     while(name in this.model) {
       /** Delete visual fetch from model */
       delete(this.model[name]);
