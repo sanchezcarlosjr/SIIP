@@ -12,7 +12,7 @@ enum FormType {
 @Component
 export default class FormModal extends Vue {
   @Prop({ default: FormType.Read }) type?: FormType;
-  @Prop({ default: "md" }) size?: string;
+  @Prop({ default: "md" }) size!: string;
   @Prop() schema!: any; /** Todo lol */
   @Prop() resource: any;
   @Ref() form!: Vue & {
@@ -55,8 +55,8 @@ export default class FormModal extends Vue {
     return this._title;
   }
 
-  private beforeMount():void {
-    this.size = this.schema.size || this.size;
+  public get modalSize(): string {
+    return this.schema.size??this.size;
   }
 
   private isTypeRead(): boolean {

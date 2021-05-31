@@ -3,7 +3,7 @@
     ref="modal"
     :id="_id"
     :title="_title"
-    :size="schema.size"
+    :size="modalSize"
     :static="true"
     :hide-footer="isTypeRead()"
     :busy="busy"
