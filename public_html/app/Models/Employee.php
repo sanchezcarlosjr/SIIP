@@ -128,7 +128,20 @@ class Employee extends Model
     }
 
     public function scopeNameOrId($query, $value) {
-      return $query->id($value)->orWhere->name($value);
+      if (empty($value)) {
+        return $query;
+      }
+
+      return $query
+        ->joinSub(function($query) use ($value) {
+          $query
+            ->select("*")
+            ->from("empleados")
+            ->whereRaw("CONCAT_WS(' ', nempleado, nombre, apaterno, amaterno) ILIKE ?", "%".$value."%");
+        }, "name_or_id", function ($join) {
+          $join->on("empleados.nempleado", "=", "name_or_id.nempleado");
+        })
+        ->select("empleados.*");
     }
 
     public function scopeId($query, $id) {
@@ -136,7 +149,16 @@ class Employee extends Model
         return $query;
       }
 
-      return $query->where("empleados.nempleado", "ILIKE", "%".$id."%");
+      return $query
+        ->joinSub(function($query) use ($id) {
+          $query
+            ->select("*")
+            ->from("empleados")
+            ->where("empleados.nempleado", "ILIKE", "%".$id."%");
+        }, "id", function ($join) {
+          $join->on("empleados.nempleado", "=", "id.nempleado");
+        })
+        ->select("empleados.*");
     }
 
     public function scopeName($query, $name) {
