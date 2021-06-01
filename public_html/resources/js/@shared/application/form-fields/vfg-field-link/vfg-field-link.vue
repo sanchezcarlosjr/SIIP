@@ -1,5 +1,7 @@
 <template>
-    <b-link :href="'/archivo/'+value" target="_blank">{{ schema.label }}</b-link>
+    <link-button
+      :route="value"
+    />
 </template>
 
 <script>

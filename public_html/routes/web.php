@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/archivo/public/{name}', function ($name = null) {
-    return response()->file("../storage/app/public/${name}");
-});
+Route::get('public/archivos/{name}', function ($name) {
+    return response()->file("../storage/app/public/archivos/${name}");
+})->where('name', '.*');
 
 Route::get('/{any}', function () {
     return view('home');
