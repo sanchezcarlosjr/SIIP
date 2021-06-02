@@ -197,6 +197,7 @@ class AcademicBody extends Model
         }, "terms", function ($join) {
           $join->on("academic_bodies.id", "=", "terms.id");
         })
-        ->select("academic_bodies.*");
+        ->select("academic_bodies.*")
+        ->distinct();
     }
 }
