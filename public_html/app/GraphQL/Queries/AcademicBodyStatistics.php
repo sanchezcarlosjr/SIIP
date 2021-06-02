@@ -1,52 +1,60 @@
 <?php
-
-
 namespace App\GraphQL\Queries;
-
 
 use App\Models\AcademicBody;
 use App\Models\Employee;
-use App\Models\Member;
-use App\Models\ProdepProfile;
-use App\Models\Sni;
 
-class AcademicBodyStatistics
-{
-    /**
-     * @param $_
-     * @param array $args
-     */
-    public function __invoke($_, array $args)
-    {
-        $members = Member::distinct()->get(['employee_id'])->count();
-        return array(
-            'total' => AcademicBody::count(),
-            'professorsWithSNIOrProdep' => ProdepProfile::active()->count() + Sni::active()->count(),
-            'professorsInAcademicBody' => $members,
-            'ptcsAreNotAcademicBody' => abs(Employee::ptcs()->count() - $members),
-            'academicBodyByGrade' => $this->countAcademicBodyByGrade()
-        );
+class AcademicBodyStatistics {
+  public function __invoke($_, $args) {
+    /** Get all */
+    $academicBodiesQuery = AcademicBody::select("*");
+
+    /** Manually apply scopes, order doesn't matter */
+    if (isset($args["grade"])) {
+      $academicBodiesQuery = $academicBodiesQuery->grade($args["grade"]);
+    }
+    if (isset($args["campus"])) {
+      $academicBodiesQuery = $academicBodiesQuery->campus($args["campus"]);
+    }
+    if (isset($args["validity"])) {
+      $academicBodiesQuery = $academicBodiesQuery->validity($args["validity"]);
+    }
+    if (isset($args["terms"])) {
+      $academicBodiesQuery = $academicBodiesQuery->terms($args["terms"]);
     }
 
+    /** Laravel Collection */
+    $academicBodies = $academicBodiesQuery->get();
 
-    private function countAcademicBodyByGrade(): array
-    {
-        $gradesDatabase = array(
-            'En consolidación' => [0],
-            'En formación' => [0],
-            'Consolidado' => [0]
-        );
-        $lastEvaluation = new LastEvaluation;
-        foreach (AcademicBody::all()->where('active', '==', true) as $academicBody) {
-            $evaluation = $lastEvaluation($academicBody);
-            if (!is_null($evaluation)) {
-                $gradesDatabase[$evaluation->grade][0]++;
-            }
-        }
-        return array(
-            'inTraining' => [$gradesDatabase['En formación'][0], 0],
-            'inConsolidation' => [$gradesDatabase['En consolidación'][0], 0],
-            'consolidated' => [$gradesDatabase['Consolidado'][0], 0]
-        );
-    }
+    /** Count Filtered AB */
+    $academicBodiesTotal = $academicBodies->count();
+    /** Count by grade */
+    $grades = $academicBodies->countBy(function($academicBody) {
+      return $academicBody->grade;
+    });
+
+    /** Members Collection in filtered AB */
+    $members = Employee::members()->get()->whereIn("academicBody.id", $academicBodies->pluck("id"));
+
+    /** Active/Inactive SNI or PRODEP */
+    $activeSNIorPRODEP = $members->countBy(function($member) {
+      return ($member->has_active_sni || $member->has_active_prodep_profile)?"active":"inactive";
+    });
+    /** Count Filtered Members in AB*/
+    $inAcademicBody = $members->count();
+    /** Count free Employees */
+    $freeEmployees = Employee::free(true)->count();
+
+    return array(
+      'total' => $academicBodiesTotal,
+      'professorsWithSNIOrProdep' => $activeSNIorPRODEP["active"]??0,
+      'professorsInAcademicBody' => $inAcademicBody,
+      'ptcsAreNotAcademicBody' => $freeEmployees,
+      'academicBodyByGrade' => array(
+        "inTraining" => $grades["En formación"]??0,
+        "inConsolidation" => $grades["En consolidación"]??0,
+        "consolidated" => $grades["Consolidado"]??0
+      )
+    );
+  }
 }
