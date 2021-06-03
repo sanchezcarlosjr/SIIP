@@ -148,7 +148,7 @@ export default class SniPage extends Vue {
         }
     );
     fields = [
-        {key: "employee.name", label: "Investigador", sortable: true, editable: true},
+        {key: "employee.name", label: "Investigador", sortable: true, editable: true, class: "vw-20"},
         {key: "employee.academic_unit.name", label: "Unidad académica", sortable: true, editable: true},
         {key: "level", label: "Nivel", sortable: true, editable: true},
         {key: "start_date", label: "Fecha de inicio", sortable: true, editable: true},
