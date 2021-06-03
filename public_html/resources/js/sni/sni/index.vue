@@ -3,6 +3,7 @@
         :resource="resource"
         :fields="fields"
         :formSchemas="formSchemas"
+        :filter="criteria"
     >
     </siip-table>
 </template>

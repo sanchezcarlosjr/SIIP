@@ -4,9 +4,14 @@ import GraphQLResourceRepository from "../../@shared/infraestructure/communicati
 import {employees} from "../../@shared/repositories/employees/repository";
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
 import {sni_areas} from "../../@shared/repositories/sni/repository";
+import {campus, gender} from "../../@shared/search-criteria/search-criteria";
 
 @Component
 export default class SniPage extends Vue {
+    criteria = [
+        gender,
+        campus
+    ];
     private currentYear = new Date().getFullYear();
     private schema = {
         legend: "SNI",
@@ -86,6 +91,32 @@ export default class SniPage extends Vue {
             }
         ]
     };
+    private editSchema = {
+        legend: this.schema.legend,
+        fields: [
+            ...this.schema.fields,
+            {
+                type: 'label',
+                label: 'Correo electrónico',
+                model: 'employee.correo1'
+            },
+            {
+                type: 'label',
+                label: 'Unidad Académica',
+                model: 'employee.academic_unit.name'
+            },
+            {
+                type: 'label',
+                label: 'Sexo',
+                model: 'employee.sexo'
+            },
+            {
+                type: 'label',
+                label: 'Grado',
+                model: 'employee.grado'
+            },
+        ]
+    };
     resource = new GraphQLResourceRepository(
         {
             singular: "sni",
@@ -102,6 +133,6 @@ export default class SniPage extends Vue {
     ];
     formSchemas = {
         create: this.schema,
-        edit: this.schema
+        edit: this.editSchema
     }
 }
