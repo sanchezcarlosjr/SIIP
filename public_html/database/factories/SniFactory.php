@@ -27,8 +27,8 @@ class SniFactory extends Factory
             "discipline" => $this->faker->name,
             "field" => $this->faker->name,
             "request" => $this->faker->name,
-            "level" => $this->faker->name,
-            "specialty" => $this->faker->date,
+            'level' => $this->faker->randomElement($array = array("Candidato", "Nivel 1", "Nivel 2", "Nivel 3", "Emérito")),
+            "specialty" => $this->faker->name,
             "sni_area_id" => $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }

@@ -9,4 +9,7 @@ class SNIArea extends Model
 {
     protected $table = 'sni_areas';
     use HasFactory;
+    public function scopeName($query, $value) {
+        return $query->where("name", "ILIKE", "%".$value."%");
+    }
 }

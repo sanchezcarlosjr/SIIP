@@ -1,12 +1,10 @@
 <template>
     <siip-table
+        :resource="resource"
         :fields="fields"
-        :resource="apiResource"
-        :schema="schema"
-
-        :toolbar="toolbar"
-
-    ></siip-table>
+        :formSchemas="formSchemas"
+    >
+    </siip-table>
 </template>
 
 <script lang="ts" src="./sni.page.ts"></script>
