@@ -27,10 +27,6 @@ extend type Mutation {
         data: UpsertSniInput
         @spread
     ): Sni @upsert
-    updateSnis(
-        data: updateSnisInput
-        @spread
-    ): Sni @update
 }
 
 type Sni {
@@ -69,6 +65,7 @@ input destroySnisInput {
 }
 
 input UpsertSniInput {
+    id: ID
     employee_id: Int
     start_date: Date
     finish_date: Date
@@ -79,21 +76,6 @@ input UpsertSniInput {
     specialty: String
     sni_area_id: Int
     appointment: [Upload]
-}
-
-input updateSnisInput {
-    id: ID!
-    employee_id: Int
-    start_date: Date
-    finish_date: Date
-    discipline: String
-    field: String
-    request: String
-    level: String
-    specialty: String
-    sni_area_id: Int
-    appointment: [Upload]
-    appointment_url: String
 }
 
 type SniStatistics {
