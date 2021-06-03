@@ -115,6 +115,30 @@ export default class SniPage extends Vue {
                 label: 'Grado',
                 model: 'employee.grado'
             },
+            {
+                type: 'label',
+                label: '¿Es PTC?',
+                model: 'employee.is_ptc',
+                get: (employee: { is_ptc: boolean }) => (employee && employee.is_ptc) ? "Sí" : "No"
+            },
+            {
+                type: "label",
+                label: "¿Es un perfil PRODEP activo?",
+                model: "employee.has_active_prodep_profile",
+                get: (employee: { has_active_prodep_profile: boolean }) => (employee && employee.has_active_prodep_profile) ? "Sí" : "No"
+            },
+            {
+                type: 'label',
+                label: '¿Es un SNI activo?',
+                model: 'employee.has_active_sni',
+                get: (employee: { has_active_sni: boolean }) => (employee && employee.has_active_sni) ? "Sí" : "No"
+            },
+            {
+                type: 'label',
+                label: '¿Es un profesor-investigador?',
+                model: 'employee.is_researcher',
+                get: (employee: { is_researcher: boolean }) => (employee && employee.is_researcher) ? "Sí" : "No"
+            }
         ]
     };
     resource = new GraphQLResourceRepository(
