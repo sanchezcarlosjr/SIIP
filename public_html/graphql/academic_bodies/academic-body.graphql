@@ -1,5 +1,4 @@
 extend type Query {
-    academic_body_statistics: AcademicBodyStatistics @field(resolver: "App\\GraphQL\\Queries\\AcademicBodyStatistics")
     academic_body(id: ID @eq): AcademicBody @find
     academic_bodies (
       terms: [String] @scope(name: "terms")
@@ -11,6 +10,12 @@ extend type Query {
         defaultCount: 200,
         #builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
     )
+    academic_body_statistics(
+      terms: [String]
+      validity: String
+      campus: String
+      grade: [String]
+    ): AcademicBodyStatistics
 }
 
 extend type Mutation {
@@ -52,9 +57,9 @@ type AcademicBody {
 }
 
 type AcademicBodyByGrade {
-    inTraining: [Int]
-    inConsolidation: [Int]
-    consolidated: [Int]
+    inTraining: Int
+    inConsolidation: Int
+    consolidated: Int
 }
 
 type AcademicBodyStatistics {

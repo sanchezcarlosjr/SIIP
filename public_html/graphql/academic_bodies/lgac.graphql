@@ -28,7 +28,7 @@ extend type Mutation {
 type LGAC {
     id: ID!
     name: String!
-    description: String!
+    description: String
     employees: [Employee]
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
     academic_body_id: Int
