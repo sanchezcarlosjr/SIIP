@@ -50,11 +50,9 @@ class AcademicBodyStatistics {
       'professorsWithSNIOrProdep' => $activeSNIorPRODEP["active"]??0,
       'professorsInAcademicBody' => $inAcademicBody,
       'ptcsAreNotAcademicBody' => $freeEmployees,
-      'academicBodyByGrade' => array(
-        "inTraining" => $grades["En formación"]??0,
-        "inConsolidation" => $grades["En consolidación"]??0,
-        "consolidated" => $grades["Consolidado"]??0
-      )
+      "inTraining" => $grades["En formación"]??0,
+      "inConsolidation" => $grades["En consolidación"]??0,
+      "consolidated" => $grades["Consolidado"]??0
     );
   }
 }
