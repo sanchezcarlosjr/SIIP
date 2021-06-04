@@ -56,18 +56,14 @@ type AcademicBody {
     grade: String
 }
 
-type AcademicBodyByGrade {
-    inTraining: Int
-    inConsolidation: Int
-    consolidated: Int
-}
-
 type AcademicBodyStatistics {
     total: Int
     professorsWithSNIOrProdep: Int
     professorsInAcademicBody: Int
     ptcsAreNotAcademicBody: Int
-    academicBodyByGrade: AcademicBodyByGrade
+    inTraining: Int
+    inConsolidation: Int
+    consolidated: Int
 }
 
 input createAcademicBodyInput {
