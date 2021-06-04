@@ -19,6 +19,7 @@ export interface QueryParams {
   singular?: boolean,
   opname?: string,
   optype?: string
+  suffix?: string
 }
 
 interface ResourceName {
@@ -159,6 +160,18 @@ export default class GraphQLResourceRepository {
     return this._mutate(o);
   }
 
+  public statistics({
+    paginated = false,
+    singular = true
+  }: QueryParams = {}) {
+    let o = arguments[0] || {};
+    o.paginated = paginated;
+    o.singular = singular;
+    o.opname = "statistics";
+    o.suffix = "_statistics"
+    return this._query(o);
+  }
+
   private _operation({
     vars = [],
     args = [],
@@ -166,12 +179,13 @@ export default class GraphQLResourceRepository {
     paginated = false,
     singular = true,
     optype = "",
-    opname = "none"
+    opname = "none",
+    suffix = ""
   }:QueryParams): DocumentNode {
     let _args = args.map(a => `${a.name}:${a.value[0] === "$"?a.value:JSON.stringify(a.value)}`);
     let _vars = vars.map(v => `${v.name}:${v.type}`);
     return gql`${optype} ${opname}_${singular?this.root.singular:this.root.plural}${_vars.length > 0?"(":""}${_vars.join(", ")}${_vars.length > 0?")":""} {
-      ${optype==="mutation"?`${opname}_`:""}${singular?this.root.singular:this.root.plural}${_args.length > 0?"(":""}${_args.join(", ")}${_args.length > 0?")":""} {
+      ${optype==="mutation"?`${opname}_`:""}${singular?this.root.singular:this.root.plural}${suffix}${_args.length > 0?"(":""}${_args.join(", ")}${_args.length > 0?")":""} {
         ${paginated?"data {":""}
           ${this._parseFields(fields)}
         ${paginated?"}":""}
