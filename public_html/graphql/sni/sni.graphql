@@ -26,7 +26,7 @@ extend type Mutation {
     upsert_sni(
         data: UpsertSniInput
         @spread
-    ): Sni @upsert
+    ): Sni @upsertWithFiles
 }
 
 type Sni {
@@ -76,6 +76,7 @@ input UpsertSniInput {
     specialty: String
     sni_area_id: Int
     appointment: [Upload]
+    appointment_url: String
 }
 
 type SniStatistics {

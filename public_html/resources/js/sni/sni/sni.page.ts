@@ -88,6 +88,11 @@ export default class SniPage extends Vue {
                 inputType: 'text',
                 label: 'Especialidad',
                 model: "specialty"
+            },
+            {
+                type: "upload2",
+                label: 'Nombramiento',
+                model: 'appointment_url'
             }
         ]
     };
