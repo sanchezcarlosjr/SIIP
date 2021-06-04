@@ -1,10 +1,9 @@
-import Vue from "vue";
-import Component from "vue-class-component";
+import {Component, Prop, Vue} from 'vue-property-decorator';
 // @ts-ignore
 import LineChart from "./chart/LineChart";
 // @ts-ignore
 import BarChart from "./chart/BarChart";
-import gql from "graphql-tag";
+import { academic_bodies } from "../../../@shared/repositories/academic_bodies/repository.ts";
 
 @Component({
     components: {
@@ -23,19 +22,20 @@ import gql from "graphql-tag";
             },
             pollInterval: 8000,
             manual: true,
-            query: gql`query {
-                academic_body_statistics{
-                    total
-                    professorsWithSNIOrProdep
-                    professorsInAcademicBody
-                    ptcsAreNotAcademicBody
-                    academicBodyByGrade {
-                        inTraining
-                        inConsolidation
-                        consolidated
-                    }
-                }
-            }`
+            query: function() { /** Wrapped for "this" access */
+              return academic_bodies.statistics({
+                fields: [
+                  "total",
+                  "professorsWithSNIOrProdep",
+                  "professorsInAcademicBody",
+                  "ptcsAreNotAcademicBody",
+                  "inTraining",
+                  "inConsolidation",
+                  "consolidated"
+                ],
+                args: []/** Change this to reactive Prop → Slot */
+              })
+            }
         }
     }
 })
@@ -64,17 +64,17 @@ export default class AcademicBodyStatistics extends Vue {
                     {
                         label: 'En formación',
                         backgroundColor: '#218838',
-                        data: data['academicBodyByGrade']['inTraining']
+                        data: data['inTraining']
                     },
                     {
                         label: 'En consolidación',
                         backgroundColor: '#dc8e00',
-                        data: data['academicBodyByGrade']['inConsolidation']
+                        data: data['inConsolidation']
                     },
                     {
                         label: 'Consolidados',
                         backgroundColor: '#f87979',
-                        data: data['academicBodyByGrade']['consolidated']
+                        data: data['consolidated']
                     }
                 ]
             },
