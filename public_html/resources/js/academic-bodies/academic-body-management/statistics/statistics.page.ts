@@ -1,4 +1,4 @@
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Prop, Vue} from 'vue-property-decorator';
 // @ts-ignore
 import LineChart from "./chart/LineChart";
 // @ts-ignore
@@ -20,7 +20,7 @@ import {academic_bodies} from "../../../@shared/repositories/academic_bodies/rep
                     this.setAcademicBodyByLevel(this.academicBodyStatistics);
                 }
             },
-            pollInterval: 8000,
+            pollInterval: 20000,
             manual: true,
             query: function () { /** Wrapped for "this" access */
                 return academic_bodies.statistics({
@@ -33,13 +33,14 @@ import {academic_bodies} from "../../../@shared/repositories/academic_bodies/rep
                         "inConsolidation",
                         "consolidated"
                     ],
-                    args: []/** Change this to reactive Prop → Slot */
+                    args: this.filters
                 })
             }
         }
     }
 })
 export default class AcademicBodyStatistics extends Vue {
+    @Prop() filters!: {name: string, value: string}[];
     academicBodyStatistics = {
         total: 0,
         professorsWithSNIOrProdep: 0,

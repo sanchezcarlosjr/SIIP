@@ -19,7 +19,7 @@ import GraphQLResourceRepository from "../../../@shared/infraestructure/communic
                     this.setAcademicBodyByLevel(data["sni_statistics"]);
                 }
             },
-            pollInterval: 8000,
+            pollInterval: 20000,
             manual: true,
             query: gql`query($to: String, $from: String, $filter: [String]) {
                 sni_statistics(to: $to, from: $from, filter: $filter) {

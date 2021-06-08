@@ -7,8 +7,8 @@
       :links="links"
       @created-element="createdElement"
   >
-    <template #statistics>
-      <academic-body-statistics/>
+    <template #statistics="slotProps">
+      <academic-body-statistics :filters="slotProps.filters"/>
     </template>
   </siip-table>
 </template>

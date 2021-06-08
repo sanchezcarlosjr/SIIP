@@ -6,7 +6,7 @@
         :filter="criteria"
     >
         <template #statistics="slotProps">
-            <sni-statistics :filters="slotProps.filters"></sni-statistics>
+            <sni-statistics :filters="slotProps.filters"/>
         </template>
     </siip-table>
 </template>
