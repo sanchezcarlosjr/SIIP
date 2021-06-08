@@ -4,7 +4,7 @@ import GraphQLResourceRepository from "../../@shared/infraestructure/communicati
 import {employees} from "../../@shared/repositories/employees/repository";
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
 import {sni_areas} from "../../@shared/repositories/sni/repository";
-import {campus, gender} from "../../@shared/search-criteria/search-criteria";
+import {campus, close_to_expire, close_to_retirement, gender} from "../../@shared/search-criteria/search-criteria";
 import SniStatistics from "./statistics/index.vue";
 
 @Component(
@@ -17,7 +17,9 @@ import SniStatistics from "./statistics/index.vue";
 export default class SniPage extends Vue {
     criteria = [
         gender,
-        campus
+        campus,
+        close_to_retirement,
+        close_to_expire,
     ];
     private currentYear = new Date().getFullYear();
     private schema = {

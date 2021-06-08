@@ -1,6 +1,5 @@
 <template>
     <b-container>
-        <pre>{{filters}}</pre>
         <b-row>
             <b-col cols="3">
                 <b-form-group label="De" label-for="dropdown-form-period" @submit.stop.prevent>

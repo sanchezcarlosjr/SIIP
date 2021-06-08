@@ -1,5 +1,13 @@
 extend type Query {
-    sni_statistics(from: String,to: String, filter: [String]): SniStatistics @field(resolver: "App\\GraphQL\\Queries\\SniStatistics")
+    sni_statistics(
+        close_to_retirement: String
+        close_to_expire: String
+        terms: [String]
+        campus: String
+        gender: String
+        from: String
+        to: String
+    ): SniStatistics
     researchers: [Researcher] @paginate(defaultCount: 10)
     sni(id: ID @eq): Sni @find
     snis(terms: [String] @scope(name: "terms")): [Sni] @paginate(defaultCount: 10)
