@@ -5,8 +5,15 @@ import {employees} from "../../@shared/repositories/employees/repository";
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
 import {sni_areas} from "../../@shared/repositories/sni/repository";
 import {campus, gender} from "../../@shared/search-criteria/search-criteria";
+import SniStatistics from "./statistics/index.vue";
 
-@Component
+@Component(
+    {
+        components: {
+            SniStatistics
+        }
+    }
+)
 export default class SniPage extends Vue {
     criteria = [
         gender,

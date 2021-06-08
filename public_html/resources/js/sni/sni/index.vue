@@ -5,6 +5,9 @@
         :formSchemas="formSchemas"
         :filter="criteria"
     >
+        <template #statistics="slotProps">
+            <sni-statistics :filters="slotProps.filters"></sni-statistics>
+        </template>
     </siip-table>
 </template>
 
