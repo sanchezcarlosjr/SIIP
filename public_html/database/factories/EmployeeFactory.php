@@ -31,7 +31,7 @@ class EmployeeFactory extends Factory
             'grado' => $this->faker->randomElement($array = array('A', 'B', 'C', 'D')),
             'nunidad' => $this->faker->randomElement($array = array(114, 122, 123, 175)),
             'c_categoria' => $this->faker->numberBetween($min = 100, $max = 120),
-            'f_nacimiento' => Carbon::createFromFormat('Y-m-d', $this->faker->date)->format('d/m/Y'),
+            'f_nacimiento' => Carbon::instance($this->faker->dateTimeBetween($startDate = '-100 years', $endDate = '31-12-1995'))->format(Employee::birthdayFormat),
             'estatus' => $this->faker->randomElement($array = array('1', '0'))
         ];
     }
