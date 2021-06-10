@@ -3,8 +3,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Employee;
 use App\Models\Sni;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class SniTest extends TestCase
@@ -19,6 +19,7 @@ class SniTest extends TestCase
         $this->assertNotContains("Ensenada", $campus);
         $this->assertNotContains("Tijuana", $campus);
     }
+
     public function testShouldGetSnisCloseToRetirement()
     {
         $snis = Sni::closeToRetirement()->get();
@@ -26,6 +27,17 @@ class SniTest extends TestCase
             return $sni->employee()->get()[0]->age;
         })->each(function ($age) {
             $this->assertGreaterThanOrEqual(69, $age);
+        });
+    }
+
+    public function testShouldGetSnisCloseToExpire()
+    {
+        $snis = Sni::closeToExpire()->get();
+        $snis->map(function ($sni) {
+            return $sni->finish_date;
+        })->each(function ($finish_date) {
+            $diff = Carbon::create($finish_date)->diffInMonths(Carbon::today());
+            $this->assertLessThanOrEqual(6, $diff);
         });
     }
 }

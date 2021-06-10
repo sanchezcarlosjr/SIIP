@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Employee;
 use App\Models\Sni;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SniFactory extends Factory
@@ -23,7 +25,7 @@ class SniFactory extends Factory
     {
         return [
             "start_date" => $this->faker->date,
-            "finish_date" => $this->faker->date,
+            "finish_date" => Carbon::instance($this->faker->dateTimeBetween($startDate = '31-12-2019', $endDate = '31-12-2024'))->toDateString(),
             "discipline" => $this->faker->name,
             "field" => $this->faker->name,
             "request" => $this->faker->name,

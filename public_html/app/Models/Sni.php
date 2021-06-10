@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -52,6 +52,14 @@ class Sni extends Model
         return $query->joinSub($employees, 'employee', function ($join) {
             $join->on('snis.employee_id', '=', 'employee.nempleado');
         });
+    }
+
+    public function scopeCloseToExpire(Builder $query): Builder
+    {
+        $timeToExpireInMonths = 6;
+        $expirationDate = Carbon::today()->addMonths($timeToExpireInMonths)->toDateString();
+        $today = Carbon::today()->toDateString();
+        return $query->whereBetween('finish_date', [$today, $expirationDate]);
     }
 
     public function getIsActiveAttribute()
