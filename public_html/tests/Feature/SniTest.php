@@ -4,6 +4,7 @@
 namespace Tests\Feature;
 
 use App\Models\Sni;
+use App\Models\Employee;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
@@ -38,6 +39,14 @@ class SniTest extends TestCase
         })->each(function ($finish_date) {
             $diff = Carbon::create($finish_date)->diffInMonths(Carbon::today());
             $this->assertLessThanOrEqual(6, $diff);
+        });
+    }
+    public function testShouldGetMaleSnis() {
+        $snis = Sni::gender('Hombre')->get();
+        $snis->map(function ($sni) {
+            return $sni->employee()->get()[0]->sexo;
+        })->each(function ($sexo) {
+            $this->assertEquals(Employee::Male, $sexo);
         });
     }
 }

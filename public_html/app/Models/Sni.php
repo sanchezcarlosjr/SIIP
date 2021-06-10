@@ -62,6 +62,14 @@ class Sni extends Model
         return $query->whereBetween('finish_date', [$today, $expirationDate]);
     }
 
+    public function scopeGender(Builder $query, string $gender)
+    {
+        $employees = Employee::gender($gender);
+        return $query->joinSub($employees, 'employee', function ($join) {
+            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        });
+    }
+
     public function getIsActiveAttribute()
     {
         return Carbon::today()->lessThan($this->finish_date);

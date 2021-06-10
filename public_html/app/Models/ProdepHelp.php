@@ -55,9 +55,9 @@ class ProdepHelp extends Model
 
     public function scopeGender($query, $gender) {
       if ($gender == "Hombre") {
-        $gender = "Masculino";
+        $gender = Employee::Male;
       } else if ($gender == "Mujer"){
-        $gender = "Femenino";
+        $gender = Employee::Female;
       }
 
       return $query

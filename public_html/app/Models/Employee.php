@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 class Employee extends Model
 {
     const birthdayFormat = "d/m/Y";
+    const Male = "M";
+    const Female = "F";
     public $timestamps = false;
     protected $primaryKey = 'nempleado';
     protected $table = 'empleados';
@@ -265,6 +267,24 @@ class Employee extends Model
     {
         $sixMonthsOrLessToRetirement = "TO_DATE(f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'";
         return $query->whereRaw($sixMonthsOrLessToRetirement);
+    }
+
+    public function scopeGender($query, $gender)
+    {
+        $gender = $this->toGenderInDatabase($gender);
+        return $query->where('sexo', 'ILIKE', $gender);
+    }
+
+    private function toGenderInDatabase($gender): string
+    {
+        switch ($gender) {
+            case "Hombre":
+                return self::Male;
+            case "Mujer":
+                return self::Female;
+            default:
+                return "";
+        }
     }
 
     public function scopeCampus($query, $campus)
