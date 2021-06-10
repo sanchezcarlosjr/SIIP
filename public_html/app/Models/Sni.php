@@ -46,6 +46,14 @@ class Sni extends Model
         });
     }
 
+    public function scopeCloseToRetirement(Builder $query): Builder
+    {
+        $employees = Employee::closeToRetirement();
+        return $query->joinSub($employees, 'employee', function ($join) {
+            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        });
+    }
+
     public function getIsActiveAttribute()
     {
         return Carbon::today()->lessThan($this->finish_date);

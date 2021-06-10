@@ -11,8 +11,8 @@ extend type Query {
     researchers: [Researcher] @paginate(defaultCount: 10)
     sni(id: ID @eq): Sni @find
     snis(
-        close_to_retirement: String @scope(name: "close_to_retirement")
-        close_to_expire: String @scope(name: "close_to_expire")
+        close_to_retirement: String @scope(name: "closeToRetirement")
+        close_to_expire: String @scope(name: "closeToExpire")
         campus: String @scope(name: "campus")
         gender: String @scope(name: "gender")
         terms: [String] @scope(name: "terms")

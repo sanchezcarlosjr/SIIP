@@ -19,14 +19,13 @@ class SniTest extends TestCase
         $this->assertNotContains("Ensenada", $campus);
         $this->assertNotContains("Tijuana", $campus);
     }
-    public function testShouldGetSnisThatMatchingWithTijuana()
+    public function testShouldGetSnisCloseToRetirement()
     {
-        $snis = Sni::campus('Tijuana')->get();
-        $campus = $snis->map(function ($sni) {
-            return $sni->employee()->get()[0]->academic_unit()->get()[0]->campus;
+        $snis = Sni::closeToRetirement()->get();
+        $snis->map(function ($sni) {
+            return $sni->employee()->get()[0]->age;
+        })->each(function ($age) {
+            $this->assertGreaterThanOrEqual(69, $age);
         });
-        $this->assertContains("Tijuana", $campus);
-        $this->assertNotContains("Mexicali", $campus);
-        $this->assertNotContains("Ensenada", $campus);
     }
 }
