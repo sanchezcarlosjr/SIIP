@@ -35,7 +35,7 @@ class UpsertWithFilesModel extends UpsertModel
             $itIsAFile = get_class($argument->type) == "Nuwave\Lighthouse\Execution\Arguments\ListType" && $argument->type->type->name == "Upload";
             if ($itIsAFile) {
                 $url = $key . "_url";
-                $userWantsRemoveFile = $model["url"] != ($args->arguments[$url] ?? "");
+                $userWantsRemoveFile = $model["url"] != ($args->arguments[$url]->value ?? "");
                 if ($userWantsRemoveFile) {
                     Storage::deleteDirectory(dirname($model[$url]));
                 }
