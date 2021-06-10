@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -34,6 +35,14 @@ class Sni extends Model
         }
         return $query->where(function ($query) use ($where) {
             $query->orWhere($where);
+        });
+    }
+
+    public function scopeCampus(Builder $query, string $campus): Builder
+    {
+        $employees = Employee::campus($campus);
+        return $query->joinSub($employees, 'employee', function ($join) {
+            $join->on('snis.employee_id', '=', 'employee.nempleado');
         });
     }
 

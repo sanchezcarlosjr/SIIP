@@ -10,7 +10,13 @@ extend type Query {
     ): SniStatistics
     researchers: [Researcher] @paginate(defaultCount: 10)
     sni(id: ID @eq): Sni @find
-    snis(terms: [String] @scope(name: "terms")): [Sni] @paginate(defaultCount: 10)
+    snis(
+        close_to_retirement: String @scope(name: "close_to_retirement")
+        close_to_expire: String @scope(name: "close_to_expire")
+        campus: String @scope(name: "campus")
+        gender: String @scope(name: "gender")
+        terms: [String] @scope(name: "terms")
+    ): [Sni] @paginate(defaultCount: 10)
     sni_areas(name_like: String @scope(name: "name")): [SNIArea] @paginate(defaultCount: 100)
     sni_area(id: ID @eq): SNIArea @find
 }
