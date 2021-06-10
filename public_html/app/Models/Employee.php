@@ -252,7 +252,8 @@ class Employee extends Model
     }
 
     public function scopeCloseToRetirement($query) {
-      return $query->whereRaw("TO_DATE(empleados.f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'");
+        $sixMonthsOrLessToRetirement = "TO_DATE(empleados.f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'";
+        return $query->whereRaw($sixMonthsOrLessToRetirement);
     }
 
     public function scopeCampus($query, $campus) {
