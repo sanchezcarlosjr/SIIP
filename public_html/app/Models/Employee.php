@@ -24,6 +24,7 @@ class Employee extends Model
         "has_active_prodep_profile",
         "has_active_sni"
     ];
+    private $birthdayFormat = "d/m/Y";
     use HasFactory;
 
     public function newQuery($excludeDeleted = true): Builder
@@ -64,7 +65,7 @@ class Employee extends Model
     public function getAcademicBodyAttribute()
     {
         $lgac = $this->academic_bodies_lgacs->get(0);
-        return isset($lgac->academic_body) ? $lgac->academic_body : null;
+        return $lgac->academic_body ?? null;
     }
 
     public function getFullNameAttribute()
@@ -75,7 +76,7 @@ class Employee extends Model
     public function getAgeAttribute()
     {
         try {
-            return Carbon::today()->diffInYears(Carbon::createFromFormat("d/m/Y", $this->f_nacimiento));
+            return Carbon::today()->diffInYears(Carbon::createFromFormat($this->birthdayFormat, $this->f_nacimiento));
         } catch (Exception $e) {
             return null;
         }
@@ -181,7 +182,7 @@ class Employee extends Model
     public function getIsLeaderAttribute()
     {
         $academic_body = $this->getAcademicBodyAttribute();
-        return ($academic_body == null || $academic_body->leader == null)  ? false : $academic_body->leader->nempleado == $this->nempleado;
+        return !($academic_body == null || $academic_body->leader == null) && $academic_body->leader->nempleado == $this->nempleado;
     }
 
     public function getIsResearcherAttribute(): bool
@@ -252,8 +253,11 @@ class Employee extends Model
     }
 
     public function scopeCloseToRetirement($query) {
-        $sixMonthsOrLessToRetirement = "TO_DATE(empleados.f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'";
-        return $query->whereRaw($sixMonthsOrLessToRetirement);
+        try {
+            return Carbon::today()->diffInMonths(Carbon::createFromFormat($this->birthdayFormat, $this->f_nacimiento)) <= 6;
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     public function scopeCampus($query, $campus) {
