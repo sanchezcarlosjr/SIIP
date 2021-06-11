@@ -14,8 +14,15 @@
         </b-row>
         <b-row class="text-center">
             <b-col>
-                <bar-chart v-if="!$apollo.loading" :chart-data="sniByLevel.data"
-                           :options="sniByLevel.options"></bar-chart>
+                <b-tabs v-model="tabIndex" content-class="mt-3">
+                    <b-tab title="Gráfica" active>
+                        <bar-chart v-if="!$apollo.loading" :chart-data="sniByLevel.data"
+                                   :options="sniByLevel.options"></bar-chart>
+                    </b-tab>
+                    <b-tab title="Tabla" lazy>
+                        <sni-statistics-table :busy="$apollo.loading" :fields="fields" :items="items"/>
+                    </b-tab>
+                </b-tabs>
             </b-col>
         </b-row>
     </b-container>

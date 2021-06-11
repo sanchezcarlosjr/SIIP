@@ -3,7 +3,7 @@ import Component from "vue-class-component";
 import GraphQLResourceRepository from "../../@shared/infraestructure/communication/graphql/test";
 import {employees} from "../../@shared/repositories/employees/repository";
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
-import {sni_areas} from "../../@shared/repositories/sni/repository";
+import {sni_areas, snis} from "../../@shared/repositories/sni/repository";
 import {campus, close_to_expire, close_to_retirement, gender} from "../../@shared/search-criteria/search-criteria";
 import SniStatistics from "./statistics/index.vue";
 
@@ -155,12 +155,7 @@ export default class SniPage extends Vue {
             }
         ]
     };
-    resource = new GraphQLResourceRepository(
-        {
-            singular: "sni",
-            plural: "snis"
-        }
-    );
+    resource = snis;
     fields = [
         {key: "employee.name", label: "Investigador", sortable: true, editable: true, class: "vw-20"},
         {key: "employee.academic_unit.name", label: "Unidad académica", sortable: true, editable: true},

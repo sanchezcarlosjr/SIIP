@@ -94,9 +94,17 @@ input UpsertSniInput {
     appointment_url: String
 }
 
+type Dataset {
+    id: String
+    label: String
+    data: [Int]
+    stack: String
+}
+
 type SniStatistics {
-    periods: [String],
-    postgraduates: [Int],
+    periods: [String]
+    datasets: [Dataset]
+    postgraduates: [Int]
     undergraduates: [Int]
     women: [Int]
     men: [Int]

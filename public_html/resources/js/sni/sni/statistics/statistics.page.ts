@@ -4,45 +4,84 @@ import Component from "vue-class-component";
 import LineChart from "./chart/LineChart";
 // @ts-ignore
 import BarChart from "./chart/BarChart";
-import gql from "graphql-tag";
+import SniStatisticsTable from "./table.presenter.vue";
 import {Prop} from "vue-property-decorator";
-import GraphQLResourceRepository from "../../../@shared/infraestructure/communication/graphql/test";
+import {snis} from "../../../@shared/repositories/sni/repository";
+
+interface SniStatisticsQuery {
+    periods: string[];
+    datasets: [{ id: string, label: string, data: number[], stack: string }];
+}
+
+class StackColor {
+    private static paletteColors = [
+        ["#007bff", "#6610f2", "#6f42c1"],
+        ["#17a2b8", "#20c997", "#218838"],
+        ["#fd7e14", "#dc3545", "#e83e8c"]
+    ];
+    private actualStack = 0;
+    private stack = new Map<string, { paletteColor: number, color: number }>();
+
+    definePaletteColor(id: string) {
+        if (!this.stack.has(id)) {
+            this.stack.set(id, {
+                paletteColor: ++this.actualStack,
+                color: 0
+            });
+        } else {
+            // @ts-ignore
+            this.stack.get(id).color++;
+        }
+        return StackColor.paletteColors[this.stack.get(id)?.paletteColor as number][this.stack.get(id)?.color as number];
+    }
+}
+
+enum KindOfStatistic {
+    GRAPH,
+    TABLE
+}
 
 @Component({
     components: {
-        BarChart
+        BarChart,
+        SniStatisticsTable
     },
     apollo: {
         statistics: {
             result({data, loading, networkStatus}) {
-                if (!loading) {
-                    this.setAcademicBodyByLevel(data["sni_statistics"]);
+                if (loading) {
+                    return;
+                }
+                this.sni_statistics = data["sni_statistics"];
+                if (this.tabIndex === KindOfStatistic.GRAPH) {
+                    this.renderGraph();
                 }
             },
             pollInterval: 20000,
             manual: true,
-            query: gql`query($to: String, $from: String, $filter: [String]) {
-                sni_statistics(to: $to, from: $from, filter: $filter) {
-                    periods
-                    postgraduates
-                    undergraduates
-                }
-            }`,
-            variables(): any {
-                return {
-                    to: this.to,
-                    from: this.from,
-                    filter: ["postgraduates","undergraduates"]
-                }
+            query: function () { /** Wrapped for "this" access */
+                return snis.statistics({
+                    fields: [
+                        'periods',
+                        'datasets.label',
+                        'datasets.data',
+                        'datasets.stack'
+                    ],
+                    args: this.filters
+                })
             }
         }
     }
 })
 export default class SniStatistics extends Vue {
-    @Prop() filters!: {name: string, value: string}[];
+    @Prop() filters!: { name: string, value: string }[];
+    tabIndex: KindOfStatistic = 0;
     from = "";
     to = "";
-    periods:{text: string, value: string}[] = [];
+    sni_statistics: SniStatisticsQuery = {periods: [], datasets: [{id: "", label: "", data: [], stack: ""}]};
+    periods: { text: string, value: string }[] = [];
+    sniByLevel = {};
+
     constructor() {
         super();
         const date = new Date();
@@ -57,8 +96,6 @@ export default class SniStatistics extends Vue {
             actualYear--;
         }
     }
-
-    sniByLevel = {};
 
     mounted() {
         this.$apollo.queries.statistics.start();
@@ -76,13 +113,35 @@ export default class SniStatistics extends Vue {
         });
     }
 
-    setAcademicBodyByLevel(data: {periods: string[], postgraduates: number[], undergraduates: number[]}) {
+    get fields() {
+        return ["Periodo", ...this.sni_statistics.datasets.map((value) => value.label), "Total"];
+    }
+
+    get items() {
+        return this.sni_statistics.periods.map((value, index) => {
+            let total = 0;
+            return {
+                "Periodo": value,
+                ...this.sni_statistics.datasets.reduce((acc, actual) => {
+                    total += actual.data[index];
+                    return {...acc,[actual.label]: actual.data[index]};
+                }, {}),
+                "Total": total
+            }
+        });
+    }
+
+    renderGraph() {
+        const stackColors = new StackColor();
         this.sniByLevel = {
             options: {
                 tooltips: {
                     mode: 'x',
                     callbacks: {
-                        footer: function(tooltipItems: any, data: any) {
+                        title: function (tooltipItems: [{ label: string, datasetIndex: number }], data: SniStatisticsQuery) {
+                            return `${tooltipItems[0].label} ${data.datasets[tooltipItems[0].datasetIndex].stack}`;
+                        },
+                        footer: function (tooltipItems: any, sniStatisticsQuery: SniStatisticsQuery) {
                             let total = tooltipItems.reduce((a: number, e: any) => a + parseInt(e.yLabel), 0);
                             return 'Total: ' + total;
                         }
@@ -99,21 +158,13 @@ export default class SniStatistics extends Vue {
                 }
             },
             data: {
-                labels: data.periods,
-                datasets: [
-                    {
-                        label: 'Licenciatura',
-                        backgroundColor: '#218838',
-                        data: data.undergraduates,
-                        stack: 'Stack 0',
-                    },
-                    {
-                        label: 'Posgrado',
-                        backgroundColor: '#dc8e00',
-                        data: data.postgraduates,
-                        stack: 'Stack 0',
+                labels: this.sni_statistics?.periods,
+                datasets: this.sni_statistics?.datasets.map((dataset) => {
+                    return {
+                        backgroundColor: stackColors.definePaletteColor(dataset.stack),
+                        ...dataset
                     }
-                ]
+                }) ?? []
             },
         };
     }
