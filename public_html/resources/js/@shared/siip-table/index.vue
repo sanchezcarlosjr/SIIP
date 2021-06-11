@@ -20,7 +20,7 @@
                 v-b-tooltip.hover
                 :title="isVisibleChart ? 'Ocultar gráfico' : 'Mostrar  gráfico'"
                 size="sm"
-                v-if="this.$slots.statistics"
+                v-if="this.$scopedSlots.statistics"
                 variant="link-secondary"
                 @click="toggleChart"
               >
@@ -42,9 +42,9 @@
             </b-button-group>
           </b-col>
         </b-row>
-        <b-row v-if="isVisibleChart">
-          <slot name="statistics"/>
-        </b-row>
+          <b-row v-if="isVisibleChart">
+              <slot name="statistics" v-bind:filters="selectedFilters"/>
+          </b-row>
       </b-container>
     </div>
     <table-presenter

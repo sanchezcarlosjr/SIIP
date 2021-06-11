@@ -19,9 +19,10 @@ class CreateSnisTable extends Migration
             $table->date('finish_date');
             $table->string('discipline');
             $table->string('field');
-            $table->string('request');
+            $table->string('request')->nullable();
             $table->string('level');
-            $table->date('specialty');
+            $table->string('specialty');
+            $table->string('appointment_url')->nullable();
             $table->integer('employee_id')->unsigned();
             $table->integer('sni_area_id')->unsigned();
             $table->timestamps();

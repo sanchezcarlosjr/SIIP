@@ -24,7 +24,8 @@ class AcademicUnitFactory extends Factory
     {
         return [
             'nunidad' => $this->id++,
-            'unidad' => $this->faker->word
+            'unidad' => $this->faker->word,
+            'campus' => $this->faker->randomElements($array = array ('Ensenada','Tijuana','Mexicali'), $count = 1)[0],
         ];
     }
 }

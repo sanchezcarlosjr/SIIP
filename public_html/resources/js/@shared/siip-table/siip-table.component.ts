@@ -22,7 +22,7 @@ export default class SiipTableComponent extends Vue {
   @Prop() resource!: GraphQLResourceRepository;
   @Prop({default: ()=>[]}) filter!: any[]; //ToDo Type
 
-  private _selectedFilters: any[] = []; //ToDo Type
+   selectedFilters: any[] = []; //ToDo Type
   private _routeArgs: any[] = [];
 
   @Prop() fields!: any[]; // Table Fields
@@ -82,7 +82,7 @@ export default class SiipTableComponent extends Vue {
   /** Methods */
   beforeMount() {
     /** Initialize Filters */
-    this._selectedFilters = [];
+    this.selectedFilters = [];
 
     /** Get Route Params to filter by scope */
     this._routeArgs = Object.keys(this.$route.params).map((key: string) =>{
@@ -151,7 +151,7 @@ export default class SiipTableComponent extends Vue {
   private _updateItemsQuery() {
     return this.resource.all({
       fields: this._fields,
-      args: this._selectedFilters.concat(this._routeArgs),
+      args: this.selectedFilters.concat(this._routeArgs),
       vars: []
     });
   }
@@ -162,7 +162,7 @@ export default class SiipTableComponent extends Vue {
     filters.criteria.map(criteria => args.push(criteria));
 
     /** Update Filters in Repository */
-    this._selectedFilters = args;
+    this.selectedFilters = args;
 
     /** Refresh Query */
     this.$apollo.queries.items.refresh();

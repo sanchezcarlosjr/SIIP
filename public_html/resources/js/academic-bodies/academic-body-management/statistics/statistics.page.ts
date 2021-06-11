@@ -3,7 +3,7 @@ import {Component, Prop, Vue} from 'vue-property-decorator';
 import LineChart from "./chart/LineChart";
 // @ts-ignore
 import BarChart from "./chart/BarChart";
-import { academic_bodies } from "../../../@shared/repositories/academic_bodies/repository.ts";
+import {academic_bodies} from "../../../@shared/repositories/academic_bodies/repository.ts";
 
 @Component({
     components: {
@@ -20,26 +20,27 @@ import { academic_bodies } from "../../../@shared/repositories/academic_bodies/r
                     this.setAcademicBodyByLevel(this.academicBodyStatistics);
                 }
             },
-            pollInterval: 8000,
+            pollInterval: 20000,
             manual: true,
-            query: function() { /** Wrapped for "this" access */
-              return academic_bodies.statistics({
-                fields: [
-                  "total",
-                  "professorsWithSNIOrProdep",
-                  "professorsInAcademicBody",
-                  "ptcsAreNotAcademicBody",
-                  "inTraining",
-                  "inConsolidation",
-                  "consolidated"
-                ],
-                args: []/** Change this to reactive Prop → Slot */
-              })
+            query: function () { /** Wrapped for "this" access */
+                return academic_bodies.statistics({
+                    fields: [
+                        "total",
+                        "professorsWithSNIOrProdep",
+                        "professorsInAcademicBody",
+                        "ptcsAreNotAcademicBody",
+                        "inTraining",
+                        "inConsolidation",
+                        "consolidated"
+                    ],
+                    args: this.filters
+                })
             }
         }
     }
 })
 export default class AcademicBodyStatistics extends Vue {
+    @Prop() filters!: {name: string, value: string}[];
     academicBodyStatistics = {
         total: 0,
         professorsWithSNIOrProdep: 0,
@@ -64,17 +65,17 @@ export default class AcademicBodyStatistics extends Vue {
                     {
                         label: 'En formación',
                         backgroundColor: '#218838',
-                        data: data['inTraining']
+                        data: [data['inTraining']]
                     },
                     {
                         label: 'En consolidación',
                         backgroundColor: '#dc8e00',
-                        data: data['inConsolidation']
+                        data: [data['inConsolidation']]
                     },
                     {
                         label: 'Consolidados',
                         backgroundColor: '#f87979',
-                        data: data['consolidated']
+                        data: [data['consolidated']]
                     }
                 ]
             },
