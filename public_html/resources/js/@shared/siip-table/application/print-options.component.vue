@@ -129,7 +129,9 @@ export default {
   beforeMount() {
     this.fields.forEach((field) => {
       /** Field Labels into Options */
-      this.options.push(field.label);
+      if (field.label !== undefined) {
+        this.options.push(field.label);
+      }
       /** Set Visible as Default */
       if (field.visible??true) {
         this.selected.push(field.label);
