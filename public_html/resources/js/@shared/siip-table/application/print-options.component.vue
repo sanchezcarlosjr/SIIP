@@ -101,7 +101,13 @@ export default {
           let row = body.insertRow();
           filteredFields.forEach((field) => {
             let cell = row.insertCell();
-            cell.appendChild(document.createTextNode(field.key.split(".").reduce((o, i)=> o?.[i], item)??""));
+            cell.appendChild(
+              document.createTextNode(
+                field.key.split(".").reduce(
+                  (o, i)=> (o?.[i] === true?"SÍ":(o?.[i] === false?"NO":o?.[i]))
+                , item)??""
+              )
+            );
           });
         })
       }
