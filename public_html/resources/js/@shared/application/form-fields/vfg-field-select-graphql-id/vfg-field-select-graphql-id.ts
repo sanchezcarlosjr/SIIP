@@ -69,7 +69,8 @@ export default class VfgFieldGraphQLIdSelect extends Mixins(VueFormGenerator.abs
       variables: {
         /** GraphQL takes "" as null for some reason */
         input: "%"
-      }
+      },
+      fetchPolicy: "no-cache"
     });
 
     /** Wait for ApolloForm to bring data back */
