@@ -3,6 +3,7 @@
 
 namespace Tests\Feature;
 
+use App\GraphQL\Queries\SniStatistics;
 use App\Models\Sni;
 use App\Models\Employee;
 use Illuminate\Support\Carbon;
@@ -48,5 +49,10 @@ class SniTest extends TestCase
         })->each(function ($sexo) {
             $this->assertEquals(Employee::Male, $sexo);
         });
+    }
+    public function testShouldGetTwoQueries() {
+        $sni = new SniStatistics();
+        $statistics = $sni(null, ['campus' => 'Ensenada']);
+        dd($statistics);
     }
 }
