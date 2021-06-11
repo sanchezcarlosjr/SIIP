@@ -93,8 +93,8 @@ export default class HelpsPage extends Vue {
     {key: 'date', label: 'Fecha', sortable: true},
     {key: 'amount', label: 'Monto', sortable: true},
     {key: 'benefited_employee.name', label: 'Beneficiario', sortable: true},
-    {key: 'academic_body.leader.academic_unit.name', label: 'Unidad académica', sortable: true},
-    {key: 'academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true}
+    {key: 'benefited_employee.academic_unit.name', label: 'Unidad académica', sortable: true},
+    {key: 'benefited_employee.academic_unit.campus', label: 'Campus', sortable: true}
   ];
   formSchemas = {
     create: this._schema,
