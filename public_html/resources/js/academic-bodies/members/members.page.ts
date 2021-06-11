@@ -82,6 +82,8 @@ export default class MembersPage extends Vue {
       {key: 'name', label: 'Nombre', sortable: true, class: "vw-20"},
       {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
       {key: 'academic_body.name', label: 'Cuerpos Académicos', sortable: true},
+      {key: 'has_active_sni', label: 'SNI', sortable: true},
+      {key: 'has_active_prodep_profile', label: 'PRODEP', sortable: true},
       {key: 'grado', label: 'Grado', sortable: true}
   ];
 }

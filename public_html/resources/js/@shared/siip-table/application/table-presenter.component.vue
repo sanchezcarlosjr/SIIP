@@ -36,7 +36,7 @@
                 </template>
                 <template #cell()="data">
                     <div v-if="typeof data.value === 'boolean'">
-                        <i class="fas fa-check" style="font-size: 12px"></i>
+                        <i v-if="data.value" class="fas fa-check" style="font-size: 12px"/>
                     </div>
                     <div v-else>
                         {{data.value}}
