@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VueFormGenerator from 'vue-form-generator';
 import { members } from "../../@shared/repositories/academic_bodies/members/repository.ts";
-import { leaders, campus, gender, close_to_retirement } from "../../@shared/search-criteria/search-criteria.ts";
+import { leaders, campus, gender, close_to_retirement, members as members_criteria } from "../../@shared/search-criteria/search-criteria.ts";
 
 @Component
 export default class MembersPage extends Vue {
@@ -10,6 +10,7 @@ export default class MembersPage extends Vue {
       return employee?.is_leader ? 'font-weight-bold' : '';
   };
   criteria = [
+    members_criteria,
     leaders,
     gender,
     close_to_retirement,
@@ -81,6 +82,8 @@ export default class MembersPage extends Vue {
       {key: 'name', label: 'Nombre', sortable: true, class: "vw-20"},
       {key: 'academic_unit.name', label: 'Unidad Académica', sortable: true},
       {key: 'academic_body.name', label: 'Cuerpos Académicos', sortable: true},
+      {key: 'has_active_sni', label: 'SNI', sortable: true},
+      {key: 'has_active_prodep_profile', label: 'PRODEP', sortable: true},
       {key: 'grado', label: 'Grado', sortable: true}
   ];
 }

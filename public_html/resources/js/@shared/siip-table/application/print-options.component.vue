@@ -101,7 +101,13 @@ export default {
           let row = body.insertRow();
           filteredFields.forEach((field) => {
             let cell = row.insertCell();
-            cell.appendChild(document.createTextNode(field.key.split(".").reduce((o, i)=> o?.[i], item)??""));
+            cell.appendChild(
+              document.createTextNode(
+                field.key.split(".").reduce(
+                  (o, i)=> (o?.[i] === true?"SÍ":(o?.[i] === false?"NO":o?.[i]))
+                , item)??""
+              )
+            );
           });
         })
       }
@@ -129,7 +135,9 @@ export default {
   beforeMount() {
     this.fields.forEach((field) => {
       /** Field Labels into Options */
-      this.options.push(field.label);
+      if (field.label !== undefined) {
+        this.options.push(field.label);
+      }
       /** Set Visible as Default */
       if (field.visible??true) {
         this.selected.push(field.label);

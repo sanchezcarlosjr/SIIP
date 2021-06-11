@@ -74,3 +74,16 @@ export const leaders = {
         value: "Líder"
     }]
 }
+export const members = {
+  type: "xor",
+  model: "members",
+  criteria: [
+    {
+      value: "Miembros",
+      default: true
+    },
+    {
+      value: "No miembros"
+    }
+  ]
+}

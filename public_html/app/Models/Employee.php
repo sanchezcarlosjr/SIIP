@@ -221,7 +221,8 @@ class Employee extends Model
 
     public function scopeFree($query, $free)
     {
-        return $query->has('academic_bodies_lgacs', ($free ? '=' : '>'), 0);
+      $free = !($free === "Miembros");
+      return $query->has('academic_bodies_lgacs', ($free ? '=' : '>'), 0);
     }
 
     public function scopeLeaders($query)
