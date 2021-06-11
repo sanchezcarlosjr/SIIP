@@ -2,13 +2,14 @@ extend type Query {
   member(id: ID @where(operator: "=", key: "nempleado")): Employee @find(scopes:["members"])
   members(
     ##trashed: Trashed @trashed
+    members: String @scope(name: "free")
     academic_body_id: ID @scope(name: "academicBodyMembers")
     close_to_retirement: String @scope(name: "closeToRetirement")
     campus: String @scope(name: "campus")
     leaders: String @scope(name: "leaders")
     terms: [String] @scope(name: "terms")
     name_or_id: String @scope(name: "nameOrId")
-  ): [Employee] @paginate(defaultCount: 200, scopes:["members"])
+  ): [Employee] @paginate(defaultCount: 200)
   #todo: Paginate
 }
 

@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VueFormGenerator from 'vue-form-generator';
 import { members } from "../../@shared/repositories/academic_bodies/members/repository.ts";
-import { leaders, campus, gender, close_to_retirement } from "../../@shared/search-criteria/search-criteria.ts";
+import { leaders, campus, gender, close_to_retirement, members as members_criteria } from "../../@shared/search-criteria/search-criteria.ts";
 
 @Component
 export default class MembersPage extends Vue {
@@ -10,6 +10,7 @@ export default class MembersPage extends Vue {
       return employee?.is_leader ? 'font-weight-bold' : '';
   };
   criteria = [
+    members_criteria,
     leaders,
     gender,
     close_to_retirement,
