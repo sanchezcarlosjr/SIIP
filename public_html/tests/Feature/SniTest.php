@@ -52,7 +52,7 @@ class SniTest extends TestCase
     }
     public function testShouldGetTwoQueries() {
         $sni = new SniStatistics();
-        $statistics = $sni(null, ['campus' => 'Ensenada']);
+        $statistics = $sni(null, ['campus' => 'Tijuana']);
         dd($statistics);
     }
 }

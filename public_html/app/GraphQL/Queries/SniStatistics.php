@@ -9,40 +9,31 @@ class SniStatistics
 {
     public function __invoke($_, array $args)
     {
-        /** Get all */
-        $model = Sni::getModel();
-        if (isset($args["campus"])) {
-            $model = $model->campus($args["campus"]);
-        }
-        if (isset($args["terms"])) {
-            $model = $model->terms($args["terms"]);
-        }
-        $males = $model->getModel()->gender('Hombre')->get()->unique('employee_id')->count();
-        $others = $model->getModel()->gender('NA')->get()->unique('employee_id')->count();
-        $females = $model->gender('Mujer')->get()->unique('employee_id')->count();
-
-        return [
-            'periods' => ['2021-2'],
-            'datasets' => [
+        $immutableModel = new ImmutableModel(Sni::getModel(), collect([
+            ["name" => "campus", "arg" => "campus"],
+            ["name" => "terms", "arg" => "terms"]
+        ]), $args);
+        $datasets = $immutableModel->generateDatasetBy('gender', collect([
                 [
-                    'id' => 'M',
+                    'id' => 'Mujer',
                     'label' => 'Mujeres',
-                    'data' => [$females],
-                    'stack' => 'Sexo',
+                    'stack' => 'Sexo'
                 ],
                 [
-                    'id' => 'H',
+                    'id' => 'Hombre',
                     'label' => 'Hombres',
-                    'data' => [$males],
-                    'stack' => 'Sexo',
+                    'stack' => 'Sexo'
                 ],
                 [
                     'id' => 'NA',
                     'label' => 'No especificado',
-                    'data' => [$others],
                     'stack' => 'Sexo',
                 ]
             ]
+        ));
+        return [
+            'periods' => ['2021-2'],
+            'datasets' => $datasets
         ];
     }
 }
