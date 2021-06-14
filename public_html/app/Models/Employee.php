@@ -15,6 +15,7 @@ class Employee extends Model
     const birthdayFormat = "d/m/Y";
     const Male = "M";
     const Female = "F";
+    const Others = "NA";
     public $timestamps = false;
     protected $primaryKey = 'nempleado';
     protected $table = 'empleados';
@@ -284,7 +285,7 @@ class Employee extends Model
             case "Mujer":
                 return self::Female;
             default:
-                return "";
+                return self::Others;
         }
     }
 

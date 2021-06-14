@@ -18,34 +18,29 @@ class SniStatistics
             $model = $model->terms($args["terms"]);
         }
         $males = $model->getModel()->gender('Hombre')->get()->unique('employee_id')->count();
+        $others = $model->getModel()->gender('NA')->get()->unique('employee_id')->count();
         $females = $model->gender('Mujer')->get()->unique('employee_id')->count();
 
         return [
-            'periods' => ['2020-1','2021-2'],
+            'periods' => ['2021-2'],
             'datasets' => [
                 [
                     'id' => 'M',
                     'label' => 'Mujeres',
-                    'data' => [1,$females],
+                    'data' => [$females],
                     'stack' => 'Sexo',
                 ],
                 [
                     'id' => 'H',
                     'label' => 'Hombres',
-                    'data' => [2,$males],
+                    'data' => [$males],
                     'stack' => 'Sexo',
                 ],
                 [
-                    'id' => 'L',
-                    'label' => 'Licenciatura',
-                    'data' => [1,3],
-                    'stack' => 'Grado',
-                ],
-                [
-                    'id' => 'P',
-                    'label' => 'Posgrado',
-                    'data' => [1,1],
-                    'stack' => 'Grado',
+                    'id' => 'NA',
+                    'label' => 'No especificado',
+                    'data' => [$others],
+                    'stack' => 'Sexo',
                 ]
             ]
         ];
