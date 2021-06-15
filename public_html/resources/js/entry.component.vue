@@ -110,6 +110,7 @@ export default class EntryComponent extends Vue {
     sidebar = true;
 
     mounted() {
+        this.sidebar = JSON.parse(localStorage.getItem('sidebar') ?? "true");
         console.log('%c Interested in working with us?\n See https://www.sanchezcarlosjr.com', 'background: #222; color: #bada55');
     }
 
@@ -123,6 +124,7 @@ export default class EntryComponent extends Vue {
 
     changeStatusSidebar() {
         this.sidebar = !this.sidebar;
+        localStorage.setItem('sidebar', String(this.sidebar));
     }
 }
 </script>
