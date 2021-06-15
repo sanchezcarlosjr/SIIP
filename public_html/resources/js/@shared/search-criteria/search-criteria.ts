@@ -35,6 +35,9 @@ export const gender = {
         },
         {
             value: "Mujer"
+        },
+        {
+            value: "NA"
         }
     ]
 }
