@@ -13,20 +13,24 @@ class SniStatistics
             ["name" => "campus", "arg" => "campus"],
             ["name" => "terms", "arg" => "terms"]
         ]), $args);
+        $actual = time();
         $datasets = $immutableModel->generateDatasetBy('gender', collect([
                 [
-                    'id' => 'Mujer',
+                    'id' => "Mujeres-{$actual}",
                     'label' => 'Mujeres',
+                    'gender' => 'Mujer',
                     'stack' => 'Sexo'
                 ],
                 [
-                    'id' => 'Hombre',
+                    'id' => "Hombres-{$actual}",
                     'label' => 'Hombres',
+                    'gender' => 'Hombre',
                     'stack' => 'Sexo'
                 ],
                 [
-                    'id' => 'NA',
+                    'id' => "NA-{$actual}",
                     'label' => 'No especificado',
+                    'gender' => 'NA',
                     'stack' => 'Sexo',
                 ]
             ]

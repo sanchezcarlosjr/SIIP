@@ -26,7 +26,7 @@ class ImmutableModel
     {
         return $criteria->reduce(function (Collection $carry, array $item) use ($filter) {
             $this->newModel();
-            return $carry->push(array_merge($item, ["data" => [$this->model->{$filter}($item["id"])->get()->unique('employee_id')->count()]]));
+            return $carry->push(array_merge($item, ["data" => [$this->model->{$filter}($item[$filter])->get()->unique('employee_id')->count()]]));
         }, collect());
     }
 
