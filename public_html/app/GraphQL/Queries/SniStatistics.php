@@ -11,7 +11,9 @@ class SniStatistics
     {
         $immutableModel = new ImmutableModel(Sni::getModel(), collect([
             ["name" => "campus", "arg" => "campus"],
-            ["name" => "terms", "arg" => "terms"]
+            ["name" => "terms", "arg" => "terms"],
+            ["name" => "closeToRetirement", "arg" => "close_to_retirement"],
+            ["name" => "closeToExpire", "arg" => "close_to_expire"]
         ]), $args);
         $actual = time();
         $datasets = $immutableModel->generateDatasetBy('gender', collect([
