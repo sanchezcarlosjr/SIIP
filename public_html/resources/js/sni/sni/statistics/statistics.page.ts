@@ -53,9 +53,7 @@ enum KindOfStatistic {
                     return;
                 }
                 this.sni_statistics = data["sni_statistics"];
-                if (this.tabIndex === KindOfStatistic.GRAPH) {
-                    this.renderGraph();
-                }
+                this.renderGraph();
             },
             pollInterval: 20000,
             manual: true,
@@ -79,8 +77,31 @@ export default class SniStatistics extends Vue {
     from = "";
     to = "";
     sni_statistics: SniStatisticsQuery = {periods: [], datasets: [{id: "", label: "", data: [], stack: ""}]};
+    sniByLevelData = {};
+    sniByLevelOptions = {
+        tooltips: {
+            mode: 'x',
+            callbacks: {
+                title: function (tooltipItems: [{ label: string, datasetIndex: number }], data: SniStatisticsQuery) {
+                    return `${tooltipItems[0].label} ${data.datasets[tooltipItems[0].datasetIndex].stack}`;
+                },
+                footer: function (tooltipItems: any, sniStatisticsQuery: SniStatisticsQuery) {
+                    let total = tooltipItems.reduce((a: number, e: any) => a + parseInt(e.yLabel), 0);
+                    return 'Total: ' + total;
+                }
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    };
     periods: { text: string, value: string }[] = [];
-    sniByLevel = {};
 
     constructor() {
         super();
@@ -95,6 +116,24 @@ export default class SniStatistics extends Vue {
             this.periods.push({text: `${actualYear}-1`, value: `${actualYear}-1`});
             actualYear--;
         }
+    }
+
+    get fields() {
+        return ["Periodo", ...this.sni_statistics.datasets.map((value) => value.label), "Total"];
+    }
+
+    get items() {
+        return this.sni_statistics.periods.map((value, index) => {
+            let total = 0;
+            return {
+                "Periodo": value,
+                ...this.sni_statistics.datasets.reduce((acc, actual) => {
+                    total += actual.data[index];
+                    return {...acc, [actual.label]: actual.data[index]};
+                }, {}),
+                "Total": total
+            }
+        });
     }
 
     mounted() {
@@ -113,59 +152,16 @@ export default class SniStatistics extends Vue {
         });
     }
 
-    get fields() {
-        return ["Periodo", ...this.sni_statistics.datasets.map((value) => value.label), "Total"];
-    }
-
-    get items() {
-        return this.sni_statistics.periods.map((value, index) => {
-            let total = 0;
-            return {
-                "Periodo": value,
-                ...this.sni_statistics.datasets.reduce((acc, actual) => {
-                    total += actual.data[index];
-                    return {...acc,[actual.label]: actual.data[index]};
-                }, {}),
-                "Total": total
-            }
-        });
-    }
-
     renderGraph() {
         const stackColors = new StackColor();
-        this.sniByLevel = {
-            options: {
-                tooltips: {
-                    mode: 'x',
-                    callbacks: {
-                        title: function (tooltipItems: [{ label: string, datasetIndex: number }], data: SniStatisticsQuery) {
-                            return `${tooltipItems[0].label} ${data.datasets[tooltipItems[0].datasetIndex].stack}`;
-                        },
-                        footer: function (tooltipItems: any, sniStatisticsQuery: SniStatisticsQuery) {
-                            let total = tooltipItems.reduce((a: number, e: any) => a + parseInt(e.yLabel), 0);
-                            return 'Total: ' + total;
-                        }
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
+        this.sniByLevelData = {
+            labels: this.sni_statistics?.periods,
+            datasets: this.sni_statistics?.datasets.map((dataset) => {
+                return {
+                    backgroundColor: stackColors.definePaletteColor(dataset.stack),
+                    ...dataset
                 }
-            },
-            data: {
-                labels: this.sni_statistics?.periods,
-                datasets: this.sni_statistics?.datasets.map((dataset) => {
-                    return {
-                        backgroundColor: stackColors.definePaletteColor(dataset.stack),
-                        ...dataset
-                    }
-                }) ?? []
-            },
+            })
         };
     }
 }
