@@ -65,7 +65,7 @@ enum KindOfStatistic {
                         'datasets.data',
                         'datasets.stack'
                     ],
-                    args: this.filters
+                    args: [...this.filters, {name: "variable", value: this.selectedVariables}]
                 })
             }
         }
@@ -74,6 +74,8 @@ enum KindOfStatistic {
 export default class SniStatistics extends Vue {
     @Prop() filters!: { name: string, value: string }[];
     tabIndex: KindOfStatistic = 0;
+    selectedVariables = ["Sexo"];
+    variableOptions = ["Sexo", "Unidad académica"];
     from = "";
     to = "";
     sni_statistics: SniStatisticsQuery = {periods: [], datasets: [{id: "", label: "", data: [], stack: ""}]};

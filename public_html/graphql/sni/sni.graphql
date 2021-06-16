@@ -5,6 +5,7 @@ extend type Query {
         terms: [String]
         campus: String
         gender: String
+        variable: [String]
         from: String
         to: String
     ): SniStatistics
