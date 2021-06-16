@@ -74,7 +74,7 @@ enum KindOfStatistic {
 export default class SniStatistics extends Vue {
     @Prop() filters!: { name: string, value: string }[];
     tabIndex: KindOfStatistic = 0;
-    selectedVariables = ["Sexo"];
+    selectedVariables = "Sexo";
     variableOptions = ["Sexo", "Unidad académica"];
     from = "";
     to = "";

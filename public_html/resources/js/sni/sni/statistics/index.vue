@@ -3,7 +3,7 @@
         <b-row>
             <b-col cols="3">
                 <b-form-group label="Variable" label-for="dropdown-form-period" @submit.stop.prevent>
-                    <b-form-select v-model="selectedVariables" :options="variableOptions" multiple :select-size="2"></b-form-select>
+                    <b-form-select v-model="selectedVariables" :options="variableOptions" ></b-form-select>
                 </b-form-group>
             </b-col>
         </b-row>
