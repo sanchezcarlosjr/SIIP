@@ -15,30 +15,29 @@ class SniStatistics
             ["name" => "closeToRetirement", "arg" => "close_to_retirement"],
             ["name" => "closeToExpire", "arg" => "close_to_expire"]
         ]), $args);
-        $actual = time();
-        $datasets = $immutableModel->generateDatasetBy('gender', collect([
+        $datasets =  $immutableModel->generateDatasetBy('gender', collect([
                 [
-                    'id' => "Mujeres-{$actual}",
+                    'id' => "Mujeres",
                     'label' => 'Mujeres',
                     'gender' => 'Mujer',
-                    'stack' => 'Sexo'
+                    'stack' => 'Investigadores'
                 ],
                 [
-                    'id' => "Hombres-{$actual}",
+                    'id' => "Hombres",
                     'label' => 'Hombres',
                     'gender' => 'Hombre',
-                    'stack' => 'Sexo'
+                    'stack' => 'Investigadores'
                 ],
                 [
-                    'id' => "NA-{$actual}",
+                    'id' => "NA",
                     'label' => 'No especificado',
                     'gender' => 'NA',
-                    'stack' => 'Sexo',
+                    'stack' => 'Investigadores',
                 ]
             ]
         ));
         return [
-            'periods' => ['2021-2'],
+            'periods' => [$args["to"]],
             'datasets' => $datasets
         ];
     }

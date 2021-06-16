@@ -17,7 +17,8 @@ class StackColor {
     private static paletteColors = [
         ["#007bff", "#6610f2", "#6f42c1"],
         ["#17a2b8", "#20c997", "#218838"],
-        ["#fd7e14", "#dc3545", "#e83e8c"]
+        ["#fd7e14", "#dc3545", "#e83e8c"],
+        ["#6c757d", "#495057", "#343a40"]
     ];
     private actualStack = 0;
     private stack = new Map<string, { paletteColor: number, color: number }>();
@@ -25,7 +26,7 @@ class StackColor {
     definePaletteColor(id: string) {
         if (!this.stack.has(id)) {
             this.stack.set(id, {
-                paletteColor: ++this.actualStack,
+                paletteColor: this.actualStack++,
                 color: 0
             });
         } else {
@@ -65,7 +66,11 @@ enum KindOfStatistic {
                         'datasets.data',
                         'datasets.stack'
                     ],
-                    args: [...this.filters, {name: "variable", value: this.selectedVariables}]
+                    args: [
+                        ...this.filters,
+                        {name: "to", value: this.to},
+                        {name: "from", value: this.from},
+                    ]
                 })
             }
         }
@@ -74,8 +79,6 @@ enum KindOfStatistic {
 export default class SniStatistics extends Vue {
     @Prop() filters!: { name: string, value: string }[];
     tabIndex: KindOfStatistic = 0;
-    selectedVariables = "Sexo";
-    variableOptions = ["Sexo", "Unidad académica"];
     from = "";
     to = "";
     sni_statistics: SniStatisticsQuery = {periods: [], datasets: [{id: "", label: "", data: [], stack: ""}]};
@@ -140,18 +143,6 @@ export default class SniStatistics extends Vue {
 
     mounted() {
         this.$apollo.queries.statistics.start();
-    }
-
-    async changeFrom() {
-        await this.$apollo.queries.statistics.refetch({
-            from: this.from
-        });
-    }
-
-    async changeTo() {
-        await this.$apollo.queries.statistics.refetch({
-            to: this.to
-        });
     }
 
     renderGraph() {
