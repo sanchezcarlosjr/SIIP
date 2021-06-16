@@ -24,6 +24,11 @@ class ImmutableModel
 
     public function generateDatasetBy(string $filter, Collection $criteria)
     {
+        if (isset($this->criteria[$filter])) {
+            $criteria = $criteria->filter(function (array $item) use ($filter) {
+                return $this->criteria[$filter] == $item[$filter];
+            });
+        }
         return $criteria->reduce(function (Collection $carry, array $item) use ($filter) {
             $this->newModel();
             return $carry->push(array_merge($item, ["data" => [$this->model->{$filter}($item[$filter])->get()->unique('employee_id')->count()]]));
