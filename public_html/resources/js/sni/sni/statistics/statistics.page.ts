@@ -15,9 +15,9 @@ interface SniStatisticsQuery {
 
 class StackColor {
     private static paletteColors = [
-        ["#007bff", "#6610f2", "#6f42c1"],
         ["#17a2b8", "#20c997", "#218838"],
         ["#fd7e14", "#dc3545", "#e83e8c"],
+        ["#007bff", "#6610f2", "#6f42c1"],
         ["#6c757d", "#495057", "#343a40"]
     ];
     private actualStack = 0;
