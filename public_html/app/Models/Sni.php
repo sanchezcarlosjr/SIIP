@@ -24,18 +24,17 @@ class Sni extends Model
         parent::__construct($attributes);
     }
 
-    public function scopeTerms($query, $terms)
+    public function scopeTerms(Builder $query, $terms)
     {
         if (empty($terms)) {
             return $query;
         }
-        $where = [];
+        $columns = DB::raw("(finish_date || discipline ||  start_date || field || level || specialty || employee_id)");
         for ($i = 0; $i < count($terms); $i++) {
-            $where[] = array(DB::raw("CONCAT_WS(' ', start_date, finish_date, discipline, field, request, level, specialty, employee_id)"), "ILIKE", "%" . $terms[$i] . "%");
+            $query->orWhere($columns, "ILIKE", "%" . $terms[$i] . "%");
         }
-        return $query->where(function ($query) use ($where) {
-            $query->orWhere($where);
-        });
+
+        return $query;
     }
 
     public function scopeCampus(Builder $query, string $campus): Builder

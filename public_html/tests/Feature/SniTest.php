@@ -50,9 +50,19 @@ class SniTest extends TestCase
             $this->assertEquals(Employee::Male, $sexo);
         });
     }
-    public function testShouldGetTwoQueries() {
+    public function testShouldGetSniByTerms() {
+        $level1 = Sni::terms(["Nivel 1"])->count();
+        $level2 = Sni::terms(["Nivel 2"])->count();
+        $snis = Sni::terms(["Nivel 1", "Nivel 2"])->get();
+        dd($snis);
+        $this->assertEquals( $level1 + $level2, $snis->count());
+    }
+    public function testShouldGetStatistics() {
         $sni = new SniStatistics();
-        $statistics = $sni(null, ['campus' => 'Tijuana']);
-        dd($statistics);
+        $statistics = $sni(null, ['to'=> '2021-1', 'campus' => 'Tijuana']);
+        $statistics["datasets"]->each(function ($item) {
+            $this->assertContains($item["label"], ["Mujeres", "Hombres", "No especificado"]);
+            $this->assertGreaterThanOrEqual($item["data"][0], 0);
+        });
     }
 }
