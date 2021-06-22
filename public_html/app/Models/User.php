@@ -35,6 +35,19 @@ class User extends Authenticatable
         return $this->belongsTo(Employee::class, 'employee_id');
     }
 
+    public function scopeCampus(Builder $query, string $campus): Builder
+    {
+        return $query->joinSub(Employee::campus($campus), 'employeeCampus', function ($join) {
+            $join->on('users.employee_id', '=', 'employeeCampus.nempleado');
+        });
+    }
+
+    public function scopeGender(Builder $query, string $gender): Builder
+    {
+        return $query->joinSub(Employee::gender($gender), 'employeeGender', function ($join) {
+            $join->on('users.employee_id', '=', 'employeeGender.nempleado');
+        });
+    }
 
     public function scopeTerms(Builder $query, $terms): Builder
     {

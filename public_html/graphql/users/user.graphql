@@ -1,6 +1,8 @@
 extend type Query {
     user(id: ID @eq): User @find
     users(
+        gender: String @scope(name: "gender")
+        campus: String @scope(name: "campus")
         terms: [String] @scope(name: "terms")
     ): [User] @paginate(defaultCount: 10)
 }

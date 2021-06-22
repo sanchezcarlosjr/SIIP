@@ -3,6 +3,7 @@ import Component from "vue-class-component";
 import {users} from "../../@shared/repositories/users/repository";
 import {employees} from "../../@shared/repositories/employees/repository";
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
+import {campus, gender} from "../../@shared/search-criteria/search-criteria";
 
 enum Role {
     COORDINATOR_UA = 3,
@@ -41,7 +42,10 @@ const schema = {
 
 @Component
 export default class UsersPage extends Vue {
-    criteria = [];
+    criteria = [
+        gender,
+        campus,
+    ];
     formSchemas = {
         create: schema,
         edit: schema
