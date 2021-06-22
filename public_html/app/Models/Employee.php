@@ -89,6 +89,7 @@ class Employee extends Model
         return $this->belongsTo(AcademicUnit::class, 'nunidad');
     }
 
+
     public function helps()
     {
         return $this->hasMany(Help::class, 'benefited_employee_id');
@@ -112,6 +113,11 @@ class Employee extends Model
     public function snis()
     {
         return $this->hasMany(Sni::class, 'employee_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'employee_id');
     }
 
     public function researchers()
@@ -312,7 +318,7 @@ class Employee extends Model
 
         $where = [];
         for ($i = 0; $i < count($terms); $i++) {
-            $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, nempleado, unidad, campus, academic_body)"), "ILIKE", "%" . $terms[$i] . "%");
+            $where[] = array(DB::raw("CONCAT_WS(' ', nempleado, correo1, nombre, apaterno, amaterno, nempleado, unidad, campus, academic_body)"), "ILIKE", "%" . $terms[$i] . "%");
         }
 
         return $query

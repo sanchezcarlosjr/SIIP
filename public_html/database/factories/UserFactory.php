@@ -23,11 +23,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'role_id' => 1,
-            'campus' => $this->faker->city,
-            'unit' => $this->faker->company,
+            'role_id' => $this->faker->numberBetween(1,4),
             'remember_token' => Str::random(10),
         ];
     }

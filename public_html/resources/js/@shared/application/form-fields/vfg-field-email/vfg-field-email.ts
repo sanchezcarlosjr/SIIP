@@ -10,6 +10,9 @@ export default class VfgFieldEmail extends Mixins(VueFormGenerator.abstractField
     userName = '';
 
     mounted() {
+        if (this.value == null) {
+            return;
+        }
         this.userName = this.value.split('@')[0];
     }
     updated() {

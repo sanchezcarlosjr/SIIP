@@ -1,25 +1,24 @@
 extend type Query {
     user(id: ID @eq): User @find
-    users: [User] @paginate(defaultCount: 10)
+    users(
+        terms: [String] @scope(name: "terms")
+    ): [User] @paginate(defaultCount: 10)
 }
 
 extend type Mutation {
-    updateUsers(data: updateUsersInput! @spread): User @update
+    upsert_user(
+        data: UpsertUserInput @spread
+    ): User @upsert
 }
 
 type User {
     id: ID!
-    name: String!
-    email: String
-    unit: String
-    campus: String
+    role_id: Int
+    employee: Employee
 }
 
-input updateUsersInput {
-    id: ID!
-    name: String!
-    email: String
-    campus: String
-    unit: String
+input UpsertUserInput {
+    id: ID
+    employee_id: Int
     role_id: ID
 }

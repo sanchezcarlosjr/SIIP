@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,13 +10,10 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
     protected $fillable = [
-        'name',
         'role_id',
-        'unit',
-        'campus',
-        'email',
-        'id',
+        'employee_id'
     ];
     protected $hidden = [
         'remember_token',
@@ -27,7 +24,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function roles() {
+
+    public function roles()
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
+
+
+    public function scopeTerms(Builder $query, $terms): Builder
+    {
+        if (empty($terms)) {
+            return $query;
+        }
+        return $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
+            $join->on('users.employee_id', '=', 'employee.nempleado');
+        });
+    }
+
 }

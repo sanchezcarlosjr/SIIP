@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{AcademicUnit, ActivitiesPit, DES};
+use App\Models\{AcademicUnit, ActivitiesPit, DES, User};
 use App\Models\AcademicBody;
 use App\Models\Employee;
 use App\Models\Evaluation;
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->makeRoles();
-        $this->makeUsers();
+        Employee::factory(10)->has(User::factory())->create();
         # DES::factory(10)->create();
         # AcademicUnit::factory(100)->create();
         ProdepArea::factory(200)->create();
@@ -77,8 +77,6 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
                 [
-                    'name' => 'Juan Guillermo Vaca Rodríguez',
-                    'email' => 'juangvaca@uabc.edu.mx',
                     'role_id' => 1,
                     'campus' => 'Ensenada',
                     'unit' => 'NA',
