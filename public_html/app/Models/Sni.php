@@ -29,10 +29,9 @@ class Sni extends Model
         if (empty($terms)) {
             return $query;
         }
-        $columns = DB::raw("(finish_date || discipline ||  start_date || field || level || specialty)");
-        for ($i = 0; $i < count($terms); $i++) {
-            $query->orWhere($columns, "ILIKE", "%" . $terms[$i] . "%");
-        }
+        $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
+            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        });
         return $query;
     }
 
