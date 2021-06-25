@@ -47,6 +47,7 @@ export default {
             if (routes.length === 0) {
                 return;
             }
+            routes = routes.slice(1);
             this.items = [];
             let lazy = false;
             const paths = this.$route.fullPath.split('/').slice(1);

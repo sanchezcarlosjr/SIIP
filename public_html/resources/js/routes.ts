@@ -1,24 +1,33 @@
 import Vue from "vue"
-import VueRouter from "vue-router"
+import VueRouter, {RouteConfig} from "vue-router"
 import NotFoundPage from './not-found/index.vue';
-import {AcademicBodyRoutes} from "./academic-bodies/routes";
-import {AdminRoutes} from "./admin/routes";
 import {HomeRoutes} from "./home/routes";
+import {LoginRoutes} from "./login/routes";
+import {AdminRoutes} from "./admin/routes";
+import {AcademicBodyRoutes} from "./academic-bodies/routes";
 import {ProdepRoutes} from "./prodep/routes";
 import {SniRoutes} from "./sni/routes";
-import {ActivityPitRoutes} from "./activities-pits/routes";
 import {ResearchRoutes} from "./researcher/routes";
+import {ActivityPitRoutes} from "./activities-pits/routes";
 
 Vue.use(VueRouter)
 
-export const routes = [
-    ...HomeRoutes,
-    AdminRoutes,
-    AcademicBodyRoutes,
-    ProdepRoutes,
-    SniRoutes,
-    ResearchRoutes,
-    ActivityPitRoutes,
+export const routes: RouteConfig[] = [
+    LoginRoutes,
+    {
+        path: '/inicio',
+        name: 'siiip',
+        component: () => import('./shell.component.vue'),
+        children: [
+            HomeRoutes,
+            AdminRoutes,
+            AcademicBodyRoutes,
+            ProdepRoutes,
+            SniRoutes,
+            ResearchRoutes,
+            ActivityPitRoutes,
+        ],
+    },
     {
         path: '*', component: NotFoundPage
     },

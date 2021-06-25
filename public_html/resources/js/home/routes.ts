@@ -1,15 +1,9 @@
-import HomeModule from "./home.component.vue";
-
-export const HomeRoutes = [
-    {
-        path: '/',
-        redirect: '/inicio'
-    },
+export const HomeRoutes =
     {
         path: '/inicio',
         name: 'Inicio',
         icon: 'fa-home',
         meta: {title: 'Inicio'},
-        component: HomeModule
+        component: () => import('./home.component.vue')
     }
-]
+

@@ -7,7 +7,7 @@ export const AdminRoutes = {
     name: 'Usuarios',
     icon: 'fa-users',
     meta: {title: 'Usuarios'},
-    component: AdminModule,
+    component: () => import('./admin.module.vue'),
     children: [
         {
             path: '',

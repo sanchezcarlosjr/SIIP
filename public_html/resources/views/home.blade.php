@@ -2,7 +2,8 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>SIIIP</title>
+    <title>UABC - Coordinación General de Posgrado e Investigación SIIIP</title>
+    <meta name="description" content="Sistema Institucional de Indicadores de Investigación y Posgrado de la Universidad Autónoma de Baja California.">
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
     <link rel="icon" href="{{asset('img/logo.png')}}" type="image/x-icon"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
