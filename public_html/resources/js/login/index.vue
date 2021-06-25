@@ -19,15 +19,15 @@
                                                 <b-form>
                                                     <b-form-group
                                                         id="input-group-1"
-                                                        label="No. de empleado o correo electrónico"
+                                                        label="No. de empleado"
                                                         label-for="input-1"
                                                         style="padding: 10px 0;"
                                                     >
                                                         <b-form-input
-                                                            id="input-1"
+                                                            id="user"
                                                             required
                                                             size="lg"
-                                                            type="email"
+                                                            type="number"
                                                         ></b-form-input>
                                                     </b-form-group>
                                                     <b-form-group
@@ -36,18 +36,25 @@
                                                         label-for="input-1"
                                                         style="padding: 10px 0;"
                                                     >
-                                                        <b-form-input
-                                                            id="input-1"
-                                                            required
-                                                            size="lg"
-                                                            type="password"
-                                                        ></b-form-input>
+                                                        <b-input-group class="mt-3">
+                                                            <template #append>
+                                                                <b-input-group-text @click="changePasswordStatus">
+                                                                    <font-awesome-icon :icon="password[passwordStatus].icon"
+                                                                                       class="text-muted"></font-awesome-icon>
+                                                                </b-input-group-text>
+                                                            </template>
+                                                            <b-form-input
+                                                                id="password"
+                                                                :type="password[passwordStatus].type"
+                                                                required
+                                                                size="lg"
+                                                            ></b-form-input>
+                                                        </b-input-group>
+
                                                     </b-form-group>
-                                                    <router-link :to="{ name: 'siiip'}" tag="a">
-                                                        <b-button block size="lg" squared type="submit" variant="primary">
-                                                            Iniciar sesión
-                                                        </b-button>
-                                                    </router-link>
+                                                    <b-button block size="lg" squared type="submit" variant="primary">
+                                                        Iniciar sesión
+                                                    </b-button>
                                                 </b-form>
                                             </b-row>
                                         </b-container>
