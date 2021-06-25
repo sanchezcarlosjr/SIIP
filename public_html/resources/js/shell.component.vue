@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="main-header">
             <div class="logo-header" data-background-color="green">
-                <router-link class="logo" to="/">SIIIP</router-link>
+                <router-link class="logo" to="/inicio">SIIIP</router-link>
                 <div class="nav-toggle">
                     <button class="btn btn-toggle toggle-sidebar" @click="changeStatusSidebar">
                         <i class="fas fa-bars"></i>
