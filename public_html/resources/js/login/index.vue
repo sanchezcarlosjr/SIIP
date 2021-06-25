@@ -19,7 +19,7 @@
                                                 <b-form>
                                                     <b-form-group
                                                         id="input-group-1"
-                                                        label="No. de empleado"
+                                                        label="Correo electrónico"
                                                         label-for="input-1"
                                                         style="padding: 10px 0;"
                                                     >
@@ -27,7 +27,7 @@
                                                             id="user"
                                                             required
                                                             size="lg"
-                                                            type="number"
+                                                            type="email"
                                                         ></b-form-input>
                                                     </b-form-group>
                                                     <b-form-group
