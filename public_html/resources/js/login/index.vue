@@ -27,6 +27,7 @@
                                                             id="user"
                                                             required
                                                             size="lg"
+                                                            autocomplete="current-email"
                                                             v-model="form.email"
                                                             type="email"
                                                         ></b-form-input>
@@ -49,6 +50,7 @@
                                                                 v-model="form.password"
                                                                 :type="password[passwordStatus].type"
                                                                 required
+                                                                autocomplete="current-password"
                                                                 size="lg"
                                                             ></b-form-input>
                                                         </b-input-group>
