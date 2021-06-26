@@ -45,7 +45,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth) && !state.user.token) {
-        next('/');
+        let path = `/?redirectTo=${to.fullPath}`;
+        next(path);
     }
     // This goes through the matched routes from last to first, finding the closest route with a title.
     // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
@@ -61,6 +62,7 @@ router.beforeEach((to, from, next) => {
     // Remove any stale meta tags from the document using the key attribute we set below.
     // @ts-ignore
     Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
+
 
     if (to.name === 'login' && state.user.token) {
         next('/inicio');

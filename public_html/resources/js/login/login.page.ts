@@ -55,7 +55,12 @@ export default class LoginPage extends Vue {
                 token: response.data.login.current_access_token,
                 permissions: response.data.login.permissions
             });
-            await router.push({name: 'siiip'});
+            if (this.$route.query.redirectTo === undefined) {
+                await router.push({name: 'siiip'});
+            } else {
+                await router.push(this.$route.query.redirectTo as string);
+            }
+
             this.$bvToast.toast(`Bienvenido ${response.data.login.employee.name}`, {
                 title: 'Operación exitosa',
                 variant: 'success',
