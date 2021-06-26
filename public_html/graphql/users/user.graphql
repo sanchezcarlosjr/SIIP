@@ -1,6 +1,6 @@
 extend type Query {
     "Log in to a new session and get the user."
-    login(email: String!, password: String!): User!
+    login(email: String! @trim, password: String! @trim): User!
     user(id: ID @eq): User @find
     me: User @auth
     users(
