@@ -18,6 +18,10 @@ extend type Mutation {
 
 type Permission {
     module: String
+    create: Boolean
+    destroy: Boolean
+    read: Boolean
+    edit: Boolean
 }
 
 type User {

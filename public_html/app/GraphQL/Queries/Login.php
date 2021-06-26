@@ -33,19 +33,39 @@ class Login
         $user['permissions'] = [
             [
                 'module' => '/inicio',
+                'create' => false,
+                'edit' => true,
+                'read' => false,
+                'destroy' => false
             ],
             [
                 'module' => '/usuarios',
+                'create' => false,
+                'edit' => true,
+                'read' => false,
+                'destroy' => false
             ],
             [
                 'module' => '/cuerpos-academicos',
+                'create' => false,
+                'edit' => true,
+                'read' => false,
+                'destroy' => false
             ],
             [
                 'module' => '/prodep',
+                'create' => false,
+                'edit' => true,
+                'read' => false,
+                'destroy' => false
             ],
             [
                 'module' => '/sni',
-            ],
+                'create' => false,
+                'edit' => true,
+                'read' => false,
+                'destroy' => false
+            ]
         ];
         return $user;
     }
