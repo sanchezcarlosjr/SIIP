@@ -27,7 +27,7 @@
                     <ul class="nav nav-primary">
                         <router-link
                             v-for="(route, index) in routes"
-                            v-if="route.name"
+                            v-if="route.name && permissions[route.path] !== undefined"
                             :key="index"
                             :to="route.path"
                             active-class="active"
@@ -101,6 +101,7 @@
 import Vue from "vue"
 import Component from "vue-class-component"
 import {routes} from "./routes";
+import state from "./store/store";
 
 @Component
 export default class ShellComponent extends Vue {
@@ -114,6 +115,10 @@ export default class ShellComponent extends Vue {
 
     get displayWidth() {
         return this.sidebar ? 'calc(100% - 250px)' : '100%';
+    }
+
+    get permissions() {
+        return state.user.permissions;
     }
 
     mounted() {

@@ -16,10 +16,15 @@ extend type Mutation {
     ): User @upsert
 }
 
+type Permission {
+    module: String
+}
+
 type User {
     id: ID!
     current_access_token: String
     tokens: [String]
+    permissions: [Permission]
     employee: Employee
 }
 

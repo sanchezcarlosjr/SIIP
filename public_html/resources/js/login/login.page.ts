@@ -36,6 +36,9 @@ export default class LoginPage extends Vue {
                     query authentication ($email: String!, $password: String!){
                         login(email: $email, password: $password) {
                             current_access_token
+                            permissions {
+                                module
+                            }
                             employee {
                                 name
                             }
@@ -50,7 +53,7 @@ export default class LoginPage extends Vue {
             mutations.updateUser({
                 name: response.data.login.employee.name,
                 token: response.data.login.current_access_token,
-                routes: []
+                permissions: response.data.login.permissions
             });
             await router.push({name: 'siiip'});
             this.$bvToast.toast(`Bienvenido ${response.data.login.employee.name}`, {

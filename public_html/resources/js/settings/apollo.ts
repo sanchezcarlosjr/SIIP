@@ -4,7 +4,6 @@ import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import {createUploadLink} from "apollo-upload-client";
 import {setContext} from 'apollo-link-context';
-import state from "../store/store";
 
 Vue.use(VueApollo);
 
@@ -12,7 +11,7 @@ const authLink = setContext((opt, {headers}) => {
     return {
         headers: {
             ...headers,
-            authorization: state.user.token
+            authorization: sessionStorage.getItem('token')
         }
     }
 });

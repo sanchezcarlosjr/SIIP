@@ -30,6 +30,23 @@ class Login
         }
         $user->tokens()->delete();
         $user['current_access_token'] = $user->createToken('default')->plainTextToken;
+        $user['permissions'] = [
+            [
+                'module' => '/inicio',
+            ],
+            [
+                'module' => '/usuarios',
+            ],
+            [
+                'module' => '/cuerpos-academicos',
+            ],
+            [
+                'module' => '/prodep',
+            ],
+            [
+                'module' => '/sni',
+            ],
+        ];
         return $user;
     }
 }
