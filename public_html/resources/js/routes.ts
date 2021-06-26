@@ -9,6 +9,7 @@ import {ProdepRoutes} from "./prodep/routes";
 import {SniRoutes} from "./sni/routes";
 import {ResearchRoutes} from "./researcher/routes";
 import {ActivityPitRoutes} from "./activities-pits/routes";
+import state from "./store/store";
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,9 @@ export const routes: RouteConfig[] = [
     {
         path: '/inicio',
         name: 'siiip',
+        meta: {
+            requiresAuth: true,
+        },
         component: () => import('./shell.component.vue'),
         children: [
             HomeRoutes,
@@ -26,7 +30,7 @@ export const routes: RouteConfig[] = [
             SniRoutes,
             ResearchRoutes,
             ActivityPitRoutes,
-        ],
+        ]
     },
     {
         path: '*', component: NotFoundPage
@@ -40,6 +44,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth) && !state.user.token) {
+        next('/')
+    }
     // This goes through the matched routes from last to first, finding the closest route with a title.
     // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
     const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);

@@ -4,12 +4,26 @@ const state = Vue.observable({
     user: {
         name: '',
         token: '',
-        role: 'admin'
+        routes: []
     }
 });
 
-export const updateUser = (user: any) => state.user = {
-    ...user
-};
+export const mutations = {
+    updateUser: (user: any) => {
+        state.user = {
+            ...user
+        };
+        sessionStorage.setItem('token', `Bearer ${state.user.token}`);
+    },
+    loadTokenFromStorage: () => {
+        const token = sessionStorage.getItem('token');
+        state.user = {
+            ...state.user,
+            token: token === null ? "" : token
+        }
+    }
+}
+
+mutations.loadTokenFromStorage();
 
 export default state;

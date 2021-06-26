@@ -24,6 +24,7 @@ class UserFactory extends Factory
     {
         return [
             'role_id' => $this->faker->numberBetween(1,4),
+            'password' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ];
     }

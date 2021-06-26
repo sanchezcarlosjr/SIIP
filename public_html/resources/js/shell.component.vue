@@ -117,7 +117,6 @@ export default class ShellComponent extends Vue {
     }
 
     mounted() {
-        console.log('A');
         this.sidebar = JSON.parse(localStorage.getItem('sidebar') ?? "true");
     }
 

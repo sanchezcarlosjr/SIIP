@@ -16,7 +16,7 @@
                                                 </b-col>
                                             </b-row>
                                             <b-row align-h="center">
-                                                <b-form>
+                                                <b-form @submit.prevent="login">
                                                     <b-form-group
                                                         id="input-group-1"
                                                         label="Correo electrónico"
@@ -27,6 +27,7 @@
                                                             id="user"
                                                             required
                                                             size="lg"
+                                                            v-model="form.email"
                                                             type="email"
                                                         ></b-form-input>
                                                     </b-form-group>
@@ -45,6 +46,7 @@
                                                             </template>
                                                             <b-form-input
                                                                 id="password"
+                                                                v-model="form.password"
                                                                 :type="password[passwordStatus].type"
                                                                 required
                                                                 size="lg"
@@ -52,8 +54,11 @@
                                                         </b-input-group>
 
                                                     </b-form-group>
-                                                    <b-button block size="lg" squared type="submit" variant="primary">
+                                                    <b-button  v-if="!form.loading" block size="lg" squared type="submit" variant="primary">
                                                         Iniciar sesión
+                                                    </b-button>
+                                                    <b-button v-if="form.loading" block size="lg" squared disabled variant="primary">
+                                                        <b-spinner label="Spinning"></b-spinner>
                                                     </b-button>
                                                 </b-form>
                                             </b-row>

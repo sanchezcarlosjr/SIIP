@@ -1,5 +1,8 @@
 extend type Query {
+    "Log in to a new session and get the user."
+    login(email: String!, password: String!): User!
     user(id: ID @eq): User @find
+    me: User @auth
     users(
         gender: String @scope(name: "gender")
         campus: String @scope(name: "campus")
@@ -15,7 +18,8 @@ extend type Mutation {
 
 type User {
     id: ID!
-    role_id: Int
+    current_access_token: String
+    tokens: [String]
     employee: Employee
 }
 
