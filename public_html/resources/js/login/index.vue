@@ -15,8 +15,8 @@
                                                            src="/img/banner.png"></b-img>
                                                 </b-col>
                                             </b-row>
-                                            <b-row align-h="center">
-                                                <b-form @submit.prevent="login">
+                                            <b-row align-h="center" style="margin: 0;">
+                                                <b-form style="width: 100%" @submit.prevent="login">
                                                     <b-form-group
                                                         id="input-group-1"
                                                         label="Correo electrónico"

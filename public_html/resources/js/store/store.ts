@@ -9,6 +9,14 @@ const state = Vue.observable({
 });
 
 export const mutations = {
+    logout: () => {
+        state.user = {
+            name: '',
+            token: '',
+            permissions: {} as any
+        }
+        sessionStorage.clear();
+    },
     updateUser: (user: { name: string, token: string, permissions: [{ module: string }] }) => {
         state.user = {
             ...user,

@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="main-header">
+        <div class="main-header" data-background-color="green">
             <div class="logo-header" data-background-color="green">
                 <router-link class="logo" to="/inicio">SIIIP</router-link>
                 <div class="nav-toggle">
@@ -14,7 +14,13 @@
                     <div>
                         <siip-breadcrumb></siip-breadcrumb>
                     </div>
-                    <b-avatar></b-avatar>
+                    <b-dropdown  variant="link" no-caret>
+                        <template #button-content>
+                            <b-avatar></b-avatar>
+                        </template>
+                        <b-dropdown-item @click="logout">Salir</b-dropdown-item>
+                    </b-dropdown>
+
                 </div>
             </nav>
         </div>
@@ -100,8 +106,8 @@
 <script lang="ts">
 import Vue from "vue"
 import Component from "vue-class-component"
-import {routes} from "./routes";
-import state from "./store/store";
+import router, {routes} from "./routes";
+import state, {mutations} from "./store/store";
 
 @Component
 export default class ShellComponent extends Vue {
@@ -128,6 +134,11 @@ export default class ShellComponent extends Vue {
     changeStatusSidebar() {
         this.sidebar = !this.sidebar;
         localStorage.setItem('sidebar', String(this.sidebar));
+    }
+
+    logout() {
+        mutations.logout();
+        router.push({name: 'login'});
     }
 }
 </script>

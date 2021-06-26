@@ -8,17 +8,22 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue';
 
+body {
+    font-family: "Nunito", sans-serif;
+}
+
 .hint {
-  @extend .small, .form-text, .text-muted;
+    @extend .small, .form-text, .text-muted;
 }
 
 .error {
-  .form-control {
-    @extend .is-invalid;
-  }
-  &> .errors.help-block {
-    display: block;
-  }
+    .form-control {
+        @extend .is-invalid;
+    }
+
+    & > .errors.help-block {
+        display: block;
+    }
 }
 
 /*.valid {
@@ -28,7 +33,7 @@
 }*/
 
 .errors.help-block {
-  @extend .invalid-feedback;
+    @extend .invalid-feedback;
 }
 
 .pointer {
@@ -238,5 +243,5 @@ table.table .avatar {
 }
 
 .form-group label, .form-check label {
-     white-space: normal !important;
+    white-space: normal !important;
 }
