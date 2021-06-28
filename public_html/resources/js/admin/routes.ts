@@ -12,12 +12,12 @@ export const AdminRoutes = {
         {
             path: '',
             name: 'Gestión',
-            component: UsersPage
+            component: () => import('./users/index.vue')
         },
         {
             name: 'Permisos',
             path: 'permisos',
-            component: UserPermissionsPage
+            component: () => import('./permissions/index.vue')
         }
     ],
 };
