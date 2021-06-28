@@ -63,8 +63,11 @@ router.beforeEach((to, from, next) => {
     // @ts-ignore
     Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
+    if (to.name === 'login' && state.user.token) {
+        next('/inicio');
+    }
 
-    if ((to.name === 'login' && state.user.token) || !state.user.permissions[to.path]) {
+    if (state.user.token && !state.user.permissions[to.path]) {
         next('/inicio');
     }
 
