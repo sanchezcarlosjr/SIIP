@@ -58,13 +58,6 @@ class Login
                 'edit' => true,
                 'read' => false,
                 'destroy' => false
-            ],
-            [
-                'module' => '/sni',
-                'create' => false,
-                'edit' => true,
-                'read' => false,
-                'destroy' => false
             ]
         ];
         return $user;
