@@ -77,7 +77,7 @@ export default class MembersPage extends Vue {
         }
       ]
     },
-    detail: {
+    read: {
       legend: "Empleado",
       fields: [
           {
@@ -141,7 +141,7 @@ export default class MembersPage extends Vue {
 
     // apiResource = new MembersRepository('academic_body', 'employees');
     // spanishResourceName = 'miembro'
-    // toolbar = new Set<string>(['add', 'remove', 'details']);
+    // toolbar = new Set<string>(['add', 'remove', 'reads']);
 
 
 }

@@ -17,7 +17,7 @@ export default class MembersPage extends Vue {
     campus
   ];
   formSchemas = {
-    detail: {
+    read: {
       legend: "Empleado",
       fields: [
           {

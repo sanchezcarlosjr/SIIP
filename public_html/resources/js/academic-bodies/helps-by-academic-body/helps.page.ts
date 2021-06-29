@@ -99,7 +99,7 @@ export default class HelpsPage extends Vue {
   formSchemas = {
     create: this._schema,
     edit: this._schema,
-    detail: {
+    read: {
       legend: "Apoyo",
       fields: [
         {

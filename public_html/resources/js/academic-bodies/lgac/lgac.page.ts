@@ -12,7 +12,7 @@ export default class LGACPage extends Vue {
     {key: `academic_body.leader.academic_unit.name`, label: 'Unidad Académica', sortable: true}
   ];
   formSchemas = {
-    detail: {
+    read: {
       legend: "LGAC",
       fields: [
         {

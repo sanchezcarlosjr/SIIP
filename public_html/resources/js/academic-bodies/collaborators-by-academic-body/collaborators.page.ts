@@ -33,7 +33,7 @@ export default class CollaboratorsPage extends Vue {
         }
       ]
     },
-    detail: {
+    read: {
       legend: "Empleado",
       fields: [
           {

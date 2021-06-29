@@ -210,7 +210,7 @@ export default class SiipTableComponent extends Vue {
     this.$root.$emit('bv::show::modal', type);
   }
 
-  /** Used for Edit & Details */
+  /** Used for Edit & reads */
   private _showAndFetch(type: string, itemId: string) {
     this.showModal(type);
     //@ts-ignore

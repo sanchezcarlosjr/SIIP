@@ -16,7 +16,7 @@ export default class HelpsPage extends Vue {
     {key: 'academic_body.leader.academic_unit.campus', label: 'Campus', sortable: true},
   ];
   formSchemas = {
-    detail: {
+    read: {
       legend: "Apoyo",
       fields: [
         {

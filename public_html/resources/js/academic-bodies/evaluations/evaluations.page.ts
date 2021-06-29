@@ -7,7 +7,7 @@ export default class EvaluationsPage extends Vue {
   resource = academic_bodies;
   criteria = [validity, campus, grade];
   formSchemas = {
-    detail: {
+    read: {
       legend: "Cuerpo Académico",
       fields: [
         {

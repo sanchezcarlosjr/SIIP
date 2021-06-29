@@ -75,7 +75,7 @@
       v-if="this.formSchemas.hasOwnProperty(FormModal.Type.Read)"
       :ref="FormModal.Type.Read"
       :type="FormModal.Type.Read"
-      :schema="formSchemas.detail"
+      :schema="formSchemas.read"
       :resource="resource"
     />
     <!-- EDIT -->

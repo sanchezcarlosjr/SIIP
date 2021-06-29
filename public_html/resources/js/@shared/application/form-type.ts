@@ -1,6 +1,6 @@
 export enum FormType {
     Create = "create",
-    Read = "detail",
+    Read = "read",
     Update = "edit",
     Delete = "delete",
     Archive = "archive"
