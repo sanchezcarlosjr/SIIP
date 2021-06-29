@@ -52,6 +52,7 @@ class Login
                 'read' => false,
                 'destroy' => false
             ],
+
             [
                 'module' => '/prodep',
                 'create' => false,
