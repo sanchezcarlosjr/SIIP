@@ -1,5 +1,4 @@
 import {Component, Prop, Ref, Vue} from 'vue-property-decorator';
-import {hasPermissions, permission} from "../../store/auth/permission";
 import TablePresenter from './application/table-presenter.component.vue';
 import SearcherComponent from './application/searcher.component.vue';
 import SiipTitle from './application/title.component.vue';
@@ -8,15 +7,13 @@ import GraphQLResourceRepository from "../../@shared/infraestructure/communicati
 import FormModal from "../../@shared/application/form-modal/form-modal.component.vue";
 
 @Component({
-    directives: {permission},
     components: {
         SearcherComponent,
         SiipTitle,
         TablePresenter,
         PrintOptions,
         FormModal
-    },
-    methods: {hasPermissions}
+    }
 })
 export default class SiipTableComponent extends Vue {
   @Prop() resource!: GraphQLResourceRepository;
