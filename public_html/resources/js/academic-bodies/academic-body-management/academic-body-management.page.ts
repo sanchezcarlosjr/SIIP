@@ -4,9 +4,10 @@ import {validator as GraphQLSelectIdValidator} from "../../@shared/application/f
 
 import {academic_bodies, des} from "../../@shared/repositories/academic_bodies/repository";
 import {prodep_areas} from "../../@shared/repositories/prodep/repository";
-import {validity, campus, grade} from "../../@shared/search-criteria/search-criteria";
+import {campus, grade, validity} from "../../@shared/search-criteria/search-criteria";
 
 import AcademicBodyStatistics from './statistics/index.vue';
+import {Permission} from "../../store/auth/permission";
 
 let schema = {
     legend: "Cuerpo Académico",
@@ -87,6 +88,10 @@ let schema = {
     ]
 };
 
+const formSchema = new Permission('/cuerpos-academicos', {
+    create: schema
+});
+
 @Component({
     components: {
         AcademicBodyStatistics
@@ -125,9 +130,7 @@ export default class AcademicBodyManagementPage extends Vue {
             tooltip: 'Redes'
         }
     };
-    formSchemas = {
-        create: schema
-    }
+    formSchemas = formSchema.hasPermissions();
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, editable: true, class: 'vw-20'},
         {
