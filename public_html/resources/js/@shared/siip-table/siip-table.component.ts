@@ -5,6 +5,7 @@ import SiipTitle from './application/title.component.vue';
 import PrintOptions from "./application/print-options.component.vue";
 import GraphQLResourceRepository from "../../@shared/infraestructure/communication/graphql/test";
 import FormModal from "../../@shared/application/form-modal/form-modal.component.vue";
+import {FormType} from "../application/form-type";
 
 @Component({
     components: {
@@ -34,15 +35,15 @@ export default class SiipTableComponent extends Vue {
   };
 
   //@ts-ignore
-  @Ref(FormModal.Type.Create) createForm!: Vue & {
+  @Ref(FormType.Create) createForm!: Vue & {
     fetch: (id: number)=>void;
   }
   //@ts-ignore
-  @Ref(FormModal.Type.Read) readForm!: Vue & {
+  @Ref(FormType.Read) readForm!: Vue & {
     fetch: (id: number)=>void;
   }
   //@ts-ignore
-  @Ref(FormModal.Type.Update) updateForm!: Vue & {
+  @Ref(FormType.Update) updateForm!: Vue & {
     fetch: (id: number)=>void;
   }
   /** Workaround */
@@ -123,15 +124,15 @@ export default class SiipTableComponent extends Vue {
     let queries = Object.keys(this.$route.query);
     switch(true) {
       //@ts-ignore
-      case queries.includes("create"): this.showModal(FormModal.Type.Create); return;
+      case queries.includes(FormType.Create): this.showModal(FormType.Create); return;
       //@ts-ignore
-      case queries.includes("detail"): this._showAndFetch(FormModal.Type.Read, this.$route.query[FormModal.Type.Read]); return;
+      case queries.includes(FormType.Read): this._showAndFetch(FormType.Read, this.$route.query[FormType.Read]); return;
       //@ts-ignore
-      case queries.includes("edit"): this._showAndFetch(FormModal.Type.Update, this.$route.query[FormModal.Type.Update]); return;
+      case queries.includes(FormType.Update): this._showAndFetch(FormType.Update, this.$route.query[FormType.Update]); return;
       //@ts-ignore
-      case queries.includes("delete"): this._showAndFetch(FormModal.Type.Delete, this.$route.query[FormModal.Type.Delete]); return;
+      case queries.includes(FormType.Delete): this._showAndFetch(FormType.Delete, this.$route.query[FormType.Delete]); return;
       //@ts-ignore
-      case queries.includes("archive"): this._showAndFetch(FormModal.Type.Archive, this.$route.query[FormModal.Type.Archive]); return;
+      case queries.includes(FormType.Archive): this._showAndFetch(FormType.Archive, this.$route.query[FormType.Archive]); return;
     }
   }
 
@@ -172,15 +173,16 @@ export default class SiipTableComponent extends Vue {
 
   /** Table */
   onRowClick(item: any, index: number, button: any) {
-    if (this.formSchemas.hasOwnProperty("edit")) {
-      //@ts-ignore
-      this._showAndFetch(FormModal.Type.Update, item.id);
-    } else if (this.formSchemas.hasOwnProperty("detail")) {
-      //@ts-ignore
-      this._showAndFetch(FormModal.Type.Read, item.id);
-    } else {
-      //@ts-ignore
-      this.$router.push(this.links.edit.link.replace("*", item.id));
+    try {
+        if (this.formSchemas.hasOwnProperty(FormType.Update)) {
+            this._showAndFetch(FormType.Update, item.id);
+        } else if (this.formSchemas.hasOwnProperty(FormType.Read)) {
+            this._showAndFetch(FormType.Read, item.id);
+        } else {
+            //@ts-ignore
+            this.$router.push(this.links.edit.link.replace("*", item.id));
+        }
+    } catch(e) {
     }
   }
 
@@ -237,48 +239,47 @@ export default class SiipTableComponent extends Vue {
     Object.keys(this.formSchemas).forEach(form => {
       /** Doesn't make sense lol */
       // //@ts-ignore
-      // if (form === FormModal.Type.Create) {
+      // if (form === FormType.Create) {
       //   options.push({
       //     //@ts-ignore
-      //     click: FormModal.Type.Create,
+      //     click: FormType.Create,
       //     //@ts-ignore
-      //     name: this.generateOptionsText("plus-square", this.$refs[FormModal.Type.Create].title)
+      //     name: this.generateOptionsText("plus-square", this.$refs[FormType.Create].title)
       //   });
       // }
-      //@ts-ignore
-      if (form === FormModal.Type.Read) {
+      if (form === FormType.Read) {
         options.push({
           //@ts-ignore
-          click: FormModal.Type.Read,
+          click: FormType.Read,
           //@ts-ignore
-          name: this.generateOptionsText("info-circle", this.$refs[FormModal.Type.Read].title)
+          name: this.generateOptionsText("info-circle", this.$refs[FormType.Read].title)
         });
       }
       //@ts-ignore
-      if (form === FormModal.Type.Update) {
+      if (form === FormType.Update) {
         options.push({
           //@ts-ignore
-          click: FormModal.Type.Update,
+          click: FormType.Update,
           //@ts-ignore
-          name: this.generateOptionsText("edit", this.$refs[FormModal.Type.Update].title)
+          name: this.generateOptionsText("edit", this.$refs[FormType.Update].title)
         });
       }
       //@ts-ignore
-      if (form === FormModal.Type.Delete) {
+      if (form === FormType.Delete) {
         options.push({
           //@ts-ignore
-          click: FormModal.Type.Delete,
+          click: FormType.Delete,
           //@ts-ignore
-          name: this.generateOptionsText("trash", this.$refs[FormModal.Type.Delete].title)
+          name: this.generateOptionsText("trash", this.$refs[FormType.Delete].title)
         });
       }
       //@ts-ignore
-      if (form === FormModal.Type.Archive) {
+      if (form === FormType.Archive) {
         options.push({
           //@ts-ignore
-          click: FormModal.Type.Archive,
+          click: FormType.Archive,
           //@ts-ignore
-          name: this.generateOptionsText("archive", this.$refs[FormModal.Type.Archive].title)
+          name: this.generateOptionsText("archive", this.$refs[FormType.Archive].title)
         });
       }
     });
