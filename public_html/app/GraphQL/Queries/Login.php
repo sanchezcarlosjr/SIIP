@@ -41,8 +41,8 @@ class Login
             [
                 'module' => '/usuarios',
                 'create' => false,
-                'edit' => true,
-                'read' => false,
+                'edit' => false,
+                'read' => true,
                 'destroy' => false
             ],
             [

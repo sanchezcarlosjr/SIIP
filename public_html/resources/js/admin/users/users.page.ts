@@ -2,8 +2,8 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import {users} from "../../@shared/repositories/users/repository";
 import {employees} from "../../@shared/repositories/employees/repository";
-import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id";
 import {campus, gender} from "../../@shared/search-criteria/search-criteria";
+import {Permission} from "../../store/auth/permission";
 
 enum Role {
     COORDINATOR_UA = 3,
@@ -40,18 +40,20 @@ const schema = {
     ]
 };
 
+const formSchema = new Permission('/usuarios', {
+    create: schema,
+    edit: schema
+});
+
 @Component
 export default class UsersPage extends Vue {
     criteria = [
         gender,
         campus,
     ];
-    formSchemas = {
-        create: schema,
-        edit: schema
-    };
+    formSchemas = formSchema.hasPermissions();
     fields = [
-        {key: 'employee.name', label: 'Nombre', sortable: true, },
+        {key: 'employee.name', label: 'Nombre', sortable: true,},
         {key: 'employee.correo1', label: 'Correo Electrónico', sortable: true},
         {key: 'employee.academic_unit.name', label: 'Unidad Académica', sortable: true},
         {key: 'employee.academic_unit.campus', label: 'Campus', sortable: true}

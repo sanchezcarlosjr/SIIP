@@ -38,6 +38,10 @@ export default class LoginPage extends Vue {
                             current_access_token
                             permissions {
                                 module
+                                create
+                                edit
+                                read
+                                destroy
                             }
                             employee {
                                 name

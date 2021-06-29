@@ -1,15 +1,26 @@
 import state from "../store";
 
-export function hasPermissions(roles: string[]) {
-    const permissions = new Set<string>(roles);
-    return true;
+export interface FormSchema {
+    create?: any;
+    edit?: any;
+    read?: any;
+    [key: string]: any;
 }
 
-
-class Rol {
-    constructor(private module: string, private formSchema: { create?: any, edit: any }) {
+export class Permission {
+    constructor(private module: string, private formSchema: FormSchema) {
+        if (
+            !state.user.permissions[this.module]['edit'] &&
+            state.user.permissions[this.module]['read'] &&
+            !this.formSchema.hasOwnProperty('read')) {
+            this.formSchema['read'] = this.formSchema.edit;
+        }
+        Object.keys(this.formSchema).filter((schema) => {
+            return !state.user.permissions[this.module][schema];
+        }).forEach((key: string) => delete this.formSchema[key]);
     }
+
     hasPermissions() {
-        return Object.keys(this.formSchema).filter((schema) => state.user.permissions[this.module][schema]);
+        return this.formSchema;
     }
 }
