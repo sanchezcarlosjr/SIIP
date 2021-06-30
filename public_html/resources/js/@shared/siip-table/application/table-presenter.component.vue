@@ -58,7 +58,7 @@
                     <p>
                         <b-form-select id="perPageSelected" v-model="perPage" :options="[5, 10, 25]" class="mt-0 w-25"
                                        size="sm"></b-form-select>
-                        resultados por página.
+                        resultados por página. {{rows}} resultados.
                     </p>
                 </b-col>
                 <b-col cols="4">
