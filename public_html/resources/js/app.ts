@@ -26,6 +26,7 @@ import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 import ApolloForm from "./@shared/application/apollo-form/apollo-form.component.vue";
 import FormModal from "./@shared/application/form-modal/form-modal.component.vue";
 import LinkButton from "./@shared/application/link-button/link-button.component.vue";
+import VfgFieldRubro from "./@shared/application/form-fields/vfg-field-rubro/vfg-field-rubro.component.vue";
 
 
 Vue.use(BootstrapVue)
@@ -52,6 +53,7 @@ Vue.component('field-array', VfgFieldArray);
 Vue.component('apollo-form', ApolloForm);
 Vue.component('form-modal', FormModal);
 Vue.component('link-button', LinkButton);
+Vue.component('field-rubro', VfgFieldRubro);
 
 const app = new Vue({
     el: '#app',
