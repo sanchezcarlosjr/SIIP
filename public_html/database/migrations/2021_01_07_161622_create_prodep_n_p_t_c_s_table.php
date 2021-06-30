@@ -18,6 +18,8 @@ class CreateProdepNPTCSTable extends Migration
             //$table->float('amount');
             //$table->string('type');
             $table->date('start_date');
+            $table->boolean('extension')->nullable();
+            $table->boolean('authorized')->nullable();
             $table->timestamps();
             $table->integer('employee_id')->unsigned();
             $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
