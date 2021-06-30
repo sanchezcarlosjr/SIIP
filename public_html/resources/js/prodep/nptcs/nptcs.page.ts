@@ -3,6 +3,7 @@ import VueFormGenerator from 'vue-form-generator';
 import {validator as GraphQLSelectIdValidator} from "../../@shared/application/form-fields/vfg-field-select-graphql-id/vfg-field-select-graphql-id"
 import { prodep_nptcs } from "../../@shared/repositories/prodep/repository.ts";
 import { employees } from "../../@shared/repositories/employees/repository.ts";
+import { authorized, extended, campus } from "../../@shared/search-criteria/search-criteria.ts";
 
 let schema = {
   legend: "Apoyo a NPTC",
@@ -88,7 +89,7 @@ let schema = {
       {
           type: 'calendar',
           label: 'Fecha de apoyo*',
-          model: 'date',
+          model: 'start_date',
           required: true,
           validator: VueFormGenerator.validators.date.locale({
             fieldIsRequired: "Este campo es obligatorio"
@@ -97,12 +98,12 @@ let schema = {
       {
         type: "switch2",
         label: "Con prorroga?",
-        model: "prorroga"
+        model: "extension"
       },
       {
         type: "switch2",
         label: "Aceptado?",
-        model: "accepted"
+        model: "authorized"
       }
     ]
 };
@@ -110,15 +111,16 @@ let schema = {
 @Component
 export default class NptcsPage extends Vue {
   resource = prodep_nptcs;
-  criteria = [];
+  criteria = [campus, authorized, extended];
   fields = [
     {key: "employee.name", label: "Beneficiario", sortable: true, class: "vw-20"},
+    /** Send to Detalles */
     {key: "amount", label: "Monto", sortable: true},
     {key: "employee.academic_unit.name", label: "Unidad académica", sortable: true},
-    {key: "type", label: "Tipo", sortable: true},
-    {key: "date", label: "Fecha Inicio", sortable: true}
+    {key: "start_date", label: "Fecha Inicio", sortable: true}
   ];
   formSchemas = {
-    create: schema
+    create: schema,
+    //edit: schema
   }
 }
