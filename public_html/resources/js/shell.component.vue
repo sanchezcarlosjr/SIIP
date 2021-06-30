@@ -14,7 +14,7 @@
                     <div>
                         <siip-breadcrumb></siip-breadcrumb>
                     </div>
-                    <b-dropdown  variant="link" no-caret>
+                    <b-dropdown no-caret variant="link">
                         <template #button-content>
                             <b-avatar></b-avatar>
                         </template>
@@ -56,7 +56,7 @@
                                 role="tabpanel">
                                 <router-link
                                     v-for="(subRoute, i) in route.children"
-                                    v-if="!subRoute.path.match(':')"
+                                    v-if="!subRoute.path.match(':') && (permissions[route.path+'/'+subRoute.path] !== undefined || subRoute.path === '')"
                                     :key="i"
                                     :to="route.path+'/'+subRoute.path"
                                     exact-active-class="active"

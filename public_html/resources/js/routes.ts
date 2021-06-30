@@ -61,7 +61,6 @@ router.beforeEach((to, from, next) => {
     const pathNoSlash = path[path.length - 1] == "/" ? path.substring(0, path.length - 1) : path;
     const hasPermission = state.user.permissions.hasOwnProperty(pathNoSlash);
     if (state.user.token && !hasPermission) {
-        next('/inicio');
         return;
     }
     next();
