@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{AcademicUnit, ActivitiesPit, DES};
+use App\Models\{ActivitiesPit, User};
 use App\Models\AcademicBody;
 use App\Models\Employee;
 use App\Models\Evaluation;
@@ -18,7 +18,6 @@ use App\Models\Sni;
 use App\Models\SNIArea;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 
 class DatabaseSeeder extends Seeder
@@ -31,7 +30,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->makeRoles();
-        $this->makeUsers();
+        Employee::factory(10)->has(User::factory())->create();
         # DES::factory(10)->create();
         # AcademicUnit::factory(100)->create();
         ProdepArea::factory(200)->create();
@@ -54,8 +53,8 @@ class DatabaseSeeder extends Seeder
     private function makeRoles()
     {
         DB::table('roles')->insert([
-            ['role' => 'Coordinador general'],
             ['role' => 'Admnistrador'],
+            ['role' => 'Coordinador general'],
             ['role' => 'Coordinador UA'],
             ['role' => 'Auxiliar SNI'],
             ['role' => 'Jefe de investigación'],
@@ -71,28 +70,82 @@ class DatabaseSeeder extends Seeder
             ['role' => 'Auxiliar PIT'],
             ['role' => 'Coordinador de investigación y posgrado de UA']
         ]);
+        DB::table('modulos')->insert([
+            ['module' => '/inicio'],
+            ['module' => '/usuarios'],
+            ['module' => '/cuerpos-academicos'],
+            ['module' => '/cuerpos-academicos/miembros'],
+            ['module' => '/cuerpos-academicos/lgac'],
+            ['module' => '/cuerpos-academicos/evaluaciones'],
+            ['module' => '/cuerpos-academicos/redes'],
+            ['module' => '/cuerpos-academicos/apoyos'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/editar'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/evaluaciones'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/lgac'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/miembros'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/redes'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/colaboradores'],
+            ['module' => '/sni'],
+            ['module' => '/prodep'],
+            ['module' => '/prodep/apoyos'],
+            ['module' => '/prodep/nptcs'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/apoyos'],
+        ]);
+        DB::table('permisos')->insert([
+            ['modulo_id' => 1, 'rol_id' => 4, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 3, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 4, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 5, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 6, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 7, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 8, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 9, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 10, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 11, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 12, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 13, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 14, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 15, 'rol_id' => 4, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 16, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 17, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 18, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 19, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 1, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 2, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 3, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 4, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 5, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 6, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 7, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 8, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 9, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 10, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 11, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 12, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 13, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 14, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 15, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 16, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 17, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 18, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 19, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 1, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 2, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 3, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 4, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 5, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 6, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 7, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 8, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 9, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 10, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 11, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 12, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 13, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 14, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 15, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 16, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+        ]);
     }
 
-    private function makeUsers()
-    {
-        DB::table('users')->insert([
-                [
-                    'name' => 'Juan Guillermo Vaca Rodríguez',
-                    'email' => 'juangvaca@uabc.edu.mx',
-                    'role_id' => 1,
-                    'campus' => 'Ensenada',
-                    'unit' => 'NA',
-                    'remember_token' => Str::random(10),
-                ],
-                [
-                    'name' => 'María Victoria Meza Kubo',
-                    'email' => 'mmeza@uabc.edu.mx',
-                    'role_id' => 2,
-                    'campus' => 'Ensenada',
-                    'unit' => 'Facultad de ciencias',
-                    'remember_token' => Str::random(10),
-                ]
-            ]
-        );
-    }
 }

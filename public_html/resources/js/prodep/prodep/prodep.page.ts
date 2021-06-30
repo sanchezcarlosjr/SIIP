@@ -93,7 +93,7 @@ export default class ProdepPage extends Vue {
     formSchemas = {
       create: schema,
       edit: schema,
-      /**detail: {
+      /**read: {
         legend: schema.legend,
         fields: schema.fields.map((field: any)=>Object.assign({}, field, {
           type: "label"

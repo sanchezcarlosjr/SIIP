@@ -32,7 +32,7 @@ export default class ApolloForm extends Vue {
   }
 
   mounted() {
-    /** Add Query for update/details */
+    /** Add Query for update/readings */
     this.$apollo.addSmartQuery("model", {
       query: this.updateModelQuery,
       update: data => {

@@ -3,7 +3,7 @@ extend type Query {
     lgacs(
       academic_body_id: ID @scope(name: "academicBody")
       terms: [String] @scope(name: "terms")
-    ): [LGAC] @paginate(defaultCount: 200)
+    ): [LGAC] @paginate(defaultCount: 200) @guard
 }
 
 extend type Mutation {

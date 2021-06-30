@@ -77,6 +77,6 @@ export default class NptcsPage extends Vue {
     formSchemas = {
       create: schema,
       edit: schema,
-      //details: schema.fields.map((field: any)=>{field.type = "label"})
+      //reads: schema.fields.map((field: any)=>{field.type = "label"})
     }
 }

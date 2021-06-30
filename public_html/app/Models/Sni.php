@@ -24,33 +24,30 @@ class Sni extends Model
         parent::__construct($attributes);
     }
 
-    public function scopeTerms($query, $terms)
+    public function scopeTerms(Builder $query, $terms)
     {
         if (empty($terms)) {
             return $query;
         }
-        $where = [];
-        for ($i = 0; $i < count($terms); $i++) {
-            $where[] = array(DB::raw("CONCAT_WS(' ', start_date, finish_date, discipline, field, request, level, specialty, employee_id)"), "ILIKE", "%" . $terms[$i] . "%");
-        }
-        return $query->where(function ($query) use ($where) {
-            $query->orWhere($where);
+        $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
+            $join->on('snis.employee_id', '=', 'employee.nempleado');
         });
+        return $query;
     }
 
     public function scopeCampus(Builder $query, string $campus): Builder
     {
         $employees = Employee::campus($campus);
-        return $query->joinSub($employees, 'employee', function ($join) {
-            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        return $query->joinSub($employees, 'employeeCampus', function ($join) {
+            $join->on('snis.employee_id', '=', 'employeeCampus.nempleado');
         });
     }
 
     public function scopeCloseToRetirement(Builder $query): Builder
     {
         $employees = Employee::closeToRetirement();
-        return $query->joinSub($employees, 'employee', function ($join) {
-            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        return $query->joinSub($employees, 'employeeClosesToRetirement', function ($join) {
+            $join->on('snis.employee_id', '=', 'employeeClosesToRetirement.nempleado');
         });
     }
 
@@ -65,8 +62,8 @@ class Sni extends Model
     public function scopeGender(Builder $query, string $gender)
     {
         $employees = Employee::gender($gender);
-        return $query->joinSub($employees, 'employee', function ($join) {
-            $join->on('snis.employee_id', '=', 'employee.nempleado');
+        return $query->joinSub($employees, 'employeeByGender', function ($join) {
+            $join->on('snis.employee_id', '=', 'employeeByGender.nempleado');
         });
     }
 

@@ -5,7 +5,7 @@ import {GraphqlResourceRepository} from "../../@shared/infraestructure/communica
 @Component
 export default class NetworksPage extends Vue {
     apiResource = new GraphqlResourceRepository('networks(orderBy: {field: CREATED_AT, order: DESC}, filter: $filter)');
-    toolbar = new Set<String>(['details']);
+    toolbar = new Set<String>(['reads']);
     spanishResourceName = 'red'
     fields = [
         {key: 'academic_body.name', label: 'Cuerpo Académico', sortable: true},

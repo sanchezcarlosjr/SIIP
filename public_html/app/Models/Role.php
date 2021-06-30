@@ -9,10 +9,18 @@ class Role extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'role',
+        'role'
     ];
     protected $hidden = [
         'created_at',
         'updated_at'
     ];
+    public function permissions() {
+        return $this->belongsToMany(
+            Modulo::class,
+            'permisos',
+            'rol_id',
+            'modulo_id'
+        )->withPivot('create', 'destroy', 'edit', 'read');
+    }
 }

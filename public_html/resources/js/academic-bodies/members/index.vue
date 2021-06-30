@@ -6,7 +6,6 @@
     :formSchemas="formSchemas"
     :rowClass="rowClass"
   />
-  </siip-table>
 </template>
 
 <script src="./members.page.ts" lang="ts"></script>

@@ -1,18 +1,19 @@
 <template>
     <div class="p-2">
-      <apollo-form
-        ref="form"
-        :schema="formSchemas.create"
-        :resource="resource"
-      />
-      <b-button
-        class="float-right m-3"
-        variant="primary"
-        @click="save"
-        :disabled="busy"
-      >
-        Guardar cambios
-      </b-button>
+        <apollo-form
+            ref="form"
+            :resource="resource"
+            :schema="formSchemas.edit || formSchemas.read"
+        />
+        <b-button
+            v-if="formSchemas.hasOwnProperty('edit')"
+            :disabled="busy"
+            class="float-right m-3"
+            variant="primary"
+            @click="save"
+        >
+            Guardar cambios
+        </b-button>
     </div>
 </template>
 

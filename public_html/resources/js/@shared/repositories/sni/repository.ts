@@ -6,3 +6,10 @@ export const sni_areas = new GraphQLResourceRepository(
         plural: "sni_areas"
     }
 );
+
+export const snis = new GraphQLResourceRepository(
+    {
+        singular: "sni",
+        plural: "snis"
+    }
+);

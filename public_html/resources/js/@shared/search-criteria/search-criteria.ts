@@ -35,6 +35,9 @@ export const gender = {
         },
         {
             value: "Mujer"
+        },
+        {
+            value: "NA"
         }
     ]
 }
@@ -49,7 +52,7 @@ export const close_to_expire = {
     type: "xor",
     model: "close_to_expire",
     criteria: [{
-        value: "Próximos a expirar"
+        value: "Próximos a vencer SNI"
     }]
 }
 export const grade = {
@@ -75,15 +78,15 @@ export const leaders = {
     }]
 }
 export const members = {
-  type: "xor",
-  model: "members",
-  criteria: [
-    {
-      value: "Miembros",
-      default: true
-    },
-    {
-      value: "No miembros"
-    }
-  ]
+    type: "xor",
+    model: "members",
+    criteria: [
+        {
+            value: "Miembros",
+            default: true
+        },
+        {
+            value: "No miembros"
+        }
+    ]
 }

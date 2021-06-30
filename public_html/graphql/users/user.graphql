@@ -1,25 +1,42 @@
 extend type Query {
+    "Log in to a new session and get the user."
+    login(email: String! @trim, password: String! @trim): User!
     user(id: ID @eq): User @find
-    users: [User] @paginate(defaultCount: 10)
+    me: User @auth
+    users(
+        gender: String @scope(name: "gender")
+        campus: String @scope(name: "campus")
+        terms: [String] @scope(name: "terms")
+    ): [User] @paginate(defaultCount: 10)
 }
 
 extend type Mutation {
-    updateUsers(data: updateUsersInput! @spread): User @update
+    upsert_user(
+        data: UpsertUserInput @spread
+    ): User @upsert
+}
+
+type Permission {
+    module: String
+    create: Boolean
+    destroy: Boolean
+    read: Boolean
+    edit: Boolean
 }
 
 type User {
     id: ID!
-    name: String!
-    email: String
-    unit: String
-    campus: String
+    role: String
+    role_id: Int
+    current_access_token: String
+    tokens: [String]
+    permissions: [Permission]
+    employee: Employee
 }
 
-input updateUsersInput {
-    id: ID!
-    name: String!
-    email: String
-    campus: String
-    unit: String
+input UpsertUserInput {
+    id: ID
+    password: String
+    employee_id: Int
     role_id: ID
 }

@@ -28,7 +28,6 @@
               </b-button>
               <b-button
                 v-if="this.formSchemas.hasOwnProperty(FormModal.Type.Create)"
-                v-permission="['admin']"
                 v-b-tooltip.hover
                 :title="`Añadir ${resource.resource.singular}`"
                 class="b-0"
@@ -76,7 +75,7 @@
       v-if="this.formSchemas.hasOwnProperty(FormModal.Type.Read)"
       :ref="FormModal.Type.Read"
       :type="FormModal.Type.Read"
-      :schema="formSchemas.detail"
+      :schema="formSchemas.read"
       :resource="resource"
     />
     <!-- EDIT -->
