@@ -12,28 +12,30 @@ extend type Query {
 }
 
 extend type Mutation {
-    destroyProdepNPTC(id: ID!): ProdepNPTC @delete
-    createProdepNPTC(
-        amount: String
-        type: String
-        date: Date
-        employee_id: Int): ProdepNPTC @create
-    updateProdepNPTC(
-        id:ID!
-        amount: String
-        type: String
-        date: Date
-        employee_id: Int): ProdepNPTC @update
+  upsert_prodep_nptc(
+    data: UpsertProdepNPTCInput @spread
+  ): ProdepNPTC @upsert
 }
 
-
-
 type ProdepNPTC {
-    amount: String
-    type: String
-    date: Date
-    employee_id: Int
-    employee: Employee
-    id: ID
-    active: Boolean
+  id: ID
+  employee_id: Int
+  employee: Employee
+  folio: String
+  rubros: [Rubro]
+  amount: String
+  start_date: Date
+  finish_date: Date
+  extension: Boolean
+  authorized: Boolean
+}
+
+input UpsertProdepNPTCInput {
+  id: ID
+  employee_id: Int
+  folio: String
+  rubros: UpsertRubroHasMany
+  start_date: Date
+  extension: Boolean
+  authorized: Boolean
 }
