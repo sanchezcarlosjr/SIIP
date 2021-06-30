@@ -3,18 +3,33 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Model;
 
 class ProdepNPTC extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["amount", "type", "date", "employee_id"];
+    protected $fillable = [
+      "start_date",
+      "employee_id"
+    ];
     protected $table = "prodep_nptcs";
 
     public function employee()
     {
         return $this->belongsTo(Employee::class, "employee_id");
+    }
+
+    public function rubros(): MorphMany {
+      return $this->morphMany(Rubro::class, "rubrable");
+    }
+
+    public function getAmountAttribute()
+    {
+        return $this->rubros->reduce(function($carry, $rubro) {
+          return $carry + $rubro->amount;
+        }, 0);
     }
 
     public function scopeTerms($query, $terms) {
