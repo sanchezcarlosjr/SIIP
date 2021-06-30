@@ -9,8 +9,8 @@ export default class VFGFieldRubro extends Mixins(VueFormGenerator.abstractField
 
   private get fields() {
     return [
-      {key: "nombre", label: "Nombre", class:"vw-40"},
-      {key: "accepted", label: "Aceptado"},
+      {key: "name", label: "Nombre", class:"vw-40"},
+      {key: "authorized", label: "Aceptado"},
       {key: "amount", label: "Monto", class: "vw-20"}
     ]
   }
@@ -22,14 +22,18 @@ export default class VFGFieldRubro extends Mixins(VueFormGenerator.abstractField
   beforeMount() {
     this.items = this.schema.rubros.map((item: any)=>{
       return {
-        nombre: item.nombre,
-        accepted: false,
+        name: item.nombre,
+        authorized: false,
         amount: 0
       }
     });
     this.value = {
-      rubros: this.items,
-      total: this.total
+      create: this.items
     };
+    // this.value = {
+    //   rubros: this.items,
+    //   total: this.total
+    // };
+    /** TODO: Generalize for Megarubros */
   }
 }

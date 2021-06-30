@@ -12,22 +12,22 @@
     striped
     foot-clone
   >
-    <template #cell(nombre)="data">
+    <template #cell(name)="data">
       {{data.value}}
     </template>
-    <template #cell(accepted)="data">
+    <template #cell(authorized)="data">
       <b-form-checkbox/>
     </template>
     <template #cell(amount)="data">
       <b-form-input v-model="items[data.index].amount" type="number" />
     </template>
-    <template #foot(nombre)="data">
+    <template #foot(name)="data">
       {{""}}
     </template>
     <template #foot(amount)="data">
       {{ total }}
     </template>
-    <template #foot(accepted)="data">
+    <template #foot(authorized)="data">
       Subtotal
     </template>
   </b-table>
