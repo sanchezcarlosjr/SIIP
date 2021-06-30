@@ -36,6 +36,7 @@ type User {
 
 input UpsertUserInput {
     id: ID
+    password: String
     employee_id: Int
     role_id: ID
 }

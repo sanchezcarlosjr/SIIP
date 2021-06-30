@@ -15,10 +15,11 @@ class User extends Authenticatable implements HasApiTokensContract
 
     protected $fillable = [
         'role_id',
-        'employee_id'
+        'employee_id',
+        "password"
     ];
     protected $hidden = [
-        'remember_token',
+        "password",
         'created_at',
         'updated_at',
         'email_verified_at'
@@ -56,8 +57,9 @@ class User extends Authenticatable implements HasApiTokensContract
         if (empty($terms)) {
             return $query;
         }
-        return $query->where('role_id', '=', 4);
-
+        return $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
+            $join->on('users.employee_id', '=', 'employee.nempleado');
+        });
     }
 
 }
