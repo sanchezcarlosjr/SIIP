@@ -56,9 +56,8 @@ class User extends Authenticatable implements HasApiTokensContract
         if (empty($terms)) {
             return $query;
         }
-        return $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
-            $join->on('users.employee_id', '=', 'employee.nempleado');
-        });
+        return $query->where('role_id', '=', 4);
+
     }
 
 }

@@ -26,6 +26,8 @@ type Permission {
 
 type User {
     id: ID!
+    role: String
+    role_id: Int
     current_access_token: String
     tokens: [String]
     permissions: [Permission]

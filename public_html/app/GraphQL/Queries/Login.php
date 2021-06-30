@@ -30,72 +30,17 @@ class Login
         }
         $user->tokens()->delete();
         $user['current_access_token'] = $user->createToken('default')->plainTextToken;
-        $user['permissions'] = [
-            [
-                'module' => '/inicio',
-                'create' => false,
-                'edit' => true,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/usuarios',
-                'create' => false,
-                'edit' => false,
-                'read' => true,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos',
-                'create' => false,
-                'edit' => true,
-                'read' => false,
-                'destroy' => false
-            ],
-
-            [
-                'module' => '/prodep',
-                'create' => false,
-                'edit' => true,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos/lgac',
-                'create' => false,
-                'edit' => false,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos/miembros',
-                'create' => false,
-                'edit' => false,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos/evaluaciones',
-                'create' => false,
-                'edit' => false,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos/:academic_body_id/evaluaciones',
-                'create' => false,
-                'edit' => false,
-                'read' => false,
-                'destroy' => false
-            ],
-            [
-                'module' => '/cuerpos-academicos/:academic_body_id/editar',
-                'create' => false,
-                'edit' => false,
-                'read' => false,
-                'destroy' => false
-            ]
-        ];
+        $role = $user->roles()->get()[0];
+        $user['role'] = $role->role;
+        $user['permissions'] = $role->permissions()->get()->map(function($permission) {
+            return  [
+                'module' => $permission->module,
+                'create' => $permission->pivot->create,
+                'edit' => $permission->pivot->edit,
+                'read' => $permission->pivot->read,
+                'destroy' => $permission->pivot->destroy
+            ];
+        });
         return $user;
     }
 }
