@@ -9,7 +9,7 @@ import {campus, grade, validity} from "../../@shared/search-criteria/search-crit
 import AcademicBodyStatistics from './statistics/index.vue';
 import {Permission} from "../../store/auth/permission";
 
-let schema = {
+export const schema = {
     legend: "Cuerpo Académico",
     fields: [
         {
@@ -88,9 +88,6 @@ let schema = {
     ]
 };
 
-const formSchema = new Permission('/cuerpos-academicos', {
-    create: schema
-});
 
 @Component({
     components: {
@@ -130,7 +127,6 @@ export default class AcademicBodyManagementPage extends Vue {
             tooltip: 'Redes'
         }
     };
-    formSchemas = formSchema.hasPermissions();
     fields = [
         {key: 'name', label: 'Nombre', sortable: true, editable: true, class: 'vw-20'},
         {
@@ -145,6 +141,9 @@ export default class AcademicBodyManagementPage extends Vue {
         {key: 'discipline', label: 'Disciplina', sortable: true, editable: false, visible: false},
         {key: 'prodep_area.name', label: 'Area PRODEP', sortable: true, editable: false, visible: false}
     ];
+    formSchemas = new Permission('/cuerpos-academicos', {
+        create: schema
+    }).hasPermissions();
 
     createdElement(item: any) {
         /** Todo: Abstract Item @ apollo form */

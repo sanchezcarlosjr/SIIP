@@ -139,7 +139,7 @@ const editSchema = {
     ]
 };
 
-const permission = new Permission('/snis', {
+const permission = new Permission('/sni', {
     create: schema,
     edit: editSchema
 });
