@@ -59,6 +59,41 @@ class Login
                 'edit' => true,
                 'read' => false,
                 'destroy' => false
+            ],
+            [
+                'module' => '/cuerpos-academicos/lgac',
+                'create' => false,
+                'edit' => false,
+                'read' => false,
+                'destroy' => false
+            ],
+            [
+                'module' => '/cuerpos-academicos/miembros',
+                'create' => false,
+                'edit' => false,
+                'read' => false,
+                'destroy' => false
+            ],
+            [
+                'module' => '/cuerpos-academicos/evaluaciones',
+                'create' => false,
+                'edit' => false,
+                'read' => false,
+                'destroy' => false
+            ],
+            [
+                'module' => '/cuerpos-academicos/:academic_body_id/evaluaciones',
+                'create' => false,
+                'edit' => false,
+                'read' => false,
+                'destroy' => false
+            ],
+            [
+                'module' => '/cuerpos-academicos/:academic_body_id/editar',
+                'create' => false,
+                'edit' => false,
+                'read' => false,
+                'destroy' => false
             ]
         ];
         return $user;

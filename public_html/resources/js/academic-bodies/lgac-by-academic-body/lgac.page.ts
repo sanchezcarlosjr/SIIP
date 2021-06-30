@@ -1,8 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VueFormGenerator from 'vue-form-generator';
 import { lgac } from "../../@shared/repositories/academic_bodies/lgac/repository.ts";
+import {Permission} from "../../store/auth/permission";
 
-let schema = {
+const schema = {
   legend: "LGAC",
   fields: [
     {
@@ -24,6 +25,11 @@ let schema = {
   ]
 };
 
+const permission = new Permission('/cuerpos-academicos/:academic_body_id/lgac', {
+    create: schema,
+    edit: schema
+});
+
 @Component
 export default class LGACPage extends Vue {
   resource = lgac;
@@ -33,8 +39,5 @@ export default class LGACPage extends Vue {
     {key: 'description', label: 'Descripción', sortable: true}
   ];
   schema = schema;
-  formSchemas = {
-    create: schema,
-    edit: schema
-  }
+  formSchemas = permission.hasPermissions();
 }

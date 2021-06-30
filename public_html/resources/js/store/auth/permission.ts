@@ -9,14 +9,8 @@ export interface FormSchema {
 
 export class Permission {
     constructor(private module: string, private formSchema: FormSchema) {
-        if (
-            !state.user.permissions[this.module]['edit'] &&
-            state.user.permissions[this.module]['read'] &&
-            !this.formSchema.hasOwnProperty('read')) {
-            this.formSchema['read'] = this.formSchema.edit;
-        }
         Object.keys(this.formSchema).filter((schema) => {
-            return !state.user.permissions[this.module][schema];
+            return state.user.permissions.hasOwnProperty(this.module) && !state.user.permissions[this.module][schema];
         }).forEach((key: string) => delete this.formSchema[key]);
     }
 

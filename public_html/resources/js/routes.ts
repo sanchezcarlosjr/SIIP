@@ -1,6 +1,5 @@
 import Vue from "vue"
 import VueRouter, {RouteConfig} from "vue-router"
-import NotFoundPage from './not-found/index.vue';
 import {HomeRoutes} from "./home/routes";
 import {LoginRoutes} from "./login/routes";
 import {AdminRoutes} from "./admin/routes";
@@ -34,8 +33,7 @@ export const routes: RouteConfig[] = [
     },
     {
         path: '*',
-        component: NotFoundPage,
-        name: "not-found"
+        component: () => import('./not-found/index.vue')
     },
 ];
 
