@@ -1,9 +1,10 @@
-import { Component, Vue } from 'vue-property-decorator';
-import { grade } from "../../@shared/search-criteria/search-criteria.ts";
-import { evaluations } from "../../@shared/repositories/academic_bodies/evaluations/repository.ts";
+import {Component, Vue} from 'vue-property-decorator';
+import {grade} from "../../@shared/search-criteria/search-criteria.ts";
+import {evaluations} from "../../@shared/repositories/academic_bodies/evaluations/repository.ts";
 import {Permission} from "../../store/auth/permission";
 
-const schema = new Permission('/cuerpos-academicos/:academic_body_id/evaluaciones', {
+
+const schema = {
     legend: "Evaluación",
     fields: [
         {
@@ -27,7 +28,7 @@ const schema = new Permission('/cuerpos-academicos/:academic_body_id/evaluacione
                     id: "2"
                 }
             ],
-            validator: (value: string)=>{
+            validator: (value: string) => {
                 let errors = [];
                 if (!value) {
                     errors.push("Selecciona una opción");
@@ -54,19 +55,23 @@ const schema = new Permission('/cuerpos-academicos/:academic_body_id/evaluacione
             default: 5
         },
     ]
-});
+};
+
+const permission = new Permission('/cuerpos-academicos/:academic_body_id/evaluaciones',
+    {
+        create: schema,
+        edit: schema
+    }
+);
 
 @Component
 export default class EvaluationsPage extends Vue {
-  resource = evaluations;
-  criteria = [grade];
-  formSchemas = {
-    create: schema,
-    edit: schema
-  };
-  fields = [
-    {key: 'grade_name', label: 'Grado', sortable: true},
-    {key: 'start_date', label: 'Vigente desde', sortable: true, class: 'vw-5'},
-    {key: 'finish_date', label: 'Vigencia hasta', sortable: true, class: 'vw-5'}
-  ];
+    resource = evaluations;
+    criteria = [grade];
+    formSchemas = permission.hasPermissions();
+    fields = [
+        {key: 'grade_name', label: 'Grado', sortable: true},
+        {key: 'start_date', label: 'Vigente desde', sortable: true, class: 'vw-5'},
+        {key: 'finish_date', label: 'Vigencia hasta', sortable: true, class: 'vw-5'}
+    ];
 }

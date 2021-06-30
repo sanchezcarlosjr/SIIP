@@ -88,7 +88,8 @@ class DatabaseSeeder extends Seeder
             ['module' => '/sni'],
             ['module' => '/prodep'],
             ['module' => '/prodep/apoyos'],
-            ['module' => '/prodep/nptcs']
+            ['module' => '/prodep/nptcs'],
+            ['module' => '/cuerpos-academicos/:academic_body_id/apoyos'],
         ]);
         DB::table('permisos')->insert([
             ['modulo_id' => 1, 'rol_id' => 4, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
@@ -108,6 +109,7 @@ class DatabaseSeeder extends Seeder
             ['modulo_id' => 16, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
             ['modulo_id' => 17, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
             ['modulo_id' => 18, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
+            ['modulo_id' => 19, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
             ['modulo_id' => 1, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
             ['modulo_id' => 2, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
             ['modulo_id' => 3, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
