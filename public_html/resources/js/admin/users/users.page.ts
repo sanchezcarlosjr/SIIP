@@ -64,24 +64,29 @@ const schema = {
             model: "role_id",
             api: 'api/roles',
             textKey: 'role'
-        },
-        {
-            type: 'input',
-            inputType: "text",
-            disabled: true,
-            label: 'Contraseña',
-            model: "password",
-            get: function (model: { password: string }) {
-                model.password = words[random(0, words.length - 1)] + words[random(0, words.length - 1)] + words[random(0, words.length - 1)];
-                return model.password;
-            }
         }
     ]
 };
 
 const formSchema = new Permission('/usuarios', {
-    create: schema,
-    edit: schema
+    edit: schema,
+    create: {
+        legend: schema.legend,
+        fields: [
+            ...schema.fields,
+            {
+                type: 'input',
+                inputType: "text",
+                disabled: true,
+                label: 'Contraseña',
+                model: "password",
+                get: function (model: { password: string }) {
+                    model.password = words[random(0, words.length - 1)] + words[random(0, words.length - 1)] + words[random(0, words.length - 1)];
+                    return model.password;
+                }
+            }
+        ]
+    }
 });
 
 @Component
