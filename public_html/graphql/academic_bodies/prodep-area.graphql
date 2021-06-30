@@ -1,8 +1,8 @@
 extend type Query {
-    prodep_area(id: ID @eq): ProdepArea @find
+    prodep_area(id: ID @eq): ProdepArea @find @guard
     prodep_areas(
       name_like: String @scope(name: "name")
-    ): [ProdepArea]  @paginate(defaultCount: 200)
+    ): [ProdepArea]  @paginate(defaultCount: 200) @guard
 }
 
 type ProdepArea {

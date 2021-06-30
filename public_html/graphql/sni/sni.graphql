@@ -7,18 +7,18 @@ extend type Query {
         gender: String
         from: String
         to: String
-    ): SniStatistics
-    researchers: [Researcher] @paginate(defaultCount: 10)
-    sni(id: ID @eq): Sni @find
+    ): SniStatistics @guard
+    researchers: [Researcher] @paginate(defaultCount: 10) @guard
+    sni(id: ID @eq): Sni @find @guard
     snis(
         close_to_retirement: String @scope(name: "closeToRetirement")
         close_to_expire: String @scope(name: "closeToExpire")
         campus: String @scope(name: "campus")
         gender: String @scope(name: "gender")
         terms: [String] @scope(name: "terms")
-    ): [Sni] @paginate(defaultCount: 10)
-    sni_areas(name_like: String @scope(name: "name")): [SNIArea] @paginate(defaultCount: 100)
-    sni_area(id: ID @eq): SNIArea @find
+    ): [Sni] @paginate(defaultCount: 10) @guard
+    sni_areas(name_like: String @scope(name: "name")): [SNIArea] @paginate(defaultCount: 100) @guard
+    sni_area(id: ID @eq): SNIArea @find @guard
 }
 
 extend type Mutation {

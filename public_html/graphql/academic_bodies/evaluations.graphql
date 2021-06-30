@@ -1,10 +1,10 @@
 extend type Query {
-  evaluation(id: ID! @eq): Evaluation @find
+  evaluation(id: ID! @eq): Evaluation @find @guard
   evaluations(
     grade: String @scope(name: "grade")
     academic_body_id: ID @scope(name: "academicBody")
     terms: [String] @scope(name: "terms")
-  ): [Evaluation] @paginate(defaultCount: 100)
+  ): [Evaluation] @paginate(defaultCount: 100) @guard
 }
 
 extend type Mutation {

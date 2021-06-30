@@ -1,5 +1,5 @@
 extend type Query {
-    lgac(id: ID @eq): LGAC @find
+    lgac(id: ID @eq): LGAC @find @guard
     lgacs(
       academic_body_id: ID @scope(name: "academicBody")
       terms: [String] @scope(name: "terms")

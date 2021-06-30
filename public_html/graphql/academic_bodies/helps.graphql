@@ -1,11 +1,11 @@
 extend type Query {
-  help(id: ID @eq): Help @find
+  help(id: ID @eq): Help @find @guard
   helps(
     academic_body_id: ID @scope(name: "academicBody")
     terms: [String] @scope(name: "terms")
     # filter: [String],
     # orderBy: String @orderBy(columns: ["created_at"])
-  ): [Help] @paginate(defaultCount: 200) @orderBy(column: "updated_at", direction: "ASC")
+  ): [Help] @paginate(defaultCount: 200) @orderBy(column: "updated_at", direction: "ASC") @guard
 }
 
 extend type Mutation {

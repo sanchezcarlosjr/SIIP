@@ -1,5 +1,5 @@
 extend type Query {
-    academic_body(id: ID @eq): AcademicBody @find
+    academic_body(id: ID @eq): AcademicBody @find @guard
     academic_bodies (
       terms: [String] @scope(name: "terms")
       validity: String @scope(name: "validity")
@@ -9,28 +9,28 @@ extend type Query {
     ): [AcademicBody] @paginate(
         defaultCount: 200,
         #builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
-    )
+    ) @guard
     academic_body_statistics(
       terms: [String]
       validity: String
       campus: String
       grade: [String]
-    ): AcademicBodyStatistics
+    ): AcademicBodyStatistics @guard
 }
 
 extend type Mutation {
-    destroyAcademicBody(id: ID!): AcademicBody @delete
+    destroyAcademicBody(id: ID!): AcademicBody @delete @guard
     updateAcademicBody(
         data: updateAcademicBodyInput
         @spread
-    ): AcademicBody @update
+    ): AcademicBody @update @guard
     createAcademicBody(
         data: createAcademicBodyInput
         @spread
-    ): AcademicBody @create
+    ): AcademicBody @create @guard
     upsert_academic_body(
       data: UpsertAcademicBodyInput @spread
-    ): AcademicBody @upsert
+    ): AcademicBody @upsert @guard
 }
 
 type AcademicBody {

@@ -1,29 +1,28 @@
 extend type Query {
     prodep_nptc(
       id: ID @eq
-    ): ProdepNPTC @find
+    ): ProdepNPTC @find @guard
     prodep_nptcs(
       terms: [String] @scope(name: "terms")
-    ): [ProdepNPTC] @paginate(defaultCount: 10)
-
+    ): [ProdepNPTC] @paginate(defaultCount: 10) @guard
     apoyos: [Apoyo] @paginate(
       builder: "App\\GraphQL\\Queries\\Apoyos"
-    )
+    ) @guard
 }
 
 extend type Mutation {
-    destroyProdepNPTC(id: ID!): ProdepNPTC @delete
+    destroyProdepNPTC(id: ID!): ProdepNPTC @delete @guard
     createProdepNPTC(
         amount: String
         type: String
         date: Date
-        employee_id: Int): ProdepNPTC @create
+        employee_id: Int): ProdepNPTC @create @guard
     updateProdepNPTC(
         id:ID!
         amount: String
         type: String
         date: Date
-        employee_id: Int): ProdepNPTC @update
+        employee_id: Int): ProdepNPTC @update @guard
 }
 
 

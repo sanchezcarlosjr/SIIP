@@ -1,5 +1,5 @@
 extend type Query {
-    employee(id: ID! @where(operator: "=", key: "nempleado")): Employee @find
+    employee(id: ID! @where(operator: "=", key: "nempleado")): Employee @find @guard
     employees(
         free: String @scope(name: "free")
         candidates_for: ID @scope(name: "candidatesFor")
@@ -9,7 +9,7 @@ extend type Query {
         name: String @scope(name: "name")
         id: String @scope(name: "id")
         name_or_id: String @scope(name: "nameOrId")
-    ): [Employee] @paginate(defaultCount: 100)
+    ): [Employee] @paginate(defaultCount: 100) @guard
 }
 
 type Employee {

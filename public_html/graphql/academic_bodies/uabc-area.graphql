@@ -1,5 +1,5 @@
 extend type Query {
-    uabc_areas: [UABCArea] @paginate(defaultCount: 200)
+    uabc_areas: [UABCArea] @paginate(defaultCount: 200) @guard
 }
 
 type UABCArea {

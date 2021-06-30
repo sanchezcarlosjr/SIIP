@@ -1,19 +1,18 @@
 extend type Query {
-    "Log in to a new session and get the user."
     login(email: String! @trim, password: String! @trim): User!
-    user(id: ID @eq): User @find
+    user(id: ID @eq): User @find @guard
     me: User @auth
     users(
         gender: String @scope(name: "gender")
         campus: String @scope(name: "campus")
         terms: [String] @scope(name: "terms")
-    ): [User] @paginate(defaultCount: 10)
+    ): [User] @paginate(defaultCount: 10) @guard
 }
 
 extend type Mutation {
     upsert_user(
         data: UpsertUserInput @spread
-    ): User @upsert
+    ): User @upsert @guard
 }
 
 type Permission {

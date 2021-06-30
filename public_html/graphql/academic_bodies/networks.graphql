@@ -1,21 +1,21 @@
 extend type Query {
-    network(id: ID @eq): Network @find
+    network(id: ID @eq): Network @find @guard
     networks(
         filter: [String],
         orderBy: String @orderBy(columns: ["created_at"])
-    ): [Network] @paginate(defaultCount: 100)
+    ): [Network] @paginate(defaultCount: 100) @guard
 }
 
 extend type Mutation {
-    destroyNetwork(data: destroyNetworkInput! @spread): Network
+    destroyNetwork(data: destroyNetworkInput! @spread): Network @guard
     createNetwork(
         data: createNetworkInput
         @spread
-    ): Network
+    ): Network @guard
     updateNetwork(
         data: updateNetworkInput
         @spread
-    ): Network
+    ): Network @guard
 }
 
 type Network {

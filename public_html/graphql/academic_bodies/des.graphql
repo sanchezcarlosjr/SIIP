@@ -1,8 +1,8 @@
 extend type Query {
-  des(id: ID @where(operator: "=", key: "cdes")): DES @find
+  des(id: ID @where(operator: "=", key: "cdes")): DES @find @guard
   des_all(
     name_like: String @scope(name: "nameLike")
-  ): [DES] @paginate(defaultCount: 200)
+  ): [DES] @paginate(defaultCount: 200) @guard
 }
 
 type DES {
