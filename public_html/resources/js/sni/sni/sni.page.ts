@@ -34,11 +34,13 @@ const schema = {
             type: 'calendar',
             label: 'Fecha de inicio',
             model: "start_date",
+            default: new Date('1-1-2021')
         },
         {
             type: 'calendar',
             label: 'Fecha de fin',
             model: "finish_date",
+            default: new Date('12-31-2021')
         },
         {
             type: 'select',
