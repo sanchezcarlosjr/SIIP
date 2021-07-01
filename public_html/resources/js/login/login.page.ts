@@ -60,7 +60,7 @@ export default class LoginPage extends Vue {
                 permissions: response.data.login.permissions
             });
             if (this.$route.query.redirectTo === undefined) {
-                await router.push({name: 'siiip'});
+                await router.push({name: 'Inicio'});
             } else {
                 await router.push(this.$route.query.redirectTo as string);
             }

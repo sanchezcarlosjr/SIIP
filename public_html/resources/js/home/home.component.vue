@@ -15,6 +15,9 @@
                         <b-list-group>
                             <b-list-group-item target="_blank" href="http://www.anuies.mx/">ANUIES</b-list-group-item>
                         </b-list-group>
+                        <b-list-group>
+                            <b-list-group-item target="_blank" href="http://cimarron.uabc.mx/">Coordinación de Posgrado e Investigación</b-list-group-item>
+                        </b-list-group>
                     </b-col>
                 </b-row>
             </b-container>
