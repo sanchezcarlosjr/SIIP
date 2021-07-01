@@ -97,10 +97,11 @@ export default class UsersPage extends Vue {
     ];
     formSchemas = formSchema.hasPermissions();
     fields = [
-        {key: 'employee.name', label: 'Nombre', sortable: true,},
+        {key: 'employee.name', label: 'Nombre', sortable: true, class: 'vw-20'},
         {key: 'employee.correo1', label: 'Correo Electrónico', sortable: true},
         {key: 'employee.academic_unit.name', label: 'Unidad Académica', sortable: true},
-        {key: 'employee.academic_unit.campus', label: 'Campus', sortable: true}
+        {key: 'employee.academic_unit.campus', label: 'Campus', sortable: true},
+        {key: 'role', label: "Rol", sortable: true}
     ];
     tableTitle = 'Gestión de usuarios';
     resource = users;

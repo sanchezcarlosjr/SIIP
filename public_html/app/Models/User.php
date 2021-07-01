@@ -45,6 +45,10 @@ class User extends Authenticatable implements HasApiTokensContract
         });
     }
 
+    public function getRoleAttribute() {
+        return $this->belongsTo(Role::class, 'role_id')->get()->implode('role', ',');
+    }
+
     public function scopeGender(Builder $query, string $gender): Builder
     {
         return $query->joinSub(Employee::gender($gender), 'employeeGender', function ($join) {

@@ -25,13 +25,12 @@ class Login
         $user = User::where('employee_id', '=', $employee->nempleado)->first();
         if (!$user || !Hash::check($args['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => ['The provided password are incorrect.'],
             ]);
         }
         $user->tokens()->delete();
         $user['current_access_token'] = $user->createToken('default')->plainTextToken;
         $role = $user->roles()->get()[0];
-        $user['role'] = $role->role;
         $user['permissions'] = $role->permissions()->get()->map(function($permission) {
             return  [
                 'module' => $permission->module,

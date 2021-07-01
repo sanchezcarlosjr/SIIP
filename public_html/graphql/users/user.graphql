@@ -1,18 +1,18 @@
 extend type Query {
-    login(email: String! @trim, password: String! @trim): User!
+    login(email: String! @trim, password: String! @trim) : User!
     user(id: ID @eq): User @find @guard
     me: User @auth
     users(
         gender: String @scope(name: "gender")
         campus: String @scope(name: "campus")
         terms: [String] @scope(name: "terms")
-    ): [User] @paginate(defaultCount: 10) @guard
+    ): [User] @paginate(defaultCount: 10)
 }
 
 extend type Mutation {
     upsert_user(
         data: UpsertUserInput @spread
-    ): User @upsert @guard
+    )   : User @upsert @guard
 }
 
 type Permission {
@@ -28,14 +28,13 @@ type User {
     role: String
     role_id: Int
     current_access_token: String
-    tokens: [String]
     permissions: [Permission]
     employee: Employee
 }
 
 input UpsertUserInput {
     id: ID
-    password: String
+    password: String @hash
     employee_id: Int
     role_id: ID
 }
