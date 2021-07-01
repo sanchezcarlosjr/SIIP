@@ -90,3 +90,24 @@ export const members = {
         }
     ]
 }
+export const authorized = {
+  type: "xor",
+  model: "authorized",
+  criteria: [
+    {
+      value: "Autorizado"
+    },
+    {
+      value: "No autorizado"
+    }
+  ]
+}
+export const extended = {
+  type: "xor",
+  model: "extended",
+  criteria: [
+    {
+      value: "Con prórroga"
+    }
+  ]
+}

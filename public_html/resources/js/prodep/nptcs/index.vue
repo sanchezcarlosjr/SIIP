@@ -1,14 +1,10 @@
 <template>
-    <siip-table
-      :testResource="testResource"
-      :fields="fields"
-      :filter="defaultCriteria"
-      :resource="apiResource"
-      :schema="schema"
-      :toolbar="toolbar"
-      :formSchemas="formSchemas"
-    ></siip-table>
+  <siip-table
+    :resource="resource"
+    :fields="fields"
+    :filter="criteria"
+    :formSchemas="formSchemas"
+  />
 </template>
 
 <script lang="ts" src="./nptcs.page.ts"></script>
-<style lang="scss" scoped src="./nptcs.page.scss"></style>
