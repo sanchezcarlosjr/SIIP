@@ -1,23 +1,22 @@
 extend type Query {
     prodep_nptc(
       id: ID @eq
-    ): ProdepNPTC @find
+    ): ProdepNPTC @find @guard
     prodep_nptcs(
       authorized: String @scope(name: authorized)
       extended: String @scope(name: extended)
       campus: String @scope(name: campus)
       terms: [String] @scope(name: "terms")
-    ): [ProdepNPTC] @paginate(defaultCount: 200)
-
+    ): [ProdepNPTC] @paginate(defaultCount: 200) @guard
     apoyos: [Apoyo] @paginate(
       builder: "App\\GraphQL\\Queries\\Apoyos"
-    )
+    ) @guard
 }
 
 extend type Mutation {
   upsert_prodep_nptc(
     data: UpsertProdepNptcInput @spread
-  ): ProdepNPTC @upsert
+  ): ProdepNPTC @guard @upsert
 }
 
 type ProdepNPTC {
