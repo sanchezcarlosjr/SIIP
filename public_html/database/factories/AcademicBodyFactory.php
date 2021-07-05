@@ -22,12 +22,12 @@ class AcademicBodyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'prodep_key' => $this->faker->city,
-            'active' => rand(0, 1) == 1,
-            'prodep_area_id' => $this->faker->numberBetween($min = 1, $max = 10),
-            'discipline' => $this->faker->word,
-            'des_id' => $this->faker->numberBetween($min = 1, $max = 5),
+            'nombre' => $this->faker->word,
+            'clave_prodep' => $this->faker->city,
+            'vigente' => rand(0, 1) == 1,
+            'area_prodep_id' => $this->faker->numberBetween($min = 1, $max = 10),
+            'disciplina' => $this->faker->word,
+            'des' => $this->faker->numberBetween($min = 1, $max = 5),
         ];
     }
 }

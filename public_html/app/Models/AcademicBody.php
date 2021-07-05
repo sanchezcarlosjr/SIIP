@@ -13,15 +13,15 @@ class AcademicBody extends Model
 {
     use HasFactory;
 
-    protected $table = 'academic_bodies';
+    protected $table = 'cuerpos_academicos';
     protected $fillable = [
-        'name',
-        'prodep_key',
-        'active',
-        'prodep_area_id',
-        'lead_employee_id',
-        'discipline',
-        'des_id',
+        'nombre',
+        'clave_prodep',
+        'vigente',
+        'area_prodep_id',
+        'nempleado_lider',
+        'disciplina',
+        'des',
         'created_at'
     ];
     protected $appends = [
@@ -31,7 +31,7 @@ class AcademicBody extends Model
     ];
 
     public function des() {
-      return $this->belongsTo(DES::class, "des_id");
+      return $this->belongsTo(DES::class, "des");
     }
 
     public function lgacs()
@@ -61,7 +61,7 @@ class AcademicBody extends Model
 
     public function leader()
     {
-        return $this->belongsTo(Employee::class, "lead_employee_id", "nempleado");
+        return $this->belongsTo(Employee::class, "nempleado_lider", "nempleado");
     }
 
     public function collaborators(): BelongsToMany
@@ -137,7 +137,7 @@ class AcademicBody extends Model
                 ->select("academic_bodies.*", "unidades.unidad as unidad")
                 ->from("academic_bodies")
                 ->leftJoin("empleados", function($join) {
-                  $join->on("academic_bodies.lead_employee_id","=","empleados.nempleado");
+                  $join->on("academic_bodies.nempleado_lider","=","empleados.nempleado");
                 })
                 ->leftJoin("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -152,9 +152,9 @@ class AcademicBody extends Model
 
     public function scopeValidity($query, $value) {
       if ($value == "Vigente") {
-        return $query->where("academic_bodies.active", "=", "t");
+        return $query->where("academic_bodies.vigente", "=", "t");
       } else if ($value == "No vigente") {
-        return $query->where("academic_bodies.active", "=", "f");
+        return $query->where("academic_bodies.vigente", "=", "f");
       }
     }
 
@@ -176,8 +176,8 @@ class AcademicBody extends Model
               $query
                 ->select(
                   "academic_bodies.*",
-                  "academic_bodies.name as nombre",
-                  "academic_bodies.prodep_key as prodep_clave",
+                  "academic_bodies.nombre as nombre",
+                  "academic_bodies.clave_prodep as prodep_clave",
                   "academic_bodies_evaluations.grade as grado",
                   "unidades.unidad")
                 ->from("academic_bodies")
@@ -185,7 +185,7 @@ class AcademicBody extends Model
                   $join->on("academic_bodies.id","=","academic_bodies_evaluations.academic_body_id");
                 })
                 ->leftJoin("empleados", function($join) {
-                  $join->on("academic_bodies.lead_employee_id","=","empleados.nempleado");
+                  $join->on("academic_bodies.nempleado_lider","=","empleados.nempleado");
                 })
                 ->leftJoin("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");

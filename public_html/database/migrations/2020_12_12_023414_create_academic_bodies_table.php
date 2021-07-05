@@ -18,8 +18,8 @@ class CreateAcademicBodiesTable extends Migration
             $table->string('nombre');
             $table->string('clave_prodep')->unique();
             $table->boolean('vigente');
-            $table->integer('nempleado_lider')->unsigned()->nullable();
             $table->integer('area_prodep_id')->unsigned();
+            $table->integer('nempleado_lider')->unsigned()->nullable();
             $table->string('disciplina');
             $table->integer('des')->unsigned();
             $table->timestamps();
