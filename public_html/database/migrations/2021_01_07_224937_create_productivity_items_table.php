@@ -37,6 +37,6 @@ class CreateProductivityItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productividad_items');
+        Schema::dropIfExists('productividad_articulos');
     }
 }

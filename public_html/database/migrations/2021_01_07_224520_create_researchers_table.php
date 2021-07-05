@@ -30,6 +30,6 @@ class CreateResearchersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('investigadores');
+        Schema::dropIfExists('profesores_investigadores');
     }
 }

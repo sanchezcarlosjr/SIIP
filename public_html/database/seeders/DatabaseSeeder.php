@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{ActivitiesPit, User};
+use App\Models\{AcademicUnit, ActivitiesPit, DES, User};
 use App\Models\AcademicBody;
 use App\Models\Employee;
 use App\Models\Evaluation;
@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->makeRoles();
         Employee::factory(10)->has(User::factory())->create();
-        # DES::factory(10)->create();
-        # AcademicUnit::factory(100)->create();
+        #DES::factory(10)->create();
+        #AcademicUnit::factory(100)->create();
         ProdepArea::factory(200)->create();
         AcademicBody::factory(200)->create();
         Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();
@@ -53,22 +53,22 @@ class DatabaseSeeder extends Seeder
     private function makeRoles()
     {
         DB::table('roles')->insert([
-            ['role' => 'Admnistrador'],
-            ['role' => 'Coordinador general'],
-            ['role' => 'Coordinador UA'],
-            ['role' => 'Auxiliar SNI'],
-            ['role' => 'Jefe de investigación'],
-            ['role' => 'Auxiliar PRODEP'],
-            ['role' => 'Auxiliar cuerpos académicos'],
-            ['role' => 'Jefe de Posgrados'],
-            ['role' => 'Auxiliar Posgrados'],
-            ['role' => 'Planeación'],
-            ['role' => 'Secretaría general'],
-            ['role' => 'Responsable de Campus'],
-            ['role' => 'Jefe Propiedad Intelectual y T'],
-            ['role' => 'Responsable de Campus'],
-            ['role' => 'Auxiliar PIT'],
-            ['role' => 'Coordinador de investigación y posgrado de UA']
+            ['rol' => 'Admnistrador'],
+            ['rol' => 'Coordinador general'],
+            ['rol' => 'Coordinador UA'],
+            ['rol' => 'Auxiliar SNI'],
+            ['rol' => 'Jefe de investigación'],
+            ['rol' => 'Auxiliar PRODEP'],
+            ['rol' => 'Auxiliar cuerpos académicos'],
+            ['rol' => 'Jefe de Posgrados'],
+            ['rol' => 'Auxiliar Posgrados'],
+            ['rol' => 'Planeación'],
+            ['rol' => 'Secretaría general'],
+            ['rol' => 'Responsable de Campus'],
+            ['rol' => 'Jefe Propiedad Intelectual y T'],
+            ['rol' => 'Responsable de Campus'],
+            ['rol' => 'Auxiliar PIT'],
+            ['rol' => 'Coordinador de investigación y posgrado de UA']
         ]);
         DB::table('modulos')->insert([
             ['module' => '/inicio'],

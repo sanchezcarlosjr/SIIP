@@ -33,6 +33,6 @@ class CreateProductivityThesesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productividad_theses');
+        Schema::dropIfExists('productividad_tesis');
     }
 }

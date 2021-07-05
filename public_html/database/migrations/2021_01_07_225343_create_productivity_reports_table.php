@@ -13,7 +13,7 @@ class CreateProductivityReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productividad_informes ', function (Blueprint $table) {
+        Schema::create('productividad_informes', function (Blueprint $table) {
             $table->id();
             $table->string('proyecto');
             $table->string('autores');
