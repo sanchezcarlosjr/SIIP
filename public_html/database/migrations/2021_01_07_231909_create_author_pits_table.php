@@ -13,12 +13,12 @@ class CreateAuthorPitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('author_pits', function (Blueprint $table) {
+        Schema::create('pit_autores', function (Blueprint $table) {
             $table->id();
-            $table->integer('right_id')->unsigned();
-            $table->foreign('right_id')->references('id')->on('right_pits')->onDelete('cascade');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('derecho_id')->unsigned();
+            $table->foreign('derecho_id')->references('id')->on('derechos_pits')->onDelete('cascade');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateAuthorPitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('author_pits');
+        Schema::dropIfExists('pit_autor');
     }
 }

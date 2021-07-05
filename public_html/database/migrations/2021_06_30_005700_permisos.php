@@ -17,10 +17,10 @@ class Permisos extends Migration
             $table->id();
             $table->integer('modulo_id')->unsigned();
             $table->integer('rol_id')->unsigned();
-            $table->boolean('create');
-            $table->boolean('edit');
-            $table->boolean('read');
-            $table->boolean('destroy');
+            $table->boolean('crear');
+            $table->boolean('editar');
+            $table->boolean('leer');
+            $table->boolean('destruir');
             $table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade');
             $table->foreign('modulo_id')->references('id')->on('modulos')->onDelete('cascade');
             $table->timestamps();

@@ -13,12 +13,12 @@ class CreateActivityPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_photos', function (Blueprint $table) {
+        Schema::create('pit_actividades_fotos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->string('url');
-            $table->integer('pit_activity_id')->unsigned();
-            $table->foreign('pit_activity_id')->references('id')->on('activities_pits')->onDelete('cascade');
+            $table->integer('pit_actividad_id')->unsigned();
+            $table->foreign('pit_actividad_id')->references('id')->on('pit_actividades')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateActivityPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_photos');
+        Schema::dropIfExists('pit_actividades_fotos');
     }
 }

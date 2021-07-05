@@ -13,18 +13,18 @@ class CreateHelpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_bodies_helps', function (Blueprint $table) {
+        Schema::create('apoyos_cuerpos_academicos', function (Blueprint $table) {
             $table->id();
-            $table->float('amount');
-            $table->string('type');
-            $table->string('report_url')->nullable();
-            $table->string('release_url')->nullable();
-            $table->date('date');
+            $table->float('monto');
+            $table->string('tipo');
+            $table->string('url_reporte')->nullable();
+            $table->string('url_liberacion')->nullable();
+            $table->date('fecha');
             $table->timestamps();
-            $table->integer('academic_body_id')->unsigned();
-            $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
-            $table->integer('benefited_employee_id')->unsigned();
-            $table->foreign('benefited_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('cuerpo_academico_id')->unsigned();
+            $table->foreign('cuerpo_academico_id')->references('id')->on('cuerpos_academicos')->onDelete('cascade');
+            $table->integer('nempleado_beneficiado')->unsigned();
+            $table->foreign('nempleado_beneficiado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateHelpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_bodies_helps');
+        Schema::dropIfExists('apoyos_cuerpos_academicos');
     }
 }

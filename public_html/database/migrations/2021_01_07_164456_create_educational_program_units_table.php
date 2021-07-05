@@ -13,13 +13,13 @@ class CreateEducationalProgramUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('educational_program_units', function (Blueprint $table) {
+        Schema::create('programas_educativos_unidades', function (Blueprint $table) {
             $table->id();
-            $table->integer('educational_program_id')->unsigned();
-            $table->foreign('educational_program_id')->references('id')->on('educational_programs')->onDelete('cascade');
+            $table->integer('programa_educativo_id')->unsigned();
+            $table->foreign('programa_educativo_id')->references('id')->on('programas_educativos')->onDelete('cascade');
             $table->timestamps();
-            $table->integer('academic_unit_id')->unsigned();
-            $table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
+            $table->integer('nunidad')->unsigned();
+            $table->foreign('nunidad')->references('nunidad')->on('unidades')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateEducationalProgramUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('educational_program_units');
+        Schema::dropIfExists('programas_educativos_unidades');
     }
 }

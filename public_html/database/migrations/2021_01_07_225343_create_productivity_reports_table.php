@@ -13,14 +13,14 @@ class CreateProductivityReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_reports', function (Blueprint $table) {
+        Schema::create('productividad_informes ', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('authors');
-            $table->date('published_at');
-            $table->string('institute');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->string('proyecto');
+            $table->string('autores');
+            $table->date('fecha_de_publicacion');
+            $table->string('instituto');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateProductivityReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_reports');
+        Schema::dropIfExists('productividad_informes');
     }
 }

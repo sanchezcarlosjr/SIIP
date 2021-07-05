@@ -13,19 +13,19 @@ class CreateProductivityItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_items', function (Blueprint $table) {
+        Schema::create('productividad_articulos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('authors');
-            $table->string('volume');
-            $table->string('published_at');
-            $table->string('megazine');
-            $table->string('megazine_url');
+            $table->string('titulo');
+            $table->string('autores');
+            $table->string('volumen');
+            $table->string('fecha_de_publicacion');
+            $table->string('revista');
+            $table->string('url_de_revista');
             $table->string('url');
             $table->string('doi');
-            $table->string('impact_factor');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->string('factor_de_impacto');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ class CreateProductivityItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_items');
+        Schema::dropIfExists('productividad_items');
     }
 }

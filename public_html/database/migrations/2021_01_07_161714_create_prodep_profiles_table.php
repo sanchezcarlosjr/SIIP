@@ -13,15 +13,15 @@ class CreateProdepProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodep_profiles', function (Blueprint $table) {
+        Schema::create('prodep_perfiles', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date');
-            $table->date('finish_date');
-            $table->integer('employee_id')->unsigned();
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
+            $table->integer('nempleado')->unsigned();
             $table->integer('prodep_area_id')->unsigned();
             $table->timestamps();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
-            $table->foreign('prodep_area_id')->references('id')->on('prodep_areas')->onDelete('cascade');
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('prodep_area_id')->references('id')->on('areas_prodep')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateProdepProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prodep_profiles');
+        Schema::dropIfExists('prodep_perfiles');
     }
 }

@@ -13,17 +13,17 @@ class CreateProductivityBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_books', function (Blueprint $table) {
+        Schema::create('productividad_libros', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('authors');
-            $table->string('partipation_type');
+            $table->string('titulo');
+            $table->string('autores');
+            $table->string('tipo_de_participacion');
             $table->string('editorial');
-            $table->string('url_editorial');
+            $table->string('editorial_url');
             $table->string('isbn');
             $table->string('doi');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ class CreateProductivityBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_books');
+        Schema::dropIfExists('productividad_libros');
     }
 }

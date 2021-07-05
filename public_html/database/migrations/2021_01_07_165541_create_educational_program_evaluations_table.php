@@ -13,14 +13,14 @@ class CreateEducationalProgramEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('educational_program_evaluations', function (Blueprint $table) {
+        Schema::create('evaluaciones_programas_educativos', function (Blueprint $table) {
             $table->id();
-            $table->date('vigency_date');
-            $table->string('process_plan');
-            $table->string('level_pnpc');
+            $table->date('vigente_hasta');
+            $table->string('plan_proceso');
+            $table->string('nivel_pnpc');
             $table->timestamps();
-            $table->integer('educational_program_id')->unsigned();
-            $table->foreign('educational_program_id')->references('id')->on('educational_programs')->onDelete('cascade');
+            $table->integer('programa_educativo_id')->unsigned();
+            $table->foreign('programa_educativo_id')->references('id')->on('programa_educativos')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateEducationalProgramEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('educational_program_evaluations');
+        Schema::dropIfExists('evaluaciones_programas_educativos');
     }
 }

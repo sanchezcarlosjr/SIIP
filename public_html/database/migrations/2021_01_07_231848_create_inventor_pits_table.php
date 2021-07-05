@@ -13,12 +13,12 @@ class CreateInventorPitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventor_pits', function (Blueprint $table) {
+        Schema::create('pit_inventores', function (Blueprint $table) {
             $table->id();
-            $table->integer('invention_id')->unsigned();
-            $table->foreign('invention_id')->references('id')->on('invention_pits')->onDelete('cascade');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('invencion_id')->unsigned();
+            $table->foreign('invencion_id')->references('id')->on('pit_invenciones')->onDelete('cascade');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateInventorPitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventor_pits');
+        Schema::dropIfExists('pit_inventores');
     }
 }

@@ -13,14 +13,14 @@ class CreateModificationEducationalProgramsTable extends Migration
      */
     public function up()
     {
-        Schema::create('modification_educational_programs', function (Blueprint $table) {
+        Schema::create('modificaciones_programas_educativos', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('actual_status');
-            $table->string('process_plan');
+            $table->date('fecha');
+            $table->string('estatus_actual');
+            $table->string('plan_proceso');
             $table->timestamps();
-            $table->integer('educational_program_id')->unsigned();
-            $table->foreign('educational_program_id')->references('id')->on('educational_programs')->onDelete('cascade');
+            $table->integer('programa_educativo_id')->unsigned();
+            $table->foreign('programa_educativo_id')->references('id')->on('programas_educativos')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateModificationEducationalProgramsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modification_educational_programs');
+        Schema::dropIfExists('modificaciones_programas_educativos');
     }
 }

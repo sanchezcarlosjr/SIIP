@@ -13,15 +13,15 @@ class CreateProductivityInnovationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_innovations', function (Blueprint $table) {
+        Schema::create('productividad_innovacion', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('authors');
-            $table->string('type');
-            $table->string('published_at');
-            $table->string('register_number');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->string('titulo');
+            $table->string('autores');
+            $table->string('tipo');
+            $table->string('publicado_en');
+            $table->string('numero_de_registro');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateProductivityInnovationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_innovations');
+        Schema::dropIfExists('productividad_innovacion');
     }
 }

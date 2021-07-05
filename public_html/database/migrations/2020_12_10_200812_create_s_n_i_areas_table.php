@@ -13,9 +13,9 @@ class CreateSNIAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('sni_areas', function (Blueprint $table) {
+        Schema::create('areas_sni', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateSNIAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sni_areas');
+        Schema::dropIfExists('areas_sni');
     }
 }

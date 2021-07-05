@@ -13,14 +13,14 @@ class CreateConsultancyPitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('consultancy_pits', function (Blueprint $table) {
+        Schema::create('pit_asesorias', function (Blueprint $table) {
             $table->id();
-            $table->string('applicant_name');
-            $table->string('kind_of_application');
-            $table->string('motive');
-            $table->date('date');
-            $table->integer('academic_unit_id')->unsigned();
-            $table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
+            $table->string('nombre_aplicacion');
+            $table->string('tipo_de_aplicacion');
+            $table->string('motivo');
+            $table->date('fecha');
+            $table->integer('nunidad')->unsigned();
+            $table->foreign('nunidad')->references('nunidad')->on('unidades')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateConsultancyPitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consultancy_pits');
+        Schema::dropIfExists('pit_asesorias');
     }
 }

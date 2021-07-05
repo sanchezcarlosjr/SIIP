@@ -13,11 +13,11 @@ class CreateCollaboratorNetworksTable extends Migration
      */
     public function up()
     {
-        Schema::create('collaborator_networks', function (Blueprint $table) {
+        Schema::create('colaboradores_redes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->integer('academic_bodies_network_id')->unsigned();
+            $table->string('nombre');
+            $table->string('tipo');
+            $table->integer('cuerpos_academicos_redes_id')->unsigned();
             $table->timestamps();
         });
     }

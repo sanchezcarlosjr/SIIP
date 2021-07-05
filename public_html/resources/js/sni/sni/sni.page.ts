@@ -12,7 +12,7 @@ const schema = {
     fields: [
         {
             type: 'graphql-select-id',
-            label: 'Nombre del empleado beneficiado*',
+            label: 'Nombre del empleado*',
             model: "employee.name",
             query: {
                 resource: employees,

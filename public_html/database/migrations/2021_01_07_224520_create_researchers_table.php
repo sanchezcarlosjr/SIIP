@@ -13,12 +13,12 @@ class CreateResearchersTable extends Migration
      */
     public function up()
     {
-        Schema::create('researchers', function (Blueprint $table) {
+        Schema::create('profesores_investigadores', function (Blueprint $table) {
             $table->id();
-            $table->date('valid');
-            $table->date('probative');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->date('vigenteHasta');
+            $table->date('probatorio');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateResearchersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('researchers');
+        Schema::dropIfExists('investigadores');
     }
 }

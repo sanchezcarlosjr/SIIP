@@ -13,14 +13,14 @@ class CreateEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_bodies_evaluations', function (Blueprint $table) {
+        Schema::create('evaluaciones_cuerpos_academicos', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date');
-            $table->date('finish_date')->nullable();
-            $table->string('grade');
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin')->nullable();
+            $table->string('grado');
             $table->timestamps();
-            $table->integer('academic_body_id')->unsigned();
-            $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
+            $table->integer('cuerpo_academico_id')->unsigned();
+            $table->foreign('cuerpo_academico_id')->references('id')->on('cuerpos_academicos')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_bodies_evaluations');
+        Schema::dropIfExists('evaluaciones_cuerpos_academicos');
     }
 }

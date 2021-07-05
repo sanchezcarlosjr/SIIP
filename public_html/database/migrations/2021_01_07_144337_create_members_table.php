@@ -13,15 +13,14 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-      /** TODO: Singular to Plural */
-        Schema::create('academic_body_member', function (Blueprint $table) {
+        Schema::create('miembros_cuerpos_academicos', function (Blueprint $table) {
             $table->id();
-            $table->integer('academic_bodies_lgacs_id')->unsigned();
-            $table->integer('employee_id')->unsigned();
+            $table->integer('lgac_cuerpos_academicos_id')->unsigned();
+            $table->integer('nempleado')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('academic_bodies_lgacs_id')->references('id')->on('academic_bodies_lgacs')->onDelete('cascade');
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('lgac_cuerpos_academicos_id')->references('id')->on('lgac_cuerpos_academicos')->onDelete('cascade');
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_body_member');
+        Schema::dropIfExists('miembros_cuerpos_academicos');
     }
 }

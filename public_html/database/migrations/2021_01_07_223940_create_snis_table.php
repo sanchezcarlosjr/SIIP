@@ -15,18 +15,18 @@ class CreateSnisTable extends Migration
     {
         Schema::create('snis', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date');
-            $table->date('finish_date');
-            $table->string('discipline');
-            $table->string('field');
-            $table->string('request')->nullable();
-            $table->string('level');
-            $table->string('specialty');
-            $table->string('appointment_url')->nullable();
-            $table->integer('employee_id')->unsigned();
-            $table->integer('sni_area_id')->unsigned();
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
+            $table->string('disciplina');
+            $table->string('campo');
+            $table->string('nombramiento')->nullable();
+            $table->string('nivel');
+            $table->string('especialidad');
+            $table->string('nombramiento_url')->nullable();
+            $table->integer('nempleado')->unsigned();
+            $table->integer('sni_areas_id')->unsigned();
             $table->timestamps();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 

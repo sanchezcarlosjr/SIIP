@@ -13,11 +13,11 @@ class CreateCollaboratorNetworksRelationshipTable extends Migration
      */
     public function up()
     {
-        Schema::table('collaborator_networks', function (Blueprint $table) {
-            $table->foreign('academic_bodies_network_id')->references('id')->on('academic_bodies_networks');
+        Schema::table('colaboradores_redes', function (Blueprint $table) {
+            $table->foreign('cuerpos_academicos_redes_id')->references('id')->on('redes_cuerpos_academicos');
         });
-        Schema::table('academic_bodies_networks', function (Blueprint $table) {
-            $table->foreign('network_lead_id')->references('id')->on('collaborator_networks');
+        Schema::table('redes_cuerpos_academicos', function (Blueprint $table) {
+            $table->foreign('lider_de_red_id')->references('id')->on('colaboradores_redes');
         });
     }
 

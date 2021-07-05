@@ -13,15 +13,15 @@ class CreateActivitiesPitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('activities_pits', function (Blueprint $table) {
+        Schema::create('pit_actividades', function (Blueprint $table) {
             $table->id();
-            $table->string('kind_of_applicant');
-            $table->string('name_event');
-            $table->string('asistence');
-            $table->string('goal');
-            $table->date('date');
-            $table->integer('academic_unit_id')->unsigned();
-            $table->foreign('academic_unit_id')->references('nunidad')->on('unidades')->onDelete('cascade');
+            $table->string('tipo_de_solicitante');
+            $table->string('nombre_del_evento');
+            $table->string('url_asistencia');
+            $table->string('objetivo');
+            $table->date('fecha');
+            $table->integer('nunidad')->unsigned();
+            $table->foreign('nunidad')->references('nunidad')->on('unidades')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateActivitiesPitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities_pits');
+        Schema::dropIfExists('pit_actividades');
     }
 }

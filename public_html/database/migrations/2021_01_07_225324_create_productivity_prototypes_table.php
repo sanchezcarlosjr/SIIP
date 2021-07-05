@@ -13,16 +13,16 @@ class CreateProductivityPrototypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_prototypes', function (Blueprint $table) {
+        Schema::create('productividad_prototipos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('authors');
-            $table->string('register_number');
-            $table->date('published_at');
-            $table->string('type');
-            $table->string('institute');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->string('titulo');
+            $table->string('autores');
+            $table->string('numero_de_registro');
+            $table->date('fecha_de_publicacion');
+            $table->string('tipo');
+            $table->string('instituto');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateProductivityPrototypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_prototypes');
+        Schema::dropIfExists('productividad_prototipos');
     }
 }

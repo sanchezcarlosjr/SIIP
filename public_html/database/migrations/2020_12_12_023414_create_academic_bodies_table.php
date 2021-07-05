@@ -13,19 +13,19 @@ class CreateAcademicBodiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('academic_bodies', function (Blueprint $table) {
+        Schema::create('cuerpos_academicos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('prodep_key')->unique();
-            $table->boolean('active');
-            $table->integer('lead_employee_id')->unsigned()->nullable();
-            $table->integer('prodep_area_id')->unsigned();
-            $table->string('discipline');
-            $table->integer('des_id')->unsigned();
+            $table->string('nombre');
+            $table->string('clave_prodep')->unique();
+            $table->boolean('vigente');
+            $table->integer('nempleado_lider')->unsigned()->nullable();
+            $table->integer('area_prodep_id')->unsigned();
+            $table->string('disciplina');
+            $table->integer('des')->unsigned();
             $table->timestamps();
-            $table->foreign('lead_employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
-            $table->foreign('des_id')->references('cdes')->on('des')->onDelete('cascade');
-            $table->foreign('prodep_area_id')->references('id')->on('prodep_areas')->onDelete('cascade');
+            $table->foreign('nempleado_lider')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('des')->references('cdes')->on('des')->onDelete('cascade');
+            $table->foreign('area_prodep_id')->references('id')->on('areas_prodep')->onDelete('cascade');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateAcademicBodiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academic_bodies');
+        Schema::dropIfExists('cuerpos_academicos');
     }
 }

@@ -13,14 +13,14 @@ class CreateProdepHelpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('prodep_helps', function (Blueprint $table) {
+        Schema::create('apoyos_prodep', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount');
-            $table->tinyInteger('type');
-            $table->date('date');
+            $table->decimal('monto');
+            $table->tinyInteger('tipo');
+            $table->date('fecha');
             $table->timestamps();
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateProdepHelpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prodep_helps');
+        Schema::dropIfExists('apoyos_prodep');
     }
 }

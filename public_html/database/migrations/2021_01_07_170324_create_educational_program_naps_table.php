@@ -13,13 +13,13 @@ class CreateEducationalProgramNapsTable extends Migration
      */
     public function up()
     {
-        Schema::create('educational_program_naps', function (Blueprint $table) {
+        Schema::create('programas_educativos_naps', function (Blueprint $table) {
             $table->id();
-            $table->integer('educational_program_unit_id')->unsigned();
-            $table->foreign('educational_program_unit_id')->references('id')->on('educational_program_units')->onDelete('cascade');
+            $table->integer('programa_educativo_id')->unsigned();
+            $table->foreign('programa_educativo_id')->references('id')->on('programas_educativos')->onDelete('cascade');
             $table->timestamps();
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateEducationalProgramNapsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('educational_program_naps');
+        Schema::dropIfExists('programas_educativos_naps');
     }
 }

@@ -13,13 +13,13 @@ class CreateCollaboratorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('collaborators', function (Blueprint $table) {
+        Schema::create('colaboradores', function (Blueprint $table) {
             $table->id();
-            $table->integer('academic_body_id')->unsigned();
-            $table->integer('employee_id')->unsigned();
+            $table->integer('cuerpo_academico_id')->unsigned();
+            $table->integer('nempleado')->unsigned();
             $table->timestamps();
-            $table->foreign('academic_body_id')->references('id')->on('academic_bodies')->onDelete('cascade');
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->foreign('cuerpo_academico_id')->references('id')->on('cuerpos_academicos')->onDelete('cascade');
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateCollaboratorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collaborators');
+        Schema::dropIfExists('colaboradores');
     }
 }

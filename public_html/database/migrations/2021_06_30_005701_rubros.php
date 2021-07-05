@@ -15,12 +15,12 @@ class Rubros extends Migration
     {
         Schema::create('prodep_rubros', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount');
-            $table->boolean('authorized');
-            $table->string('name');
+            $table->decimal('monto');
+            $table->boolean('autorizado');
+            $table->string('nombre');
             /** Polymorph */
-            $table->integer('rubrable_id');
-            $table->string('rubrable_type');
+            $table->integer('rubabilidad_id');
+            $table->string('rubabilidad_tipo');
             $table->timestamps();
         });
     }

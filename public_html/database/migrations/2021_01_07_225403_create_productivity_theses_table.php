@@ -13,15 +13,15 @@ class CreateProductivityThesesTable extends Migration
      */
     public function up()
     {
-        Schema::create('productivity_theses', function (Blueprint $table) {
+        Schema::create('productividad_tesis', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('student');
-            $table->string('type');
-            $table->date('reached_at');
-            $table->string('grade');
-            $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('nempleado')->on('empleados')->onDelete('cascade');
+            $table->string('titulo');
+            $table->string('estudiante');
+            $table->string('tipo');
+            $table->date('fecha_de_obtencion');
+            $table->string('grado');
+            $table->integer('nempleado')->unsigned();
+            $table->foreign('nempleado')->references('nempleado')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateProductivityThesesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productivity_theses');
+        Schema::dropIfExists('productividad_theses');
     }
 }
