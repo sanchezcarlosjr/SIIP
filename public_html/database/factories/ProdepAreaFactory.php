@@ -22,7 +22,7 @@ class ProdepAreaFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name
+            'nombre' => $this->faker->name
         ];
     }
 }
