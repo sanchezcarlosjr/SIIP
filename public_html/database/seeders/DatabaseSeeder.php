@@ -30,24 +30,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->makeRoles();
-        Employee::factory(10)->has(User::factory())->create();
         #DES::factory(10)->create();
         #AcademicUnit::factory(100)->create();
-        ProdepArea::factory(200)->create();
-        AcademicBody::factory(200)->create();
-        Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();
-        Employee::factory(100)->has(AcademicBody::factory(), 'collaborator_academic_bodies')->create();
-        Employee::factory(100)->has(Help::factory()->count(3))->create();
-        Employee::factory(10)->has(ProdepProfile::factory()->count(3), 'prodep_profiles')->create();
-        Employee::factory(5)->has(ProdepHelp::factory()->count(3), 'prodep_helps')->create();
-        Employee::factory(5)->has(ProdepNPTC::factory()->count(3), 'prodep_nptcs')->create();
-        Employee::factory(5)->has(Sni::factory()->count(5), 'snis')->create();
-        Employee::factory(5)->has(Researcher::factory()->count(5), 'researchers')->create();
-        LGAC::factory(200)->create();
-        Evaluation::factory(200)->create();
-        SNIArea::factory(50)->create();
-        Network::factory(200)->create();
-        ActivitiesPit::factory()->create();
+        Employee::factory(10)->has(User::factory())->create();
     }
 
     private function makeRoles()
@@ -71,80 +56,80 @@ class DatabaseSeeder extends Seeder
             ['rol' => 'Coordinador de investigación y posgrado de UA']
         ]);
         DB::table('modulos')->insert([
-            ['module' => '/inicio'],
-            ['module' => '/usuarios'],
-            ['module' => '/cuerpos-academicos'],
-            ['module' => '/cuerpos-academicos/miembros'],
-            ['module' => '/cuerpos-academicos/lgac'],
-            ['module' => '/cuerpos-academicos/evaluaciones'],
-            ['module' => '/cuerpos-academicos/redes'],
-            ['module' => '/cuerpos-academicos/apoyos'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/editar'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/evaluaciones'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/lgac'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/miembros'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/redes'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/colaboradores'],
-            ['module' => '/sni'],
-            ['module' => '/prodep'],
-            ['module' => '/prodep/apoyos'],
-            ['module' => '/prodep/nptcs'],
-            ['module' => '/cuerpos-academicos/:academic_body_id/apoyos'],
+            ['modulo' => '/inicio'],
+            ['modulo' => '/usuarios'],
+            ['modulo' => '/cuerpos-academicos'],
+            ['modulo' => '/cuerpos-academicos/miembros'],
+            ['modulo' => '/cuerpos-academicos/lgac'],
+            ['modulo' => '/cuerpos-academicos/evaluaciones'],
+            ['modulo' => '/cuerpos-academicos/redes'],
+            ['modulo' => '/cuerpos-academicos/apoyos'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/editar'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/evaluaciones'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/lgac'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/miembros'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/redes'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/colaboradores'],
+            ['modulo' => '/sni'],
+            ['modulo' => '/prodep'],
+            ['modulo' => '/prodep/apoyos'],
+            ['modulo' => '/prodep/nptcs'],
+            ['modulo' => '/cuerpos-academicos/:academic_body_id/apoyos'],
         ]);
         DB::table('permisos')->insert([
-            ['modulo_id' => 1, 'rol_id' => 4, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 3, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 4, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 5, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 6, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 7, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 8, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 9, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 10, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 11, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 12, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 13, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 14, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 15, 'rol_id' => 4, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 16, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 17, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 18, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 19, 'rol_id' => 4, 'create' => false, 'edit' => false, 'read' => true, 'destroy' => false],
-            ['modulo_id' => 1, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 2, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 3, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 4, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 5, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 6, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 7, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 8, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 9, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 10, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 11, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 12, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 13, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 14, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 15, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 16, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 17, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 18, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 19, 'rol_id' => 1, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 1, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 2, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 3, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 4, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 5, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 6, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 7, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 8, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 9, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 10, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 11, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 12, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 13, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 14, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 15, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
-            ['modulo_id' => 16, 'rol_id' => 2, 'create' => true, 'edit' => true, 'read' => true, 'destroy' => true],
+            ['modulo_id' => 1, 'rol_id' => 4, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 3, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 4, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 5, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 6, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 7, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 8, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 9, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 10, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 11, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 12, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 13, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 14, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 15, 'rol_id' => 4, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 16, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 17, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 18, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 19, 'rol_id' => 4, 'crear' => false, 'editar' => false, 'leer' => true, 'destruir' => false],
+            ['modulo_id' => 1, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 2, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 3, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 4, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 5, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 6, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 7, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 8, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 9, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 10, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 11, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 12, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 13, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 14, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 15, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 16, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 17, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 18, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 19, 'rol_id' => 1, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 1, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 2, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 3, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 4, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 5, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 6, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 7, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 8, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 9, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 10, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 11, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 12, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 13, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 14, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 15, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 16, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
         ]);
     }
 

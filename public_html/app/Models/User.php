@@ -12,47 +12,43 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements HasApiTokensContract
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    protected $table = "usuarios";
     protected $fillable = [
-        'role_id',
-        'employee_id',
-        "password"
+        'rol_id',
+        'nempleado',
+        "contrasena"
     ];
     protected $hidden = [
-        "password",
+        "contrasena",
         'created_at',
-        'updated_at',
-        'email_verified_at'
-    ];
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+        'updated_at'
     ];
 
     public function roles()
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role::class, 'rol_id');
     }
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'nempleado');
     }
 
     public function scopeCampus(Builder $query, string $campus): Builder
     {
         return $query->joinSub(Employee::campus($campus), 'employeeCampus', function ($join) {
-            $join->on('users.employee_id', '=', 'employeeCampus.nempleado');
+            $join->on('usuarios.nempleado', '=', 'employeeCampus.nempleado');
         });
     }
 
     public function getRoleAttribute() {
-        return $this->belongsTo(Role::class, 'role_id')->get()->implode('role', ',');
+        return $this->belongsTo(Role::class, 'rol_id')->get()->implode('role', ',');
     }
 
     public function scopeGender(Builder $query, string $gender): Builder
     {
         return $query->joinSub(Employee::gender($gender), 'employeeGender', function ($join) {
-            $join->on('users.employee_id', '=', 'employeeGender.nempleado');
+            $join->on('users.nempleado', '=', 'employeeGender.nempleado');
         });
     }
 
@@ -62,7 +58,7 @@ class User extends Authenticatable implements HasApiTokensContract
             return $query;
         }
         return $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
-            $join->on('users.employee_id', '=', 'employee.nempleado');
+            $join->on('usuarios.nempleado', '=', 'employee.nempleado');
         });
     }
 

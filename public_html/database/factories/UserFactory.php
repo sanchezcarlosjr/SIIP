@@ -23,8 +23,8 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role_id' => $this->faker->numberBetween(1,4),
-            'password' => bcrypt('123456'),
+            'rol_id' => $this->faker->numberBetween(1,4),
+            'contrasena' => bcrypt('123456'),
             'remember_token' => Str::random(10),
         ];
     }
