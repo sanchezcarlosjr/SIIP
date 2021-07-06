@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class Evaluation extends Model
 {
-    protected $table = 'academic_bodies_evaluations';
+    protected $table = 'evaluaciones_cuerpos_academicos';
     protected $fillable = [
-      'grade',
-      'start_date',
+      'grado',
+      'fecha_inicio',
       'years_to_finish',
       'cuerpo_academico_id'
     ];
@@ -26,15 +26,15 @@ class Evaluation extends Model
 
     public function getYearsToFinishAttribute()
     {
-        return Carbon::parse($this->finish_date)->diffInYears(Carbon::parse($this->start_date));
+        return Carbon::parse($this->fecha_fin)->diffInYears(Carbon::parse($this->fecha_inicio));
     }
 
     public function setYearsToFinishAttribute($years) {
-      $this->attributes["finish_date"] = Carbon::parse($this->start_date)->addYears($years);
+      $this->attributes["fecha_fin"] = Carbon::parse($this->fecha_inicio)->addYears($years);
     }
 
-    public function getGradeNameAttribute() {
-      switch($this->grade) {
+    public function getgradoNameAttribute() {
+      switch($this->grado) {
         case 0: return "En formación";
         case 1: return "En consolidación";
         case 2: return "Consolidado";
@@ -42,7 +42,7 @@ class Evaluation extends Model
     }
 
     public function scopeAcademicBody($query, $id) {
-      return $query->whereHas("academic_bodies", function($query) use ($id) {
+      return $query->whereHas("cuerpos_academicos", function($query) use ($id) {
         $query->where("cuerpo_academico_id", "=", $id);
       });
     }
@@ -71,7 +71,7 @@ class Evaluation extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', start_date, finish_date, type_name)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', fecha_inicio, fecha_fin, type_name)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query
@@ -81,7 +81,7 @@ class Evaluation extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                    "academic_bodies_evaluations.*",
+                    "evaluaciones_cuerpos_academicos.*",
                     "type_case.type_name"
                   )
                 ->from("academic_bodies_evaluations")
@@ -89,24 +89,24 @@ class Evaluation extends Model
                   $query
                     ->selectRaw(
                       "id,
-                       CASE grade
+                       CASE grado
                        WHEN '0' THEN 'En formación'
                        WHEN '1' THEN 'En consolidación'
                        WHEN '2' THEN 'Consolidado'
                        END AS type_name"
                      )
-                    ->from("academic_bodies_evaluations");
+                    ->from("evaluaciones_cuerpos_academicos");
                 }, "type_case", function($join) {
-                  $join->on("academic_bodies_evaluations.id","=","type_case.id");
+                  $join->on("evaluaciones_cuerpos_academicos.id","=","type_case.id");
                 });
             }, "inner_terms")
             ->where(function ($query) use ($where) {
               $query->where($where);
             });
         }, "terms", function ($join){
-          $join->on("academic_bodies_evaluations.id", "=", "terms.id");
+          $join->on("evaluaciones_cuerpos_academicos.id", "=", "terms.id");
         })
-        ->select("academic_bodies_evaluations.*");
+        ->select("evaluaciones_cuerpos_academicos.*");
     }
 
 }
