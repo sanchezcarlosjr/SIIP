@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\DB;
 class ProdepHelp extends Model
 {
     use HasFactory;
+    protected $table = "apoyos_prodep";
 
-    protected $fillable = ["amount", "type", "date", "employee_id"];
+    protected $fillable = ["monto", "tipo", "fecha", "nempleado"];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, "employee_id");
+        return $this->belongsTo(Employee::class, "nempleado");
     }
 
     /*public function setTypeAttribute($value) {
@@ -24,7 +25,7 @@ class ProdepHelp extends Model
     }*/
 
     public function getTypeNameAttribute() {
-      switch($this->type) {
+      switch($this->tipo) {
         case 0: return "Apoyo inicial";
         case 1: return "Apoyo complementario";
         case 2: return "Apoyo 6 años";
@@ -40,17 +41,17 @@ class ProdepHelp extends Model
             ->select("*")
             ->fromSub(function($query){
               $query
-                ->select("prodep_helps.*", "empleados.f_nacimiento as fecha_nacimiento")
-                ->from("prodep_helps")
+                ->select("apoyos_prodep.*", "empleados.f_nacimiento as fecha_nacimiento")
+                ->from("apoyos_prodep")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_helps.employee_id","=","empleados.nempleado");
+                  $join->on("apoyos_prodep.employee_id","=","empleados.nempleado");
                 })
                 ->whereRaw("TO_DATE(f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'");
             }, "inner_terms");
         }, "retirement", function($join) {
-          $join->on("prodep_helps.id", "=", "retirement.id");
+          $join->on("apoyos_prodep.id", "=", "retirement.id");
         })
-        ->select("prodep_helps.*");
+        ->select("apoyos_prodep.*");
     }
 
     public function scopeGender($query, $gender) {
@@ -66,17 +67,17 @@ class ProdepHelp extends Model
             ->select("*")
             ->fromSub(function($query) use ($gender) {
               $query
-                ->select("prodep_helps.*", "empleados.sexo as sexo")
-                ->from("prodep_helps")
+                ->select("apoyos_prodep.*", "empleados.sexo as sexo")
+                ->from("apoyos_prodep")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_helps.employee_id","=","empleados.nempleado");
+                  $join->on("apoyos_prodep.employee_id","=","empleados.nempleado");
                 })
                 ->where("sexo", "ILIKE", $gender);
             }, "inner_terms");
         }, "gender", function($join) {
-          $join->on("prodep_helps.id", "=", "gender.id");
+          $join->on("apoyos_prodep.id", "=", "gender.id");
         })
-        ->select("prodep_helps.*");
+        ->select("apoyos_prodep.*");
     }
 
     public function scopeCampus($query, $name) {
@@ -86,10 +87,10 @@ class ProdepHelp extends Model
             ->select("*")
             ->fromSub(function($query) use ($name) {
               $query
-                ->select("prodep_helps.*", "unidades.unidad as unidad")
-                ->from("prodep_helps")
+                ->select("apoyos_prodep.*", "unidades.unidad as unidad")
+                ->from("apoyos_prodep")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_helps.employee_id","=","empleados.nempleado");
+                  $join->on("apoyos_prodep.employee_id","=","empleados.nempleado");
                 })
                 ->join("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -97,9 +98,9 @@ class ProdepHelp extends Model
                 ->where("campus", "ILIKE", $name);
               }, "inner_terms");
         }, "campus", function($join) {
-          $join->on("prodep_helps.id", "=", "campus.id");
+          $join->on("apoyos_prodep.id", "=", "campus.id");
         })
-        ->select("prodep_helps.*");
+        ->select("apoyos_prodep.*");
     }
 
     public function scopeTerms($query, $terms) {
@@ -109,7 +110,7 @@ class ProdepHelp extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, employee_id, unidad, date, type_name)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, employee_id, unidad, fecha, type_name)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query
@@ -119,19 +120,19 @@ class ProdepHelp extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                    "prodep_helps.*",
+                    "apoyos_prodep.*",
                     "type_case.type_name",
                     "unidades.unidad",
                     "empleados.nombre",
                     "empleados.apaterno",
                     "empleados.amaterno"
                   )
-                ->from("prodep_helps")
+                ->from("apoyos_prodep")
                 ->joinSub(function($query) {
                   $query
                     ->selectRaw(
                       "id,
-                       CASE type
+                       CASE tipo
                        WHEN '0' THEN 'Apoyo inicial'
                        WHEN '1' THEN 'Apoyo complementario'
                        WHEN '2' THEN 'Apoyo 6 años'
@@ -139,12 +140,12 @@ class ProdepHelp extends Model
                        WHEN '4' THEN 'Apoyo publicación'
                        END AS type_name"
                      )
-                    ->from("prodep_helps");
+                    ->from("apoyos_prodep");
                 }, "type_case", function($join) {
-                  $join->on("prodep_helps.id","=","type_case.id");
+                  $join->on("apoyos_prodep.id","=","type_case.id");
                 })
                 ->join("empleados", function($join) {
-                  $join->on("prodep_helps.employee_id","=","empleados.nempleado");
+                  $join->on("apoyos_prodep.employee_id","=","empleados.nempleado");
                 })
                 ->join("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -154,8 +155,8 @@ class ProdepHelp extends Model
               $query->orWhere($where);
             });
         }, "terms", function ($join){
-          $join->on("prodep_helps.id", "=", "terms.id");
+          $join->on("apoyos_prodep.id", "=", "terms.id");
         })
-        ->select("prodep_helps.*");
+        ->select("apoyos_prodep.*");
     }
 }

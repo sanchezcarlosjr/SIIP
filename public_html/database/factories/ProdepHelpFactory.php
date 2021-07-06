@@ -22,9 +22,9 @@ class ProdepHelpFactory extends Factory
     public function definition()
     {
         return [
-            'amount' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 100000),
-            'type' => $this->faker->numberBetween(0, 4),
-            'date' => $this->faker->date
+            'monto' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 1000, $max = 100000),
+            'tipo' => $this->faker->numberBetween(0, 4),
+            'fecha' => $this->faker->date
         ];
     }
 }
