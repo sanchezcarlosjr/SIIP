@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class Help extends Model
 {
-    protected $table = "academic_bodies_helps";
+    protected $table = "apoyos_cuerpos_academicos";
     protected $fillable = [
-        'amount',
-        'type',
-        'date',
-        'release_url',
-        'report_url',
-        'academic_body_id',
-        'benefited_employee_id'
+        'monto',
+        'tipo',
+        'fecha',
+        'url_reporte',
+        'url_liberacion',
+        'cuerpo_academico_id',
+        'nempleado_beneficiado'
     ];
     use HasFactory;
 
@@ -33,15 +33,15 @@ class Help extends Model
 
     public function benefited_employee(): BelongsTo
     {
-        return $this->belongsTo(Employee::class, 'benefited_employee_id');
+        return $this->belongsTo(Employee::class, 'nempleado_beneficiado');
     }
     public function academic_body(): BelongsTo
     {
-        return $this->belongsTo(AcademicBody::class, 'academic_body_id');
+        return $this->belongsTo(AcademicBody::class, 'cuerpo_academico_id');
     }
 
     public function scopeAcademicBody($query, $id) {
-      return $query->where("academic_bodies_helps.academic_body_id", "=", $id);
+      return $query->where("apoyos_cuerpos_academicos.cuerpo_academico_id", "=", $id);
     }
 
     public function scopeTerms($query, $terms) {
@@ -51,7 +51,7 @@ class Help extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', type_name, date, nombre, apaterno, amaterno, unidad, campus, academic_body)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', type_name, fecha, nombre, apaterno, amaterno, unidad, campus, academic_body)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query
@@ -61,15 +61,15 @@ class Help extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                  "academic_bodies_helps.*",
-                  "academic_bodies.name as academic_body",
+                  "apoyos_cuerpos_academicos.*",
+                  "cuerpos_academicos.nombre as academic_body",
                   "empleados.nombre",
                   "empleados.apaterno",
                   "empleados.amaterno",
                   "unidades.unidad",
                   "unidades.campus"
                 )
-                ->from("academic_bodies_helps")
+                ->from("apoyos_cuerpos_academicos")
                 ->joinSub(function($query) {
                   $query
                     ->selectRaw(
@@ -82,20 +82,20 @@ class Help extends Model
                        WHEN '4' THEN 'Becas postdoctorado'
                        END AS type_name"
                      )
-                    ->from("academic_bodies_helps");
+                    ->from("apoyos_cuerpos_academicos");
                 }, "type_case", function($join) {
-                  $join->on("academic_bodies_helps.id","=","type_case.id");
+                  $join->on("apoyos_cuerpos_academicos.id","=","type_case.id");
                 })
-                ->join("academic_bodies", "academic_bodies_helps.academic_body_id", "academic_bodies.id")
-                ->join("empleados", "academic_bodies_helps.benefited_employee_id", "empleados.nempleado")
+                ->join("cuerpos_academicos", "apoyos_cuerpos_academicos.cuerpo_academico_id", "cuerpos_academicos.id")
+                ->join("empleados", "apoyos_cuerpos_academicos.nempleado_beneficiado", "empleados.nempleado")
                 ->join("unidades", "empleados.nunidad", "unidades.nunidad");
             }, "inner_terms")
             ->where(function ($query) use ($where) {
               $query->where($where);
             });
         }, "terms", function ($join) {
-          $join->on("academic_bodies_helps.id", "=", "terms.id");
+          $join->on("apoyos_cuerpos_academicos.id", "=", "terms.id");
         })
-        ->select("academic_bodies_helps.*");
+        ->select("apoyos_cuerpos_academicos.*");
     }
 }

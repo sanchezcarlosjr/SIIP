@@ -23,10 +23,10 @@ class HelpFactory extends Factory
     public function definition()
     {
         return [
-            'amount' =>$this->faker->numberBetween($min = 1000, $max = 10000000),
-            'type' => $this->faker->userName,
-            'date' => $this->faker->date,
-            'academic_body_id' => $this->faker->numberBetween($min = 1, $max = 10)
+            'monto' =>$this->faker->numberBetween($min = 1000, $max = 10000000),
+            'tipo' => $this->faker->userName,
+            'fecha' => $this->faker->date,
+            'cuerpo_academico_id' => $this->faker->numberBetween($min = 1, $max = 10)
         ];
     }
 }
