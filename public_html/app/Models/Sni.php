@@ -14,7 +14,7 @@ class Sni extends Model
     use HasFactory;
     use ActiveEmployee;
 
-    protected $fillable = ["start_date", "finish_date", "discipline", "field", "request", "level", "specialty", "employee_id", "sni_area_id"];
+    protected $fillable = ["fecha_inicio", "fecha_fin", "disciplina", "campo", "nivel", "especialidad", "nempleado", "nombramiento", "area_sni_id"];
     protected $appends = [
         "is_active"
     ];
@@ -56,7 +56,7 @@ class Sni extends Model
         $timeToExpireInMonths = 6;
         $expirationDate = Carbon::today()->addMonths($timeToExpireInMonths)->toDateString();
         $today = Carbon::today()->toDateString();
-        return $query->whereBetween('finish_date', [$today, $expirationDate]);
+        return $query->whereBetween('fecha_fin', [$today, $expirationDate]);
     }
 
     public function scopeGender(Builder $query, string $gender)
@@ -69,7 +69,7 @@ class Sni extends Model
 
     public function getIsActiveAttribute()
     {
-        return Carbon::today()->lessThan($this->finish_date);
+        return Carbon::today()->lessThan($this->fecha_fin);
     }
 
     public function sni_area()

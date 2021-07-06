@@ -32,7 +32,7 @@ class ImmutableModel
         $actual = time();
         return $criteria->reduce(function (Collection $carry, array $item) use ($actual, $filter) {
             $this->newModel();
-            return $carry->push(array_merge($item,["id" => "{$item["id"]}-{$actual}", "data" => [$this->model->{$filter}($item[$filter])->get()->unique('employee_id')->count()]]));
+            return $carry->push(array_merge($item,["id" => "{$item["id"]}-{$actual}", "data" => [$this->model->{$filter}($item[$filter])->get()->unique('nempleado')->count()]]));
         }, collect());
     }
 
