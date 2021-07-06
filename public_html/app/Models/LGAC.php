@@ -11,30 +11,29 @@ use Illuminate\Support\Facades\DB;
 class LGAC extends Model
 {
     use HasFactory;
-    protected $table = 'academic_bodies_lgacs';
+    protected $table = 'lgac_cuerpos_academicos';
     protected $fillable = [
-        'key',
-        'name',
-        'description',
-        'academic_body_id',
+        'nombre',
+        'descripcion',
+        'cuerpo_academico_id',
     ];
 
     public function academic_body(): BelongsTo
     {
-        return $this->belongsTo(AcademicBody::class, 'academic_body_id');
+        return $this->belongsTo(AcademicBody::class, 'cuerpo_academico_id');
     }
 
     public function employees(): BelongsToMany
     {
         return $this->belongsToMany(Employee::class,
-          'academic_body_member',
-          'academic_bodies_lgacs_id',
-          'employee_id'
-        )->whereNull('academic_body_member.deleted_at')->withTimestamps();
+          'miembros_cuerpos_academicos',
+          'lgac_cuerpos_academicos_id',
+          'nempleado'
+        )->whereNull('miembros_cuerpos_academicos.deleted_at')->withTimestamps();
     }
 
     public function scopeAcademicBody($query, $id) {
-      return $query->where("academic_body_id", "=", $id);
+      return $query->where("cuerpo_academico_id", "=", $id);
     }
 
     public function scopeTerms($query, $terms) {
@@ -44,7 +43,7 @@ class LGAC extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', name, description, academic_body, prodep_area, nombre, apaterno, amaterno, unidad)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, descripcion, cuerpo_academico, area_prodep, nombreDeEmpleado, apellidoPaternoDeEmpleado, apellidoMaternoDeEmpleado, unidad)"), "ILIKE", "%".$terms[$i]."%");
       }
 /*
       return $query->where(function ($query) use ($where) {
@@ -58,26 +57,26 @@ class LGAC extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                  "academic_bodies_lgacs.*",
-                  "academic_bodies.name as academic_body",
-                  "prodep_areas.name as prodep_area",
-                  "empleados.nombre",
-                  "empleados.apaterno",
-                  "empleados.amaterno",
+                  "lgac_cuerpos_academicos.*",
+                  "cuerpos_academicos.nombre as cuerpo_academico",
+                  "areas_prodep.name as prodep_area",
+                  "empleados.nombre as nombreDeEmpleado",
+                  "empleados.apaterno as apellidoPaternoDeEmpleado",
+                  "empleados.amaterno as apellidoMaternoDeEmpleado",
                   "unidades.unidad"
                 )
-                ->from("academic_bodies_lgacs")
-                ->join("academic_bodies", "academic_bodies_lgacs.academic_body_id", "academic_bodies.id")
-                ->join("prodep_areas", "academic_bodies.prodep_area_id", "prodep_areas.id")
-                ->join("empleados", "academic_bodies.lead_employee_id", "empleados.nempleado")
+                ->from("lgac_cuerpos_academicos")
+                ->join("cuerpos_acedmicos", "lgac_cuerpos_academicos.cuerpo_academico_id", "cuerpos_academicos.id")
+                ->join("areas_prodep", "cuerpos_acedmicos.area_prodep_id", "areas_prodep.id")
+                ->join("empleados", "cuerpos_academicos.nempleado_lider", "empleados.nempleado")
                 ->join("unidades", "empleados.nunidad", "unidades.nunidad");
             }, "inner_terms")
             ->where(function ($query) use ($where) {
               $query->where($where);
             });
         }, "terms", function ($join) {
-          $join->on("academic_bodies_lgacs.id", "=", "terms.id");
+          $join->on("lgac_cuerpos_academicos.id", "=", "terms.id");
         })
-        ->select("academic_bodies_lgacs.*");
+        ->select("lgac_cuerpos_academicos.*");
     }
 }

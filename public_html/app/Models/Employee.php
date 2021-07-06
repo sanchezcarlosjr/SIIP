@@ -20,12 +20,12 @@ class Employee extends Model
     protected $primaryKey = 'nempleado';
     protected $table = 'empleados';
     protected $appends = [
-        "academic_body",
-        "full_name",
-        "age",
-        "is_ptc",
-        "has_active_prodep_profile",
-        "has_active_sni"
+        "cuerpo_academico",
+        "nombre_completo",
+        "edad",
+        "es_ptc",
+        "tiene_vigente_perfil_prodep",
+        "tiene_vigente_sni"
     ];
     use HasFactory;
 
@@ -38,19 +38,19 @@ class Employee extends Model
     {
         return $this->belongsToMany(
             LGAC::class,
-            'academic_body_member',
-            'employee_id',
-            'academic_bodies_lgacs_id'
-        )->whereNull('academic_body_member.deleted_at')->withTimestamps();
+            'miembros_cuerpos_academicos',
+            'nempleado',
+            'lgac_cuerpos_academicos_id'
+        )->whereNull('miembros_cuerpos_academicos.deleted_at')->withTimestamps();
     }
 
     public function collaborator_academic_bodies(): BelongsToMany
     {
         return $this->belongsToMany(
             AcademicBody::class,
-            'collaborators',
-            'employee_id',
-            'academic_body_id'
+            'colaboradores',
+            'nempleado',
+            'cuerpo_academico_id'
         );
     }
 
@@ -92,27 +92,27 @@ class Employee extends Model
 
     public function helps()
     {
-        return $this->hasMany(Help::class, 'benefited_employee_id');
+        return $this->hasMany(Help::class, 'nempleado_beneficiado');
     }
 
     public function prodep_profiles()
     {
-        return $this->hasMany(ProdepProfile::class, 'employee_id');
+        return $this->hasMany(ProdepProfile::class, 'nempleado');
     }
 
     public function prodep_helps()
     {
-        return $this->hasMany(ProdepHelp::class, 'employee_id');
+        return $this->hasMany(ProdepHelp::class, 'nempleado');
     }
 
     public function prodep_nptcs()
     {
-        return $this->hasMany(ProdepNPTC::class, 'employee_id');
+        return $this->hasMany(ProdepNPTC::class, 'nempleado');
     }
 
     public function snis()
     {
-        return $this->hasMany(Sni::class, 'employee_id');
+        return $this->hasMany(Sni::class, 'nempleado');
     }
 
     public function user()
@@ -122,7 +122,7 @@ class Employee extends Model
 
     public function researchers()
     {
-        return $this->hasMany(Researcher::class, 'employee_id');
+        return $this->hasMany(Researcher::class, 'nempleado');
     }
 
     public function scopePtcs($query)

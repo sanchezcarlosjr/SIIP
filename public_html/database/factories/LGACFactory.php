@@ -22,9 +22,9 @@ class LGACFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'description' => $this->faker->word,
-            'academic_body_id' => $this->faker->numberBetween($min = 1, $max = 10)
+            'nombre' => $this->faker->name,
+            'descripcion' => $this->faker->word,
+            'cuerpo_academico_id' => $this->faker->numberBetween($min = 1, $max = 10)
         ];
     }
 }
