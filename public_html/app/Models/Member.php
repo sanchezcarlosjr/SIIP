@@ -11,9 +11,9 @@ class Member extends Model
   use HasFactory;
   use SoftDeletes;
 
-  protected $table = 'academic_body_member';
+  protected $table = 'miembros_cuerpos_academicos';
   protected $fillable = [
-      'academic_bodies_lgacs_id',
+      'lgac_cuerpos_academicos_id',
       'nempleado'
   ];
   protected $softDelete = true;
@@ -23,7 +23,7 @@ class Member extends Model
   }
 
   public function lgac() {
-    return $this->belongsTo(LGAC::class, "academic_bodies_lgacs_id");
+    return $this->belongsTo(LGAC::class, "lgac_cuerpos_academicos_id");
   }
 
   public function getAcademicBodyAttribute() {
