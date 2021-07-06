@@ -23,10 +23,10 @@ class EvaluationFactory extends Factory
     public function definition()
     {
         return [
-            'start_date' => $this->faker->date,
-            'finish_date' => $this->faker->date,
-            'grade' => $this->faker->numberBetween(0, 2),
-            'academic_body_id' => $this->faker->numberBetween($min = 1, $max = 100)
+            'fecha_inicio' => $this->faker->date,
+            'fecha_fin' => $this->faker->date,
+            'grado' => $this->faker->numberBetween(0, 2),
+            'cuerpo_academico_id' => $this->faker->numberBetween($min = 1, $max = 100)
         ];
     }
 }

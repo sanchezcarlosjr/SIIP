@@ -33,7 +33,7 @@ class Evaluation extends Model
       $this->attributes["fecha_fin"] = Carbon::parse($this->fecha_inicio)->addYears($years);
     }
 
-    public function getgradoNameAttribute() {
+    public function getGradeNameAttribute() {
       switch($this->grado) {
         case 0: return "En formación";
         case 1: return "En consolidación";

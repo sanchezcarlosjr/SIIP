@@ -36,27 +36,27 @@ class AcademicBody extends Model
 
     public function lgacs()
     {
-        return $this->hasMany(LGAC::class);
+        return $this->hasMany(LGAC::class, 'cuerpo_academico_id');
     }
 
     public function networks()
     {
-        return $this->hasMany(Network::class);
+        return $this->hasMany(Network::class, 'cuerpo_academico_id');
     }
 
     public function helps()
     {
-        return $this->hasMany(Help::class);
+        return $this->hasMany(Help::class, 'cuerpo_academico_id');
     }
 
     public function evaluations(): HasMany
     {
-        return $this->hasMany(Evaluation::class)->orderBy('fecha_fin', 'desc');
+        return $this->hasMany(Evaluation::class, 'cuerpo_academico_id')->orderBy('fecha_fin', 'desc');
     }
 
     public function prodep_area()
     {
-        return $this->belongsTo(ProdepArea::class);
+        return $this->belongsTo(ProdepArea::class, 'cuerpo_academico_id');
     }
 
     public function leader()

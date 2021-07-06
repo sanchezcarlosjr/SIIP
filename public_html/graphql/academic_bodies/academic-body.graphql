@@ -35,7 +35,7 @@ extend type Mutation {
 
 type AcademicBody {
     id: ID!
-    name: String
+    name: String @rename(attribute: "nombre")
     active: Boolean
     discipline: String
     lead_employee_id: Int
@@ -46,7 +46,7 @@ type AcademicBody {
     helps: [Help]
     last_evaluation: Evaluation
     leader: Employee
-    prodep_key: String
+    prodep_key: String @rename(attribute: "clave_prodep")
     prodep_area: ProdepArea
     evaluations: [Evaluation]
     employees: [Employee]
