@@ -48,7 +48,7 @@ class User extends Authenticatable implements HasApiTokensContract
     public function scopeGender(Builder $query, string $gender): Builder
     {
         return $query->joinSub(Employee::gender($gender), 'employeeGender', function ($join) {
-            $join->on('users.nempleado', '=', 'employeeGender.nempleado');
+            $join->on('usuarios.nempleado', '=', 'employeeGender.nempleado');
         });
     }
 
