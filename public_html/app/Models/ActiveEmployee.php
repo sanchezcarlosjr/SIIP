@@ -10,7 +10,7 @@ trait ActiveEmployee
 {
     public function scopeActive($query)
     {
-        return $query->where('finish_date', ">", Carbon::now())->whereHas('employee', function ($q) {
+        return $query->where('fecha_fin', ">", Carbon::now())->whereHas('employee', function ($q) {
             return $q->where('estatus', '==', '1');
         });
     }

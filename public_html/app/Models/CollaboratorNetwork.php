@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CollaboratorNetwork extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'type', "academic_bodies_network_id"];
+    protected $table = "colaboradores_redes";
+    protected $fillable = ['nombre', 'tipo', "cuerpos_academicos_redes_id"];
     public function network(): BelongsTo
     {
-        return $this->belongsTo(Network::class, 'academic_bodies_network_id');
+        return $this->belongsTo(Network::class, 'cuerpos_academicos_redes_id');
     }
     public function getIsLeaderAttribute()
     {
