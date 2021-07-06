@@ -26,7 +26,7 @@ type Permission {
 type User {
     id: ID!
     role: String
-    role_id: Int
+    role_id: Int @rename(attribute: "rol_id")
     current_access_token: String
     permissions: [Permission]
     employee: Employee

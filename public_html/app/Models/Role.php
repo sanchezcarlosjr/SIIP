@@ -9,7 +9,7 @@ class Role extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'role'
+        'rol'
     ];
     protected $hidden = [
         'created_at',
@@ -21,6 +21,6 @@ class Role extends Model
             'permisos',
             'rol_id',
             'modulo_id'
-        )->withPivot('create', 'destroy', 'edit', 'read');
+        )->withPivot('crear', 'destruir', 'editar', 'leer');
     }
 }

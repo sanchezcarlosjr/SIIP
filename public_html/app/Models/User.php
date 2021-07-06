@@ -42,7 +42,7 @@ class User extends Authenticatable implements HasApiTokensContract
     }
 
     public function getRoleAttribute() {
-        return $this->belongsTo(Role::class, 'rol_id')->get()->implode('role', ',');
+        return $this->belongsTo(Role::class, 'rol_id')->get()->implode('rol', ',');
     }
 
     public function scopeGender(Builder $query, string $gender): Builder

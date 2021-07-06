@@ -22,8 +22,8 @@ class Login
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-        $user = User::where('employee_id', '=', $employee->nempleado)->first();
-        if (!$user || !Hash::check($args['password'], $user->password)) {
+        $user = User::where('nempleado', '=', $employee->nempleado)->first();
+        if (!$user || !Hash::check($args['password'], $user->contrasena)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided password are incorrect.'],
             ]);
@@ -33,11 +33,11 @@ class Login
         $role = $user->roles()->get()[0];
         $user['permissions'] = $role->permissions()->get()->map(function($permission) {
             return  [
-                'module' => $permission->module,
-                'create' => $permission->pivot->create,
-                'edit' => $permission->pivot->edit,
-                'read' => $permission->pivot->read,
-                'destroy' => $permission->pivot->destroy
+                'module' => $permission->modulo,
+                'create' => $permission->pivot->crear,
+                'edit' => $permission->pivot->editar,
+                'read' => $permission->pivot->leer,
+                'destroy' => $permission->pivot->destruir
             ];
         });
         return $user;
