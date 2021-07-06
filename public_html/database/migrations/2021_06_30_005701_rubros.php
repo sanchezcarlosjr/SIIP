@@ -19,8 +19,8 @@ class Rubros extends Migration
             $table->boolean('autorizado');
             $table->string('nombre');
             /** Polymorph */
-            $table->integer('rubabilidad_id');
-            $table->string('rubabilidad_tipo');
+            $table->integer('rubreable_id');
+            $table->string('rubreable_tipo');
             $table->timestamps();
         });
     }

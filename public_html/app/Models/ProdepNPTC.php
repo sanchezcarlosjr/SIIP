@@ -11,36 +11,35 @@ use Carbon\Carbon;
 class ProdepNPTC extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-      "start_date",
-      "employee_id",
+      "fecha_inicio",
+      "nempleado",
       "extension",
-      "authorized"
+      "autorizado"
     ];
-    protected $table = "prodep_nptcs";
+    protected $table = "nptc_prodep";
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, "employee_id");
+        return $this->belongsTo(Employee::class, "nempleado");
     }
 
     public function rubros(): MorphMany {
-      return $this->morphMany(Rubro::class, "rubrable");
+      return $this->morphMany(Rubro::class, "rubreable");
     }
 
     /** Megarubros */
 
     public function rubro1(): MorphMany {
-      return $this->morphMany(Rubro::class, "rubrable");
+      return $this->morphMany(Rubro::class, "rubreable");
     }
 
     public function rubro2(): MorphMany {
-      return $this->morphMany(Rubro::class, "rubrable");
+      return $this->morphMany(Rubro::class, "rubreable");
     }
 
     public function rubro3(): MorphMany {
-      return $this->morphMany(Rubro::class, "rubrable");
+      return $this->morphMany(Rubro::class, "rubreable");
     }
 
     public function getAmountAttribute()
@@ -52,10 +51,10 @@ class ProdepNPTC extends Model
 
     public function getFinishDateAttribute()
     {
-      return Carbon::parse($this->start_date)->addMonths($this->extension?18:12);
+      return Carbon::parse($this->fecha_inicio)->addMonths($this->extension?18:12);
     }
 
-    public function scopeAuthorized($query, $value) {
+    public function scopeautorizado($query, $value) {
       if ($value == "Autorizado") {
         $value = true;
       } else if ($value == "No autorizado") {
@@ -63,7 +62,7 @@ class ProdepNPTC extends Model
       } else {
         $value = null;
       }
-      return $query->where("authorized", $value);
+      return $query->where("autorizado", $value);
     }
 
     public function scopeExtended($query, $value) {
@@ -81,7 +80,7 @@ class ProdepNPTC extends Model
             ->select("empleados.*")
             ->join("unidades", "empleados.nunidad", "=", "unidades.nunidad")
             ->where("campus", "ILIKE", $campus), "campus", function($join) {
-              $join->on("prodep_nptcs.employee_id", "=", "campus.nempleado");
+              $join->on("nptc_prodep.nempleado", "=", "campus.nempleado");
             });
     }
 
@@ -92,7 +91,7 @@ class ProdepNPTC extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, nempleado, unidad, fecha_inicio, area_prodep)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query;
