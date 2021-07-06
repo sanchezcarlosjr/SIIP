@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         ProdepArea::factory(200)->create();
         AcademicBody::factory(200)->create();
         Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();
-//        Employee::factory(100)->has(AcademicBody::factory(), 'collaborator_academic_bodies')->create();
+        Employee::factory(100)->has(AcademicBody::factory(), 'collaborator_academic_bodies')->create();
 //        Employee::factory(100)->has(Help::factory()->count(3))->create();
 //        Employee::factory(10)->has(ProdepProfile::factory()->count(3), 'prodep_profiles')->create();
 //        Employee::factory(5)->has(ProdepHelp::factory()->count(3), 'prodep_helps')->create();

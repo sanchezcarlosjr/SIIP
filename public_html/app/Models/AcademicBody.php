@@ -51,7 +51,7 @@ class AcademicBody extends Model
 
     public function evaluations(): HasMany
     {
-        return $this->hasMany(Evaluation::class)->orderBy('finish_date', 'desc');
+        return $this->hasMany(Evaluation::class)->orderBy('fecha_fin', 'desc');
     }
 
     public function prodep_area()
@@ -66,12 +66,12 @@ class AcademicBody extends Model
 
     public function collaborators(): BelongsToMany
     {
-        return $this->belongsToMany(Employee::class, 'collaborators', 'academic_body_id', 'employee_id');
+        return $this->belongsToMany(Employee::class, 'colaboradores', 'cuerpo_academico_id', 'nempleado');
     }
 
     public function getGradeAttribute()
     {
-        $eval = $this->evaluations->sortBy('finish_date')->get(0);
+        $eval = $this->evaluations->sortBy('fecha_fin')->get(0);
         return isset($eval->grade) ? $eval->grade_name : null;
     }
 
@@ -87,7 +87,7 @@ class AcademicBody extends Model
 
     public function getLastEvaluationAttribute()
     {
-        return $this->evaluations->sortBy('finish_date')->get(0);
+        return $this->evaluations->sortBy('fecha_fin')->get(0);
     }
 
     public function scopeGrade($query, $grade_names) {
@@ -108,23 +108,23 @@ class AcademicBody extends Model
             ->fromSub(function($query) {
               $query
                 ->select("*")
-                ->from("academic_bodies")
+                ->from("cuerpos_academicos")
                 ->joinSub(function($query) {
                   /** Distinct on Laravel's QueryBuilder doesn't accept parameters */
-                  $query->selectRaw("DISTINCT ON (academic_body_id) academic_body_id, grade FROM academic_bodies_evaluations ORDER BY academic_body_id, finish_date DESC");
+                  $query->selectRaw("DISTINCT ON (cuerpo_academico_id) cuerpo_academico_id, grado FROM evaluaciones_cuerpos_academicos ORDER BY cuerpo_academico_id, fecha_fin DESC");
                 },"max_grades", function($join) {
-                  $join->on("academic_bodies.id", "=", "max_grades.academic_body_id");
+                  $join->on("cuerpos_academicos.id", "=", "max_grades.cuerpo_academico_id");
                 });
             }, "inner_terms")
             ->where(function($query) use ($grades) {
               for ($i = 0; $i < count($grades); $i++) {
-                $query->orWhere("grade", "=", $grades[$i]);
+                $query->orWhere("grado", "=", $grades[$i]);
               }
             });
         }, "grade", function($join) {
-          $join->on("academic_bodies.id", "=", "grade.id");
+          $join->on("cuerpos_academicos.id", "=", "grado.id");
         })
-        ->select("academic_bodies.*");
+        ->select("cuerpos_academicos.*");
     }
 
     public function scopeCampus($query, $name) {
@@ -134,10 +134,10 @@ class AcademicBody extends Model
             ->select("*")
             ->fromSub(function($query) use ($name) {
               $query
-                ->select("academic_bodies.*", "unidades.unidad as unidad")
-                ->from("academic_bodies")
+                ->select("cuerpos_academicos.*", "unidades.unidad as unidad")
+                ->from("cuerpos_academicos")
                 ->leftJoin("empleados", function($join) {
-                  $join->on("academic_bodies.nempleado_lider","=","empleados.nempleado");
+                  $join->on("cuerpos_academicos.nempleado_lider","=","empleados.nempleado");
                 })
                 ->leftJoin("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -145,16 +145,16 @@ class AcademicBody extends Model
                 ->where("campus", "ILIKE", $name);
               }, "inner_terms");
         }, "campus", function($join) {
-          $join->on("academic_bodies.id", "=", "campus.id");
+          $join->on("cuerpos_academicos.id", "=", "campus.id");
         })
-        ->select("academic_bodies.*");
+        ->select("cuerpos_academicos.*");
     }
 
     public function scopeValidity($query, $value) {
       if ($value == "Vigente") {
-        return $query->where("academic_bodies.vigente", "=", "t");
+        return $query->where("cuerpos_academicos.vigente", "=", "t");
       } else if ($value == "No vigente") {
-        return $query->where("academic_bodies.vigente", "=", "f");
+        return $query->where("cuerpos_academicos.vigente", "=", "f");
       }
     }
 
@@ -175,17 +175,17 @@ class AcademicBody extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                  "academic_bodies.*",
-                  "academic_bodies.nombre as nombre",
-                  "academic_bodies.clave_prodep as prodep_clave",
-                  "academic_bodies_evaluations.grade as grado",
+                  "cuerpos_academicos.*",
+                  "cuerpos_academicos.nombre as nombre",
+                  "cuerpos_academicos.clave_prodep as prodep_clave",
+                  "cuerpos_academicos.grade as grado",
                   "unidades.unidad")
-                ->from("academic_bodies")
-                ->leftJoin("academic_bodies_evaluations", function($join) {
-                  $join->on("academic_bodies.id","=","academic_bodies_evaluations.academic_body_id");
+                ->from("cuerpos_academicos")
+                ->leftJoin("evaluaciones_cuerpos_academicos", function($join) {
+                  $join->on("cuerpos_academicos.id","=","evaluaciones_cuerpos_academicos.cuerpo_academico_id");
                 })
                 ->leftJoin("empleados", function($join) {
-                  $join->on("academic_bodies.nempleado_lider","=","empleados.nempleado");
+                  $join->on("cuerpos_academicos.nempleado_lider","=","empleados.nempleado");
                 })
                 ->leftJoin("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -195,9 +195,9 @@ class AcademicBody extends Model
               $query->orWhere($where);
             });
         }, "terms", function ($join) {
-          $join->on("academic_bodies.id", "=", "terms.id");
+          $join->on("cuerpos_academicos.id", "=", "terms.id");
         })
-        ->select("academic_bodies.*")
+        ->select("cuerpos_academicos.*")
         ->distinct();
     }
 }
