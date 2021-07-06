@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Researcher extends Model
 {
     use HasFactory;
+    protected $table = "profesores_investigadores";
 
-    protected $fillable = ["valid", "probative", "employee_id"];
+    protected $fillable = ["vigenteHasta", "probatorio", "nempleado"];
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, "employee_id");
+        return $this->belongsTo(Employee::class, "nempleado");
     }
 }

@@ -15,13 +15,13 @@ class Evaluation extends Model
       'grade',
       'start_date',
       'years_to_finish',
-      'academic_body_id'
+      'cuerpo_academico_id'
     ];
     use HasFactory;
 
     public function academic_bodies(): BelongsTo
     {
-        return $this->belongsTo(AcademicBody::class, 'academic_body_id');
+        return $this->belongsTo(AcademicBody::class, 'cuerpo_academico_id');
     }
 
     public function getYearsToFinishAttribute()
@@ -43,7 +43,7 @@ class Evaluation extends Model
 
     public function scopeAcademicBody($query, $id) {
       return $query->whereHas("academic_bodies", function($query) use ($id) {
-        $query->where("academic_body_id", "=", $id);
+        $query->where("cuerpo_academico_id", "=", $id);
       });
     }
 
@@ -54,8 +54,8 @@ class Evaluation extends Model
           $query
             ->select("academic_bodies_evaluations.*")
             ->from("academic_bodies_evaluations")
-            ->leftJoin("academic_bodies", "academic_bodies_evaluations.academic_body_id", "academic_bodies.id")
-            ->leftJoin("empleados", "academic_bodies.lead_employee_id", "nempleado")
+            ->leftJoin("academic_bodies", "academic_bodies_evaluations.cuerpo_academico_id", "academic_bodies.id")
+            ->leftJoin("empleados", "academic_bodies.lead_nempleado", "nempleado")
             ->leftJoin("unidades", "empleados.nunidad", "=", "unidades.nunidad")
             ->where("unidades.campus", "ILIKE", $campus);
         }, "campus", function($join) {

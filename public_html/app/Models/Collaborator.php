@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Collaborator extends Model
 {
     protected $fillable = [
-        'academic_body_id',
-        'employee_id'
+        'cuerpo_academico_id',
+        'nempleado'
     ];
     use HasFactory;
 
     public function academicBody() {
-      return $this->belongsTo(AcademicBody::class, "academic_body_id", "id");
+      return $this->belongsTo(AcademicBody::class, "cuerpo_academico_id", "id");
     }
 
     public function employee() {
-      return $this->belongsTo(Employee::class, "employee_id", "nempleado");
+      return $this->belongsTo(Employee::class, "nempleado", "nempleado");
     }
 }

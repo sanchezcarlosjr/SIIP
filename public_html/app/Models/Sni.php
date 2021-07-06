@@ -30,7 +30,7 @@ class Sni extends Model
             return $query;
         }
         $query->joinSub(Employee::terms($terms), 'employee', function ($join) {
-            $join->on('snis.employee_id', '=', 'employee.nempleado');
+            $join->on('snis.nempleado', '=', 'employee.nempleado');
         });
         return $query;
     }
@@ -39,7 +39,7 @@ class Sni extends Model
     {
         $employees = Employee::campus($campus);
         return $query->joinSub($employees, 'employeeCampus', function ($join) {
-            $join->on('snis.employee_id', '=', 'employeeCampus.nempleado');
+            $join->on('snis.nempleado', '=', 'employeeCampus.nempleado');
         });
     }
 
@@ -47,7 +47,7 @@ class Sni extends Model
     {
         $employees = Employee::closeToRetirement();
         return $query->joinSub($employees, 'employeeClosesToRetirement', function ($join) {
-            $join->on('snis.employee_id', '=', 'employeeClosesToRetirement.nempleado');
+            $join->on('snis.nempleado', '=', 'employeeClosesToRetirement.nempleado');
         });
     }
 
@@ -63,7 +63,7 @@ class Sni extends Model
     {
         $employees = Employee::gender($gender);
         return $query->joinSub($employees, 'employeeByGender', function ($join) {
-            $join->on('snis.employee_id', '=', 'employeeByGender.nempleado');
+            $join->on('snis.nempleado', '=', 'employeeByGender.nempleado');
         });
     }
 
@@ -79,7 +79,7 @@ class Sni extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, "employee_id");
+        return $this->belongsTo(Employee::class, "nempleado");
     }
 
     public function generateURL()

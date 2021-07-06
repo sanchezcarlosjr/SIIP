@@ -22,7 +22,7 @@ class Help extends Model
     use HasFactory;
 
     public function getTypeNameAttribute() {
-      switch($this->type) {
+      switch($this->tipo) {
         case 0: return "Estancias Cortas";
         case 1: return "Apoyo a publicación";
         case 2: return "Convocatoria Redes";
@@ -74,7 +74,7 @@ class Help extends Model
                   $query
                     ->selectRaw(
                       "id,
-                       CASE type
+                       CASE tipo
                        WHEN '0' THEN 'Estancias Cortas'
                        WHEN '1' THEN 'Apoyo a publicación'
                        WHEN '2' THEN 'Convocatoria Redes'

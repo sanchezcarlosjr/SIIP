@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class SNIArea extends Model
 {
-    protected $table = 'sni_areas';
+    protected $table = 'areas_sni';
     use HasFactory;
     public function scopeName($query, $value) {
-        return $query->where("name", "ILIKE", "%".$value."%");
+        return $query->where("nombre", "ILIKE", "%".$value."%");
     }
 }

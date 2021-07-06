@@ -15,7 +15,7 @@ class Network extends Model
         "id",
         'type',
         'class',
-        'academic_body_id',
+        'cuerpo_academico_id',
         'range',
         'start_date',
         'formation_url',
@@ -24,7 +24,7 @@ class Network extends Model
     ];
     public function academic_body(): BelongsTo
     {
-        return $this->belongsTo(AcademicBody::class, 'academic_body_id');
+        return $this->belongsTo(AcademicBody::class, 'cuerpo_academico_id');
     }
     public function leader()
     {

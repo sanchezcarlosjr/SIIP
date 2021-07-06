@@ -14,12 +14,12 @@ class Member extends Model
   protected $table = 'academic_body_member';
   protected $fillable = [
       'academic_bodies_lgacs_id',
-      'employee_id'
+      'nempleado'
   ];
   protected $softDelete = true;
 
   public function employee() {
-    return $this->belongsTo(Employee::class, "employee_id");
+    return $this->belongsTo(Employee::class, "nempleado");
   }
 
   public function lgac() {
@@ -46,7 +46,7 @@ class Member extends Model
             $join->on("academic_body_member.academic_bodies_lgacs_id", "=", "academic_bodies_lgacs.id");
           })
           ->join("academic_bodies", function($join) {
-            $join->on("academic_bodies_lgacs.academic_body_id", "=", "academic_bodies.id");
+            $join->on("academic_bodies_lgacs.cuerpo_academico_id", "=", "academic_bodies.id");
           })
           ->where("academic_bodies.id", "=", $id);
       }, "inner_terms", function($join) {
