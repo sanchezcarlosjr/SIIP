@@ -44,11 +44,12 @@ const schema = {
         {
             type: 'graphql-select-id',
             label: 'Nombre del empleado*',
+            id: "usuario_nombre_empleado",
             model: "employee.name",
             query: {
                 resource: employees,
                 target: "name",
-                ref: "employee_id",
+                ref: "nempleado",
                 scopes: [
                     {
                         name: "name_or_id"
@@ -61,9 +62,9 @@ const schema = {
         {
             type: 'api-select',
             label: 'Rol',
-            model: "role_id",
+            model: "rol_id",
             api: 'api/roles',
-            textKey: 'role'
+            textKey: 'rol'
         }
     ]
 };
@@ -79,10 +80,10 @@ const formSchema = new Permission('/usuarios', {
                 inputType: "text",
                 disabled: true,
                 label: 'Contraseña',
-                model: "password",
-                get: function (model: { password: string }) {
-                    model.password = words[random(0, words.length - 1)] + words[random(0, words.length - 1)] + words[random(0, words.length - 1)];
-                    return model.password;
+                model: "contrasena",
+                get: function (model: { contrasena: string }) {
+                    model.contrasena = words[random(0, words.length - 1)] + words[random(0, words.length - 1)] + words[random(0, words.length - 1)];
+                    return model.contrasena;
                 }
             }
         ]

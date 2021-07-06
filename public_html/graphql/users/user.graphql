@@ -26,7 +26,7 @@ type Permission {
 type User {
     id: ID!
     role: String
-    role_id: Int @rename(attribute: "rol_id")
+    rol_id: Int
     current_access_token: String
     permissions: [Permission]
     employee: Employee
@@ -34,7 +34,7 @@ type User {
 
 input UpsertUserInput {
     id: ID
-    password: String @hash
-    employee_id: Int
-    role_id: ID
+    contrasena: String @hash
+    nempleado: Int
+    rol_id: ID
 }
