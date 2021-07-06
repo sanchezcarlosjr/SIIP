@@ -11,11 +11,11 @@ class Rubro extends Model
     use HasFactory;
     protected $table = 'prodep_rubros';
     protected $fillable = [
-        'amount',
-        'authorized',
-        'name',
-        'rubrable_id',
-        'rubrable_type'
+        'monto',
+        'autorizado',
+        'nombre',
+        'rubreable_id',
+        'rubreable_tipo'
     ];
 
     public function rubrable(): MorphTo {
