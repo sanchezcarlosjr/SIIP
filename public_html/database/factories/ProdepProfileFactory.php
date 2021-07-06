@@ -22,8 +22,8 @@ class ProdepProfileFactory extends Factory
     public function definition()
     {
         return [
-            'start_date' => $this->faker->date,
-            'finish_date' => $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+10 years', $timezone = null),
+            'fecha_inicio' => $this->faker->date,
+            'fecha_fin' => $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+10 years', $timezone = null),
             'prodep_area_id' => $this->faker->numberBetween($min=1, $max=6)
         ];
     }

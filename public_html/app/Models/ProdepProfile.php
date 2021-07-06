@@ -12,11 +12,12 @@ class ProdepProfile extends Model
 {
     use HasFactory;
     use ActiveEmployee;
+    protected $table = "prodep_perfiles";
 
     protected $fillable = [
-      "start_date",
+      "fecha_inicio",
       "years_to_finish",
-      "employee_id",
+      "nempleado",
       "prodep_area_id"
     ];
     protected $appends = [
@@ -24,7 +25,7 @@ class ProdepProfile extends Model
     ];
 
     public function getIsActiveAttribute() {
-      return Carbon::today()->lessThan($this->finish_date);
+      return Carbon::today()->lessThan($this->fecha_fin);
     }
 
     public function prodep_area()
@@ -34,23 +35,23 @@ class ProdepProfile extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, "employee_id");
+        return $this->belongsTo(Employee::class, "nempleado");
     }
 
     public function getYearsToFinishAttribute() {
-      if(isset($this->finish_date)) {
-        return Carbon::parse($this->finish_date)->diffInYears(Carbon::parse($this->start_date));
+      if(isset($this->fecha_fin)) {
+        return Carbon::parse($this->fecha_fin)->diffInYears(Carbon::parse($this->fecha_inicio));
       } else {
         return null;
       }
     }
 
     public function setYearsToFinishAttribute($years) {
-      $this->attributes["finish_date"] = Carbon::parse($this->start_date)->addYears($years);
+      $this->attributes["fecha_fin"] = Carbon::parse($this->fecha_inicio)->addYears($years);
     }
 
     public function scopeMostRecent($query) {
-      return $query->orderBy("start_date", "DESC");
+      return $query->orderBy("fecha_inicio", "DESC");
     }
 
     public function scopeCampus($query, $name) {
@@ -60,10 +61,10 @@ class ProdepProfile extends Model
             ->select("*")
             ->fromSub(function($query) use ($name) {
               $query
-                ->select("prodep_profiles.*", "unidades.unidad as unidad")
-                ->from("prodep_profiles")
+                ->select("prodep_perfiles.*", "unidades.unidad as unidad")
+                ->from("prodep_perfiles")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                  $join->on("prodep_perfiles.nempleado","=","empleados.nempleado");
                 })
                 ->join("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -71,9 +72,9 @@ class ProdepProfile extends Model
                 ->where("campus", "ILIKE", $name);
               }, "inner_terms");
         }, "campus", function($join) {
-          $join->on("prodep_profiles.id", "=", "campus.id");
+          $join->on("prodep_perfiles.id", "=", "campus.id");
         })
-        ->select("prodep_profiles.*");
+        ->select("prodep_perfiles.*");
     }
 
     public function scopeCloseToRetirement($query) {
@@ -83,17 +84,17 @@ class ProdepProfile extends Model
             ->select("*")
             ->fromSub(function($query){
               $query
-                ->select("prodep_profiles.*", "empleados.f_nacimiento as fecha_nacimiento")
-                ->from("prodep_profiles")
+                ->select("prodep_perfiles.*", "empleados.f_nacimiento as fecha_nacimiento")
+                ->from("prodep_perfiles")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                  $join->on("prodep_perfiles.nempleado","=","empleados.nempleado");
                 })
                 ->whereRaw("TO_DATE(f_nacimiento, 'DD/MM/YYYY') < NOW() + '-69.5years'");
             }, "inner_terms");
         }, "retirement", function($join) {
-          $join->on("prodep_profiles.id", "=", "retirement.id");
+          $join->on("prodep_perfiles.id", "=", "retirement.id");
         })
-        ->select("prodep_profiles.*");
+        ->select("prodep_perfiles.*");
     }
 
     public function scopeGender($query, $gender) {
@@ -109,29 +110,29 @@ class ProdepProfile extends Model
             ->select("*")
             ->fromSub(function($query) use ($gender) {
               $query
-                ->select("prodep_profiles.*", "empleados.sexo as sexo")
-                ->from("prodep_profiles")
+                ->select("prodep_perfiles.*", "empleados.sexo as sexo")
+                ->from("prodep_perfiles")
                 ->join("empleados", function($join) {
-                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                  $join->on("prodep_perfiles.nempleado","=","empleados.nempleado");
                 })
                 ->where("sexo", "ILIKE", $gender);
             }, "inner_terms");
         }, "gender", function($join) {
-          $join->on("prodep_profiles.id", "=", "gender.id");
+          $join->on("prodep_perfiles.id", "=", "gender.id");
         })
-        ->select("prodep_profiles.*");
+        ->select("prodep_perfiles.*");
     }
 
     public function scopeValidity($query, $value) {
       if ($value == "Vigente") {
-        return $query->whereRaw("NOW() < prodep_profiles.finish_date");
+        return $query->whereRaw("NOW() < prodep_perfiles.fecha_fin");
       } else if ($value == "No Vigente") {
-        return $query->whereRaw("NOW() >= prodep_profiles.finish_date");
+        return $query->whereRaw("NOW() >= prodep_perfiles.fecha_fin");
       }
     }
 
     public function scopeName($query, $value) {
-      return $query->where("prodep_profiles.name", "ILIKE", "%".$value."%");
+      return $query->where("prodep_perfiles.name", "ILIKE", "%".$value."%");
     }
 
     public function scopeTerms($query, $terms) {
@@ -141,7 +142,7 @@ class ProdepProfile extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, employee_id, unidad, start_date, finish_date, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, apaterno, amaterno, nempleado, unidad, fecha_inicio, fecha_fin, prodep_area)"), "ILIKE", "%".$terms[$i]."%");
       }
 
       return $query
@@ -151,18 +152,18 @@ class ProdepProfile extends Model
             ->fromSub(function($query) {
               $query
                 ->select(
-                  "prodep_profiles.*",
-                  "prodep_areas.name as prodep_area",
+                  "prodep_perfiles.*",
+                  "areas_prodep.nombre as prodep_area",
                   "unidades.unidad",
                   "empleados.nombre",
                   "empleados.apaterno",
                   "empleados.amaterno")
-                ->from("prodep_profiles")
-                ->join("prodep_areas", function($join) {
-                  $join->on("prodep_profiles.prodep_area_id","=","prodep_areas.id");
+                ->from("prodep_perfiles")
+                ->join("areas_prodep", function($join) {
+                  $join->on("prodep_perfiles.prodep_area_id","=","areas_prodep.id");
                 })
                 ->join("empleados", function($join) {
-                  $join->on("prodep_profiles.employee_id","=","empleados.nempleado");
+                  $join->on("prodep_perfiles.nempleado","=","empleados.nempleado");
                 })
                 ->join("unidades", function($join) {
                   $join->on("empleados.nunidad","=","unidades.nunidad");
@@ -172,8 +173,8 @@ class ProdepProfile extends Model
               $query->orWhere($where);
             });
         }, "terms", function ($join) {
-          $join->on("prodep_profiles.id", "=", "terms.id");
+          $join->on("prodep_perfiles.id", "=", "terms.id");
         })
-        ->select("prodep_profiles.*");
+        ->select("prodep_perfiles.*");
     }
 }
