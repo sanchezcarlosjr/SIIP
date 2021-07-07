@@ -28,7 +28,6 @@ class SniFactory extends Factory
             "fecha_fin" => Carbon::instance($this->faker->dateTimeBetween($startDate = '31-12-2019', $endDate = '31-12-2024'))->toDateString(),
             "disciplina" => $this->faker->name,
             "campo" => $this->faker->name,
-            "nombramiento" => $this->faker->name,
             'nivel' => $this->faker->randomElement($array = array("Candidato", "Nivel 1", "Nivel 2", "Nivel 3", "Emérito")),
             "especialidad" => $this->faker->name,
             "area_sni_id" => $this->faker->numberBetween($min = 1, $max = 10),
