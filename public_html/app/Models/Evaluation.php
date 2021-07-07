@@ -42,7 +42,7 @@ class Evaluation extends Model
     }
 
     public function scopeAcademicBody($query, $id) {
-      return $query->whereHas("cuerpos_academicos", function($query) use ($id) {
+      return $query->whereHas("academic_bodies", function($query) use ($id) {
         $query->where("cuerpo_academico_id", "=", $id);
       });
     }

@@ -37,8 +37,8 @@ type Evaluation {
     active: Boolean
     grade: String
     grade_name: String
-    start_date: Date
-    finish_date: Date
+    start_date: Date  @rename(attribute: "fecha_inicio")
+    finish_date: Date @rename(attribute: "fecha_fin")
     years_to_finish: Int
     academic_body: AcademicBody! @belongsTo(relation: "academic_bodies")
 }
