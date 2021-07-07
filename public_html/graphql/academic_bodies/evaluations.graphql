@@ -26,10 +26,10 @@ extend type Mutation {
 
 input UpsertEvaluationInput {
   id:ID
-  grade: Int
-  start_date: Date
+  grade: Int @rename(attribute: "grado")
+  start_date: Date @rename(attribute: "fecha_inicio")
   years_to_finish: Int
-  academic_body_id: ID
+  academic_body_id: ID @rename(attribute: "cuerpo_academico_id")
 }
 
 type Evaluation {

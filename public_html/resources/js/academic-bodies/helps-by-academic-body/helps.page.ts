@@ -78,12 +78,12 @@ export default class HelpsPage extends Vue {
             {
                 type: "upload2",
                 label: 'Reporte',
-                model: 'report_url'
+                model: 'reporte_url'
             },
             {
                 type: "upload2",
                 label: 'Liberación',
-                model: 'release_url'
+                model: 'liberacion_url'
             }
         ]
     };
@@ -125,15 +125,15 @@ export default class HelpsPage extends Vue {
                 },
                 {
                     type: "link",
-                    label: "Liberación",
-                    model: "release_url",
-                    visible: (model: { release_url: string }) => !!model?.release_url
+                    label: "Reporte",
+                    model: "reporte_url",
+                    visible: (model: { report_url: string }) => !!model?.report_url
                 },
                 {
                     type: "link",
-                    label: "Reporte",
-                    model: "report_url",
-                    visible: (model: { report_url: string }) => !!model?.report_url
+                    label: "Liberación",
+                    model: "liberacion_url",
+                    visible: (model: { release_url: string }) => !!model?.release_url
                 }
             ]
         }

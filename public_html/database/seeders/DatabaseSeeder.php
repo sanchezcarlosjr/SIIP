@@ -145,6 +145,9 @@ class DatabaseSeeder extends Seeder
             ['modulo_id' => 14, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
             ['modulo_id' => 15, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
             ['modulo_id' => 16, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 17, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 18, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
+            ['modulo_id' => 19, 'rol_id' => 2, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
         ]);
     }
 
