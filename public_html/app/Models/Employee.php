@@ -331,7 +331,7 @@ class Employee extends Model
                                 DB::raw("DISTINCT ON (empleados.nempleado) empleados.*"),
                                 "unidades.unidad",
                                 "unidades.campus",
-                                "cuerpos_academicos.name as academic_body"
+                                "cuerpos_academicos.nombre as academic_body"
                             )
                             ->from("empleados")
                             ->leftJoin("unidades", "empleados.nunidad", "=", "unidades.nunidad")
