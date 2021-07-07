@@ -176,9 +176,8 @@ class AcademicBody extends Model
               $query
                 ->select(
                   "cuerpos_academicos.*",
-                  "cuerpos_academicos.nombre as nombre",
                   "cuerpos_academicos.clave_prodep as prodep_clave",
-                  "cuerpos_academicos.grade as grado",
+                  "evaluaciones_cuerpos_academicos.grado as grado",
                   "unidades.unidad")
                 ->from("cuerpos_academicos")
                 ->leftJoin("evaluaciones_cuerpos_academicos", function($join) {
