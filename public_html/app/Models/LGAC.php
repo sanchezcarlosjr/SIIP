@@ -43,7 +43,7 @@ class LGAC extends Model
 
       $where = [];
       for ($i = 0; $i < count($terms); $i++) {
-        $where[] = array(DB::raw("CONCAT_WS(' ', nombre, descripcion, cuerpo_academico, area_prodep, nombreDeEmpleado, apellidoPaternoDeEmpleado, apellidoMaternoDeEmpleado, unidad)"), "ILIKE", "%".$terms[$i]."%");
+        $where[] = array(DB::raw("CONCAT_WS(nombre, descripcion, cuerpo_academico, prodep_area, nombre_de_empleado, apellido_paterno_de_empleado, apellido_materno_de_empleado, unidad)"), "ILIKE", "%".$terms[$i]."%");
       }
 /*
       return $query->where(function ($query) use ($where) {
@@ -59,15 +59,15 @@ class LGAC extends Model
                 ->select(
                   "lgac_cuerpos_academicos.*",
                   "cuerpos_academicos.nombre as cuerpo_academico",
-                  "areas_prodep.name as prodep_area",
-                  "empleados.nombre as nombreDeEmpleado",
-                  "empleados.apaterno as apellidoPaternoDeEmpleado",
-                  "empleados.amaterno as apellidoMaternoDeEmpleado",
+                  "areas_prodep.nombre as prodep_area",
+                  "empleados.nombre as nombre_de_empleado",
+                  "empleados.apaterno as apellido_paterno_de_empleado",
+                  "empleados.amaterno as apellido_materno_de_empleado",
                   "unidades.unidad"
                 )
                 ->from("lgac_cuerpos_academicos")
-                ->join("cuerpos_acedmicos", "lgac_cuerpos_academicos.cuerpo_academico_id", "cuerpos_academicos.id")
-                ->join("areas_prodep", "cuerpos_acedmicos.area_prodep_id", "areas_prodep.id")
+                ->join("cuerpos_academicos", "lgac_cuerpos_academicos.cuerpo_academico_id", "cuerpos_academicos.id")
+                ->join("areas_prodep", "cuerpos_academicos.area_prodep_id", "areas_prodep.id")
                 ->join("empleados", "cuerpos_academicos.nempleado_lider", "empleados.nempleado")
                 ->join("unidades", "empleados.nunidad", "unidades.nunidad");
             }, "inner_terms")
