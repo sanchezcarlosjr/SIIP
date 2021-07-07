@@ -21,10 +21,10 @@ class CreateAcademicBodiesTable extends Migration
             $table->integer('area_prodep_id')->unsigned();
             $table->integer('nempleado_lider')->unsigned()->nullable();
             $table->string('disciplina');
-            $table->integer('des')->unsigned();
+            $table->integer('des_id')->unsigned();
             $table->timestamps();
             $table->foreign('nempleado_lider')->references('nempleado')->on('empleados')->onDelete('cascade');
-            $table->foreign('des')->references('cdes')->on('des')->onDelete('cascade');
+            $table->foreign('des_id')->references('cdes')->on('des')->onDelete('cascade');
             $table->foreign('area_prodep_id')->references('id')->on('areas_prodep')->onDelete('cascade');
         });
     }

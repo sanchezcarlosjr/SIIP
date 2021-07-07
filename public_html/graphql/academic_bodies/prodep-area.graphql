@@ -7,5 +7,5 @@ extend type Query {
 
 type ProdepArea {
     id: ID!
-    name: String
+    name: String @rename(attribute: "nombre")
 }

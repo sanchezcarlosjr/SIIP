@@ -27,7 +27,7 @@ class AcademicBodyFactory extends Factory
             'vigente' => rand(0, 1) == 1,
             'area_prodep_id' => $this->faker->numberBetween($min = 1, $max = 10),
             'disciplina' => $this->faker->word,
-            'des' => $this->faker->numberBetween($min = 1, $max = 5),
+            'des_id' => $this->faker->numberBetween($min = 1, $max = 5),
         ];
     }
 }

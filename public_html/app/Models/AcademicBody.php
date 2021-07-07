@@ -21,7 +21,7 @@ class AcademicBody extends Model
         'area_prodep_id',
         'nempleado_lider',
         'disciplina',
-        'des',
+        'des_id',
         'created_at'
     ];
     protected $appends = [
@@ -31,7 +31,7 @@ class AcademicBody extends Model
     ];
 
     public function des() {
-      return $this->belongsTo(DES::class, "des");
+      return $this->belongsTo(DES::class, "des_id");
     }
 
     public function lgacs()
@@ -56,7 +56,7 @@ class AcademicBody extends Model
 
     public function prodep_area()
     {
-        return $this->belongsTo(ProdepArea::class, 'cuerpo_academico_id');
+        return $this->belongsTo(ProdepArea::class, 'area_prodep_id');
     }
 
     public function leader()

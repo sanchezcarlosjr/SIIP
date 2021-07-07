@@ -36,10 +36,10 @@ extend type Mutation {
 type AcademicBody {
     id: ID!
     name: String @rename(attribute: "nombre")
-    active: Boolean
-    discipline: String
-    lead_employee_id: Int
-    prodep_area_id: Int
+    active: Boolean @rename(attribute: "vigente")
+    discipline: String @rename(attribute: "disciplina")
+    lead_employee_id: Int @rename(attribute: "nempleado_lider")
+    prodep_area_id: Int @rename(attribute: "area_prodep_id")
     collaborators: [Employee]
     des: DES
     des_id: Int
@@ -67,7 +67,7 @@ type AcademicBodyStatistics {
 }
 
 input createAcademicBodyInput {
-    name: String,
+    name: String
     prodep_key: String,
     active: Boolean,
     prodep_area_id: Int,
@@ -88,12 +88,12 @@ input updateAcademicBodyInput {
 }
 
 input UpsertAcademicBodyInput {
-    id: String,
-    name: String,
-    prodep_key: String,
-    active: Boolean,
-    prodep_area_id: Int,
-    lead_employee_id: Int,
-    discipline: String,
+    id: String
+    name: String @rename(attribute: "nombre")
+    prodep_key: String @rename(attribute: "clave_prodep")
+    active: Boolean @rename(attribute: "vigente")
+    prodep_area_id: Int @rename(attribute: "area_prodep_id")
+    lead_employee_id: Int @rename(attribute: "nempleado_lider")
+    discipline: String @rename(attribute: "disciplina")
     des_id: Int
 }
