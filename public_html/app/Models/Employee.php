@@ -266,7 +266,7 @@ class Employee extends Model
 
     public function scopeAcademicBodyCollaborators($query, $id)
     {
-        return $query->whereHas("colaboradores", function ($query) use ($id) {
+        return $query->whereHas("collaborator_academic_bodies", function ($query) use ($id) {
             $query->where("cuerpo_academico_id", "=", $id);
         });
     }

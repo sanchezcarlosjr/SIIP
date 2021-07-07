@@ -1,7 +1,7 @@
 extend type Query {
   collaborator(id: ID! @where(operator: "=", key: "nempleado")): Employee @find(scopes:["collaborators"]) @guard
   collaborators(
-    academic_body_id: ID @scope(name: "academicBodyCollaborators") @guard
+    academic_body_id: ID @scope(name: "academicBodyCollaborators")
     terms: [String] @scope(name: "terms")
   ): [Employee] @paginate(defaultCount: 200, scopes:["collaborators"]) @guard
 }
@@ -39,8 +39,8 @@ type Collaborator {
 # }
 
 input UpsertCollaboratorInput {
-    academic_body_id: ID
-    employee_id: ID
+    academic_body_id: ID @rename(attribute:"cuerpo_academico_id")
+    employee_id: ID @rename(attribute:"nempleado")
 }
 
 input destroyCollaboratorInput {
