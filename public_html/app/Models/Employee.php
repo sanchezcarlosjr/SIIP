@@ -239,7 +239,7 @@ class Employee extends Model
                 $query
                     ->select("empleados.*")
                     ->from("empleados")
-                    ->join("academic_bodies", "empleados.nempleado", "=", "academic_bodies.lead_nempleado");
+                    ->join("cuerpos_academicos", "empleados.nempleado", "=", "cuerpos_academicos.nempleado_lider");
             }, "ab_members", function ($join) {
                 $join->on("empleados.nempleado", "=", "ab_members.nempleado");
             })
@@ -253,11 +253,11 @@ class Employee extends Model
                 $query
                     ->select("empleados.*")
                     ->from("empleados")
-                    ->leftJoin("academic_body_member", "empleados.nempleado", "=", "academic_body_member.nempleado")
-                    ->leftJoin("academic_bodies_lgacs", "academic_body_member.academic_bodies_lgacs_id", "=", "academic_bodies_lgacs.id")
-                    ->leftJoin("academic_bodies", "academic_bodies_lgacs.cuerpo_academico_id", "=", "academic_bodies.id")
-                    ->where("academic_bodies.id", "=", $id)
-                    ->groupBy("nempleado");
+                    ->leftJoin("miembros_cuerpos_academicos", "empleados.nempleado", "=", "miembros_cuerpos_academicos.nempleado")
+                    ->leftJoin("lgac_cuerpos_academicos", "miembros_cuerpos_academicos.lgac_cuerpos_academicos_id", "=", "lgac_cuerpos_academicos.id")
+                    ->leftJoin("cuerpos_academicos", "lgac_cuerpos_academicos.cuerpo_academico_id", "=", "cuerpos_academicos.id")
+                    ->where("cuerpos_academicos.id", "=", $id)
+                    ->groupBy("empleados.nempleado");
             }, "ab_members", function ($join) {
                 $join->on("empleados.nempleado", "=", "ab_members.nempleado");
             })
@@ -266,7 +266,7 @@ class Employee extends Model
 
     public function scopeAcademicBodyCollaborators($query, $id)
     {
-        return $query->whereHas("collaborator_academic_bodies", function ($query) use ($id) {
+        return $query->whereHas("colaboradores", function ($query) use ($id) {
             $query->where("cuerpo_academico_id", "=", $id);
         });
     }
@@ -331,13 +331,13 @@ class Employee extends Model
                                 DB::raw("DISTINCT ON (empleados.nempleado) empleados.*"),
                                 "unidades.unidad",
                                 "unidades.campus",
-                                "academic_bodies.name as academic_body"
+                                "cuerpos_academicos.name as academic_body"
                             )
                             ->from("empleados")
                             ->leftJoin("unidades", "empleados.nunidad", "=", "unidades.nunidad")
-                            ->leftJoin("academic_body_member", "empleados.nempleado", "=", "academic_body_member.nempleado")
-                            ->leftJoin("academic_bodies_lgacs", "academic_body_member.academic_bodies_lgacs_id", "=", "academic_bodies_lgacs.id")
-                            ->leftJoin("academic_bodies", "academic_bodies_lgacs.cuerpo_academico_id", "=", "academic_bodies.id");
+                            ->leftJoin("miembros_cuerpos_academicos", "empleados.nempleado", "=", "miembros_cuerpos_academicos.nempleado")
+                            ->leftJoin("lgac_cuerpos_academicos", "miembros_cuerpos_academicos.lgac_cuerpos_academicos_id", "=", "lgac_cuerpos_academicos.id")
+                            ->leftJoin("cuerpos_academicos", "lgac_cuerpos_academicos.cuerpo_academico_id", "=", "cuerpos_academicos.id");
                     }, "inner_terms")
                     ->where(function ($query) use ($where) {
                         $query->where($where);

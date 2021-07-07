@@ -1,52 +1,51 @@
 extend type Query {
-  member(id: ID @where(operator: "=", key: "nempleado")): Employee @find(scopes:["members"]) @guard
-  members(
-    ##trashed: Trashed @trashed
-    members: String @scope(name: "free")
-    academic_body_id: ID @scope(name: "academicBodyMembers")
-    close_to_retirement: String @scope(name: "closeToRetirement")
-    campus: String @scope(name: "campus")
-    leaders: String @scope(name: "leaders")
-    terms: [String] @scope(name: "terms")
-    name_or_id: String @scope(name: "nameOrId")
-  ): [Employee] @paginate(defaultCount: 200) @guard
-  #todo: Paginate
+    member(id: ID @where(operator: "=", key: "nempleado")): Employee @find(scopes:["members"]) @guard
+    members(
+        ##trashed: Trashed @trashed
+        members: String @scope(name: "free")
+        academic_body_id: ID @scope(name: "academicBodyMembers")
+        close_to_retirement: String @scope(name: "closeToRetirement")
+        campus: String @scope(name: "campus")
+        leaders: String @scope(name: "leaders")
+        terms: [String] @scope(name: "terms")
+        name_or_id: String @scope(name: "nameOrId")
+    ): [Employee] @paginate(defaultCount: 200) @guard
+    #todo: Paginate
 }
 
 extend type Mutation {
     removeEmployeesToAcademicBody(data: removeEmployeeToAcademicBodyInput @spread): Employee @guard
-
-  create_member(
-    data: CreateMemberInput @spread
-  ): Employee @field(resolver: "Member@create") @guard
-  update_member(
-    data: UpdateMemberInput @spread
-  ): Employee @field(resolver: "Member@update") @guard
-  upsert_member(
-    data: UpsertMemberInput @spread
-  ): Employee @field(resolver: "Member@upsert") @guard
-  ##destroy_member: Employee
+    create_member(
+        data: CreateMemberInput @spread
+    ): Employee @field(resolver: "Member@create") @guard
+    update_member(
+        data: UpdateMemberInput @spread
+    ): Employee @field(resolver: "Member@update") @guard
+    upsert_member(
+        data: UpsertMemberInput @spread
+    ): Employee @field(resolver: "Member@upsert") @guard
+    ##destroy_member: Employee
 }
 
 input CreateMemberInput {
-  academic_body_id: ID!,
-  employee_id: ID!,
-  lgac_ids: [ID]!
-  is_leader: Boolean
+    academic_body_id: ID!,
+    employee_id: ID!,
+    lgac_ids: [ID]!
+    is_leader: Boolean
 }
 
 input UpdateMemberInput {
-  academic_body_id: ID!,
-  employee_id: ID!,
-  lgac_ids: [ID]!
-  is_leader: Boolean
+    academic_body_id: ID!,
+    employee_id: ID!,
+    lgac_ids: [ID]!
+    is_leader: Boolean
 }
 
 input UpsertMemberInput {
-  academic_body_id: ID!,
-  employee_id: ID!,
-  lgac_ids: [ID]!
-  is_leader: Boolean
+    academic_body_id: ID!,
+    employee_id: ID!,
+    lgac_ids: [ID]!
+    is_leader: Boolean
 }
 
 input removeEmployeeToAcademicBodyInput {
@@ -55,11 +54,11 @@ input removeEmployeeToAcademicBodyInput {
 }
 
 type Member {
-  id: ID!
-  academic_body: AcademicBody
-  academic_body_id: Int
-  lgac: LGAC
-  lgac_id: Int @rename(attribute:"academic_bodies_lgacs_id")
-  employee: Employee
-  employee_id: Int
+    id: ID!
+    academic_body: AcademicBody
+    academic_body_id: Int
+    lgac: LGAC
+    lgac_id: Int @rename(attribute:"lgac_cuerpos_academicos_id")
+    employee: Employee
+    employee_id: Int
 }

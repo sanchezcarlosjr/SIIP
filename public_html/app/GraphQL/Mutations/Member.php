@@ -27,7 +27,7 @@ class Member {
 
   private function matchAcademicBody($lgacs, $academic_body_id) {
     if(!$lgacs->every(function($value, $key) use ($academic_body_id) {
-      return $value->academic_body_id == $academic_body_id;
+      return $value->cuerpo_academico_id == $academic_body_id;
     })) {
       throw new Error('El empleado solo puede pertenecer a un cuerpo académico.', '402');
     }
@@ -42,9 +42,9 @@ class Member {
   }
 
   private function detach($employee_id, $lgacs) {
-    $memberships = MemberModel::where("employee_id", $employee_id)
+    $memberships = MemberModel::where("nempleado", $employee_id)
       ->whereNull("deleted_at")
-      ->whereNotIn("academic_bodies_lgacs_id", $lgacs->modelKeys())
+      ->whereNotIn("lgac_cuerpos_academicos_id", $lgacs->modelKeys())
       ->get();
     foreach ($memberships as $member) {
       $member->delete();
@@ -54,8 +54,8 @@ class Member {
   private function attach($employee_id, $lgacs) {
     foreach ($lgacs as $lgac) {
       MemberModel::firstOrCreate([
-        "employee_id" => $employee_id,
-        "academic_bodies_lgacs_id" => $lgac->id
+        "nempleado" => $employee_id,
+        "lgac_cuerpos_academicos_id" => $lgac->id
       ]);
     }
   }
@@ -87,9 +87,9 @@ class Member {
     $this->matchAcademicBody($lgacs, $academic_body_id);
     /** If no Error is thrown, continue */
 
-    $memberships = MemberModel::where("employee_id", $args["employee_id"])
+    $memberships = MemberModel::where("nempleado", $args["employee_id"])
       ->whereNull("deleted_at")
-      ->whereNotIn("academic_bodies_lgacs_id", $lgacs->modelKeys())->get();
+      ->whereNotIn("lgac_cuerpos_academicos_id", $lgacs->modelKeys())->get();
 
     /** Apparently pivot tables are not designed for soft delete :( )*/
     if ($upsert) {
