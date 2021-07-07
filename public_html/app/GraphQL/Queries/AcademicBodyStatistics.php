@@ -7,7 +7,7 @@ use App\Models\Employee;
 class AcademicBodyStatistics {
   public function __invoke($_, $args) {
     /** Get all */
-    $academicBodiesQuery = AcademicBody::select("*");
+    $academicBodiesQuery = AcademicBody::getModel();
 
     /** Manually apply scopes, order doesn't matter */
     if (isset($args["grade"])) {
@@ -30,7 +30,7 @@ class AcademicBodyStatistics {
     $academicBodiesTotal = $academicBodies->count();
     /** Count by grade */
     $grades = $academicBodies->countBy(function($academicBody) {
-      return $academicBody->grade;
+        return $academicBody->grade;
     });
 
     /** Members Collection in filtered AB */
