@@ -84,7 +84,7 @@ class Evaluation extends Model
                     "evaluaciones_cuerpos_academicos.*",
                     "type_case.type_name"
                   )
-                ->from("academic_bodies_evaluations")
+                ->from("evaluaciones_cuerpos_academicos")
                 ->joinSub(function($query) {
                   $query
                     ->selectRaw(
