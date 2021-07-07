@@ -27,11 +27,11 @@ extend type Mutation {
 
 type LGAC {
     id: ID!
-    name: String!
-    description: String
+    name: String! @rename(attribute: "nombre")
+    description: String @rename(attribute: "descripcion")
     employees: [Employee]
     academic_body: AcademicBody! @belongsTo(relation: "academic_body")
-    academic_body_id: Int
+    academic_body_id: Int @rename(attribute: "cuerpo_academico_id")
 }
 
 input destroyLgacInput {
@@ -49,8 +49,8 @@ input createLgacInput {
 }
 
 input UpsertLgacInput {
-  id: ID,
-  name: String
-  description: String
-  academic_body_id: ID
+  id: ID
+  name: String @rename(attribute: "nombre")
+  description: String @rename(attribute: "descripcion")
+  academic_body_id: ID @rename(attribute: "cuerpo_academico_id")
 }
