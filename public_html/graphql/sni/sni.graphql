@@ -45,17 +45,16 @@ extend type Mutation {
 }
 
 type Sni {
-    start_date: Date
-    finish_date: Date
-    discipline: String
-    field: String
-    request: String
-    level: String
-    specialty: String
-    employee_id: Int
+    start_date: Date @rename(attribute: "fecha_inicio")
+    finish_date: Date @rename(attribute: "fecha_fin")
+    discipline: String @rename(attribute: "disciplina")
+    field: String @rename(attribute: "campo")
+    level: String @rename(attribute: "nivel")
+    employee_id: Int @rename(attribute: "nempleado")
     employee: Employee
-    appointment_url: String
-    sni_area_id: Int
+    specialty: String @rename(attribute: "especialidad")
+    nombramiento_url: String @rename(attribute: "nempleado")
+    sni_area_id: Int @rename(attribute: "area_sni_id")
     sni_area: SNIArea
     id: ID
     is_active: Boolean
@@ -63,7 +62,7 @@ type Sni {
 
 type SNIArea {
     id: ID
-    name: String
+    name: String @rename(attribute: "nombre")
 }
 
 type Researcher {
@@ -81,17 +80,16 @@ input destroySnisInput {
 
 input UpsertSniInput {
     id: ID
-    employee_id: Int
-    start_date: Date
-    finish_date: Date
-    discipline: String
-    field: String
-    request: String
-    level: String
-    specialty: String
-    sni_area_id: Int
-    appointment: [Upload]
-    appointment_url: String
+    employee_id: Int @rename(attribute: "nempleado")
+    start_date: Date @rename(attribute: "fecha_inicio")
+    finish_date: Date @rename(attribute: "fecha_fin")
+    discipline: String @rename(attribute: "disciplina")
+    field: String @rename(attribute: "campo")
+    level: String @rename(attribute: "nivel")
+    specialty: String @rename(attribute: "especialidad")
+    sni_area_id: Int @rename(attribute: "area_sni_id")
+    nombramiento: [Upload]
+    nombramiento_url: String
 }
 
 type Dataset {

@@ -14,7 +14,18 @@ class Sni extends Model
     use HasFactory;
     use ActiveEmployee;
 
-    protected $fillable = ["fecha_inicio", "fecha_fin", "disciplina", "campo", "nivel", "especialidad", "nempleado", "nombramiento", "area_sni_id"];
+    protected $fillable = [
+        "fecha_inicio",
+        "fecha_fin",
+        "disciplina",
+        "campo",
+        "nivel",
+        "especialidad",
+        "nempleado",
+        "nombramiento_url",
+        "area_sni_id",
+        "nempleado"
+    ];
     protected $appends = [
         "is_active"
     ];
@@ -74,7 +85,7 @@ class Sni extends Model
 
     public function sni_area()
     {
-        return $this->belongsTo(SNIArea::class, "sni_area_id");
+        return $this->belongsTo(SNIArea::class, "area_sni_id");
     }
 
     public function employee()

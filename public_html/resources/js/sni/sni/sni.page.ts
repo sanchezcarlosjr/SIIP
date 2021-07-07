@@ -86,7 +86,7 @@ const schema = {
         {
             type: "upload2",
             label: 'Nombramiento',
-            model: 'appointment_url'
+            model: 'nombramiento_url'
         }
     ]
 };

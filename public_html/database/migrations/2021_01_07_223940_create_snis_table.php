@@ -19,7 +19,6 @@ class CreateSnisTable extends Migration
             $table->date('fecha_fin');
             $table->string('disciplina');
             $table->string('campo');
-            $table->string('nombramiento')->nullable();
             $table->string('nivel');
             $table->string('especialidad');
             $table->string('nombramiento_url')->nullable();
