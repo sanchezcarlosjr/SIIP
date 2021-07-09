@@ -33,7 +33,6 @@ class DatabaseSeeder extends ProductionSeeder
         #DES::factory(10)->create();
         #AcademicUnit::factory(100)->create();
         Employee::factory(10)->has(User::factory())->create();
-        ProdepArea::factory(200)->create();
         AcademicBody::factory(200)->create();
         Employee::factory(100)->has(LGAC::factory(), 'academic_bodies_lgacs')->create();
         Employee::factory(100)->has(AcademicBody::factory(), 'collaborator_academic_bodies')->create();

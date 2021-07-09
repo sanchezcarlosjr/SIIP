@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductionSeeder extends Seeder
 {
+    use Csv;
     /**
      * Run the database seeds.
      *
@@ -16,6 +17,7 @@ class ProductionSeeder extends Seeder
     {
         $this->insertRoles();
         $this->insertAreasSni();
+        $this->insertProdepAreas();
     }
 
     private function insertAreasSni() {
@@ -183,5 +185,20 @@ class ProductionSeeder extends Seeder
             ['modulo_id' => 18, 'rol_id' => 3, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
             ['modulo_id' => 19, 'rol_id' => 3, 'crear' => true, 'editar' => true, 'leer' => true, 'destruir' => true],
         ]);
+    }
+
+
+    private function insertProdepAreas()
+    {
+        DB::table('disciplinas_prodep')->insert([
+            ['nombre' => 'Ciencias Agropecuarias'],
+            ['nombre' => 'Ciencias Naturales y Exactas'],
+            ['nombre' => 'Ciencias de la Salud'],
+            ['nombre' => 'Ciencias Sociales y Administrativas'],
+            ['nombre' => 'Educación, Humanidades y Arte'],
+            ['nombre' => 'Ingeniería y Tecnología']
+        ]);
+        $areas_prodep = $this->readCSV("areas_prodep.csv",array('delimiter' => ','));
+        DB::table('areas_prodep')->insert($areas_prodep->toArray());
     }
 }
