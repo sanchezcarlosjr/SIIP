@@ -8,7 +8,7 @@ trait Csv
 {
     public function readCSV($csvFile, $array)
     {
-        $file_handle = fopen('database/legacy/areas_prodep.csv', 'r');
+        $file_handle = fopen($csvFile, 'r');
         while (!feof($file_handle)) {
             $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
         }
