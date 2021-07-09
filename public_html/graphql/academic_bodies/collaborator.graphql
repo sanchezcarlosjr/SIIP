@@ -3,7 +3,7 @@ extend type Query {
   collaborators(
     academic_body_id: ID @scope(name: "academicBodyCollaborators")
     terms: [String] @scope(name: "terms")
-  ): [Employee] @paginate(defaultCount: 200, scopes:["collaborators"]) @guard
+  ): [Employee] @paginate(defaultCount: 200, scopes:["collaborators"])
 }
 
 ## ToDo: Custom CRUD, members-like. Parent Class? ##
