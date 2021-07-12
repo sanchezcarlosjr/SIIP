@@ -9,7 +9,7 @@ extend type Query {
         leaders: String @scope(name: "leaders")
         terms: [String] @scope(name: "terms")
         name_or_id: String @scope(name: "nameOrId")
-    ): [Employee] @paginate(defaultCount: 200) @guard
+    ): [Employee] @paginate(defaultCount: 200)
     #todo: Paginate
 }
 

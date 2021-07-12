@@ -17,9 +17,6 @@ export const routes: RouteConfig[] = [
     {
         path: '/inicio',
         name: 'siiip',
-        meta: {
-            requiresAuth: true,
-        },
         component: () => import('./shell.component.vue'),
         children: [
             HomeRoutes,

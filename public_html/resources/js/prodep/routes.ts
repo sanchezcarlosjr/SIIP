@@ -13,7 +13,10 @@ export const ProdepRoutes = {
         {
             name: 'Apoyos',
             path: 'apoyos',
-            component: () => import('./helps/index.vue')
+            component: () => import('./helps/index.vue'),
+            meta: {
+                requiresAuth: true,
+            }
         }
         ,
         {

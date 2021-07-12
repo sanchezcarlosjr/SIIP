@@ -1,5 +1,5 @@
 extend type Query {
-    academic_body(id: ID @eq): AcademicBody @find @guard
+    academic_body(id: ID @eq): AcademicBody @find
     academic_bodies (
       terms: [String] @scope(name: "terms")
       validity: String @scope(name: "validity")
@@ -9,13 +9,13 @@ extend type Query {
     ): [AcademicBody] @paginate(
         defaultCount: 200,
         #builder: "App\\GraphQL\\Queries\\AcademicBodyFilter"
-    ) @guard
+    )
     academic_body_statistics(
       terms: [String]
       validity: String
       campus: String
       grade: [String]
-    ): AcademicBodyStatistics @guard
+    ): AcademicBodyStatistics
 }
 
 extend type Mutation {

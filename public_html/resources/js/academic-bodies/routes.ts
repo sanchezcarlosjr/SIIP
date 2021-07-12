@@ -23,6 +23,9 @@ export const AcademicBodyRoutes = {
         {
             path: 'apoyos',
             name: 'Apoyos',
+            meta: {
+                requiresAuth: true,
+            },
             component: () => import('./helps/index.vue')
         },
         {
@@ -70,7 +73,10 @@ export const AcademicBodyRoutes = {
                 {
                     path: 'apoyos',
                     name: 'Apoyos',
-                    component: () => import('./helps-by-academic-body/index.vue')
+                    component: () => import('./helps-by-academic-body/index.vue'),
+                    meta: {
+                        requiresAuth: true,
+                    },
                 },
                 {
                     path: 'redes',

@@ -8,4 +8,10 @@ extend type Query {
 type ProdepArea {
     id: ID!
     name: String @rename(attribute: "nombre")
+    discipline: ProdepDiscipline
+}
+
+type ProdepDiscipline {
+    id: ID!
+    name: String @rename(attribute: "nombre")
 }

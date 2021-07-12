@@ -30,7 +30,7 @@ class SniFactory extends Factory
             "campo" => $this->faker->name,
             'nivel' => $this->faker->randomElement($array = array("Candidato", "Nivel 1", "Nivel 2", "Nivel 3", "Emérito")),
             "especialidad" => $this->faker->name,
-            "area_sni_id" => $this->faker->numberBetween($min = 1, $max = 10),
+            "area_sni_id" => $this->faker->numberBetween($min = 1, $max = 9),
         ];
     }
 }
