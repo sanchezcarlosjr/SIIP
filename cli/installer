@@ -2,12 +2,13 @@
 
 git clone https://github.com/sanchezcarlosjr/SIIP.git SIIIP
 cd SIIIP
+git checkout develop
 docker-compose up -d
 cp public_html/.env.example public_html/.env
 docker-compose exec php php artisan key:generate
 sudo chmod 757 public_html/storage/app/*
 sudo chmod 757 public_html/storage/framework/*
-sudo chmod 757 public_html/storage/logs/*
+sudo chmod 757 public_html/storage/logs
 ./cli/siip/populate 0
 cd public_html
 npm i
