@@ -198,7 +198,7 @@ class ProductionSeeder extends Seeder
             ['nombre' => 'Educación, Humanidades y Arte'],
             ['nombre' => 'Ingeniería y Tecnología']
         ]);
-        $areas_prodep = $this->readCSV("'database/legacy/areas_prodep.csv'",array('delimiter' => ','));
+        $areas_prodep = $this->readCSV("database/legacy/areas_prodep.csv",array('delimiter' => ','));
         DB::table('areas_prodep')->insert($areas_prodep->toArray());
     }
 }
