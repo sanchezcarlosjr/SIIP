@@ -5,10 +5,36 @@ cd SIIIP
 git checkout develop
 docker-compose up -d
 cp public_html/.env.example public_html/.env
-docker-compose exec php php artisan key:generate
 sudo chmod 757 public_html/storage/app/*
 sudo chmod 757 public_html/storage/framework/*
 sudo chmod 757 public_html/storage/logs
+echo "Waiting for composer installation..."
+sleep 2
+echo -ne '#####                     (33%)\r'
+sleep 3
+echo -ne '#############             (66%)\r'
+sleep 6
+echo -ne '#######################   (100%)\r'
+echo -ne '\n'
+docker-compose exec php php artisan key:generate
 ./cli/siip populate 0
 cd public_html
 npm i
+clear
+echo "🎉 Ready! Welcome to SIIIP."
+echo "Do you want to start developing? (y/n)"
+read input
+if [ "$input" == "" ]; then
+   echo "bye!"
+
+elif [[ "$input" == "y" ]] || [[ "$input" == "yes" ]]; then
+   npm run watch
+   echo "Remember visit http://localhost:8080/"
+
+else
+   cd ..
+   docker-compose stop
+   echo "bye!"
+fi
+
+
